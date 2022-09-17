@@ -1,0 +1,443 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <!-- Form -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><strong *ngIf="mode=='add'">Add LH User</strong>
+                    <strong *ngIf="mode=='edit'">Edit LH User</strong><small> Form</small>
+                </div>
+                <form [formGroup]="employeeGroup" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Region<span style=" color: #ff0000"> *</span></label>
+                                    <select class="form-control" formControlName="regionId" (change)="getActiveLhAndDrkUserByRegionId()" [ngClass]="{'is-invalid': employeeGroup.get('regionId').touched && employeeGroup.get('regionId').invalid}">
+                                    <option value="">-- Select Region --</option>
+                                        <option *ngFor="let gr of geoRegionList" value="{{gr.regionId}}"> {{gr.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        <div>Region is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Logistic Hub<span style=" color: #ff0000"> *</span></label>
+                                    <select class="form-control" formControlName="lhWarehouseId" [ngClass]="{'is-invalid': employeeGroup.get('lhWarehouseId').touched && employeeGroup.get('lhWarehouseId').invalid}">
+                                        <option value="">-- Select Logistic-Hub --</option>
+                                        <option *ngFor="let lh of activeLhList" value="{{lh.id}}"> {{lh.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        <div>Logistic-Hub is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Employee Type<span style=" color: #ff0000"> *</span></label>
+                                    <select class="form-control" formControlName="empType" (change)="employeeType($event.target.value)" [ngClass]="{'is-invalid': employeeGroup.get('empType').touched && employeeGroup.get('empType').invalid}">
+                                        <option value="">-- Select Employee Type --</option>
+                                        <option value="DRK">DRK</option>
+                                        <option value="EXT">EXT</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        <div>Logistic-Hub is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'DRK'">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Select User<span style=" color: #ff0000"> *</span></label>
+
+                                    <select formControlName="empId" class="form-control" [ngClass]="{'is-invalid': employeeGroup.get('empId').touched && employeeGroup.get('empId').invalid}">
+                                        <option value="">-- Select Role --</option>
+                                        <option *ngFor="let du of drkUserList" value="{{du.id}}"> {{du.name}} </option>
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        <div>Please Select Role</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'DRK' || employeeGroup.value.empType == 'EXT'">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Select Role<span style=" color: #ff0000"> *</span></label>
+
+                                    <select formControlName="userRole" class="form-control" [ngClass]="{'is-invalid': employeeGroup.get('userRole').touched && employeeGroup.get('userRole').invalid}">
+                                        <option value="">-- Select Role --</option>
+                                        <option *ngFor="let rs of lhRole" value="{{rs.id}}"> {{rs.role}} </option>
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        <div>Please Select Role</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--                        <div *ngIf="employeeGroup.value.empType == 'EXT'">-->
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Name<span style=" color: #ff0000"> *</span></label>
+                                    <input type="text" class="form-control" formControlName="name" placeholder="Please Enter Name" pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': employeeGroup.get('name').touched && employeeGroup.get('name').invalid}" (change)="trimValue(this.employeeGroup.get('name'))">
+                                    <div class="invalid-feedback">
+                                        <div>Valid Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Email<span style=" color: #ff0000"> *</span></label>
+                                    <input type="email" class="form-control" required formControlName="email" name="email" email="true" placeholder="EX. abc@xyz.com" [ngClass]="{'is-invalid': employeeGroup.get('email').touched && employeeGroup.get('email').invalid}">
+                                    <div class="invalid-feedback">
+                                        <!-- <div>Email is required</div> -->
+                                        <div *ngIf="employeeGroup.get( 'email').errors?.required">Email is required</div>
+                                        <div *ngIf="employeeGroup.get( 'email').errors?.email">Please Enter Valid Email</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Mobile Number<span style=" color: #ff0000"> *</span></label>
+                                    <input type="text" formControlName="contactNumber" class="form-control" onKeyPress="if(this.value.length===10) return false;" min="1" minlength="10" pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$|^[1-9]\d{11}" placeholder="Please Enter 10 Digit Mobile No." inputmode="numeric"
+                                        digitonly [ngClass]="{'is-invalid': employeeGroup.get('contactNumber').touched && employeeGroup.get('contactNumber').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div>Valid Mobile Number is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Upload Profile Photo (Max. 2MB)</label>
+                                    <input type="file" formControlName="userImage" (change)="uploadUserImage($event)" accept=".jpg,png,jpeg" class="form-control-file" id="image" [ngClass]="{'is-invalid': employeeGroup.get('userImage').touched && employeeGroup.get('userImage').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div>User Profile Image is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3" [hidden]="isProfileImage">
+                                <div class="form-group">
+                                    <label>Current User Profile</label>
+                                    <a data-toggle="modal" data-target="#imageModal"><img src="{{userProfileImage}}" class="img-fluid form-control" style="height: 100px !important;" width="50" alt="image"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Aadhar Number</label>
+                                    <input type="text" formControlName="aadharNo" class="form-control" onKeyPress="if(this.value.length===12) return false;" min="1" minlength="12" maxlength="12" pattern="^\d{4}\d{4}\d{4}$" placeholder="EX. 123456789123" inputmode="numeric" digitonly [ngClass]="{'is-invalid': employeeGroup.get('aadharNo').touched && employeeGroup.get('aadharNo').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div>Valid Aadhar Number is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Upload Aadhar Photo (Max. 2MB)</label>
+                                    <input type="file" formControlName="aadharImage" (change)="uploadAdhaarImage($event)" accept=".jpg,png,jpeg" class="form-control-file" id="aadharImage" [ngClass]="{'is-invalid': employeeGroup.get('aadharImage').touched && employeeGroup.get('aadharImage').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div>Aadhar Image is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3" [hidden]="isAadharImage">
+                                <div class="form-group">
+                                    <label>Current Aadhar Image</label>
+                                    <a data-toggle="modal" data-target="#aadharImageModal">
+                                        <img src="{{userAadharImage}}" class="img-fluid form-control" style="height: 100px !important;" width="50" alt="image"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>PAN Number</label>
+                                    <input type="text" formControlName="pan" class="form-control" onKeyPress="if(this.value.length===10) return false;" min="10" minlength="10" maxlength="10" max="10" pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}" placeholder="EX. ABCDE1234X" [ngClass]="{'is-invalid': employeeGroup.get('pan').touched && employeeGroup.get('pan').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div>Valid PAN Number is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Upload PAN Photo (Max. 2MB)</label>
+                                    <input type="file" formControlName="panImage" (change)="uploadPanImage($event)" accept=".jpg,png,jpeg" class="form-control-file" id="panImage" [ngClass]="{'is-invalid': employeeGroup.get('panImage').touched && employeeGroup.get('panImage').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div>PAN Image is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3" [hidden]="isPanImage">
+                                <div class="form-group">
+                                    <label>Current PAN Image</label>
+                                    <a data-toggle="modal" data-target="#panImageModal"><img src="{{userPanImage}}" class="img-fluid form-control" style="height: 100px !important;" width="50" alt="image"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Upload Driving Photo (Max. 2MB)</label>
+                                    <input type="file" formControlName="drivingImageUrl" (change)="uploadDrivingImage($event)" accept=".jpg,png,jpeg" class="form-control-file" id="drivingImage" [ngClass]="{'is-invalid': employeeGroup.get('drivingImageUrl').touched && employeeGroup.get('drivingImageUrl').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div>Driving Image is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3" [hidden]="isDrivingImage">
+                                <div class="form-group">
+                                    <label>Current Driving Image</label>
+                                    <a data-toggle="modal" data-target="#drivingImageModal"><img src="{{userDrivingImage}}" class="img-fluid form-control" style="height: 100px !important;" width="50" alt="image"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Bank Name<span style=" color: #ff0000"> *</span></label>
+                                    <input type="text" class="form-control" formControlName="bankName" placeholder="Please Enter Bank Name" pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': employeeGroup.get('bankName').touched && employeeGroup.get('bankName').invalid}" (change)="trimValue(this.employeeGroup.get('bankName'))">
+                                    <div class="invalid-feedback">
+                                        <div>Valid Bank Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Bank Account Number<span style=" color: #ff0000"> *</span></label>
+                                    <input type="text" formControlName="accountNumber" class="form-control" onKeyPress="if(this.value.length===19) return false;" min="1" minlength="3" maxlength="19" pattern="^\d{3,19}$" placeholder="EX. 111" [ngClass]="{'is-invalid': employeeGroup.get('accountNumber').touched && employeeGroup.get('accountNumber').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div>Valid Account Number is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>IFSC Code<span style=" color: #ff0000"> *</span></label>
+                                    <input type="text" class="form-control" formControlName="ifscCode" minlength="11" maxlength="11" placeholder="Please Enter IFSC Code" pattern="^[A-Za-z0-9]+$" [ngClass]="{'is-invalid': employeeGroup.get('ifscCode').touched && employeeGroup.get('ifscCode').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div>Valid IFSC Code is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="employeeGroup.value.empType == 'EXT'">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Upload Bank Account Photo (Max. 2MB)</label>
+                                    <input type="file" formControlName="accountImage" (change)="uploadAccountImage($event)" accept=".jpg,png,jpeg" class="form-control-file" id="accountImage" [ngClass]="{'is-invalid': employeeGroup.get('accountImage').touched && employeeGroup.get('accountImage').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div>Bank Account Image is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3" [hidden]="isAccountImage">
+                                <div class="form-group">
+                                    <label>Current Bank Account Image</label>
+                                    <a data-toggle="modal" data-target="#accountImageModal"><img src="{{userAccountImage}}" class="img-fluid form-control" style="height: 100px !important;" width="50" alt="image"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--                        </div>-->
+
+
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit</span> <span
+                            *ngIf="mode=='edit'">Update</span></button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/logistic-hub/lh-employee-list']">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="handleEvent($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>
+<!-- user Profile Modal -->
+<div #profileclosebutton class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="imageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{userProfileImage}}" download="{{userProfileImage}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{userProfileImage}}" class="img-fluid">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="modal-body">
+                    Are you sure want to Change Current Image ?
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    No</button>
+                <button type="button" class="btn btn-success" (click)="hide()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--aadhar Image Modal -->
+<div #aadharclosebutton class="modal fade" id="aadharImageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="aadharImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{userAadharImage}}" download="{{userAadharImage}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{userAadharImage}}" class="img-fluid">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="modal-body">
+                    Are you sure want to Change Current Image ?
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    No</button>
+                <button type="button" class="btn btn-success" (click)="aadharHide()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--pan Image Modal -->
+<div #panclosebutton class="modal fade" id="panImageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="panImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{userPanImage}}" download="{{userPanImage}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{userPanImage}}" class="img-fluid">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="modal-body">
+                    Are you sure want to Change Current Image ?
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    No</button>
+                <button type="button" class="btn btn-success" (click)="panHide()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--driving Image Modal -->
+<div #drivingclosebutton class="modal fade" id="drivingImageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="drivingImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{userDrivingImage}}" download="{{userDrivingImage}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{userDrivingImage}}" class="img-fluid">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="modal-body">
+                    Are you sure want to Change Current Image ?
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    No</button>
+                <button type="button" class="btn btn-success" (click)="drivingHide()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--account Image Modal -->
+<div #accountclosebutton class="modal fade" id="accountImageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="accountImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{userAccountImage}}" download="{{userAccountImage}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{userAccountImage}}" class="img-fluid">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="modal-body">
+                    Are you sure want to Change Current Image ?
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    No</button>
+                <button type="button" class="btn btn-success" (click)="accountHide()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

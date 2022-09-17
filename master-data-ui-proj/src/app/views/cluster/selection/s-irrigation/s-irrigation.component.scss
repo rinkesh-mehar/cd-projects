@@ -1,0 +1,123 @@
+
+  .menu-liks {
+    list-style-type: none;
+    padding: 0;
+    border: 0;
+  }
+  
+  li {
+    display: inline-block;
+    position: relative;
+    margin-right: 5px;
+    // Last child
+    //   &:last-child {
+    //     a {
+    //       cursor: default;
+    //     }
+  
+    //     &::before,
+    //     &::after {
+    //       background: #ffffc0;
+    //     }
+    //   }
+  
+    // :Hover
+    &:not(:last-child):hover {
+      &::before,
+      &::after {
+        background: #2082b7;
+      }
+    }
+  
+    &:hover {
+      &::before,
+      &::after {
+        background: #2082b7;
+      }
+    }
+  
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      height: 50%;
+      width: 100%;
+      background: white;
+      border-left: 2px solid #666;
+      border-right: 2px solid #666;
+      z-index: 0;
+    }
+  
+    &::before {
+      top: 0px;
+      transform: skew(30deg);
+      border-top: 2px solid #666;
+    }
+  
+    &::after {
+      bottom: 0px;
+      transform: skew(-30deg);
+      border-bottom: 2px solid #666;
+    }
+  }
+  
+  a {
+    position: relative;
+    line-height: 2.5;
+    padding: 0 20px;
+    color: #666;
+    text-decoration: none;
+    z-index: 2;
+    display: block;
+  }
+  
+  li {
+    &:first-child {
+      background-color: white;
+      border-left: 2px solid #666;
+      left: -5px;
+      box-sizing: content-box;
+  
+      &:hover {
+        background-color: #2082b7;
+  
+        a {
+          color: #ffffff;
+        }
+      }      
+  
+      &::before,
+      &::after {
+        left: 5px;
+        border-left: 0;
+      }
+    }
+  
+    &:hover {
+      a {
+        color: #ffffff;
+      }
+    }
+  
+    &.active {
+      a {
+        color: #ffffff;
+      }
+  
+      &::before,
+      &::after {
+        background: #2082b7;
+      }
+      
+    }
+    
+  }
+
+
+
+  li:first-child{
+    &.active {
+        background-color: #2082b7;
+    }
+}

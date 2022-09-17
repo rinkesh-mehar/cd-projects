@@ -1,0 +1,267 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Sync Config</span> <span
+                    *ngIf="mode=='edit'">Edit Sync Config</span></strong></div>
+                <form [formGroup]="syncConfigForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Screen <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="screenId" class="form-control" [ngClass]="{'is-invalid': syncConfigForm.get('screenId').touched && syncConfigForm.get('screenId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let screen of screenList" value={{screen.id}}>
+                                        {{screen.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Screen</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Role <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="roleId" class="form-control" [ngClass]="{'is-invalid': syncConfigForm.get('roleId').touched && syncConfigForm.get('roleId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let role of roleList" value={{role.id}}>
+                                        {{role.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Role</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Label Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" maxlength="145" formControlName="labelName" [ngClass]="{ 'is-invalid': syncConfigForm.get( 'labelName').touched && syncConfigForm.get( 'labelName').invalid}" (change)="trimValue(this.syncConfigForm.get('labelName'))">
+                                    <div class=" invalid-feedback ">
+                                        <div>Label Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Schema Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" maxlength="255" formControlName="schemaName" [ngClass]="{ 'is-invalid': syncConfigForm.get( 'schemaName').touched && syncConfigForm.get( 'schemaName').invalid}" (change)="trimValue(this.syncConfigForm.get('schemaName'))">
+                                    <div class=" invalid-feedback ">
+                                        <div>Schema Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>URL <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" maxlength="255" formControlName="url" [ngClass]="{ 'is-invalid': syncConfigForm.get( 'url').touched && syncConfigForm.get( 'url').invalid}" (change)="trimValue(this.syncConfigForm.get('url'))">
+                                    <div class=" invalid-feedback ">
+                                        <div>URL is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>End Point Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" maxlength="45" formControlName="endpointName" [ngClass]="{ 'is-invalid': syncConfigForm.get( 'endpointName').touched && syncConfigForm.get( 'endpointName').invalid}" (change)="trimValue(this.syncConfigForm.get('endpointName'))">
+                                    <div class=" invalid-feedback ">
+                                        <div>End Point Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Zipping Level <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="zippingLevel" class="form-control" [ngClass]="{'is-invalid': syncConfigForm.get('zippingLevel').touched && syncConfigForm.get('zippingLevel').invalid}">
+                            <option value="">--Select--</option>
+                            <option *ngFor="let zipping of zippingLevelList" value={{zipping}}>
+                                {{zipping}}
+                            </option>
+                        </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Zipping Level</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Sync Frequency <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" onKeyPress="if(this.value.length==9) return false;" onkeydown="if(event.keyCode==109 || event.keyCode==189 || event.keyCode== 187 || event.keyCode == 107) return false;" formControlName="syncFrequency" class="form-control" [ngClass]="{'is-invalid': syncConfigForm.get('syncFrequency').touched && syncConfigForm.get('syncFrequency').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Sync Frequency is required and must be numeric.</div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Field Mapping <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <textarea formControlName="fieldMapping" class="form-control" rows="10" maxlength="65535" [ngClass]="{ 'is-invalid': syncConfigForm.get( 'fieldMapping').touched && syncConfigForm.get( 'fieldMapping').invalid}" (change)="trimValue(this.syncConfigForm.get('fieldMapping'))">
+                                </textarea>
+                                    <div class="invalid-feedback">
+                                        <div>Field Mapping is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Select Query <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <textarea formControlName="selectQuery" class="form-control" rows="10" maxlength="4294967295" [ngClass]="{ 'is-invalid': syncConfigForm.get( 'selectQuery').touched && syncConfigForm.get( 'selectQuery').invalid}" (change)="trimValue(this.syncConfigForm.get('selectQuery'))">
+                                </textarea>
+                                    <div class="invalid-feedback">
+                                        <div>Select Query is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Insert Query <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <textarea formControlName="insertQuery" class="form-control" rows="10" maxlength="4294967295" [ngClass]="{ 'is-invalid': syncConfigForm.get( 'insertQuery').touched && syncConfigForm.get( 'insertQuery').invalid}" (change)="trimValue(this.syncConfigForm.get('insertQuery'))">
+                                </textarea>
+                                    <div class="invalid-feedback">
+                                        <div>Insert Query is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Api Select Query <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <textarea formControlName="apiSelectQuery" class="form-control" rows="10" maxlength="65535" [ngClass]="{ 'is-invalid': syncConfigForm.get( 'apiSelectQuery').touched && syncConfigForm.get( 'apiSelectQuery').invalid}" (change)="trimValue(this.syncConfigForm.get('apiSelectQuery'))">
+                                </textarea>
+                                    <div class="invalid-feedback">
+                                        <div>Api Select Query is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Conversion Function <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <textarea formControlName="conversionFunction" class="form-control" rows="10" maxlength="65535" [ngClass]="{ 'is-invalid': syncConfigForm.get( 'conversionFunction').touched && syncConfigForm.get( 'conversionFunction').invalid}" (change)="trimValue(this.syncConfigForm.get('conversionFunction'))">
+                                </textarea>
+                                    <div class="invalid-feedback">
+                                        <div>Conversion Function is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Download In Android <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="downloadInAndroid" class="form-control" [ngClass]="{'is-invalid': syncConfigForm.get('downloadInAndroid').touched && syncConfigForm.get('downloadInAndroid').invalid}">
+                        <option value="">--Select--</option>
+                        <option *ngFor="let downloadAndroid of downloadInAndroidList" value={{downloadAndroid}}>
+                            {{downloadAndroid}}
+                        </option>
+                    </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Download In Android</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>System <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="system" class="form-control" [ngClass]="{'is-invalid': syncConfigForm.get('system').touched && syncConfigForm.get('system').invalid}">
+                        <option value="">--Select--</option>
+                        <option *ngFor="let system of systemList" value={{system}}>
+                            {{system}}
+                        </option>
+                    </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select System</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Sync From Ts <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="syncFromTs" class="form-control" [ngClass]="{'is-invalid': syncConfigForm.get('syncFromTs').touched && syncConfigForm.get('syncFromTs').invalid}">
+                        <option value="">--Select--</option>
+                        <option *ngFor="let syncFromTs of syncFromTsList" value={{syncFromTs}}>
+                            {{syncFromTs}}
+                        </option>
+                    </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Sync From Ts</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="row">
+                        <div class="form-group col-sm-12">
+                            <div class="form-group">
+                                <label>Download URL</label>
+                                <input type="text" class="form-control" maxlength="255" formControlName="downloadUrl" [ngClass]="{ 'is-invalid': syncConfigForm.get( 'downloadUrl').touched && syncConfigForm.get( 'downloadUrl').invalid}" (change)="trimValue(this.syncConfigForm.get('downloadUrl'))">
+                                <div class=" invalid-feedback ">
+                                    <div>Download Url is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <div class="form-group">
+                                    <label>Entity Name</label>
+                                    <input type="text" class="form-control" maxlength="45" formControlName="entityName" [ngClass]="{ 'is-invalid': syncConfigForm.get( 'entityName').touched && syncConfigForm.get( 'entityName').invalid}" (change)="trimValue(this.syncConfigForm.get('entityName'))">
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-primary " type="submit "> <span *ngIf="mode=='add'"> Submit</span> <span
+                        *ngIf="mode=='edit'">Update</span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/config/sync-configuration']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

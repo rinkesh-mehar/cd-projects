@@ -1,0 +1,36 @@
+<div class="app flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="clearfix">
+                    <h1 class="float-left display-3 mr-4" *ngIf="error.status!=0">{{error.status}}</h1>
+                    <h4 class="pt-3">{{error.errorCode}}</h4>
+                    <h4 class="pt-3">{{error.error}}</h4>
+                    <p class="text-muted">{{error.details }}</p>
+                </div>
+
+                <button type="button" class="btn btn-info " style="margin-bottom: 4px" (click)="cancel()">
+                    <i class="fa fa-arrow-left"></i>
+                    <span>Go Back</span>
+                </button>
+
+                <button type="button" class="btn btn-info " style="margin-bottom: 4px" [routerLink]="['']">
+                    <i class="fa fa-home"></i>
+                    <span>Go to Home</span>
+                </button>
+
+
+
+                <!-- <div class="input-prepend input-group">
+    
+                    <span class="input-group-append">
+                        <button class="btn btn-info" type="button" [routerLink]="['']"> Go to Home</button>
+                    </span>
+                    <span class="input-group-append">
+                        <button class="btn btn-info" type="button" [routerLink]="['']"> Go Back</button>
+                    </span>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

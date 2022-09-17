@@ -1,0 +1,514 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                    <mat-step [stepControl]="lhFormGroup">
+                        <div class="card-body">
+                            <form [formGroup]="lhFormGroup">
+                                <ng-template matStepLabel>LH Details</ng-template>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Name of Logistic Hub</mat-label>
+                                                <input matInput type="text" formControlName="name" placeholder="Ex. Logistic Hub Name" required (change)="trimValue(this.lhFormGroup.get('name'))">
+                                                <mat-error *ngIf="lhError('name', 'required')">Lh Name is Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Contact Person Name</mat-label>
+                                                <input matInput type="text" formControlName="contactPersonName" placeholder="Ex. Contact Person Name" required (change)="trimValue(this.lhFormGroup.get('contactPersonName'))">
+                                                <mat-error *ngIf="lhError('contactPersonName', 'required')">Contact Person Name is Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Primary Mobile No.</mat-label>
+                                                <input matInput type="text" formControlName="primaryMobileNumber" minlength="10" maxlength="10" placeholder="Please Enter 10 Digit Mobile No." inputmode="numeric" digitonly required (change)="trimValue(this.lhFormGroup.get('primaryMobileNumber'))">
+                                                <mat-error *ngIf="lhError('primaryMobileNumber', 'required')">Mobile.No is Required</mat-error>
+                                                <mat-error *ngIf="lhError('primaryMobileNumber', 'pattern')">Valid Mobile.No is Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Secondary Mobile No.</mat-label>
+                                                <input matInput type="text" formControlName="secondaryMobileNumber" maxlength="10" minlength="10" pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$|^[1-9]\d{9}" placeholder="Please Enter 10 Digit Mobile No." inputmode="numeric" digitonly (change)="trimValue(this.lhFormGroup.get('secondaryMobileNumber'))">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>State</mat-label>
+                                                <select matNativeControl formControlName="stateCode" (change)="getDistrictCode($event.target.value)" required>
+                                                    <option>-- select State ---</option>
+                                                    <option *ngFor="let codes of geoStateCodes"
+                                                            [value]="codes.stateCode">
+                                                        {{codes.name}}
+                                                    </option>
+                                                </select>
+                                                <mat-error *ngIf="lhError('stateCode', 'required')">State is Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>District</mat-label>
+                                                <select matNativeControl formControlName="districtCode" required>
+                                                    <option>-- select District ---</option>
+                                                    <option *ngFor="let codes of geoDistrictCodes.districtList"
+                                                            [value]="codes.districtCode">
+                                                        {{codes.name}}
+                                                    </option>
+                                                </select>
+                                                <mat-error *ngIf="lhError('districtCode', 'required')">District is Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Regional Lab Name</mat-label>
+                                                <select matNativeControl formControlName="regionID" required>
+                                                    <option>-- select Region ---</option>
+                                                    <option *ngFor="let codes of geoDistrictCodes.regionList"
+                                                            [value]="codes.regionID">
+                                                        {{codes.name}}
+                                                    </option>
+                                                </select>
+                                                <mat-error *ngIf="lhError('regionID', 'required')">Region is Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Address line 1</mat-label>
+                                                <textarea matInput formControlName="address" placeholder="Ex. 1 Main St, New York, NY" rows="2" required (change)="trimValue(this.lhFormGroup.get('address'))"></textarea>
+                                                <mat-error *ngIf="lhError('address', 'required')">Address is Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Address line 2</mat-label>
+                                                <textarea matInput formControlName="alternateLhAddress" placeholder="Ex. 1 Main St, New York, NY" rows="2" (change)="trimValue(this.lhFormGroup.get('alternateLhAddress'))"></textarea>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Latitude</mat-label>
+                                                <input matInput type="number" formControlName="latitude" placeholder="Latitude" required>
+                                                <mat-error *ngIf="lhError('latitude', 'required')">Latitude is Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Longitude</mat-label>
+                                                <input matInput type="number" formControlName="longitude" placeholder="Longitude" required>
+                                                <mat-error *ngIf="lhError('latitude', 'required')">Longitude is Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row justify-content-end">
+                                        <div class="col-4 text-right">
+                                            <button mat-button matStepperNext class="btn btn-sm btn-success">Next
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </mat-step>
+                    <mat-step [stepControl]="userFormGroup" label="Owner Details">
+
+                        <form [formGroup]="userFormGroup">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>First Name</mat-label>
+                                            <input matInput formControlName="firstName" placeholder="First Name" required (change)="trimValue(this.userFormGroup.get('firstName'))">
+                                            <mat-error *ngIf="userError('firstName', 'required')">First Name is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Last Name</mat-label>
+                                            <input matInput formControlName="lastName" placeholder="Last Name" required (change)="trimValue(this.userFormGroup.get('lastName'))">
+                                            <mat-error *ngIf="userError('lastName', 'required')">Last Name is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Contact No. 1</mat-label>
+                                            <input matInput formControlName="primaryMobileNumber" minlength="10" maxlength="10" pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$|^[1-9]\d{9}" placeholder="Please Enter 10 Digit Mobile No." inputmode="numeric" digitonly required (change)="trimValue(this.userFormGroup.get('primaryMobileNumber'))">
+                                            <mat-error *ngIf="userError('primaryMobileNumber', 'required')">Mobile.No is Required</mat-error>
+                                            <mat-error *ngIf="userError('primaryMobileNumber', 'pattern')">Valid Mobile.No is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Contact No. 2</mat-label>
+                                            <input matInput formControlName="secondaryMobileNumber" minlength="10" maxlength="10" pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$|^[1-9]\d{9}" placeholder="Please Enter 10 Digit Mobile No." inputmode="numeric" digitonly (change)="trimValue(this.userFormGroup.get('secondaryMobileNumber'))">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>State</mat-label>
+                                            <select matNativeControl formControlName="stateCode" (change)="getDistrictCodeForOwnerDetails($event.target.value)" required>
+                                                <option *ngFor="let codes of geoStateCodes"
+                                                        [value]="codes.stateCode">
+                                                    {{codes.name}}
+                                                </option>
+                                            </select>
+                                            <mat-error *ngIf="userError('stateCode', 'required')">State is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="mode !='collected'">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>District</mat-label>
+                                            <select matNativeControl formControlName="districtCode" required>
+                                                <option>-- select district ---</option>
+                                                <option *ngFor="let codes of districtCodeOwner.ownerDistrictList"
+                                                        [value]="codes.districtCode">
+                                                    {{codes.name}}
+                                                </option>
+                                            </select>
+                                            <mat-error *ngIf="userError('districtCode', 'required')">Distict is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="mode =='collected'">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>District</mat-label>
+                                            <select matNativeControl formControlName="districtCode" required>
+                                                <option>-- select district ---</option>
+                                                <option *ngFor="let codes of geoDistrictCodes.ownerDistrictList"
+                                                        [value]="codes.districtCode">
+                                                    {{codes.name}}
+                                                </option>
+                                            </select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Address line 1</mat-label>
+                                            <textarea matInput formControlName="address" placeholder="Ex. 1 Main St, New York, NY" rows="2" required (change)="trimValue(this.userFormGroup.get('address'))"></textarea>
+                                            <mat-error *ngIf="userError('address', 'required')">Address is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Address line 2</mat-label>
+                                            <textarea matInput formControlName="alternateAddress" placeholder="Ex. 1 Main St, New York, NY" rows="2" (change)="trimValue(this.userFormGroup.get('alternateAddress'))"></textarea>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Latitude</mat-label>
+                                            <input matInput type="number" formControlName="latitude" placeholder="Latitude">
+                                            <!-- <mat-error *ngIf="lhError('latitude', 'required')">Latitude is Required</mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Longitude</mat-label>
+                                            <input matInput type="number" formControlName="longitude" placeholder="Longitude">
+                                            <!-- <mat-error *ngIf="lhError('latitude', 'required')">Longitude is Required</mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row justify-content-between">
+                                    <div class="col-4">
+                                        <button mat-button matStepperPrevious class="btn btn-sm btn-danger" (click)="backButton()">Back
+                                        </button>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <button mat-button matStepperNext class="btn btn-sm btn-success">Next
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="hubDistanceFormGroup" label="LH Distance Details">
+                        <form [formGroup]="hubDistanceFormGroup">
+                            <div class="container-fluid">
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Distance From RL</mat-label>
+                                            <input matInput formControlName="WMS_071" placeholder="2km" required (change)="trimValue(this.hubDistanceFormGroup.get('WMS_071'))">
+                                            <mat-error *ngIf="distanceError('WMS_071', 'required')">RL Distance is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Dinstance of Warehouse from weight bridge</mat-label>
+                                            <input matInput formControlName="WMS_091" placeholder="2km" required (change)="trimValue(this.hubDistanceFormGroup.get('WMS_091'))">
+                                            <mat-error *ngIf="distanceError('WMS_091', 'required')">Warehouse Distance is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Distance From Nearest Police Station</mat-label>
+                                            <input matInput formControlName="WMS_092" placeholder="2km" required (change)="trimValue(this.hubDistanceFormGroup.get('WMS_092'))">
+                                            <mat-error *ngIf="distanceError('WMS_092', 'required')">Nearest Police Station Distance is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Distance From Nearest Fire Station</mat-label>
+                                            <input matInput formControlName="WMS_093" placeholder="2km" required (change)="trimValue(this.hubDistanceFormGroup.get('WMS_093'))">
+                                            <mat-error *ngIf="distanceError('WMS_093', 'required')">Nearest Fire Station Distance is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Distance From Nearest APMC</mat-label>
+                                            <input matInput formControlName="WMS_094" placeholder="2km" required (change)="trimValue(this.hubDistanceFormGroup.get('WMS_094'))">
+                                            <mat-error *ngIf="distanceError('WMS_094', 'required')">Nearest APMC Distance is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row justify-content-between">
+                                    <div class="col-4">
+                                        <button mat-button matStepperPrevious class="btn btn-sm btn-danger" (click)="backButton()">Back
+                                        </button>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <button mat-button matStepperNext class="btn btn-sm btn-success">Next
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-step>
+
+                    <mat-step [stepControl]="hubStructureFormGroup" label="LH structural details">
+                        <form [formGroup]="hubStructureFormGroup">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <!--<div class="col-md-4">
+                                        <section class="w-100">
+                                            <mat-checkbox class="height" formControlName = "checkAll" (click)="checkAll()"> Select All</mat-checkbox>
+                                        </section>
+                                    </div>-->
+                                    <div class="col-md-4" *ngFor="let chk of  structuralInfo.chkBox">
+                                        <section class="w-100">
+                                            <mat-checkbox class="height" formControlName="{{chk.code}}">{{chk.name}}</mat-checkbox>
+                                        </section>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Gate</mat-label>
+                                            <input matInput type="number" formControlName="WMS_024" maxlength="2" onKeyPress="if(this.value.length===2) return false;" min="1" placeholder="gate count" required>
+                                            <mat-error *ngIf="structureError('WMS_024', 'required')">Gate Count is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Fire Extinguisher</mat-label>
+                                            <input matInput type="number" formControlName="WMS_022" maxlength="2" onKeyPress="if(this.value.length===2) return false;" min="1" placeholder="Fire Extinguisher count" required>
+                                            <mat-error *ngIf="structureError('WMS_022', 'required')">Fire Extinguisher count is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Firebucket</mat-label>
+                                            <input matInput type="number" formControlName="WMS_021" maxlength="2" onKeyPress="if(this.value.length===2) return false;" min="1" placeholder="Firebucket count" required>
+                                            <mat-error *ngIf="structureError('WMS_021', 'required')">Firebucket count is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Shutter</mat-label>
+                                            <input matInput type="number" formControlName="WMS_046" maxlength="2" onKeyPress="if(this.value.length===2) return false;" min="1" placeholder="Shutter count" required>
+                                            <mat-error *ngIf="structureError('WMS_046', 'required')">Shutter count is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Door</mat-label>
+                                            <input matInput type="number" formControlName="WMS_014" maxlength="2" onKeyPress="if(this.value.length===2) return false;" min="1" placeholder="Door count" required>
+                                            <mat-error *ngIf="structureError('WMS_014', 'required')">Door count is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Ventilatores</mat-label>
+                                            <input matInput type="number" formControlName="WMS_053" maxlength="2" onKeyPress="if(this.value.length===2) return false;" min="1" placeholder="Ventilatores count" required>
+                                            <mat-error *ngIf="structureError('WMS_053', 'required')">Ventilatores count is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Air Roof Ventilator</mat-label>
+                                            <input matInput type="number" formControlName="WMS_001" maxlength="2" onKeyPress="if(this.value.length===2) return false;" min="1" placeholder="Air Roof Ventilator count" required>
+                                            <mat-error *ngIf="structureError('WMS_001', 'required')">Air Roof Ventilator count is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-4" *ngIf="mode == 'add'">
+                                        <mat-form-field class="w-100" appearance="fill">
+                                            <mat-label>Commodity can be Stored</mat-label>
+                                            <mat-select formControlName="WMS_010" multiple>
+
+                                                <app-select-check-all [model]="hubStructureFormGroup.get('WMS_010')" [values]="commodityList">
+                                                </app-select-check-all>
+                                                <mat-option *ngFor="let commodity of commodityList" [value]="commodity">
+                                                    {{commodity.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="structureError('WMS_010', 'required')">Commodity is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="mode == 'collected'">
+                                        <mat-form-field class="w-100" appearance="fill">
+                                            <mat-label>Commodity can be Stored</mat-label>
+                                            <mat-select formControlName="WMS_010" multiple>
+
+                                                <app-select-check-all [model]="hubStructureFormGroup.get('WMS_010')" [values]="commodityList">
+                                                </app-select-check-all>
+                                                <mat-option *ngFor="let commodity of commodityList" [value]="commodity.id" readonly>
+                                                    {{commodity.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4" *ngIf="mode =='edit'">
+                                        <mat-form-field class="w-100" appearance="fill">
+                                            <mat-label>Commodity can be Stored</mat-label>
+                                            <mat-select formControlName="WMS_010" multiple>
+
+                                                <app-select-check-all [model]="hubStructureFormGroup.get('WMS_010')" [values]="commodityList">
+                                                </app-select-check-all>
+                                                <mat-option *ngFor="let commodity of commodityList" [value]="commodity.id">
+                                                    {{commodity.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row justify-content-between">
+                                    <div class="col-4">
+                                        <button mat-button matStepperPrevious class="btn btn-sm btn-danger" (click)="backButton()">Back
+                                        </button>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <button mat-button matStepperNext class="btn btn-sm btn-success">Next
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="dimesionFormGroup" label="LH Dimension">
+                        <form [formGroup]="dimesionFormGroup">
+                            <div class="container-fluid">
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Lenght(FT)</mat-label>
+                                            <input matInput formControlName="length" placeholder="00.00" required (change)="trimValue(this.dimesionFormGroup.get('length'))">
+                                            <mat-error *ngIf="dimesionError('length', 'required')">Length is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Breadth(FT)</mat-label>
+                                            <input matInput formControlName="breadth" placeholder="00.00" required (change)="trimValue(this.dimesionFormGroup.get('breadth'))">
+                                            <mat-error *ngIf="dimesionError('breadth', 'required')">Breadth is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Height(FT)</mat-label>
+                                            <input matInput formControlName="height" placeholder="00.00" required (change)="trimValue(this.dimesionFormGroup.get('height'))">
+                                            <mat-error *ngIf="dimesionError('height', 'required')">Height is Required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Storage Capacity(MT)</mat-label>
+                                            <input matInput formControlName="capacity" placeholder="00.00" required (change)="trimValue(this.dimesionFormGroup.get('capacity'))">
+                                            <mat-error *ngIf="dimesionError('capacity', 'required')">Capacity is Required</mat-error>
+
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row justify-content-between">
+                                    <div class="col-4">
+                                        <button mat-button matStepperPrevious class="btn btn-sm btn-danger" (click)="backButton()">Back
+                                        </button>
+                                    </div>
+                                    <div class="col-4 text-right">
+
+                                        <button *ngIf="mode == 'add'" mat-button class="btn btn-sm btn-success" (click)="submitForm()">Submit
+                                        </button>
+                                        <button *ngIf="mode =='edit'" mat-button class="btn btn-sm btn-success" (click)="submitForm()">Update
+                                        </button>
+                                        <button *ngIf="mode == 'collected'" data-toggle="modal" data-target="#rejectAllModal" mat-button class="btn btn-sm btn-danger">Reject
+                                        </button>
+                                        <button *ngIf="mode == 'collected'" mat-button class="btn btn-sm btn-success" (click)="approveCollectedLh()">Approve
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+    </div>
+</div>
+<div #closebutton class="modal down-load-modal" id="rejectAllModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header row justify-content-between m-0">
+                <h4 class="col modal-title">Reject All Document</h4>
+
+                <button type="button" class="close" data-dismiss="modal" title="Close">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <div class="row justify-content-between" style="padding-left: 29px;">
+
+                    <form [formGroup]="rejectionAllForm" (ngSubmit)="submitRejectionAllForm()" novalidate>
+
+                        <label>Please Select Reject Reason</label>
+
+                        <select formControlName="rejectReasonId" class="form-control" [ngClass]="{'is-invalid': rejectionAllForm.get('rejectReasonId').touched && rejectionAllForm.get('rejectReasonId').invalid}">
+                            <option value="">--Select--</option>
+                            <option *ngFor="let rejectionReason of rejectionReasonList"
+                                    value={{rejectionReason.id}}>
+                                {{rejectionReason.name}}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback">
+                            <div>Please Select Reject Reason</div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary" type="submit"> Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

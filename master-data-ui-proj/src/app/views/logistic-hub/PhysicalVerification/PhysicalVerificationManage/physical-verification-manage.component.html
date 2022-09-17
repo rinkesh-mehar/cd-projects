@@ -1,0 +1,174 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> Manage Physical Verification Documents
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+
+                                <table class="table table-responsive-sm table-bordered table-striped table-sm table-hover" matSort (matSortChange)="sortData($event)">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th style="width: 5%;" class="text-left">Sr no</th>
+                                            <th style="width: 40% !important" class="text-left" mat-sort-header="documentName">Document Name
+                                            </th>
+                                            <th style="width: 30% !important" class="text-left">Document</th>
+                                            <th style="width: 10%" class="text-left" mat-sort-header="status">Status</th>
+                                            <th style="width: 15%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let lhMeta of lhMetaDetails let i = index">
+                                            <td scope=" row " class="text-left">{{i + 1}}</td>
+                                            <td class="text-left">{{lhMeta.metaLabel}}</td>
+                                            <td class="text-center">
+                                                <a *ngFor="let val of lhMeta.metaValue.split(',')" data-toggle="modal" data-target="#imageModal" (click)="getImageUrl($event)">
+                                                    <img src="{{val}}" class="img-fluid" width="50"></a>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge badge-danger" *ngIf="lhMeta.status =='Reject'">{{lhMeta.status}}</span>
+                                                <span class="badge badge-primary" *ngIf="lhMeta.status =='Approve'">{{lhMeta.status}}</span>
+                                                <span class="badge badge-warning" *ngIf="lhMeta.status =='Inactive'">{{lhMeta.status}}</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-info btn-sm move-right" title="Approve"
+                                                        [disabled]="lhMeta.status =='Approve'"
+                                                        (click)="approve(lhMeta.id)"
+                                                        *ngIf="userRightsService.canPrimaryApprove()">
+                                                <i class="fa fa-check"></i></button>
+                                                <button type="button" class="btn btn-danger btn-sm move-right" title="Reject"
+                                                        data-toggle="modal" data-target="#rejectModal"
+                                                        [disabled]="lhMeta.status =='Reject'"
+                                                        (click)="rejectClick(lhMeta,i)"
+                                                        *ngIf="userRightsService.canReject()"><i
+                                                    class="fa fa-close"></i></button>
+                                                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{lhMeta.metaValue}}" download="{{lhMeta.metaValue}}"></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row justify-content-start">
+                                <button style="margin-right: 20px !important;" type="button" class="btn btn-info text-white" title="Approve" (click)="approveAll(lhMetaDetails)" *ngIf="userRightsService.canPrimaryApprove()">
+                                    <i class="fa fa-check"></i>
+                                    Approve All Document
+                                </button>
+
+                                <button type="button" class="btn btn-danger" title="Reject" data-toggle="modal" data-target="#rejectAllModal" *ngIf="userRightsService.canPrimaryApprove()">
+                                    <i class="fa fa-close"></i>
+                                    Reject All Document
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="imageModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header row justify-content-between m-0">
+                <h4 class="col modal-title">Image</h4>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{imgUrl}}" download="{{imgUrl}}"></a>
+                <button type="button" class="close" data-dismiss="modal" title="Close">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <img src="{{imgUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div #rejectButton class="modal fade" id="rejectModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header row justify-content-between m-0">
+                <h4 class="col modal-title">Reject Document</h4>
+
+                <button type="button" class="close" data-dismiss="modal" title="Close">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <div class="row justify-content-between" style="padding-left: 29px !important;">
+
+                    <form [formGroup]="rejectionForm" (ngSubmit)="submitRejectionForm()" novalidate>
+
+                        <label>Please Select Reject Reason</label>
+
+                        <select formControlName="rejectReasonId" class="form-control" [ngClass]="{'is-invalid': rejectionForm.get('rejectReasonId').touched && rejectionForm.get('rejectReasonId').invalid}">
+                            <option value="">--Select--</option>
+                            <option *ngFor="let rejectionReason of rejectionReasonList"
+                                    value={{rejectionReason.id}}>
+                                {{rejectionReason.name}}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback">
+                            <div>Please Select Reject Reason</div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary" type="submit"> Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div #rejectAllbutton class="modal fade" id="rejectAllModal" tabindex="-1" role="dialog" aria-labelledby="rejectAllModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header row justify-content-between m-0">
+                <h4 class="col modal-title">Reject All Document</h4>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row justify-content-between" style="padding-left: 29px !important;">
+
+                    <form [formGroup]="rejectionAllForm" (ngSubmit)="submitRejectionAllForm()" novalidate>
+
+                        <label>Please Select Reject Reason</label>
+
+                        <select formControlName="rejectReasonId" class="form-control" [ngClass]="{'is-invalid': rejectionAllForm.get('rejectReasonId').touched && rejectionAllForm.get('rejectReasonId').invalid}">
+                            <option value="">--Select--</option>
+                            <option *ngFor="let rejectionReason of rejectionReasonList"
+                                    value={{rejectionReason.id}}>
+                                {{rejectionReason.name}}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback">
+                            <div>Please Select Reject Reason</div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary" type="submit"> Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

@@ -1,0 +1,66 @@
+<div id="ui-view">
+    <div>
+      <div class="animated fadeIn">
+        <div class="row">
+          <div class="col-lg-12">
+            
+            <div class="card px-3 py-4">
+              <h2 class="mb-3">Selection Filter</h2>
+                <ul class="menu-liks mt-1">
+                  <li class="active"><a [routerLink]="['/cluster/selection']">SELECTION</a></li>
+                  <li class="active"><a [routerLink]="['/cluster/selection/pyar']">PYAR</a></li>
+                  <li class="active"><a [routerLink]="['/cluster/selection/irrigation']">IRRIGATION</a></li>
+                  <li class="active"><a [routerLink]="['/cluster/selection/drfv']">DRFV</a></li>
+                  <li><a [routerLink]="['/cluster/selection/bd-ratio']">BC RATIO</a></li>
+                </ul>
+            </div>
+
+            <div class="card">
+  
+              <div class="card-header">
+                <i class="fa fa-align-justify"></i>Selection
+              </div>
+  
+              <div class="card-body">
+                <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                    <thead class="thead-light">
+                        <tr><th>ID</th><th>State</th><th>District</th><th>Principal Crop YaR (%)</th><th>Irrigation (%)</th><th>District Risk Free Value (Cr.)</th><th>BC Ratio</th><th>District Focus Crop Area (Ha)</th><th>District Focus Crop Production (Tons)</th><th>District Risk Free Production (Tons)</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>1</td><td>Rajasthan</td><td>Sirohi</td><td>4</td><td>80.36</td><td>538</td><td>0.88</td><td>143728</td><td>121134</td><td>164934</td></tr>
+                      <tr><td>2</td><td>Gujarat</td><td>Dohad</td><td>15</td><td>58.66</td><td>1015</td><td>1.37</td><td>279846</td><td>432956</td><td>351582</td></tr>
+                      <tr><td>3</td><td>Gujarat</td><td>Gandhinagar</td><td>2</td><td>95.73</td><td>1135</td><td>2.84</td><td>108216</td><td>538327</td><td>524893</td></tr>
+                      <tr><td>4</td><td>Rajasthan</td><td>Dholpur</td><td>3</td><td>84.09</td><td>1286</td><td>2.75</td><td>218324</td><td>814998</td><td>596344</td></tr>
+                      <tr><td>5</td><td>Gujarat</td><td>Surat</td><td>5</td><td>75.45</td><td>1494</td><td>2.42</td><td>136720</td><td>636857</td><td>586169</td></tr>
+                      <tr><td>6</td><td>Rajasthan</td><td>Dausa</td><td>8</td><td>73.36</td><td>1513</td><td>2.38</td><td>326915</td><td>746007</td><td>636099</td></tr>
+                      <tr><td>7</td><td>Rajasthan</td><td>Karauli</td><td>3</td><td>80.09</td><td>1546</td><td>2.92</td><td>285391</td><td>734642</td><td>651933</td></tr>
+                      <tr><td>8</td><td>Rajasthan</td><td>Sawai Madhopur</td><td>17</td><td>92.96</td><td>1648</td><td>2.83</td><td>353675</td><td>627229</td><td>543567</td></tr>
+                      <!-- <tr><td>9</td><td>Gujarat</td><td>Navsari</td><td>3</td><td>69.51</td><td>1681</td><td>2.97</td><td>90376</td><td>512763</td><td>488536</td></tr>
+                      <tr><td>10</td><td>Rajasthan</td><td>Bhilwara</td><td>10</td><td>59.94</td><td>1807</td><td>1.27</td><td>545832</td><td>874636</td><td>737957</td></tr>
+                      <tr><td>11</td><td>Gujarat</td><td>Vadodara</td><td>9</td><td>52.1</td><td>1828</td><td>1.29</td><td>225210</td><td>758500</td><td>699893</td></tr>
+                      <tr><td>12</td><td>Rajasthan</td><td>Pratapgarh</td><td>3</td><td>65.56</td><td>1902</td><td>2.63</td><td>285606</td><td>571593</td><td>526555</td></tr>
+                      <tr><td>13</td><td>Rajasthan</td><td>Jhunjhunu</td><td>9</td><td>60.27</td><td>2277</td><td>1.74</td><td>549879</td><td>872387</td><td>820456</td></tr>
+                      <tr><td>14</td><td>Gujarat</td><td>Kheda</td><td>2</td><td>96.01</td><td>2300</td><td>3.62</td><td>325507</td><td>1188250</td><td>1144304</td></tr>
+                      <tr><td>15</td><td>Gujarat</td><td>Sabar Kantha</td><td>4</td><td>70.8</td><td>2436</td><td>2.19</td><td>291968</td><td>1114621</td><td>963293</td></tr>
+                      <tr><td>16</td><td>Rajasthan</td><td>Bundi</td><td>5</td><td>100</td><td>2519</td><td>4.81</td><td>464293</td><td>1059618</td><td>950531</td></tr>
+                      <tr><td>17</td><td>Gujarat</td><td>Ahmadabad</td><td>2</td><td>50.13</td><td>2679</td><td>1.84</td><td>512366</td><td>1142129</td><td>1160769</td></tr>
+                      <tr><td>18</td><td>Gujarat</td><td>Mahesana</td><td>3</td><td>79.28</td><td>2722</td><td>3.04</td><td>243406</td><td>1046857</td><td>969636</td></tr>
+                      <tr><td>19</td><td>Rajasthan</td><td>Chittorgarh</td><td>9</td><td>81.95</td><td>2877</td><td>3.52</td><td>509627</td><td>1232283</td><td>1096179</td></tr>
+                      <tr><td>20</td><td>Rajasthan</td><td>Tonk</td><td>11</td><td>75.66</td><td>2901</td><td>3.02</td><td>643675</td><td>817542</td><td>727470</td></tr>
+                      <tr><td>21</td><td>Rajasthan</td><td>Jaipur</td><td>4</td><td>57.4</td><td>2915</td><td>1.82</td><td>784400</td><td>1274526</td><td>1121019</td></tr>
+                      <tr><td>22</td><td>Rajasthan</td><td>Bharatpur</td><td>3</td><td>92.64</td><td>3102</td><td>4.22</td><td>555813</td><td>1311196</td><td>1214549</td></tr>
+                      <tr><td>23</td><td>Gujarat</td><td>Anand</td><td>1</td><td>100</td><td>3174</td><td>6.27</td><td>257637</td><td>1590459</td><td>1516955</td></tr>
+                      <tr><td>24</td><td>Rajasthan</td><td>Kota</td><td>3</td><td>100</td><td>3785</td><td>6.62</td><td>523323</td><td>1145237</td><td>1019509</td></tr>
+                      <tr><td>25</td><td>Rajasthan</td><td>Alwar</td><td>14</td><td>100</td><td>4275</td><td>5.05</td><td>811765</td><td>1948609</td><td>1730505</td></tr>
+                      <tr><td>26</td><td>Rajasthan</td><td>Baran</td><td>13</td><td>100</td><td>4558</td><td>8.34</td><td>662936</td><td>1540728</td><td>1174267</td></tr>
+                      <tr><td>27</td><td>Rajasthan</td><td>Ganganagar</td><td>13</td><td>100</td><td>6120</td><td>7.1</td><td>1125560</td><td>1995433</td><td>2006597</td></tr>
+                      <tr><td>28</td><td>Gujarat</td><td>Bhavnagar</td><td>13</td><td>69.73</td><td>6514</td><td>6.33</td><td>459054</td><td>2378014</td><td>2217835</td></tr>
+                      <tr><td>29</td><td>Rajasthan</td><td>Jodhpur</td><td>16</td><td>53.81</td><td>7890</td><td>3</td><td>1572489</td><td>1974770</td><td>1801179</td></tr>
+                      <tr><td>30</td><td>Gujarat</td><td>Banas Kantha</td><td>1</td><td>68.45</td><td>10738</td><td>7.83</td><td>807964</td><td>4370610</td><td>4247888</td></tr> -->
+                      
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

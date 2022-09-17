@@ -1,0 +1,58 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Operation
+                            <div class="card-header-actions">
+<!--                                <button class="btn btn-primary btn-sm move-right"-->
+<!--                                        [routerLink]="['/commodity/add-band/']">-->
+<!--                                    Add Band-->
+<!--                                </button>-->
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th style="width: max-content !important;" class="text-left">Region Name</th>
+                                    <th class="text-left">Commodity Name</th>
+                                    <th class="text-left">Right Count</th>
+                                    <th class="text-left">Total Crop Area (Acres)</th>
+                                    <th class="text-left">Total Quantity (Tons)</th>
+                                    <th class="text-left" style="width: 20%!important;">Total Value (Lakh Rupees)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr style="font-size: 20px;font-weight: bold;color: #ffd866;">
+                                    <td colspan="2" style="text-align: left">Total </td>
+                                    <td>{{rightCount}}</td>
+                                    <td>{{totalCropAreaAcres}}</td>
+                                    <td>{{totalQuantityTons}}</td>
+                                    <td>{{totalValueLakhrupees}}</td>
+                                </tr>
+                                    <tr *ngFor="let operation of operationList">
+                                        <td class="text-left">{{operation.RegionName}}</td>
+                                        <td class="text-left">{{operation.CommodityName}}</td>
+                                        <td class="text-left">{{operation.RightCount}}</td>
+                                        <td class="text-left">{{operation.CropArea}}</td>
+                                        <td class="text-left">{{operation.TotalCurrentQuantity}}</td>
+                                        <td class="text-left">{{operation.TotalValue}}</td>
+    <!--                                    {{subOfRightCount += operation.RightCount}}    -->
+    <!--                                    {{subOfRightCount + operation.CropArea}}-->
+    <!--                                    {{subOfRightCount + operation.TotalCurrentQuantity}}-->
+    <!--                                    {{subOfRightCount + operation.TotalValue}}-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

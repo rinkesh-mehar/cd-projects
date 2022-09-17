@@ -1,0 +1,45 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Band </span> <span
+                    *ngIf="mode=='edit'">Update Band</span></strong></div>
+
+            <div class="card-body">
+
+                <form [formGroup]="bandFrom" (ngSubmit)="submitBandForm()" novalidate>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <div class="form-group col-sm-12">
+                                    <div class="form-group">
+                                        <label>Band Name</label>
+                                        <input type="text" class="form-control" formControlName="name"
+                                               [ngClass]="{'is-invalid': bandFrom.get('name').touched && bandFrom.get('bandName').invalid}">
+                                        <div class="invalid-feedback">
+                                            <div>Band name is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/commodity/band/']">Cancel</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

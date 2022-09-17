@@ -1,0 +1,141 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header"><strong>Indian Meteorological Department</strong></div>
+            <form [formGroup]="imdForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stateId" class="form-control" (change)="getDistrictListByStateId();getYearListByStateIdAndDistrictIdAndBlockId()" [ngClass]="{'is-invalid': imdForm.get('stateId').touched && imdForm.get('stateId').invalid}">
+                                    <option value="">--Select--</option>
+                                <option *ngFor="let state of stateList" value={{state.id}}>
+                                    {{state.name}}
+                                </option>
+                            </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select State </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label>District </label>
+                                <select formControlName="districtId" class="form-control" (change)="getBlockListByStateIdAndDistrictId();getYearListByStateIdAndDistrictIdAndBlockId()" [ngClass]="{'is-invalid': imdForm.get('districtId').touched && imdForm.get('districtId').invalid}">
+                                    <option value="">--Select--</option>
+                                <option *ngFor="let district of districtList" value={{district.id}}>
+                                    {{district.name}}
+                                </option>
+                            </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select District</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Block </label>
+                                <select formControlName="blockId" class="form-control" (change)="getYearListByStateIdAndDistrictIdAndBlockId()" [ngClass]="{'is-invalid': imdForm.get('blockId').touched && imdForm.get('blockId').invalid}">
+                                    <option value="">--Select--</option>
+                                <option *ngFor="let block of blockList" value={{block.id}}>
+                                    {{block.name}}
+                                </option>
+                            </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Block</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Year <span class="required-asterisk" style="color:red;">*</span> </label>
+                                <select formControlName="year" class="form-control" (change)="getMonthListByStateIdAndDistrictIdAndBlockIdAndYear()" [ngClass]="{'is-invalid': imdForm.get('year').touched && imdForm.get('year').invalid}">
+                                    <option value="">--Select--</option>
+                                <option *ngFor="let year of yearList" value={{year}}>
+                                    {{year}}
+                                </option>
+                            </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Year</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Month <span class="required-asterisk" style="color:red;">*</span> </label>
+                                <select formControlName="month" class="form-control" (change)="onChangeMonth()" [ngClass]="{'is-invalid': imdForm.get('month').touched && imdForm.get('month').invalid}">
+                                    <option value="">--Select--</option>
+                                <option *ngFor="let month of monthList" value={{month.id}}>
+                                    {{month.month}}
+                                </option>
+                            </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Month</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col imdbtn">
+                            <button class="btn btn-primary " type="submit"> Search</button>
+                            <button class="btn btn-danger" type="reset" (click)="onReset()"> Reset</button>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- <div class="card-footer ">
+                    <button class="btn btn-primary " type="submit"> Search</button>
+
+                </div> -->
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="row" [hidden]="isDetailSectionHidden">
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong>PDF</strong>
+            </div>
+            <div class="card-body DetailCard ">
+
+                <div class="pdfview" *ngFor="let imdDetail of imdDetailList">
+
+                    <a>{{imdDetail.dt}}</a>
+                    <div class="pdfSection">
+                        <button data-toggle="modal" data-target="#pdfModal" title="{{imdDetail.url[0].eurl == '' ? 'English PDF Not Available':'English PDF'}}" (click)="onClickPdf(imdDetail.url[0].eurl)" [disabled]="imdDetail.url[0].eurl == ''" type="button" class="{{imdDetail.url[0].eurl == '' ? 'disabled':'btn btn-dark'}}">E</button>
+                        <button data-toggle="modal" data-target="#pdfModal" title="{{imdDetail.url[0].rurl == '' ? 'Regional PDF Not Available':'Regional PDF'}}" (click)="onClickPdf(imdDetail.url[0].rurl)" [disabled]="imdDetail.url[0].rurl == ''" type="button" class="{{imdDetail.url[0].rurl == '' ? 'disabled':'btn btn-dark'}}">R</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">PDF</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClicKClose()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+
+                <!-- <iframe id="iframeDocView"  src='{{pdfUrl}}'  width='100%'  height='750'  frameborder='0'> </iframe> -->
+                <!-- insert in the document body -->
+                <div class="pdfAdd"></div>
+                <!-- <object data="{{pdfUrl}}" type='application/pdf' width='100%' height='750' id="pdfViewer">
+    <p>This browser does not support inline PDFs. Please download the PDF to view it: <a href="{{pdfdownloadLink}}">Download PDF</a></p>
+    </object> -->
+            </div>
+
+        </div>
+    </div>
+</div>

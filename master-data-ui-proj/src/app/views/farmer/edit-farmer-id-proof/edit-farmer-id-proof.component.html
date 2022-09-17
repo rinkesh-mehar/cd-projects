@@ -1,0 +1,36 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong>Edit Id Proof</strong><small> Form</small></div>
+
+
+            <form [formGroup]="updateIdProofForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Id Proof <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': updateIdProofForm.get('name').touched && updateIdProofForm.get('name').invalid}" (change)="trimValue(this.updateIdProofForm.get('name'))">
+
+                                <div class="invalid-feedback">
+                                    <div>Id Proof is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/farmer/idproof']">Cancel</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

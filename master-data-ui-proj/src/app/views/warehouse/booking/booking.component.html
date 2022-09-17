@@ -1,0 +1,50 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Booking list
+                        </div>
+
+                        <div class="card-body">
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="max-width: 200px;">Booking ID</th>
+                                        <th class="text-left">Warehouse Name</th>
+                                        <th class="text-left">Buyer</th>
+                                        <th class="text-left">Duration</th>
+                                        <th class="text-left">Transaction Date</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let booking of bookingList">
+
+                                        <td scope="row">{{booking.BookingID}}</td>
+                                        <td scope="row">{{booking.WareHouseName}}</td>
+                                        <td scope="row">{{booking.BuyerName}}</td>
+                                        <td scope="row">{{booking.StartDate | date}} <b> To </b> {{booking.EndDate| date}}
+                                        </td>
+                                        <td scope="row">{{booking.TransactionDate| date}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-success btn-sm move-right" title="View Booking Details"
+                                                [routerLink]="['/warehouse/booking-details' ,booking.BookingID ]"
+                                                *ngIf="userRightsService.canEdit()"
+                                                (click)="bookingService.setBookingDetails(booking)"><i
+                                                    class="fa fa-info-circle"></i> Details</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

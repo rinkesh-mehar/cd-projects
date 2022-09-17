@@ -1,0 +1,341 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong> Warehouse Details</strong></div>
+            <div class="card-body">
+
+                <div class="content_list table-responsive">
+
+                    <div *ngIf="isSubmitted">
+                        <div class="alert alert-success" *ngIf="isSuccess">
+                            <strong> {{_statusMsg}} Please Wait ..</strong>.
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="!isSuccess ">
+                            <strong>{{_statusMsg}}</strong>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <h6>Type of Storage :</h6>
+                            </td>
+                            <td>
+                                <p class="m-0">{{warehouseDetails.metaExcerpt.WMS_052}}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6>Warehouse Name :</h6>
+                            </td>
+                            <td>
+                                <p class="m-0">{{warehouseDetails.warehouseName}}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6>Warehouse Address :</h6>
+                            </td>
+                            <td>
+                                <p class="m-0">
+                                    <span class="entity">Address : </span>{{warehouseDetails.warehouseAddress.addressLine1}}
+                                    , {{warehouseDetails.warehouseAddress.addressLine2}}
+                                </p>
+                                <p class="m-0">
+                                    <span class="entity"> District : </span>{{warehouseDetails.warehouseAddress.districtName}}
+                                    ,
+                                </p>
+                                <p class="m-0">
+                                    <span class="entity">Tehsil : </span>{{warehouseDetails.warehouseAddress.tehsilName}}
+                                    ,
+                                </p>
+                                <p class="m-0">
+                                    <span class="entity">State : </span>{{warehouseDetails.warehouseAddress.stateName}}
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6>Phone No. :</h6>
+                            </td>
+                            <td>
+                                <p class="m-0"><span class="entity">Primary : </span>
+                                    {{warehouseDetails.warehouseAddress.primaryPhoneNo}}, <span class="entity">Secondary
+                                            :
+                                        </span> {{warehouseDetails.warehouseAddress.secondaryPhoneNo}}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6>Owner Name</h6>
+                            </td>
+                            <td>
+                                <p class="m-0">{{warehouseDetails.registrar}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Owner Address :</h6>
+                            </td>
+                            <td>
+                                <p class="m-0">
+                                    <span class="entity">Address : </span> {{warehouseDetails.address.addressLine1}}
+                                    , {{warehouseDetails.address.addressLine2}}
+                                </p>
+                                <p class="m-0">
+                                    <span class="entity">District : </span> {{warehouseDetails.address.districtName}},
+                                </p>
+                                <p class="m-0">
+                                    <span class="entity">Tehsil : </span> {{warehouseDetails.address.tehsilName}},
+                                </p>
+                                <p class="m-0">
+                                    <span class="entity">State : </span> {{warehouseDetails.address.stateName}}
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6>Owner Phone No. :</h6>
+                            </td>
+                            <td>
+                                <p class="m-0"><span class="entity">Primary : </span>
+                                    {{warehouseDetails.address.primaryPhoneNo}}, <span class="entity">Secondary :
+                                        </span>
+                                    {{warehouseDetails.address.secondaryPhoneNo}}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6>Licence Details :</h6>
+                            </td>
+                            <td>
+                                <p class="m-0"><span class="entity">Warehouse Licence No. : </span>
+                                    {{warehouseDetails.metaExcerpt.WMS_026}}</p>
+                                <p class="m-0"><span
+                                        class="entity">Photo : {{warehouseDetails.metaExcerpt.WMS_027}}</span>
+                                    <img [src]="getImage(warehouseDetails.metaExcerpt.WMS_027)"
+                                         class="img-fluid border d-block mt-2" width="300">
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6>Distance of warehouse from Weighbridge :</h6>
+                            </td>
+                            <td>
+                                <p class="m-0">{{warehouseDetails.metaExcerpt.WMS_013}} KM</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6>Structural Info :</h6>
+                            </td>
+                            <td>
+                                <ol class="row" type="1">
+                                    <ng-container *ngFor="let chk of  structuralInfo.chkBox">
+                                        <li class="col-md-3" *ngIf="chk.value">
+                                            <p class="m-0">
+                                                <span class="entity">{{chk.name}} </span>
+                                            </p>
+                                        </li>
+                                    </ng-container>
+
+                                </ol>
+                                <div class="dropdown-divider my-3"></div>
+
+                                <div class="row">
+                                    <div class="col-md-3 mb-2" *ngIf="warehouseDetails.metaExcerpt.WMS_046">
+                                        <p class="m-0">
+                                                <span class="entity">Shutters :
+                                                </span>
+                                            <img [src]="getImage(warehouseDetails.metaExcerpt.WMS_047)"
+                                                 class="img-fluid border d-block mt-2" width="150">
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 mb-2" *ngIf="warehouseDetails.metaExcerpt.WMS_014">
+                                        <p class="m-0">
+                                            <span class="entity">Doors : </span>
+                                            <img [src]="getImage(warehouseDetails.metaExcerpt.WMS_015)"
+                                                 class="img-fluid border d-block mt-2" width="150">
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 mb-2" *ngIf="warehouseDetails.metaExcerpt.WMS_053">
+                                        <p class="m-0">
+                                            <span class="entity">Ventilators : </span>
+                                            <img [src]="getImage(warehouseDetails.metaExcerpt.WMS_054)"
+                                                 class="img-fluid border d-block mt-2" width="150">
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 mb-2" *ngIf="warehouseDetails.metaExcerpt.WMS_001">
+                                        <p class="m-0">
+                                            <span class="entity">Air Roof Ventilators : </span>
+                                            <img [src]="getImage(warehouseDetails.metaExcerpt.WMS_002)"
+                                                 class="img-fluid border d-block mt-2" width="150">
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 mb-2" *ngIf="warehouseDetails.metaExcerpt.WMS_035">
+                                        <p class="m-0">
+                                            <span class="entity">Plinth : </span>
+                                            <img [src]="getImage(warehouseDetails.metaExcerpt.WMS_036)"
+                                                 class="img-fluid border d-block mt-2" width="150">
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 mb-2" *ngIf="warehouseDetails.metaExcerpt.WMS_037">
+                                        <p class="m-0">
+                                            <span class="entity">Plinth Slope : </span>
+                                            <img [src]="getImage(warehouseDetails.metaExcerpt.WMS_038)"
+                                                 class="img-fluid border d-block mt-2" width="150">
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 mb-2" *ngIf="warehouseDetails.metaExcerpt.WMS_008">
+                                        <p class="m-0">
+                                            <span class="entity">Cemented walls : </span>
+                                            <img [src]="getImage(warehouseDetails.metaExcerpt.WMS_009)"
+                                                 class="img-fluid border d-block mt-2" width="150">
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-3 mb-2" *ngIf="warehouseDetails.metaExcerpt.WMS_006">
+                                        <p class="m-0">
+                                            <span class="entity">Cemented & GI sheet walls: </span>
+                                            <img [src]="getImage(warehouseDetails.metaExcerpt.WMS_007)"
+                                                 class="img-fluid border d-block mt-2" width="150">
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 mb-2" *ngIf="warehouseDetails.metaExcerpt.WMS_030">
+                                        <p class="m-0">
+                                            <span class="entity">Muded Floor : </span>
+                                            <img [src]="getImage(warehouseDetails.metaExcerpt.WMS_008)"
+                                                 class="img-fluid border d-block mt-2" width="150">
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-3 mb-2" *ngIf="warehouseDetails.metaExcerpt.WMS_050">
+                                        <p class="m-0">
+                                            <span class="entity">Tiles Cemented Floor: </span>
+                                            <img [src]="getImage(warehouseDetails.metaExcerpt.WMS_051)"
+                                                 class="img-fluid border d-block mt-2" width="150">
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="warehouseDetails.metaExcerpt['WMS_010']">
+                            <td>
+                                <h6>Accepted Commodities :</h6>
+                            </td>
+                            <td>
+                                <p class="m-0">{{getCommodityName('WMS_010')}}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6>Warehouse Dimensions :</h6>
+                            </td>
+                            <td>
+                                <p class="m-0"><span class="entity">Storage Capacity : </span>
+                                    {{warehouseDetails.metaExcerpt.WMS_065}}
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6>Amenities Details :</h6>
+                            </td>
+                            <td>
+                                <!-- <p *ngFor="let meta of warehouseDetails.metaExcerptModel"><span
+                                        class="entity">{{meta.MetaLabel}} : </span> {{meta.MetaValue}}</p> -->
+
+
+                                <p class="m-0"><span class="entity">Locking done using : </span>
+                                    {{warehouseDetails.metaExcerpt.WMS_029}}</p>
+
+                                <p class="m-0"><span class="entity">No. of shutters : </span>
+                                    {{warehouseDetails.metaExcerpt.WMS_033}}</p>
+                                <p class="m-0"><span class="entity">No. of Doors : </span>
+                                    {{warehouseDetails.metaExcerpt.WMS_032}}</p>
+                                <p class="m-0"><span class="entity">No. of Stacks : </span>
+                                    {{warehouseDetails.metaExcerpt.WMS_034}}</p>
+                                <p class="m-0"><span class="entity">Roof Type : </span>
+                                    <span *ngIf="warehouseDetails.metaExcerpt.WMS_040">Asbestos sheet</span>
+                                    <span *ngIf="warehouseDetails.metaExcerpt.WMS_042">GI sheet</span>
+                                    <span *ngIf="warehouseDetails.metaExcerpt.WMS_044">Iron sheet</span></p>
+                                <p><span class="entity">Roof Photo : </span>
+                                    <img *ngIf="warehouseDetails.metaExcerpt.WMS_040"
+                                         [src]="getImage(warehouseDetails.metaExcerpt.WMS_041)" width="300">
+                                    <img *ngIf="warehouseDetails.metaExcerpt.WMS_042"
+                                         [src]="getImage(warehouseDetails.metaExcerpt.WMS_043)" width="300">
+                                    <img *ngIf="warehouseDetails.metaExcerpt.WMS_044"
+                                         [src]="getImage(warehouseDetails.metaExcerpt.WMS_045)" width="300">
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="warehouseDetails.kycStatus == 'Rejected'">
+                            <th>Response :</th>
+                            <td>
+                                    <textarea name="description" class="form-control"
+                                              rows="8" placeholder="Write your reason here..."
+                                              #rejected="ngModel"
+                                              [(ngModel)]="warehouseDetails.statusResponse" required
+                                              [ngClass]="{'is-invalid': rejected.touched && rejected.invalid}">
+                                    </textarea>
+                                <div class="invalid-feedback">
+                                    <div>Please Add Response Description</div>
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                <h6>KYC Status :</h6>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-6 col-md-8 col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <select class="form-control" #kycstatus="ngModel"
+                                                    [(ngModel)]="warehouseDetails.kycStatus"
+                                                    [ngClass]="{'is-invalid': kycstatus.touched && kycstatus.invalid}">
+                                                <option value="Pending">Pending</option>
+                                                <option value="Approved">Approved</option>
+                                                <option value="Rejected">Rejected</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                <div>KYC Status required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="card-footer">
+                        <button class="btn btn-primary m-0 waves-effect waves-light"
+                                (click)="submit(warehouseDetails.kycStatus)">Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>

@@ -1,0 +1,179 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                    *ngIf="mode=='edit'">Edit </span>Task Type Specification</strong></div>
+                <form [formGroup]="taskTypeSpecificationForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+                        <!-- State List -->
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stateCode" class="form-control" (change)="loadAczByStateCode()" [ngClass]="{'is-invalid': taskTypeSpecificationForm.get('stateCode').touched && taskTypeSpecificationForm.get('stateCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                        {{state.name}}
+                                    </option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Please Select State</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Season List
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Season <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="seasonID" class="form-control" [ngClass]="{'is-invalid': taskTypeSpecificationForm.get('seasonID').touched && taskTypeSpecificationForm.get('seasonID').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let season of seasonList" value={{season.seasonID}}>
+                                        {{season.seasonName}}
+                                    </option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Please Select Season</div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- ACZ List -->
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>ACZ <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="aczId" class="form-control" (change)="loadZonalCommodityByAczId()" [ngClass]="{'is-invalid': taskTypeSpecificationForm.get('aczId').touched && taskTypeSpecificationForm.get('aczId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let acz of aczList" value={{acz.id}}>
+                                        {{acz.name}}
+                                    </option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Please Select ACZ</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ZonalCommodity List -->
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Zonal Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="zonalCommodityID" class="form-control" (change)="loadPhenophaseByZonalCommodityId()"  [ngClass]="{'is-invalid': taskTypeSpecificationForm.get('zonalCommodityID').touched && taskTypeSpecificationForm.get('zonalCommodityID').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let commodity of zonalcommodityList" value={{commodity.id}}>
+                                        {{commodity.zonalCommodityName}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Zonal Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Variety List -->
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Zonal Variety <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="zonalVarietyId" class="form-control" (change)="loadPhenophaseByZonalVarietyId()" [ngClass]="{'is-invalid': taskTypeSpecificationForm.get('zonalVarietyId').touched && taskTypeSpecificationForm.get('zonalVarietyId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let variety of zonalvarietyList" value={{variety.id}}>
+                                        {{variety.zonalVarietyName}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Zonal Variety</div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- Phenophase List -->
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Phenophase <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="phenophaseID" class="form-control" [ngClass]="{'is-invalid': taskTypeSpecificationForm.get('phenophaseID').touched && taskTypeSpecificationForm.get('phenophaseID').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let pheno of phenophaseList" value={{pheno.id}}>
+                                        {{pheno.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Phenophase</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Task- Type List -->
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Task Type <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="taskTypeID" class="form-control" [ngClass]="{'is-invalid': taskTypeSpecificationForm.get('taskTypeID').touched && taskTypeSpecificationForm.get('taskTypeID').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let type of taskTypeList" value={{type.taskTypeID}}>
+                                        {{type.taskTypeName}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Task Type</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Pushback Limit <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="pushBackLimit" onKeyPress="if(this.value.length==9) return false;" class="form-control" [ngClass]="{'is-invalid': taskTypeSpecificationForm.get('pushBackLimit').touched && taskTypeSpecificationForm.get('pushBackLimit').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="taskTypeSpecificationForm.get( 'pushBackLimit').errors?.required">Pushback Limit is required</div>
+                                    <div *ngIf="taskTypeSpecificationForm.get( 'pushBackLimit').errors?.pattern">Pushback Limit Value must be Numeric</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Priority <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="priority" onKeyPress="if(this.value.length==9) return false;" class="form-control" [ngClass]="{'is-invalid': taskTypeSpecificationForm.get('priority').touched && taskTypeSpecificationForm.get('priority').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="taskTypeSpecificationForm.get( 'priority').errors?.required">Priority is required</div>
+                                    <div *ngIf="taskTypeSpecificationForm.get( 'priority').errors?.pattern">Priority Value must be Numeric</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Task Time <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="taskTime" onKeyPress="if(this.value.length==9) return false;" class="form-control" [ngClass]="{'is-invalid': taskTypeSpecificationForm.get('taskTime').touched && taskTypeSpecificationForm.get('taskTime').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="taskTypeSpecificationForm.get( 'taskTime').errors?.required">Task Time is required</div>
+                                    <div *ngIf="taskTypeSpecificationForm.get( 'taskTime').errors?.pattern">Task Time Value must be Numeric</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <label>Spot Dependency <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="spotDependency" class="form-control" [ngClass]="{'is-invalid': taskTypeSpecificationForm.get('spotDependency').touched && taskTypeSpecificationForm.get('spotDependency').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option  value="Yes">Yes</option>
+                                    <option  value="No">No</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Spot Dependency</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> <span *ngIf="mode=='add'"> Submit </span> <span
+                            *ngIf="mode=='edit'">Update </span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/region/task-type-specification']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

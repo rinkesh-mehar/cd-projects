@@ -1,0 +1,88 @@
+<!-- <div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All City
+                            <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right" [routerLink]="['/geo/city-add/']"> Add
+                        City</button>
+                            </div>
+                        </div>
+
+
+                        <div *ngIf="isSubmitted">
+                            <div class="alert alert-success" *ngIf="isSuccess">
+                                <strong> {{_statusMsg}} Please Wait ..</strong>.
+                            </div>
+
+                            <div class="alert alert-danger" *ngIf="!isSuccess ">
+                                <strong>{{_statusMsg}}</strong>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group mb-3  col-lg-10 col-md-10 p-0">
+                                <input type="text" class="form-control" placeholder="Search here...  " [(ngModel)]="searchText">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" (click)="searchCityList()">Search</button>
+                                    <button class="btn btn-danger" type="button" (click)="searchText='';searchCityList()">Clear</button>
+                                </div>
+                            </div>
+
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 20px;">ID</th>
+                                        <th class="text-left">State</th>
+                                        <th class="text-left">District</th>
+                                        <th class="text-left">City Code</th>
+                                        <th class="text-left">City</th>
+                                        <th class="text-left">Status</th>
+                                        <th style="width: 150px;">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody *ngIf="pageGeoCityList?.content">
+                                    <tr *ngFor="let city of pageGeoCityList.content | searchFilter  :searchText:['state','district','cityCode','name','status']">
+
+                                        <td scope="row">{{city.id}}</td>
+                                        <td class="text-left">{{city.state}}</td>
+                                        <td class="text-left">{{city.district}}</td>
+                                        <td class="text-left">{{city.cityCode}}</td>
+                                        <td class="text-left">{{city.name}}</td>
+                                        <td class="text-left">{{city.status}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-success btn-sm move-right" title="Edit" [routerLink]="['/geo/city-edit/', city.id]" *ngIf="userRightsService.canEdit()"><i
+                              class="fa fa-pencil-square-o"></i></button>
+                                            <button type="button" class="btn btn-info btn-sm move-right" title="Approve" (click)="approve(city,i)" *ngIf="userRightsService.canPrimaryApprove()"><i
+                              class="fa fa-get-pocket"></i></button>
+                                            <button type="button" class="btn btn-primary btn-sm move-right" title="Finalize" (click)="finalize(city,i)" *ngIf="userRightsService.canFinalize()"><i
+                              class="fa  fa-thumbs-up"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm move-right" title="Reject" (click)="reject(city,i)" *ngIf="userRightsService.canReject()"><i
+                              class="fa fa-close"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm move-right" title="Delete" (click)="delete(city,i)" *ngIf="userRightsService.canDelete()"><i
+                              class="fa fa-close"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="col-xs-12 col-12 text-center p-0" *ngIf="pageGeoCityList?.content">
+                                <pagination [totalItems]="pageGeoCityList.totalElements" [(ngModel)]="selectedPage" [maxSize]="maxSize" class="pagination-md" previousText="&lsaquo; Prev" nextText="Next &rsaquo;" firstText="&laquo; First" lastText="Last &raquo; " [boundaryLinks]="true"
+                                    [itemsPerPage]="pageGeoCityList.size" [rotate]="false" (numPages)="numPages = $event;" (pageChanged)="onSelect($event.page-1)">
+                                </pagination>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal> -->

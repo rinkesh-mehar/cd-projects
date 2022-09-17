@@ -1,0 +1,176 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header"><strong>Add Fertilizer (RDF)</strong><small> Form</small></div>
+
+
+                <form [formGroup]="fertilizerForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stateCode" class="form-control" (change)="getAllAczByStateCode()" [ngClass]="{'is-invalid': fertilizerForm.get('stateCode').touched && fertilizerForm.get('stateCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                        {{state.name}}
+                                    </option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Please Select State</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>ACZ <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="aczId" class="form-control" (change)="getZonalCommodityListByAczId()" [ngClass]="{'is-invalid': fertilizerForm.get('aczId').touched && fertilizerForm.get('aczId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let acz of aczList" value={{acz.id}}>
+                                        {{acz.name}}
+                                    </option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Please Select ACZ</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Zonal Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="zonalCommodityId" class="form-control" [ngClass]="{'is-invalid': fertilizerForm.get('zonalCommodityId').touched && fertilizerForm.get('zonalCommodityId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let zonalCommodity of zonalCommodityList" value={{zonalCommodity.id}}>
+                                        {{zonalCommodity.zonalCommodityName}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Zonal Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Dose Factor <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="doseFactorId" class="form-control" [ngClass]="{'is-invalid': fertilizerForm.get('doseFactorId').touched && fertilizerForm.get('doseFactorId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let doseFactor of DoseFactorList" value={{doseFactor.id}}>
+                                        {{doseFactor.doseFactor}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Dose Factor</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label> Fertilizer <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <select formControlName="name" class="form-control" [ngClass]="{'is-invalid': fertilizerForm.get('name').touched && fertilizerForm.get('name').invalid}">
+                                        <option value="">--Select--</option>
+                                        <option *ngFor="let name of fertilizerTypes" value={{name}}>
+                                            {{name}}
+                                        </option>
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        <div>Please Select Fertilizer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Dose <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="dose" class="form-control" onkeydown="if(event.keyCode==109 || event.keyCode==189) return false;" onKeyPress="if(this.value.length==4) return false;" [ngClass]="{'is-invalid': fertilizerForm.get('dose').touched && fertilizerForm.get('dose').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Dose is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>UOM <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="uomId" class="form-control" [ngClass]="{'is-invalid': fertilizerForm.get('uomId').touched && fertilizerForm.get('uomId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let uom of UomList" value={{uom.id}}>
+                                        {{uom.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select UOM</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group mb-0">
+                                    <label>Note</label>
+                                    <textarea class="form-control" id="textarea-input" formControlName="note" rows="4" (change)="trimValue(this.fertilizerForm.get('note'))"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Submit</button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/zonal/fertilizer']">Cancel</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <strong>Bulk Insert</strong><small> Form</small>
+                        </div>
+                        <div class="col text-right">
+                            <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <form (ngSubmit)="submitExcelForm()" novalidate>
+                    <div class="card-body">
+                        <div class="form-group mb-0">
+                            <label for="file-input">Select excel(.xlsx) file</label>
+                            <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Submit</button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/zonal/fertilizer']">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

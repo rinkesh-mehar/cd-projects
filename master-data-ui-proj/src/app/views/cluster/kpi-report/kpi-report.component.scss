@@ -1,0 +1,94 @@
+.nav-tabs {
+  .nav-link {
+    font-size: 16px;
+    font-weight: 600;
+    min-width: 100px;
+    text-align: center;
+  }
+}
+
+.nav-tabs .nav-link.active, 
+.c-dark-theme .nav-tabs .nav-item.show .nav-link {
+  color: #ffd866;
+}
+
+.tab-content {
+  &.card {
+    .card {
+      background-color: #201f1f !important;
+      border-color: #201f1f;
+      padding: 15px;
+      // margin: 0 15px 1.5rem;
+
+      h5{
+         color: #ffd866;
+      }
+    }
+
+    table {
+      th,
+      td {
+        vertical-align: middle;
+        &:first-child {
+          text-align: inherit;          
+        }
+      }
+      td {
+        .totalVal {
+          font-size: 24px;
+          font-weight: bold;
+          color: #ffd866;
+        }
+        .completedVal {
+          &.green{            
+            color: green;
+          }
+          &.yellow{
+            color:#c39e30 !important;
+          }
+          &.orange{
+            color: #ea783b !important;
+          }
+          &.red{
+            color:#bb3636 !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.progress-bar {
+  color: #000000;  
+  font-weight: bold;
+  &.green{
+    background-color: green !important;
+  }
+  &.yellow{
+    background-color: #c39e30 !important;
+  }
+  &.orange{
+    background-color: #ea783b !important;
+  }
+  &.red{
+    background-color: #bb3636 !important;
+  }
+}
+
+.table-responsive {
+  max-height: 300px;
+  overflow-x: auto;
+}
+thead tr:nth-child(1) th {
+  background-color: #555555 !important;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  color: #ffffff;
+}
+
+.card-main-heading {
+  padding: 15px;
+  background-color: #201f1f;
+  margin-bottom: 0.2rem;
+}

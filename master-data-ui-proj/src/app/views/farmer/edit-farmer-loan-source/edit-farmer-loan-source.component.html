@@ -1,0 +1,36 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong>Edit Loan Source</strong><small> Form</small></div>
+
+
+            <form [formGroup]="updateLoanSourceForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Loan Source <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': updateLoanSourceForm.get('name').touched && updateLoanSourceForm.get('name').invalid}" (change)="trimValue(this.updateLoanSourceForm.get('name'))">
+
+                                <div class="invalid-feedback">
+                                    <div>Loan Source is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/farmer/loan-source']">Cancel</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

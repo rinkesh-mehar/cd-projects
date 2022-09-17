@@ -1,0 +1,184 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                    *ngIf="mode=='edit'">Edit </span>Regional Commodity</strong></div>
+                <form [formGroup]="seasonCommodityForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Region</label>
+                                <select formControlName="regionId" class="form-control"
+                                    (change)="loadAllStateByRegionId()"
+                                    [ngClass]="{'is-invalid': seasonCommodityForm.get('regionId').touched && seasonCommodityForm.get('regionId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let region of regionList" value={{region.regionId}}>
+                                        {{region.name}}
+                                    </option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Please Select Region</div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stateCode" class="form-control" (change)="getAllAczByStateCode();getAllRegionByStateCode()" [ngClass]="{'is-invalid': seasonCommodityForm.get('stateCode').touched && seasonCommodityForm.get('stateCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                        {{state.name}}
+                                    </option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Please Select State</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>ACZ <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="aczId" class="form-control" (change)="getZonalCommodityListByAczId()" [ngClass]="{'is-invalid': seasonCommodityForm.get('aczId').touched && seasonCommodityForm.get('aczId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let acz of aczList" value={{acz.id}}>
+                                        {{acz.name}}
+                                    </option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Please Select ACZ</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Region <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="regionId" class="form-control" [ngClass]="{'is-invalid': seasonCommodityForm.get('regionId').touched && seasonCommodityForm.get('regionId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let region of regionList" value={{region.regionId}}>
+                                        {{region.name}}
+                                    </option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Please Select Region</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Zonal Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="zonalCommodityId" class="form-control" [ngClass]="{'is-invalid': seasonCommodityForm.get('zonalCommodityId').touched && seasonCommodityForm.get('zonalCommodityId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let zonalCommodity of zonalCommodityList" value={{zonalCommodity.id}}>
+                                        {{zonalCommodity.zonalCommodityName}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Zonal Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Target Value <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="targetValue" class="form-control" onKeyPress="if(this.value.length==9) return false;" [ngClass]="{'is-invalid': seasonCommodityForm.get('targetValue').touched && seasonCommodityForm.get('targetValue').invalid}">
+                                <div class="invalid-feedback">
+                                    <!-- <div>Target Value is required</div> -->
+                                    <div>Target Value is required and must be Numeric</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Min Lot Size <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="minLotSize" onKeyPress="if(this.value.length==9) return false;" class="form-control" [ngClass]="{'is-invalid': seasonCommodityForm.get('minLotSize').touched && seasonCommodityForm.get('minLotSize').invalid}">
+                                <div class="invalid-feedback">
+                                    <!-- <div>Min Lot Size is required</div> -->
+                                    <div>Min Lot Size Value is required and must be Numeric</div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Max Rigts In Lot <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="maxRigtsInLot" onKeyPress="if(this.value.length==9) return false;" class="form-control" [ngClass]="{'is-invalid': seasonCommodityForm.get('maxRigtsInLot').touched && seasonCommodityForm.get('maxRigtsInLot').invalid}">
+                                <div class="invalid-feedback">
+                                    <!-- <div>Max Rigts In Lot is required</div> -->
+                                    <div>Max Rigts In Lot Value is required and must be Numeric</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <label>Harvest Relaxation <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="harvestRelaxation" onKeyPress="if(this.value.length==9) return false;" class="form-control" [ngClass]="{'is-invalid': seasonCommodityForm.get('harvestRelaxation').touched && seasonCommodityForm.get('harvestRelaxation').invalid}">
+                                <div class="invalid-feedback">
+                                    <!-- <div>Harvest Relaxation is required</div> -->
+                                    <div>Harvest Relaxation Value is required and must be Numeric</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> <span *ngIf="mode=='add'"> Submit </span> <span
+                            *ngIf="mode=='edit'">Update </span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/regional/season-commodity']">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <strong>Bulk Insert</strong><small> Form</small>
+                        </div>
+                        <div class="col text-right">
+                            <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <form (ngSubmit)="submitExcelForm()" novalidate>
+                    <div class="card-body">
+
+                        <div class="form-group mb-0">
+                            <label for="file-input">Select excel(.xlsx) file</label>
+                            <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Submit </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/regional/season-commodity']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

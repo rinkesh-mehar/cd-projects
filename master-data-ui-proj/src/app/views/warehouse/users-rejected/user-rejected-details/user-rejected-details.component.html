@@ -1,0 +1,48 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong> User Details</strong></div>
+            <div class="card-body">
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Name :</th>
+                        <td>{{ userDetails.firstName }} {{ userDetails.lastName }}</td>
+                    </tr>
+    
+                    <tr>
+                        <th>Mobile :</th>
+                        <td>{{ userDetails.primaryNumber }}, {{ userDetails.secondaryNumber }}</td>
+                    </tr>
+    
+                    <tr>
+                        <th>Email :</th>
+                        <td>{{ userDetails.email }}</td>
+                    </tr>
+    
+                    <tr>
+                        <th>Address :</th>
+                        <td>
+                            Address Line 1 : {{ userDetails.addressLine1 }} <br>
+                            Address Line 2 : {{ userDetails.addressLine2 }} <br>
+                            Tehsil : {{ userDetails.tehsil }} <br>
+                            District : {{ userDetails.district }} <br>
+                            State : {{ userDetails.district }}
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <th>User KYC Image :</th>
+                        <td><img [src]="userKycImgUrl + userDetails.imageId" width="200" /></td>
+                    </tr>
+    
+                    <tr>
+                        <th>User KYC Status :</th>
+                        <td>{{userDetails.kycStatus}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>

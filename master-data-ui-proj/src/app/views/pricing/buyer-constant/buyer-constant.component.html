@@ -1,0 +1,102 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> Buyer Constant
+                            <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right" [routerLink]="['/pricing/buyer-constant-add/']"> Add Buyer Constant
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group mb-3  col-lg-12 col-md-12 p-0">
+                                <input type="text" class="form-control" placeholder="Search here...  " [(ngModel)]="searchText">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" (click)="searchBuyerConstatn()">Search
+                                    </button>
+                                    <button class="btn btn-danger" type="button" (click)="searchText='';searchBuyerConstatn()">
+                                        Clear
+                                    </button>
+                                </div>
+                            </div>
+
+
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event)">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 20px;" mat-sort-header="id">ID</th>
+                                        <th style="width: 240px!important;" class="text-left" mat-sort-header="slopeMin">Slope Min</th>
+                                        <th style="width: 240px!important;" class="text-left" mat-sort-header="slopeMax">Slope Max</th>
+                                        <th style="width: 240px!important;" class="text-left" mat-sort-header="buyerConstant">Buyer Constant</th>
+                                        <th style="width: 120px!important;" class="text-left" mat-sort-header="status">Status</th>
+                                        <th style="width: 40px !important; min-width: 40px !important;">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody *ngIf="pageBuyerConstant?.content">
+                                    <tr *ngFor="let buyerConstant of pageBuyerConstant.content | searchFilter :searchText:['slopeMin','slopeMax','buyerConstant','status']">
+
+                                        <td scope="row">{{buyerConstant.id}}</td>
+                                        <td class="text-left">{{buyerConstant.slopeMin}}</td>
+                                        <td class="text-left">{{buyerConstant.slopeMax}}</td>
+                                        <td class="text-left">{{buyerConstant.buyerConstant}}</td>
+                                        <td class="text-left">{{buyerConstant.status}}</td>
+                                        <td style="width: 40px !important;">
+                                            <button type="button" class="btn btn-success btn-sm move-right" title="Edit" [routerLink]="['/pricing/buyer-constant-edit/', buyerConstant.id]" *ngIf="userRightsService.canEdit()"><i
+                                                class="fa fa-pencil-square-o"></i></button>
+                                            <!--                                        <button type="button" class="btn btn-info btn-sm move-right" title="Approve"-->
+                                            <!--                                                [disabled]="terrain.status == terrainStatus.APPROVED_STATUS"-->
+                                            <!--                                                (click)="approve(terrain,i)"-->
+                                            <!--                                                *ngIf="userRightsService.canPrimaryApprove()"><i-->
+                                            <!--                                                class="fa fa-get-pocket"></i></button>-->
+                                            <!--                                        <button type="button" class="btn btn-primary btn-sm move-right" title="Finalize"-->
+                                            <!--                                                [disabled]="terrain.status == terrainStatus.ACTIVE_STATUS"-->
+                                            <!--                                                (click)="finalize(terrain,i)" *ngIf="userRightsService.canFinalize()"><i-->
+                                            <!--                                                class="fa  fa-thumbs-up"></i></button>-->
+                                            <!--                                        <button type="button" class="btn btn-danger btn-sm move-right" title="Reject"-->
+                                            <!--                                                [disabled]="terrain.status == terrainStatus.REJECTED_STATUS"-->
+                                            <!--                                                (click)="reject(terrain,i)" *ngIf="userRightsService.canReject()"><i-->
+                                            <!--                                                class="fa fa-close"></i></button>-->
+                                            <!--                                        <button type="button" class="btn btn-danger btn-sm move-right" title="Delete"-->
+                                            <!--                                                [disabled]="terrain.status == terrainStatus.DELETED_STATUS"-->
+                                            <!--                                                (click)="delete(terrain,i)" *ngIf="userRightsService.canDelete()"><i-->
+                                            <!--                                                class="fa fa-close"></i></button>-->
+
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="pageBuyerConstant.content.length == 0">
+                                    <td colspan="6" class="text-left">Data Not Found..!!</td>
+                                </tbody>
+                            </table>
+
+                            <div class="col-xs-12 col-12 text-center p-0" *ngIf="pageBuyerConstant?.content">
+                                <pagination [totalItems]="pageBuyerConstant.totalElements" [(ngModel)]="selectedPage" [maxSize]="maxSize" class="pagination-md" previousText="&lsaquo; Prev" nextText="Next &rsaquo;" firstText="&laquo; First" lastText="Last &raquo; " [boundaryLinks]="true"
+                                    [itemsPerPage]="pageBuyerConstant.size" [rotate]="false" (numPages)="numPages = $event;" (pageChanged)="onSelect($event.page-1)">
+                                </pagination>
+                            </div>
+
+                            <!--                            <nav aria-label="...">-->
+                            <!--                                <ul style="margin-left: 0px;margin-top:-10px;" class="pagination"-->
+                            <!--                                    *ngIf="pageTerrain?.content">-->
+                            <!--                                    <li *ngFor="let page of ' '.repeat(pageTerrain.totalPages).split(''), let i = index "-->
+                            <!--                                        (click)="onSelect(i)" [class.active]="i === selectedPage" class="page-item"><a-->
+                            <!--                                            class="page-link">{{i + 1}}</a></li>-->
+                            <!--                                </ul>-->
+                            <!--                            </nav>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>-->
+<!--<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>-->
+<!--<app-error-modal #errorModal></app-error-modal>-->

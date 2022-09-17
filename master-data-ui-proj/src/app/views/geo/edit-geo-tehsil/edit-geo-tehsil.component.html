@@ -1,0 +1,72 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Edit Tehsil</strong><small> Form</small></div>
+
+
+                <form [formGroup]="updateTehsilForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stateCode" class="form-control" (change)="loadAllDistrictsByState($event)" [ngClass]="{'is-invalid': updateTehsilForm.get('stateCode').touched && updateTehsilForm.get('stateCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let state of StateList" value={{state.stateCode}}>
+                                        {{state.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select State</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>District <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="districtCode" class="form-control">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let district of DistrictList" value={{district.districtCode}}
+                                        [ngClass]="{'is-invalid': updateTehsilForm.get('districtCode').touched && updateTehsilForm.get('districtCode').invalid}">
+                                        {{district.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select District</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Tehsil Code</label>
+                                <input type="number" formControlName="tehsilCode" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <label>Tehsil Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': updateTehsilForm.get('name').touched && updateTehsilForm.get('name').invalid}" (change)="trimValue(this.updateTehsilForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Tehsil Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/geo/tehsil']">Cancel</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

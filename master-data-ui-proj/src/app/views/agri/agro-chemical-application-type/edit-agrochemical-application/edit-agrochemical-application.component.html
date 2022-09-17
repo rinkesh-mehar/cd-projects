@@ -1,0 +1,35 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong>Edit Agrochemical Application</strong><small> Form</small></div>
+
+            <form [formGroup]="updateAgrochemicalApplicationForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Agrochemical Application Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" maxlength="20" [ngClass]="{'is-invalid': updateAgrochemicalApplicationForm.get('name').touched && updateAgrochemicalApplicationForm.get('name').invalid}" (change)="trimValue(this.updateAgrochemicalApplicationForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Agrochemical Application Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/stress/agrochemical-application-type']">Cancel</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

@@ -1,0 +1,139 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Constants
+                            <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right" [routerLink]="['/pricing/constant-add/']"> Add Constant
+                                </button>
+                                <button *ngIf="flag == 2 && stateRegionList[0].stateName !== undefined" class="btn btn-primary btn-sm" (click)="download()">Export To Excel</button>
+                            </div>
+                        </div>
+
+                        <div *ngIf="flag == 0" class="card-body">
+
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event, 0)">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 450px!important;" mat-sort-header="stateName" class="text-left">State</th>
+                                        <th style="width: 450px;" mat-sort-header="regionName" class="text-left">Region</th>
+                                        <th style="width: 120px!important;" class="text-left">Status</th>
+                                        <th style="width: 40px !important; min-width: 40px !important;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let stateRegion of stateRegionList">
+                                        <td class="text-left">{{stateRegion.stateName | titlecase}}</td>
+                                        <td class="text-left">{{stateRegion.regionName | titlecase}}</td>
+                                        <td class="text-center">
+                                            <span class="badge badge-danger" *ngIf="stateRegion.status =='Deleted'">{{stateRegion.status}}</span>
+                                            <span class="badge badge-secondary" *ngIf="stateRegion.status =='Inactive'">{{stateRegion.status}}</span>
+                                            <span class="badge badge-primary" *ngIf="stateRegion.status =='Active'">{{stateRegion.status}}</span>
+                                        </td>
+                                        <td style="width: 40px !important;">
+                                            <button type="button" class="text-dark btn btn-success btn-sm move-right" title="View" (click)="getConstants(stateRegion.stateCode, stateRegion.regionID, stateRegion.commodityID)">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="stateRegionList.length == 0">
+                                    <td colspan="4" class="text-left">Data Not Found..!!</td>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div *ngIf="flag == 1" class="card-body">
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm table-overflow-height" matSort (matSortChange)="sortData($event, 1)">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 25% !important;" mat-sort-header="stateName" class="text-left">State</th>
+                                        <th style="width: 25% !important;" mat-sort-header="regionName" class="text-left">Region</th>
+                                        <th style="width: 20% !important;" mat-sort-header="commodityName" class="text-left">Commodity</th>
+                                        <th style="width: 15% !important;" class="text-left">Status</th>
+                                        <th style="width: 5% !important; min-width: 5% !important;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let stateRegion of stateRegionList">
+                                        <td class="text-left">{{stateRegion.stateName | titlecase}}</td>
+                                        <td class="text-left">{{stateRegion.regionName | titlecase}}</td>
+                                        <td class="text-left">{{stateRegion.commodityName | titlecase}}</td>
+                                        <td class="text-center">
+                                            <span class="badge badge-danger" *ngIf="stateRegion.status =='Deleted'">{{stateRegion.status}}</span>
+                                            <span class="badge badge-success" *ngIf="stateRegion.status =='Inactive'">{{stateRegion.status}}</span>
+                                            <span class="badge badge-info" *ngIf="stateRegion.status =='Active'">{{stateRegion.status}}</span>
+                                        </td>
+                                        <td style="width: 5% !important;">
+                                            <button type="button" class="text-dark btn btn-success btn-sm move-right" title="View" (click)="getConstants(stateRegion.stateCode, stateRegion.regionID, stateRegion.commodityID)">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="stateRegionList.length == 0">
+                                    <td colspan="5" class="text-left">Data Not Found..!!</td>
+                                </tbody>
+                            </table>
+                            <div>
+                                <button type="button" class="text-dark btn btn-primary btn-sm move-right" title="Back" (click)="manageFlag()">
+                                        Back
+                                    </button>
+                            </div>
+                        </div>
+
+                        <div *ngIf="flag == 2" class="card-body">
+                            <table class="table table-responsive table-bordered table-striped table-overflow-height" matSort (matSortChange)="sortData($event, 2)">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 17% !important;" mat-sort-header="stateName" class="text-left">State</th>
+                                        <th style="width: 14% !important;" mat-sort-header="regionName" class="text-left">Region</th>
+                                        <th style="width: 10% !important;" mat-sort-header="commodityName" class="text-left">Commodity</th>
+                                        <th style="width: 10% !important;" mat-sort-header="varietyName" class="text-left">Variety</th>
+                                        <th style="width: 6% !important;" mat-sort-header="gradeName" class="text-left">Grade</th>
+                                        <th style="width: 9% !important;" mat-sort-header="marginConstant" class="text-left">Margin Constant</th>
+                                        <th style="width: 9% !important;" mat-sort-header="buyerConstant" class="text-left">Buyer Constant</th>
+                                        <th style="width: 9% !important;" mat-sort-header="sellerConstant" class="text-left">Seller Constant</th>
+                                        <th style="width: 3% !important;" mat-sort-header="isBenchmark" class="text-left">Benchmark</th>
+                                        <th style="width: 8% !important;" class="text-left">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let stateRegion of stateRegionList">
+                                        <td class="text-left">{{stateRegion.stateName | titlecase}}</td>
+                                        <td class="text-left">{{stateRegion.regionName | titlecase}}</td>
+                                        <td class="text-left">{{stateRegion.commodityName | titlecase}}</td>
+                                        <td class="text-left">{{stateRegion.varietyName}}</td>
+                                        <td class="text-left">{{stateRegion.gradeName}}</td>
+                                        <td class="text-left">{{stateRegion.marginConstant}}</td>
+                                        <td class="text-left">{{stateRegion.buyerConstant}}</td>
+                                        <td class="text-left">{{stateRegion.sellerConstant}}</td>
+                                        <td class="text-left">{{stateRegion.isBenchmark}}</td>
+                                        <td class="text-center">
+                                            <span class="badge badge-danger" *ngIf="stateRegion.status =='Deleted'">{{stateRegion.status}}</span>
+                                            <span class="badge badge-success" *ngIf="stateRegion.status =='Inactive'">{{stateRegion.status}}</span>
+                                            <span class="badge badge-info" *ngIf="stateRegion.status =='Active'">{{stateRegion.status}}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="stateRegionList.length == 0">
+                                    <td colspan="10" class="text-left">Data Not Found..!!</td>
+                                </tbody>
+                            </table>
+                            <div>
+                                <button type="button" class="text-dark btn btn-primary btn-sm move-right" title="Back" (click)="manageFlag()">
+                                        Back
+                                    </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

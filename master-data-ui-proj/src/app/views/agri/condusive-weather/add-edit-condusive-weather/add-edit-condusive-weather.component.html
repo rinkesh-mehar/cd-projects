@@ -1,0 +1,327 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                        *ngIf="mode=='edit'">Edit </span> Conducive Weather</strong></div>
+
+            <form [formGroup]="condusiveWeatherForm" (ngSubmit)="submitCondusiveWeatherForm()" novalidate>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="stateCode" class="form-control" (change)="onChangeGetAczByStateCode()" [ngClass]="{'is-invalid': condusiveWeatherForm.get('stateCode').touched && condusiveWeatherForm.get('stateCode').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                    {{state.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select State</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>ACZ <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="aczId" class="form-control" (change)="onChangeGetZonalCommodityByAczId()" [ngClass]="{'is-invalid': condusiveWeatherForm.get('aczId').touched && condusiveWeatherForm.get('aczId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let acz of aczList" value={{acz.id}}>
+                                    {{acz.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select ACZ</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Zonal Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="zonalCommodityId" class="form-control" (change)="onChangeZonalCommodity()" [ngClass]="{'is-invalid': condusiveWeatherForm.get('zonalCommodityId').touched && condusiveWeatherForm.get('zonalCommodityId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let commodity of zonalCommodityList" value={{commodity.id}}>
+                                    {{commodity.zonalCommodityName}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Zonal Commodity</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Zonal Variety <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="zonalVarietyId" class="form-control" (change)="getPhenophaseByZonalVarietyId()" [ngClass]="{'is-invalid': condusiveWeatherForm.get('zonalVarietyId').touched && condusiveWeatherForm.get('zonalVarietyId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let variety of zonalVarietyList" value={{variety.id}}>
+                                    {{variety.zonalVarietyName}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Zonal Variety</div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+
+                    <!-- <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Phenophase <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="phenophaseId" class="form-control" [ngClass]="{'is-invalid': condusiveWeatherForm.get('phenophaseId').touched && condusiveWeatherForm.get('phenophaseId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let phenophase of phenophaseList" value={{phenophase.id}}>
+                                    {{phenophase.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Phenophase</div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="commodityId" class="form-control" [ngClass]="{'is-invalid': condusiveWeatherForm.get('commodityId').touched && condusiveWeatherForm.get('commodityId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let commodity of CommodityList" value={{commodity.id}}>
+                                        {{commodity.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Stress Type <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stressTypeId" class="form-control" (change)="getStressByCommodityIdAndStressTypeId()" [ngClass]="{'is-invalid': condusiveWeatherForm.get('stressTypeId').touched && condusiveWeatherForm.get('stressTypeId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let stressType of StressTypeList" value={{stressType.id}}>
+                                        {{stressType.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Stress Type</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Stress <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stressId" class="form-control" [ngClass]="{'is-invalid': condusiveWeatherForm.get('stressId').touched && condusiveWeatherForm.get('stressId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let stress of StressList" value={{stress.id}}>
+                                        {{stress.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Stress Name</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Weather Parameter <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="weatherParameterId" class="form-control" [ngClass]="{'is-invalid': condusiveWeatherForm.get('weatherParameterId').touched && condusiveWeatherForm.get('weatherParameterId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let weatherParameter of weatherParamList"
+                                        value={{weatherParameter.id}}>
+                                        {{weatherParameter.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Weather Parameter</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Lower Specification <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="lower" onkeydown="if(event.keyCode==109 || event.keyCode==189 || event.keyCode== 187 || event.keyCode == 107) return false;" class="form-control" [ngClass]="{'is-invalid': condusiveWeatherForm.get('lower').touched && condusiveWeatherForm.get('lower').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Lower Specification is required and must be numeric</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Upper Specification <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="upper" onkeydown="if(event.keyCode==109 || event.keyCode==189 || event.keyCode== 187 || event.keyCode == 107) return false;" class="form-control" [ngClass]="{'is-invalid': condusiveWeatherForm.get('upper').touched && condusiveWeatherForm.get('upper').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Upper Specification is required and must be numeric</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Conducive Duration </label>
+                                <input type="number" formControlName="conduciveDuration" onkeydown="if(event.keyCode==109 || event.keyCode==189 || event.keyCode== 187 || event.keyCode == 107) return false;" onKeyPress="if(this.value.length==9) return false;" class="form-control" [ngClass]="{'is-invalid': condusiveWeatherForm.get('conduciveDuration').touched && condusiveWeatherForm.get('conduciveDuration').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Conducive Duration must be numeric</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Relaxing Duration </label>
+                                <input type="number" formControlName="relaxingDuration" onkeydown="if(event.keyCode==109 || event.keyCode==189 || event.keyCode== 187 || event.keyCode == 107) return false;" onKeyPress="if(this.value.length==9) return false;" class="form-control" [ngClass]="{'is-invalid': condusiveWeatherForm.get('relaxingDuration').touched && condusiveWeatherForm.get('conduciveDuration').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Relaxing Duration must be numeric</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="form-check-inline">
+                                    <input class="form-check-input" type="radio" name="mode" [value]="true"
+                                        [(ngModel)]="showPrimaryAvg" [ngModelOptions]="{standalone: true}"
+                                        (click)="checkPrimarySpecification(true)">
+                                    &nbsp;&nbsp; Primary Specification Average
+                                </label>
+                                <label class="form-check-inline">
+                                    <input class="form-check-input" type="radio" name="mode" [value]="false"
+                                        [(ngModel)]="showPrimaryAvg" [ngModelOptions]="{standalone: true}"
+                                        (click)="checkPrimarySpecification(false)">
+                                    &nbsp;&nbsp; Primary Specification Range
+                                </label>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="row" *ngIf="showPrimaryAvg">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Primary Specification Average</label>
+                                <input type="number" formControlName="primarySpecificationAverage" class="form-control" [ngClass]="{'is-invalid': condusiveWeatherForm.get('primarySpecificationAverage').touched && condusiveWeatherForm.get('primarySpecificationAverage').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div *ngIf="condusiveWeatherForm.get( 'primarySpecificationAverage').errors?.required">Primary Specification Average is required</div>
+                                    <div *ngIf="condusiveWeatherForm.get( 'primarySpecificationAverage').errors?.pattern">Primary Specification Average Value must be Numeric</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="row" *ngIf="!showPrimaryAvg">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label>Primary Specification Lower</label>
+                                <input type="number" formControlName="primarySpecificationLower" class="form-control" [ngClass]="{'is-invalid': condusiveWeatherForm.get('primarySpecificationLower').touched && condusiveWeatherForm.get('primarySpecificationLower').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Primary Specification Lower is required</div>
+                                </div>
+                            </div>
+                        </div> -->
+                    <!-- </div>
+
+                    <div class="row" *ngIf="!showPrimaryAvg"> -->
+                    <!-- <div class="col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label>Primary Specification Upper</label>
+                                <input type="number" formControlName="primarySpecificationUpper" class="form-control" [ngClass]="{'is-invalid': condusiveWeatherForm.get('primarySpecificationUpper').touched && condusiveWeatherForm.get('primarySpecificationUpper').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Primary Specification Upper is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit </span> <span
+                        *ngIf="mode=='edit'">Update </span></button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/zonal/conducive-weather']">Cancel</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <strong>Bulk Insert</strong><small> Form</small>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <form (ngSubmit)="submitExcelForm()" novalidate>
+                <div class="card-body">
+                    <div class="form-group mb-0">
+                        <label for="file-input">Select excel(.xlsx) file</label>
+                        <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="submit"> Submit</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/zonal/conducive-weather']">Cancel</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

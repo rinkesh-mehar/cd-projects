@@ -1,0 +1,142 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify" [hidden]="!isVillage"> Alias Village List</i>
+                            <i class="fa fa-align-justify" [hidden]="!isAddNewRow"> Add Alias Village</i>
+                            <div class="card-header-actions">
+                                <button [hidden]="!isAddNewRow" class="btn btn-primary btn-sm move-right" (click)=modalSuccess($event)> Back
+                                </button>
+                                <button class="btn btn-primary btn-sm move-right" [disabled]="disableRow == true" (click)=addNewRow()> Add
+                                    Village Alias
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event)">
+                                <thead>
+                                    <tr [hidden]="!isVillage">
+                                        <th class="text-left" style="width: 350px;" mat-sort-header="stateName">State</th>
+                                        <th class="text-left" style="width: 350px; " mat-sort-header="districtName">District</th>
+                                        <th class="text-left" style="width: 350px; " mat-sort-header="tehsilName">Tehsil</th>
+                                        <th class="text-left" style="width: 350px; " mat-sort-header="alias">Village Alias</th>
+                                        <th class="text-left" style="width: 350px ">Village</th>
+                                        <th class="text-center" style="width: 150px ">Action</th>
+                                    </tr>
+
+                                    <tr [hidden]="!isAddNewRow">
+                                        <th class="text-left" style="width: 350px;">State</th>
+                                        <th class="text-left" style="width: 350px; ">District</th>
+                                        <th class="text-left" style="width: 350px; ">Tehsil</th>
+                                        <th class="text-left" style="width: 350px ">Village</th>
+                                        <th class="text-left" style="width: 350px; ">Village Alias <span class="required-asterisk" style="color:red;">*</span></th>
+                                        <th class="text-center" style="width: 150px ">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr [hidden]="!isVillage" *ngFor="let alias of pageVillageAlias[1].content">
+
+                                        <td class="text-left">{{alias.stateName |titlecase}}</td>
+
+                                        <td class="text-left">{{alias.districtName |titlecase}}</td>
+
+                                        <td class="text-left">{{alias.tehsilName |titlecase}}</td>
+
+                                        <td class="text-left">{{alias.alias}}</td>
+                                        <td class="text-left">
+                                            <select class="form-control" (mouseenter)="getData(alias.stateCode,alias.districtCode,alias.tehsilCode,$event)" (change)="saveAliasVillage(alias.id, alias.stateCode,
+                                              alias.districtCode,alias.tehsilCode, null,$event,'addList')">
+                                                <option value="">--Select Village--</option>
+                                            </select>
+                                        </td>
+
+                                        <td class="addAction">
+                                            <!-- <button type="button" class="btn btn-info btn-sm move-right" title="Save"
+                                            (click)="saveAliasCommodity(null, alias.ID, stateList[i].StateCode,
+                                            districtList[i].DistrictCode)"><i
+                                            class="fa fa-get-pocket"></i></button>
+                                    <button type="button" class="btn btn-danger btn-sm move-right" title="Clear"
+                                            (click)="deleteRow(-1)"><i
+                                            class="fa fa-close"></i></button>-->
+
+
+                                        </td>
+                                    </tr>
+
+                                    <!--                                <label>{{stateList | json}}</label>-->
+                                    <tr [hidden]="!isAddNewRow" *ngFor="let item of row; let i = index">
+
+                                        <td><select class="form-control state" (change)="loadDistrictByStateCode($event)">
+                                                <option value="">--Select State--</option>
+                                                <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                                    {{state.name}}
+                                                </option>
+
+                                            </select>
+                                        </td>
+                                        <td>
+
+                                            <select class="form-control district" (change)="loadTehsilByDistrictCode($event)">
+                                                <option value="">--Select District--</option>
+                                                <option *ngFor="let district of districtList" value={{district.districtCode}}>
+                                                    {{district.name}}
+                                                </option>
+
+                                            </select>
+                                        </td>
+
+                                        <td><select class="form-control tehsil" (change)="loadVillageByTehsilCode($event)">
+                                                <option value="">--Select Tehsil--</option>
+                                                <option *ngFor="let tehsil of tehsilList" value={{tehsil.id}}>
+                                                    {{tehsil.name}}
+                                                </option>
+
+                                            </select>
+                                        </td>
+                                        <td><select class="form-control village">
+                                                <option value="">--Select Village--</option>
+                                                <option *ngFor="let village of villageList" value={{village.villageCode}}>
+                                                    {{village.name}}
+                                                </option>
+
+                                            </select>
+                                        </td>
+
+                                        <td><input class="form-control alias" type="text" required (keyup)="validAliasName()">
+                                            <span class="text-danger"></span></td>
+                                        <td>
+                                            <button type="button" class="btn btn-info btn-sm move-right" title="Save" (click)="saveAliasVillage(0, null,
+                                                   null,null, null,$event,'addAlias')"><i class="fa fa-get-pocket"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm move-right" title="Clear" (click)="deleteRow(i)"><i class="fa fa-close"></i></button>
+
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                                <tbody *ngIf="pageVillageAlias[1].content.length == 0">
+                                    <td colspan="6" class="text-left">Data Not Found..!!</td>
+                                </tbody>
+                            </table>
+                            <div class="col-xs-12 col-12 text-center p-0" [hidden]="!isVillage">
+                                <pagination [totalItems]="pageVillageAlias[1].totalElements" [(ngModel)]="selectedPage" [maxSize]="maxSize" class="pagination-md" previousText="&lsaquo; Prev" nextText="Next &rsaquo;" firstText="&laquo; First" lastText="Last &raquo; " [boundaryLinks]="true"
+                                    [itemsPerPage]="pageVillageAlias[1].size" [rotate]="false" (numPages)="numPages = $event;" (pageChanged)="onSelect($event.page-1)">
+                                </pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

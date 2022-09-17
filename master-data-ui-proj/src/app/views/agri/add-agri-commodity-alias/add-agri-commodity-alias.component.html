@@ -1,0 +1,101 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <!--   <i class="fa fa-align-justify"></i> Commodity Alias List-->
+                            <i class="fa fa-align-justify" [hidden]="!isCommodity"> Commodity Alias List</i>
+                            <i class="fa fa-align-justify" [hidden]="!isAddNewRow"> Add Commodity Alias</i>
+                            <div class="card-header-actions">
+                                <button [hidden]="!isAddNewRow" class="btn btn-primary btn-sm move-right" (click)=modalSuccess($event)> Back</button>
+                                <button class="btn btn-primary btn-sm move-right" [disabled]="disableRow == true" (click)=addNewRow()> Add
+                                    Commodity Alias </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event)">
+                                <thead>
+                                    <tr>
+
+                                        <th class="text-left" style="width: 350px " mat-sort-header="alias">Alias Name <span *ngIf="flag==1" class="required-asterisk" style="color:red;">*</span></th>
+                                        <th class="text-left" style="width: 500px; ">Commodity</th>
+                                        <th class="text-center" style="width: 150px ">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr [hidden]="!isCommodity" *ngFor="let alias of pageCommodityAlias[1].content; let i = index">
+
+                                        <!-- <tbody>
+                                <tr *ngFor="let plantPart of PlantPartList"> -->
+                                        <td class="text-left">{{alias.alias}}</td>
+                                        <td class="text-left">
+                                            <select class="form-control" (change)="saveAliasCommodity(alias.id, $event, null,'addList')">
+                                                <option value="">--Select--</option>
+                                                <option *ngFor="let commodity of pageCommodityAlias[0].Commodity" value={{commodity.id}}>
+                                                    {{commodity.name}}
+                                                </option>
+
+                                            </select>
+
+                                        </td>
+                                        <td class="addAction">
+                                            <!-- <button type="button" class="btn btn-info btn-sm move-right" title="Save"
+                                                 (click)="saveAliasCommodity(null, alias.ID, commodityList[i].ID)"><i
+                                                class="fa fa-get-pocket"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm move-right" title="Clear"
+                                                (click) = "deleteRow(-1)"><i
+                                                class="fa fa-close"></i></button>
+-->
+
+                                        </td>
+                                    </tr>
+
+                                    <tr [hidden]="!isAddNewRow" *ngFor="let item of row; let i = index">
+                                        <td><input class="form-control" type="text" required (keyup)="validAliasName()">
+                                            <span class="text-danger"></span></td>
+                                        <td><select class="form-control">
+                                                <option value="">--Select--</option>
+                                                <option *ngFor="let commodity of pageCommodityAlias[0].Commodity" value={{commodity.id}}>
+                                                    {{commodity.name}}
+                                                </option>
+
+                                            </select></td>
+                                        <td>
+                                            <button type="button" class="btn btn-info btn-sm move-right" title="Save" (click)="saveAliasCommodity(0, $event,i,'addAlias')"><i class="fa fa-get-pocket"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm move-right" title="Clear" (click)="deleteRow(i)"><i class="fa fa-close"></i></button>
+
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <tbody *ngIf="pageCommodityAlias[1].content.length == 0">
+                                <td colspan="3" class="text-left">Data Not Found..!!</td>
+                            </tbody>
+                            <div class="col-xs-12 col-12 text-center p-0" [hidden]="!isCommodity">
+                                <pagination [totalItems]="pageCommodityAlias[1].totalElements" [(ngModel)]="selectedPage" [maxSize]="maxSize" class="pagination-md" previousText="&lsaquo; Prev" nextText="Next &rsaquo;" firstText="&laquo; First" lastText="Last &raquo; " [boundaryLinks]="true"
+                                    [itemsPerPage]="pageCommodityAlias[1].size" [rotate]="false" (numPages)="numPages = $event;" (pageChanged)="onSelect($event.page-1)">
+                                </pagination>
+                            </div>
+                            <!-- <button type="button" class="btn btn-success" title="Add"
+                                    (click) ="addNewRow()"> Add <i
+                                    class="fa fa-plus"></i></button>-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

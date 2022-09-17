@@ -1,0 +1,36 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Department</span> <span
+                    *ngIf="mode=='edit'">Edit Department</span></strong></div>
+                <form [formGroup]="departmentForm" (ngSubmit)="submitForm()" novalidate>
+
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+
+                                <label>Department <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" maxlength="200" [ngClass]="{ 'is-invalid': departmentForm.get( 'name').touched && departmentForm.get( 'name').invalid}" (change)="trimValue(this.departmentForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Department is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-primary " type="submit"> <span *ngIf="mode=='add'"> Submit</span> <span
+                        *ngIf="mode=='edit'">Update</span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/cropdata-portal/department-list']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

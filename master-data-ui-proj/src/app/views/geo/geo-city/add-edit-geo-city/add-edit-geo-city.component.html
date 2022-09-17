@@ -1,0 +1,135 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                            *ngIf="mode=='edit'">Update </span> City</strong></div>
+            <div class="card-body">
+
+                <div *ngIf="isSubmitted">
+                    <div class="alert alert-success" *ngIf="isSuccess">
+                        <strong> {{_statusMsg}} Please Wait ..</strong>.
+                    </div>
+
+                    <div class="alert alert-danger" *ngIf="!isSuccess ">
+                        <strong>{{_statusMsg}}</strong>
+                    </div>
+                </div>
+
+                <form [formGroup]="CityForm" (ngSubmit)="submitCityForm()" novalidate>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>State</label>
+                            <!-- <select formControlName="stateCode" class="form-control" (change)="getVarietyByCommodity()" [ngClass]="{'is-invalid': CityForm.get('stateCode').touched &&
+                                    CityForm.get('stateCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                        {{state.name}}
+                                    </option>
+                                </select> -->
+
+                            <select formControlName="stateCode" class="form-control" [ngClass]="{'is-invalid': CityForm.get('stateCode').touched &&
+                                CityForm.get('stateCode').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                    {{state.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select State</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>District</label>
+                            <select formControlName="districtCode" class="form-control" [ngClass]="{'is-invalid': CityForm.get('districtCode').touched && CityForm.get('districtCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let district of districtList" value={{district.id}}>
+                                        {{district.name}}
+                                    </option>
+                                </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select District</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>City Code</label>
+                                <input type="text" formControlName="cityCode" class="form-control" [ngClass]="{'is-invalid': CityForm.get('cityCode').touched && CityForm.get('cityCode').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>City Code is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': CityForm.get('name').touched && CityForm.get('name').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>City is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <!-- <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <strong>Bulk Insert</strong><small> Form</small>
+                          </div>
+                          <div class="col text-right">
+                            <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format" ><i class="fa fa-download" aria-hidden="true"></i></button>
+                          </div>
+                    </div>
+                </div>
+                
+    
+                <div class="card-body">
+                    <div *ngIf="isSubmittedBulk">
+                        <div class="alert alert-success" *ngIf="isSuccess">
+                            <strong> {{_statusMsg}} Please Wait ..</strong>.
+                        </div>
+    
+                        <div class="alert alert-danger" *ngIf="!isSuccess ">
+                            <strong>{{_statusMsg}}</strong>
+                        </div>
+                    </div>
+    
+                    <form (ngSubmit)="submitExcelForm()" novalidate>
+    
+                        <div class="form-group">
+                            <label for="file-input">Select excel(.xlsx) file</label>
+                            <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                        </div>
+                        <button class="btn btn-primary" type="submit"> Submit </button>
+                    </form>
+                </div>
+            </div>
+            
+        </div> -->
+
+</div>

@@ -1,0 +1,105 @@
+<div class="animated fadeInDown">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <form (submit)="changeLeadInformationChart(DashboardForm)" #DashboardForm="ngForm" novalidate>
+
+                        <div class="row">
+                            <div class="form-group col-sm-4 col-sm-12 col-md-6 col-lg-6 col-xl-5">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Commodity</mat-label>
+                                    <mat-select name="commodityID"
+                                                class="filter-select"
+                                                [(ngModel)]="selectedCommodityIDs"
+                                                [compareWith]="equals"
+                                                #commoditySelect="ngModel"
+                                                multiple
+                                    >
+                                        <mat-option
+                                                disabled="disabled"
+                                                class="filter-option">
+                                            <button
+                                                    mat-raised-button
+                                                    class="mat-primary fill text-sm"
+                                                    (click)="selectAll(commoditySelect, commodityNameIdList)">
+                                                Select All
+                                            </button>
+                                            <button
+                                                    mat-raised-button
+                                                    class="mat-accent fill text-sm"
+                                                    (click)="deselectAll(commoditySelect)">
+                                                Deselect All
+                                            </button>
+                                        </mat-option>
+                                        <mat-option
+                                                *ngFor="let commodity of commodityNameIdList"
+                                                [value]="commodity">{{commodity.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+
+                            <div class="form-group col-sm-4 col-sm-12 col-md-6 col-lg-6 col-xl-5">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Region</mat-label>
+                                    <mat-select name="regionID"
+                                                class="filter-select"
+                                                [(ngModel)]="selectedRegionIDs"
+                                                [compareWith]="equals"
+                                                #regionSelect="ngModel"
+                                                multiple
+                                    >
+                                        <mat-option
+                                                disabled="disabled"
+                                                class="filter-option">
+                                            <button
+                                                    mat-raised-button
+                                                    class="mat-primary fill text-sm"
+                                                    (click)="selectAll(regionSelect, regionIdNameList)">
+                                                Select All
+                                            </button>
+                                            <button
+                                                    mat-raised-button
+                                                    class="mat-accent fill text-sm"
+                                                    (click)="deselectAll(regionSelect)">
+                                                Deselect All
+                                            </button>
+                                        </mat-option>
+                                        <mat-option
+                                                *ngFor="let region of regionIdNameList"
+                                                [value]="region">{{region.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-2">
+                                <mat-card-actions>
+                                    <button style="margin-top: 4%;!important;" mat-raised-button color="primary"
+                                            mat-button type=submit>Search
+                                    </button>
+                                </mat-card-actions>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+
+                            <div style="height: 600px">
+                                <canvas id="leadInformationChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

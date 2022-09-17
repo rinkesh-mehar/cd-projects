@@ -1,0 +1,906 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>View Agriota Buyer Registration Form</strong></div>
+                <form [formGroup]="viewBuyerPreApplicationForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+
+                        <h4 style="color:#ffd866;">Entity Details : </h4><br>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Nature of Business : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.natureOfBusiness}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4" [hidden]="viewBuyerPreAppliation.natureOfBusiness == 'Agriculture'">
+                                <div class="form-group">
+                                    <label>Non-Agricultural Business Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.nonAgriculturalBusinessName}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Applicant Type : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.applicationName}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Present Buisness / Occupation : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.presentBuisnessOrOccupation}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Commodity Of Interest : </label>
+                                    <input type="text" disabled class="form-control" title="{{currentOrInterestedProducts}}" value={{currentOrInterestedProducts}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Company Type : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.companyType}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Website : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.website}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Company Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.companyName}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Reference : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.reference}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Parent Reference : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.parentReference}}>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr style="border-top: 1px solid #ffd866">
+                        <h4 style="color:#ffd866;">Registered Address : </h4><br>
+                        <div class="row">
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Country Name : </label>
+                                    <input type="text" disabled class="form-control" value={{regCountry}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>State Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.regState}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>City Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.regCity}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Street Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.regStreetName}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Building Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.regBuildingName}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Postal Code : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.regPostalCode}}>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr style="border-top: 1px solid #ffd866">
+                        <h4 style="color:#ffd866;">Business Address : </h4><br>
+                        <div class="row">
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Country Name : </label>
+                                    <input type="text" disabled class="form-control" value={{businessCountry}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>State Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.bussinessState}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>City Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.bussinessCity}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Street Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.bussinessStreetName}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Building Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.bussinessBuildingName}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Postal Code : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.bussinessPostalCode}}>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr style="border-top: 1px solid #ffd866">
+                        <h4 style="color:#ffd866;">Company Information : </h4><br>
+                        <div class="row" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Corporate Identification No. (CIN) : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.cinNumber}}>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                                <div class="form-group">
+                                    <label>Corporate Identity No. (CIN) Document : </label>
+                                    <a data-toggle="modal" data-target="#cinImageModal" [hidden]="(cinUrl ==null || cinUrl == '') || (cinUrl != null && cinUrl.substr(cinUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{cinUrl}}" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <a data-toggle="modal" data-target="#pdfModal" [hidden]="(cinUrl ==null || cinUrl == '') || (cinUrl != null && cinUrl.substr(cinUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(cinUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <div [hidden]="cinUrl !=null"><img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image"></div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8">
+                                <label class="form-group">Corporate Identification No. (CIN) Document : </label>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" *ngFor="let cinUrl of cinUrlList;">
+                                        <div class="imageBox" style="max-height: 150px;overflow: auto;">
+                                            <a data-toggle="modal" data-target="#cinImageModal" [hidden]="(cinUrl ==null || cinUrl == '') || (cinUrl != null && cinUrl.substr(cinUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{cinUrl}}" (click)="onClickCin(cinUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                            <a data-toggle="modal" data-target="#pdfModal" [hidden]="(cinUrl ==null || cinUrl == '') || (cinUrl != null && cinUrl.substr(cinUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(cinUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" [hidden]="cinUrlList.length != 0">
+                                        <img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>GST No. : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.gstNumber}}>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                                <div class="form-group">
+                                    <label>GST Document : </label>
+                                    <a data-toggle="modal" data-target="#gstCertificateImageModal" [hidden]="(gstCertificateUrl==null || gstCertificateUrl== '') || (gstCertificateUrl != null && gstCertificateUrl.substr(gstCertificateUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{gstCertificateUrl}}" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <a data-toggle="modal" data-target="#pdfModal" [hidden]="(gstCertificateUrl==null || gstCertificateUrl== '') || (gstCertificateUrl != null && gstCertificateUrl.substr(gstCertificateUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(gstCertificateUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <div [hidden]="gstCertificateUrl !=null"><img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image"></div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8">
+                                <label class="form-group">GST Certificate : </label>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" *ngFor="let gstCertificateUrl of gstUrlList;">
+                                        <div class="imageBox" style="max-height: 150px;overflow: auto;">
+                                            <a data-toggle="modal" data-target="#gstCertificateImageModal" [hidden]="(gstCertificateUrl ==null || gstCertificateUrl == '') || (gstCertificateUrl != null && gstCertificateUrl.substr(gstCertificateUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{gstCertificateUrl}}" (click)="onClickGst(gstCertificateUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                            <a data-toggle="modal" data-target="#pdfModal" [hidden]="(gstCertificateUrl ==null || gstCertificateUrl == '') || (gstCertificateUrl != null && gstCertificateUrl.substr(gstCertificateUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(gstCertificateUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" [hidden]="gstUrlList.length != 0">
+                                        <img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Udyam Registration No. : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.udyogAadharNo}}>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                                <div class="form-group">
+                                    <label>Udyog Aadhar Document : </label>
+                                    <a data-toggle="modal" data-target="#udyogAadharImageModal" [hidden]="(udyogAadharUrl==null || udyogAadharUrl== '') || (udyogAadharUrl != null && udyogAadharUrl.substr(udyogAadharUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{udyogAadharUrl}}" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <a data-toggle="modal" data-target="#pdfModal" [hidden]="(udyogAadharUrl==null || udyogAadharUrl== '') || (udyogAadharUrl != null && udyogAadharUrl.substr(udyogAadharUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(udyogAadharUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <div [hidden]="udyogAadharUrl !=null"><img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image"></div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8">
+                                <label class="form-group">Udyam Registration Document : </label>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" *ngFor="let udyogAadharUrl of udyogAadharUrlList;">
+                                        <div class="imageBox" style="max-height: 150px;overflow: auto;">
+                                            <a data-toggle="modal" data-target="#udyogAadharImageModal" [hidden]="(udyogAadharUrl ==null || udyogAadharUrl == '') || (udyogAadharUrl != null && udyogAadharUrl.substr(udyogAadharUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{udyogAadharUrl}}" (click)="onClickUdyogAadhar(udyogAadharUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                            <a data-toggle="modal" data-target="#pdfModal" [hidden]="(udyogAadharUrl ==null || udyogAadharUrl == '') || (udyogAadharUrl != null && udyogAadharUrl.substr(udyogAadharUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(udyogAadharUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" [hidden]="udyogAadharUrlList.length != 0">
+                                        <img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Income Tax Permanent Account No. (PAN) : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.panNo}}>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                                <div class="form-group">
+                                    <label>Income Tax Permanent Account No. (PAN) Document : </label>
+                                    <a data-toggle="modal" data-target="#panImageModal" [hidden]="(panUrl==null || panUrl== '') || (panUrl != null && panUrl.substr(panUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{panUrl}}" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <a data-toggle="modal" data-target="#pdfModal" [hidden]="(panUrl==null || panUrl== '') || (panUrl != null && panUrl.substr(panUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(panUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <div [hidden]="panUrl !=null"><img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image"></div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8">
+                                <label class="form-group">Income Tax Permanent Account No. (PAN) Document : </label>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" *ngFor="let panUrl of panUrlList;">
+                                        <div class="imageBox" style="max-height: 150px;overflow: auto;">
+                                            <a data-toggle="modal" data-target="#panImageModal" [hidden]="(panUrl ==null || panUrl == '') || (panUrl != null && panUrl.substr(panUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{panUrl}}" (click)="onClickPan(panUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                            <a data-toggle="modal" data-target="#pdfModal" [hidden]="(panUrl ==null || panUrl == '') || (panUrl != null && panUrl.substr(panUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(panUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" [hidden]="panUrlList.length != 0">
+                                        <img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>TAN No. : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.tanNo}}>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                                <div class="form-group">
+                                    <label>TAN Document : </label>
+                                    <a data-toggle="modal" data-target="#tanImageModal" [hidden]="(tanUrl==null || tanUrl== '') || (tanUrl != null && tanUrl.substr(tanUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{tanUrl}}" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <a data-toggle="modal" data-target="#pdfModal" [hidden]="(tanUrl==null || tanUrl== '') || (tanUrl != null && tanUrl.substr(tanUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(tanUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <div [hidden]="tanUrl !=null"><img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image"></div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8">
+                                <label class="form-group">TAN Certificate : </label>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" *ngFor="let tanUrl of tanUrlList;">
+                                        <div class="imageBox" style="max-height: 150px;overflow: auto;">
+                                            <a data-toggle="modal" data-target="#tanImageModal" [hidden]="(tanUrl ==null || tanUrl == '') || (tanUrl != null && tanUrl.substr(tanUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{tanUrl}}" (click)="onClickTan(tanUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                            <a data-toggle="modal" data-target="#pdfModal" [hidden]="(tanUrl ==null || tanUrl == '') || (tanUrl != null && tanUrl.substr(tanUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(tanUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" [hidden]="tanUrlList.length != 0">
+                                        <img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Market License Number. : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.marketLicenseNumber}}>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                                <div class="form-group">
+                                    <label>Market License Document : </label>
+                                    <a data-toggle="modal" data-target="#marketLicenseImageModal" [hidden]="(marketLicenseDocumentUrl==null || marketLicenseDocumentUrl== '') || (marketLicenseDocumentUrl != null && marketLicenseDocumentUrl.substr(marketLicenseDocumentUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{marketLicenseDocumentUrl}}" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <a data-toggle="modal" data-target="#pdfModal" [hidden]="(marketLicenseDocumentUrl==null || marketLicenseDocumentUrl== '') || (marketLicenseDocumentUrl != null && marketLicenseDocumentUrl.substr(marketLicenseDocumentUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(marketLicenseDocumentUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <div [hidden]="marketLicenseDocumentUrl !=null"><img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image"></div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8">
+                                <label class="form-group">Market License Document : </label>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" *ngFor="let marketLicenseDocumentUrl of marketLicenseUrlList;">
+                                        <div class="imageBox" style="max-height: 150px;overflow: auto;">
+                                            <a data-toggle="modal" data-target="#marketLicenseImageModal" [hidden]="(marketLicenseDocumentUrl ==null || marketLicenseDocumentUrl == '') || (marketLicenseDocumentUrl != null && marketLicenseDocumentUrl.substr(marketLicenseDocumentUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{marketLicenseDocumentUrl}}" (click)="onClickMarketlicense(marketLicenseDocumentUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                            <a data-toggle="modal" data-target="#pdfModal" [hidden]="(marketLicenseDocumentUrl ==null || marketLicenseDocumentUrl == '') || (marketLicenseDocumentUrl != null && marketLicenseDocumentUrl.substr(marketLicenseDocumentUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(marketLicenseDocumentUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" [hidden]="marketLicenseUrlList.length != 0">
+                                        <img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" [hidden]="viewBuyerPreAppliation.countryCode != 'IN'">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Date Of Incorporation / License Issue Date : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.dateOfIncorporationLiscenceIssueDate}}>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>CIN / License Expiry Date : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.cinLiscenceExpiryDate}}>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" [hidden]="viewBuyerPreAppliation.countryCode == 'IN'">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Company Registration No. : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.companyRegistrationNumber}}>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4" [hidden]="viewBuyerPreAppliation.countryCode == 'IN'">
+                                <div class="form-group">
+                                    <label>Company Registration Document : </label>
+                                    <a data-toggle="modal" data-target="#compRegNoImageModal" [hidden]="(companyRegistrationDocumentUrl == null || companyRegistrationDocumentUrl == '') || (companyRegistrationDocumentUrl != null && companyRegistrationDocumentUrl.substr(companyRegistrationDocumentUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{companyRegistrationDocumentUrl}}" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <a data-toggle="modal" data-target="#pdfModal" [hidden]="(companyRegistrationDocumentUrl == null || companyRegistrationDocumentUrl == '') || (companyRegistrationDocumentUrl != null && companyRegistrationDocumentUrl.substr(companyRegistrationDocumentUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(companyRegistrationDocumentUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <div [hidden]="companyRegistrationDocumentUrl !=null"><img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image"></div>
+                                </div>
+                            </div> -->
+
+
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8">
+                                <label class="form-group">Company Registration Document : </label>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" *ngFor="let companyRegistrationDocumentUrl of compRegUrlList;">
+                                        <div class="imageBox" style="max-height: 150px;overflow: auto;">
+                                            <a data-toggle="modal" data-target="#compRegNoImageModal" [hidden]="(companyRegistrationDocumentUrl ==null || companyRegistrationDocumentUrl == '') || (companyRegistrationDocumentUrl != null && companyRegistrationDocumentUrl.substr(companyRegistrationDocumentUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{companyRegistrationDocumentUrl}}" (click)="onClickCompRegNo(companyRegistrationDocumentUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                            <a data-toggle="modal" data-target="#pdfModal" [hidden]="(companyRegistrationDocumentUrl ==null || companyRegistrationDocumentUrl == '') || (companyRegistrationDocumentUrl != null && companyRegistrationDocumentUrl.substr(companyRegistrationDocumentUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(companyRegistrationDocumentUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" [hidden]="compRegUrlList.length != 0">
+                                        <img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row" [hidden]="viewBuyerPreAppliation.countryCode == 'IN'">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Value Added Tax (VAT) No. : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.vatNo}}>
+                                </div>
+                            </div>
+                            <!-- 
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4" [hidden]="viewBuyerPreAppliation.countryCode == 'IN'">
+                                <div class="form-group">
+                                    <label>Value Added Tax (VAT) Document : </label>
+                                    <a data-toggle="modal" data-target="#vatImageModal" [hidden]="(vatUrl == null || vatUrl == '') || (vatUrl != null && vatUrl.substr(vatUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{vatUrl}}" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <a data-toggle="modal" data-target="#pdfModal" [hidden]="(vatUrl == null || vatUrl == '') || (vatUrl != null && vatUrl.substr(vatUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(vatUrl)" class="img-fluid form-control" alt="image"></a>
+                                    <div [hidden]="vatUrl !=null"><img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image"></div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8">
+                                <label class="form-group">Value Added Tax (VAT) Document : </label>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" *ngFor="let vatUrl of vatUrlList;">
+                                        <div class="imageBox" style="max-height: 150px;overflow: auto;">
+                                            <a data-toggle="modal" data-target="#vatImageModal" [hidden]="(vatUrl ==null || vatUrl == '') || (vatUrl != null && vatUrl.substr(vatUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{vatUrl}}" (click)="onClickVat(vatUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                            <a data-toggle="modal" data-target="#pdfModal" [hidden]="(vatUrl ==null || vatUrl == '') || (vatUrl != null && vatUrl.substr(vatUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(vatUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" [hidden]="vatUrlList.length != 0">
+                                        <img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" [hidden]="viewBuyerPreAppliation.countryCode == 'IN'">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Income Tax No. : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.incomeTaxNumber}}>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4" [hidden]="viewBuyerPreAppliation.countryCode == 'IN'">
+                                <div class="form-group">
+                                    <label>Income Tax Document : </label>
+                                    <a data-toggle="modal" data-target="#incomeTaxImageModal" [hidden]="(incomeTaxUrl == null || incomeTaxUrl == '') || (incomeTaxUrl != null && incomeTaxUrl.substr(incomeTaxUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{incomeTaxUrl}}" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                    <a data-toggle="modal" data-target="#pdfModal" [hidden]="(incomeTaxUrl == null || incomeTaxUrl == '') || (incomeTaxUrl != null && incomeTaxUrl.substr(incomeTaxUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(incomeTaxUrl)" class="img-fluid form-control" alt="image"></a>
+                                    <div [hidden]="incomeTaxUrl !=null"><img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image"></div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8">
+                                <label class="form-group">Income Tax Document : </label>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" *ngFor="let incomeTaxUrl of incomeTaxNoUrlList;">
+                                        <div class="imageBox" style="max-height: 150px;overflow: auto;">
+                                            <a data-toggle="modal" data-target="#incomeTaxImageModal" [hidden]="(incomeTaxUrl ==null || incomeTaxUrl == '') || (incomeTaxUrl != null && incomeTaxUrl.substr(incomeTaxUrl.lastIndexOf('.')+1).toLowerCase() == 'pdf')"><img src="{{incomeTaxUrl}}" (click)="onClickIncomeTaxNo(incomeTaxUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                            <a data-toggle="modal" data-target="#pdfModal" [hidden]="(incomeTaxUrl ==null || incomeTaxUrl == '') || (incomeTaxUrl != null && incomeTaxUrl.substr(incomeTaxUrl.lastIndexOf('.')+1).toLowerCase() != 'pdf')"><img src="assets/view-pdf.png" (click)="onClickPdf(incomeTaxUrl)" style="height: auto" width="250" class="img-fluid d-block" alt="image"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-4" [hidden]="incomeTaxNoUrlList.length != 0">
+                                        <img src="assets/no-doc-uploaded.png" style="height: auto" width="250" class="img-fluid d-block" alt="image">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row" [hidden]="viewBuyerPreAppliation.countryCode == 'IN'">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Date Of Incorporation / Registration : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.dateOfIncorporationRegistration}}>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>License Expiry Date : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.liscenceExpiryDate}}>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr style="border-top: 1px solid #ffd866">
+                        <h4 style="color:#ffd866;">Directors/Proprietor/Partner Details : </h4><br>
+                        <div *ngFor="let signatoryDetails of signatoryList;  let i=index">
+                            <!--Loop for directors-->
+                            <div class="card" style="border: solid 1px #656565;">
+                                <div class="card-header">
+                                    <h5 class="m-0">{{i + 1}} </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                            <div class="form-group">
+                                                <label>Name : </label>
+                                                <input type="text" disabled class="form-control" value={{signatoryDetails.directorsProprietorPartnerName}}>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                            <div class="form-group">
+                                                <label>Designation : </label>
+                                                <input type="text" disabled class="form-control" value={{signatoryDetails.designation}}>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4" [hidden]="signatoryDetails.designation != 'Other'">
+                                            <div class="form-group">
+                                                <label>Other Designation : </label>
+                                                <input type="text" disabled class="form-control" value={{signatoryDetails.otherDesignation}}>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                            <div class="form-group">
+                                                <label>Email Address : </label>
+                                                <input type="text" disabled class="form-control" value={{signatoryDetails.companyAuthSignEmail}}>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                            <div class="form-group">
+                                                <label>Telephone Number : </label>
+                                                <input type="text" disabled class="form-control" value={{signatoryDetails.telephoneNumber}}>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-0">
+                                            <div class="form-group">
+                                                <label>Mobile Number : </label>
+                                                <input type="text" disabled class="form-control" value={{signatoryDetails.companyMobileNumber}}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="signatoryList.length == 0">
+                            <div class="row">
+                                <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                    <div class="form-group">
+                                        <label>Name : </label>
+                                        <input type="text" disabled class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                    <div class="form-group">
+                                        <label>Designation : </label>
+                                        <input type="text" disabled class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                    <div class="form-group">
+                                        <label>Other Designation : </label>
+                                        <input type="text" disabled class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                    <div class="form-group">
+                                        <label>Email Address : </label>
+                                        <input type="text" disabled class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                    <div class="form-group">
+                                        <label>Telephone Number : </label>
+                                        <input type="text" disabled class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-0">
+                                    <div class="form-group">
+                                        <label>Mobile Number : </label>
+                                        <input type="text" disabled class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <hr style="border-top: 1px solid #ffd866">
+                        <h4 style="color:#ffd866;">Admin Details : </h4><br>
+                        <div class="row">
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.adminName}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Designation : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.adminDesignation}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Email Address : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.adminEmailAddress}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Telephone Number : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.adminTelephoneNumber}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Mobile Number : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.adminMobileNumber}}>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr style="border-top: 1px solid #ffd866">
+                        <h4 style="color:#ffd866;">Bank Details : </h4><br>
+                        <div class="row">
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Bank Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.bankName}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Branch Name : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.branch}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Account Type : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.accountType}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>Account Number : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.accountNumber}}>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="form-group">
+                                    <label>IFSC / Swift Code : </label>
+                                    <input type="text" disabled class="form-control" value={{viewBuyerPreAppliation.ifsccode}}>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer ">
+                        <!-- <button class="btn btn-primary " type="submit"> Update </button> -->
+                        <button type="button" class="btn btn-danger" [routerLink]="['/cropdata-portal/buyer-pre-application-list']">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>
+
+<!-- CIN Certificate Modal -->
+<div #cinCloseButton class="modal fade" id="cinImageModal" tabindex="-1" role="dialog" aria-labelledby="cinImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="cinImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{cinUrl}}" download="{{cinUrl}}" target="_blank"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{cinUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Udyog Aadhar Modal -->
+<div #udyogAadharCloseButton class="modal fade" id="udyogAadharImageModal" tabindex="-1" role="dialog" aria-labelledby="udyogAadharImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="udyogAadharImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{udyogAadharUrl}}" download="{{udyogAadharUrl}}" target="_blank"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{udyogAadharUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PAN Modal -->
+<div #panCloseButton class="modal fade" id="panImageModal" tabindex="-1" role="dialog" aria-labelledby="panImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="panImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{panUrl}}" download="{{panUrl}}" target="_blank"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{panUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- GST Certificate Modal -->
+<div #gstCertificateCloseButton class="modal fade" id="gstCertificateImageModal" tabindex="-1" role="dialog" aria-labelledby="gstCertificateImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="gstCertificateImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{gstCertificateUrl}}" download="{{gstCertificateUrl}}" target="_blank"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{gstCertificateUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TAN Certificate Modal -->
+<div #tanCloseButton class="modal fade" id="tanImageModal" tabindex="-1" role="dialog" aria-labelledby="tanImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="tanImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{tanUrl}}" download="{{tanUrl}}" target="_blank"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{tanUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Compant Registration Number Modal -->
+<div #companyregNoCloseButton class="modal fade" id="compRegNoImageModal" tabindex="-1" role="dialog" aria-labelledby="compRegNoImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="compRegNoImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{companyRegistrationDocumentUrl}}" download="{{companyRegistrationDocumentUrl}}" target="_blank"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{companyRegistrationDocumentUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VAT Number Modal -->
+<div #vatCloseButton class="modal fade" id="vatImageModal" tabindex="-1" role="dialog" aria-labelledby="vatImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="vatImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{vatUrl}}" download="{{vatUrl}}" target="_blank"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{vatUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Income Tax Number Modal -->
+<div #incomeTaxCloseButton class="modal fade" id="incomeTaxImageModal" tabindex="-1" role="dialog" aria-labelledby="incomeTaxImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="incomeTaxImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{incomeTaxUrl}}" download="{{incomeTaxUrl}}" target="_blank"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="{{incomeTaxUrl}}" class="img-fluid">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Market License Number Modal -->
+<div #marketLicenseCloseButton class="modal fade" id="marketLicenseImageModal" tabindex="-1" role="dialog" aria-labelledby="marketLicenseImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="marketLicenseImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{marketLicenseDocumentUrl}}" download="{{marketLicenseDocumentUrl}}" target="_blank"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{marketLicenseDocumentUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pdf Modal -->
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">PDF</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="pdfAdd"></div>
+            </div>
+
+        </div>
+    </div>
+</div>

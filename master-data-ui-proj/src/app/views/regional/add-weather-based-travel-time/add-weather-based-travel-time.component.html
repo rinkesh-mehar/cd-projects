@@ -1,0 +1,48 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'">Add </span><span *ngIf="mode=='edit'">Edit </span> Weather Based Travel Time</strong></div>
+            <form [formGroup]="travelTimeForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': travelTimeForm.get('name').touched && travelTimeForm.get('name').invalid}" (change)="trimValue(this.travelTimeForm.get('name'))">
+
+                                <div class="invalid-feedback">
+                                    <div>Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Min Per Km <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="minPerKm" class="form-control" [ngClass]="{'is-invalid': travelTimeForm.get('minPerKm').touched && travelTimeForm.get('minPerKm').invalid}" (change)="trimValue(this.travelTimeForm.get('minPerKm'))">
+
+                                <div class="invalid-feedback">
+                                    <div>Min Per Km is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'">Submit</span><span *ngIf="mode=='edit'">Update</span></button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/regional/weather-based-travel-time']">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

@@ -1,0 +1,208 @@
+<div *ngIf="_isFiltered">
+    <form #imageTag="ngForm" (ngSubmit)="saveQuery(imageTag)" ngNativeValidate>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <label><strong>Add Symptom :</strong></label>
+                                    <input type="text" class="form-control" ngModel required name="symptom" placeholder="Add your symptom" autocomplete="off" id="symptom" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3 mt-2">
+                                    <label><strong>Recommended Images:</strong></label>
+                                </div>
+                            </div>
+                            <div class="row image-box">
+                                <div class="col-md-1 col-sm-3 custom-control custom-checkbox" *ngFor="let i of _imageID; let j = index">
+                                    <input type="checkbox" class="custom-control-input" ngModel id={{j}} name="{{i._name}}">
+                                    <span data-toggle="modal" (click)="infoModal.show()" style="cursor: pointer;">
+                                        <!-- <img   title="Zoom In" class="img-fluid rounded" src="{{_baseURL}}{{i._name}}"
+                                             (click)="imageClick(i._name,'',0,0,'_img')"
+                                             alt="{{i._name}}"> -->
+                                        <img title="Zoom In" class="img-fluid rounded" src="{{i._name}}"
+                                            (click)="imageClick(i._name,'',0,0,'_img')"
+                                            alt="{{i._name}}">
+                                    </span>
+                                    <label class="custom-control-label" for={{j}}></label>
+                                </div>
+                            </div>
+                            <div class="form-group mt-5 text-center">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ng-container *ngIf="_que.length > 0">
+                        <div class="card" *ngFor="let _question of _que ;let i = index ">
+                            <div class="card-body">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <!-- Symptom-->
+                                        <div class="col-md-8 col-lg-10 col-xl-10 mb-3">
+                                            <h4><strong>Symptom : </strong>{{_question._symptom}}</h4>
+                                        </div>
+                                        <div class="col-md-4 col-lg-2 col-xl-2 text-lg-right mb-3">
+                                            <a style="cursor: pointer; " title="Tag Image to Symptom" data-toggle="modal" class="btn btn-primary text-white" (click)="infoTag(_question._symptomId,_question._symptom)" (click)="tagImage.show()"><i class="fa fa-plus fa-lg"></i></a>
+                                            <a style="cursor: pointer; " title="Edit Symptom" data-toggle="modal" class="btn btn-primary text-white" (click)="infoEdit(_question._symptomId,_question._symptom)" (click)="editSymptom.show()"><i class="fa fa-pencil fa-lg"></i></a>
+                                            <a style="cursor: pointer; " title="Remove Symptom" data-toggle="modal" class="btn btn-danger text-white" (click)="imageClick(_question._symptom,_question._symptomId,i,0,'')" (click)="delModal.show()"><i class="fa fa-trash-o fa-lg"></i></a>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <!-- Symptom images-->
+                                                <ng-container *ngFor="let _im of _question._img; let j = index  ">
+                                                    <div class="col-md-2">
+                                                        <div class="card">
+                                                            <div class="card-body p-2">
+                                                                <!--<img src="{{_baseURL}}{{_im}}" class="card-img-top rounded mb-2" alt="...">-->
+                                                                <img src="{{_im}}" class="card-img-top rounded mb-2" alt="...">
+                                                                <div class="py-2 text-center d-flex justify-content-between">
+                                                                    <a style="width: 50% ;cursor: pointer;" title="Zoom In" data-toggle="modal" (click)="infoModal.show()" (click)="imageClick(_im,'',0,0,'_img')" class="btn btn-primary mx-1 text-white">
+                                                                        <i class="icons d-block cui-magnifying-glass"></i></a>
+                                                                    <a style="width: 50%" title="Untag Image" data-toggle="modal" (click)="imageClick(_im,_question._symptomId,i,j,'_img')" (click)="delModal.show()" class="btn btn-danger mx-1 text-white">
+                                                                        <i class="fa fa-trash-o fa-lg"></i></a>
+                                                                </div>
+                                                                <div class="btn tag-btn btn-secondary w-100">
+                                                                    <div class="custom-control custom-radio custom-control-inline d-flex">
+                                                                        <input type="radio" class="custom-control-input" id="{{_question._symptomId}}-{{_im}}" name="{{_question._symptomId}}" title="Generic Image" [checked]="_im === _question._genericImageId" (click)="untagImage(_im,_question._symptomId,i,j,'GenImg')" value="{{_im}}">
+                                                                        <label class="custom-control-label symptom" for="{{_question._symptomId}}-{{_im}}" name="checkbox">Generic This Image</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Model -->
+        <div bsModal #infoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-primary modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Benchmark Image</h4>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close" (click)="infoModal.hide()">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img class="img-fluid" src="{{_imageURL}}" style="width: 100%; height: auto;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Untag Model -->
+        <div bsModal #delModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-danger" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{_genericMsg1}}</h4>
+                        <button type="button" class="close" (click)="delModal.hide()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>{{_genericMsg2}} </strong></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="delModal.hide()">Close</button>
+                        <button type="button" (click)="untagImage(_imageName,_qID,i,j,_genericMsg3)" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TagImage Model -->
+        <ng-container>
+            <div bsModal #tagImage="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-primary modal-xl" role="document">
+                    <form #imgTag="ngForm" (ngSubmit)="tagImg(imgTag)" ngNativeValidate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Tag Images for <strong>{{_symptom}} </strong></h4>
+                                <button type="button" class="close" (click)="tagImage.hide()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row image-box">
+                                    <div class="col-md-2 col-sm-3 custom-control custom-checkbox" *ngFor="let i of _imageID; let j = index">
+                                        <input type="checkbox" class="custom-control-input" ngModel id={{j+10000}} name="{{i._name}}" value="{{i._name}}">
+                                        <span style="cursor: pointer;">
+                                                <!-- <img class="img-fluid rounded"
+                                                     src="{{_baseURL}}{{i._name}}"
+                                                     alt="{{i._name}}"
+                                                     title="{{i._name}}"> -->
+                                                <img class="img-fluid rounded" src="{{i._name}}"
+                                                    alt="{{i._name}}" title="{{i._name}}">
+                                            </span>
+                                        <label class="custom-control-label" for={{j+10000}}></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="tagImage.hide()">Close</button>
+                                <button type="submit" class="btn btn-primary">Tag Images </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </ng-container>
+
+        <!--        edit symptom-->
+        <ng-container>
+            <div bsModal #editSymptom="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-primary modal-xl" role="document">
+                    <form #sympEditForm="ngForm" (ngSubmit)="editSymp(sympEditForm)" ngNativeValidate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Symptom for <strong>{{_symptom}} </strong></h4>
+                                <button type="button" class="close" (click)="editSymptom.hide()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+<!--                                <div class="row image-box">-->
+<!--                                    <div class="col-md-2 col-sm-3 custom-control custom-checkbox" *ngFor="let i of _imageID; let j = index">-->
+<!--                                        <input type="checkbox" class="custom-control-input" ngModel id={{j+10000}} name="{{i._name}}" value="{{i._name}}">-->
+<!--                                        <span style="cursor: pointer;">-->
+<!--                                                &lt;!&ndash; <img class="img-fluid rounded"-->
+<!--                                                     src="{{_baseURL}}{{i._name}}"-->
+<!--                                                     alt="{{i._name}}"-->
+<!--                                                     title="{{i._name}}"> &ndash;&gt;-->
+<!--                                                <img class="img-fluid rounded" src="{{i._name}}"-->
+<!--                                                    alt="{{i._name}}" title="{{i._name}}">-->
+<!--                                            </span>-->
+<!--                                        <label class="custom-control-label" for={{j+10000}}></label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <div>
+                                    <input type="text" ngModel required name="symptomDesc" class="form-control" autocomplete="off" id="editedSymptom"
+                                           placeholder="{{_symptom}}">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="editSymptom.hide()">Close</button>
+                                <button type="submit" class="btn btn-primary">Edit Symptom </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </ng-container>
+    </form>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

@@ -1,0 +1,73 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong>Edit Region</strong><small> Form</small></div>
+            <div class="card-body">
+
+                <form [formGroup]="updateRegionForm" (ngSubmit)="submitForm()" novalidate>
+                    <!-- <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>TileID</label>
+                                <input type="text" class="form-control" formControlName="tileId" maxlength="50"
+                                    [ngClass]="{'is-invalid': updateRegionForm.get('tileId').touched && updateRegionForm.get('tileId').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>TileId is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>State</label>
+                            <select formControlName="stateCode" class="form-control" [ngClass]="{'is-invalid': updateRegionForm.get('stateCode').touched && updateRegionForm.get('stateCode').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let state of StateList" value={{state.stateCode}}>
+                                    {{state.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select State</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Region Name</label>
+                                <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': updateRegionForm.get('name').touched && updateRegionForm.get('name').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Region Name is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control" id="textarea-input" formControlName="description" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

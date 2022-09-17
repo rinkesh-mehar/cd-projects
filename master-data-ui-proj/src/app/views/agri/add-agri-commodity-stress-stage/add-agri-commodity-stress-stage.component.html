@@ -1,0 +1,186 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header"><strong>Add Commodity Stress Stage</strong><small> Form</small></div>
+
+                <form [formGroup]="commodityStressStageForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                                <!-- <select formControlName="commodityId" class="form-control" (change)="loadAllCommodityByPhenophase()" (change)="getStressStagByCommodityIdAndStressTypeId()" [ngClass]="{'is-invalid': stressStageForm.get('commodityId').touched && stressStageForm.get('commodityId').invalid}"> -->
+                                <select formControlName="commodityId" class="form-control" (change)="loadAllStressByCommodity($event);loadAllCommodityByPhenophase()" [ngClass]="{'is-invalid': commodityStressStageForm.get('commodityId').touched && commodityStressStageForm.get('commodityId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let commodity of CommodityList" value={{commodity.id}}>
+                                    {{commodity.name}}
+                                </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Phenophase</label>
+                                <select formControlName="phenophaseId" class="form-control"
+                                    [ngClass]="{'is-invalid': stressStageForm.get('phenophaseId').touched && stressStageForm.get('phenophaseId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let phenophase of PhenophaseList" value={{phenophase.id}}>
+                                        {{phenophase.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Phenophase</div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Stress Type</label>
+                                <select formControlName="stressTypeId" class="form-control" [ngClass]="{'is-invalid': stressStageForm.get('stressTypeId').touched && stressStageForm.get('stressTypeId').invalid}" (change)="getStressStagByCommodityIdAndStressTypeId()">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let stressType of StressTypeList" value={{stressType.id}}>
+                                        {{stressType.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Stress Type</div>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Stress Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stressId" class="form-control" (change)="getStageListByStressId()" [ngClass]="{'is-invalid': commodityStressStageForm.get('stressId').touched && commodityStressStageForm.get('stressId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let stress of StressList" value={{stress.id}}>
+                                        {{stress.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Stress Name</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Stress Stage Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': stressStageForm.get('name').touched && stressStageForm.get('name').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Stress Stage Name is required</div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Stage Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stageId" class="form-control" [ngClass]="{'is-invalid': commodityStressStageForm.get('stageId').touched && commodityStressStageForm.get('stageId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let stage of StageList" value={{stage.id}}>
+                                        {{stage.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Stage Name</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Start Phenophase <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="startPhenophaseId" class="form-control" [ngClass]="{'is-invalid': commodityStressStageForm.get('startPhenophaseId').touched && commodityStressStageForm.get('startPhenophaseId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let phenophase of PhenophaseList" value={{phenophase.phenophaseId}}>
+                                        {{phenophase.phenophase}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Start Phenophase</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>End Phenophase <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="endPhenophaseId" class="form-control" [ngClass]="{'is-invalid': commodityStressStageForm.get('endPhenophaseId').touched && commodityStressStageForm.get('endPhenophaseId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let phenophase of PhenophaseList" value={{phenophase.phenophaseId}}>
+                                        {{phenophase.phenophase}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select End Phenophase</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group mb-0">
+                                    <label>Description</label>
+                                    <textarea class="form-control" id="textarea-input" formControlName="description" rows="4" (change)="trimValue(this.commodityStressStageForm.get('description'))"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Submit </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/stress/commodity-stress-stage']">Cancel</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <strong>Bulk Insert</strong><small> Form</small>
+                        </div>
+                        <div class="col text-right">
+                            <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <form (ngSubmit)="submitExcelForm()" novalidate>
+                    <div class="card-body">
+                        <div class="form-group mb-0">
+                            <label for="file-input">Select excel(.xlsx) file</label>
+                            <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Submit </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/stress/commodity-stress-stage']">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

@@ -1,0 +1,185 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <!--<div class="card-header"><strong>Add NewsReports</strong><small> Form</small></div>-->
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add News</span> <span
+                    *ngIf="mode=='edit'">Update News</span></strong></div>
+            <form [formGroup]="addNews" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Platform Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <!--<input type="text" formControlName="platform" class="form-control"
+                                       [ngModel]="addNews."
+                                       [ngClass]="{'is-invalid': addNews.get('platform').touched && addNews.get('platform').invalid}">-->
+                                <select formControlName="platformId" class="form-control" (change)="change($event)" [ngClass]="{'is-invalid': addNews.get('platformId').touched && addNews.get('platformId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let platform of platFormList" value="{{platform.id}}">{{platform.name}}</option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Platform Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" *ngIf="isCheckBox == 5">
+                            <div class="form-group">
+                                <mat-checkbox color="primary" style="padding-top: 10px" value="Yes" formControlName="isLatestNews"></mat-checkbox>
+                                <label style="margin: 0;">Set as Latest News? &nbsp;</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12" *ngIf="isPriorityHidden">
+                            <div class="form-group">
+                                <label>Priority <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="priority" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Title <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="subject" class="form-control" maxlength="255" [ngClass]="{'is-invalid': addNews.get('subject').touched && addNews.get('subject').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Title is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Published Date <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="date" formControlName="publishedDate" class="form-control" max="{{date}}" [ngClass]="{'is-invalid': addNews.get('publishedDate').touched && addNews.get('publishedDate').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Published Date is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Small Description <span *ngIf="isSmallDescriptionRequired" class="required-asterisk" style="color:red;">*</span></label>
+                                <textarea type="description" formControlName="description" class="form-control" rows="4" [ngClass]="{'is-invalid': addNews.get('description').touched && addNews.get('description').invalid}" placeholder="Please enter small description...">
+                                </textarea>
+                                <div class="invalid-feedback">
+                                    <div>Small Description is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>External URL <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="externalUrl" class="form-control" [ngClass]="{'is-invalid': addNews.get('externalUrl').touched && addNews.get('externalUrl').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div *ngIf="addNews.get( 'externalUrl').errors?.required">External URL is required</div>
+                                    <div *ngIf="addNews.get( 'externalUrl').errors?.urlValid">External URL should start with <strong>https://</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>News Source <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="imageSource" class="form-control" [ngClass]="{'is-invalid': addNews.get('imageSource').touched && addNews.get('imageSource').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>External URL Source is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <!--<div class="form-group">
+                                <label>Image URL</label>
+                                <input type="text" formControlName="imageUrl" class="form-control"
+                                       [ngClass]="{'is-invalid': addNews.get('imageUrl').touched && addNews.get('imageUrl').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Image URL is required</div>-->
+                            <div class="row">
+                                <div class="col-md-2" [hidden]="isImageFileHidden">
+                                    <div class="form-group">
+                                        <label>Image File <span *ngIf="isImageFileRequired" class="required-asterisk" style="color:red;">*</span></label>
+                                        <input type="file" formControlName="imageUrl" (change)="imageFileChange($event)" accept=".jpg,png,jpeg" class="form-control-file" id="image" [ngClass]="{'is-invalid': addNews.get('imageUrl').touched && addNews.get('imageUrl').invalid}">
+                                        <div class="invalid-feedback">
+                                            <div *ngIf="addNews.get( 'imageUrl').errors?.required">Image File is required</div>
+                                            <div *ngIf="addNews.get( 'imageUrl').errors?.fileSizeValidatorForDoc">File size should not be more than 10 MB</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2" [hidden]="isImage">
+                                    <div class="form-group">
+                                        <!--                                        <label for="image">Current Image</label>-->
+                                        <!-- <a type="button" class="form-control btn dwld" href="{{image}}" download="{{image}}">
+                                            show</a>-->
+                                        <label>Current Image</label>
+                                        <!--                                        <button data-toggle="modal" data-target="#imageModal" class="img-fluid">Show</button>-->
+                                        <img src="{{image}}" class="img-fluid form-control" style="height: 100px !important;" width="50" alt="image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" *ngIf="isExternalImageUrlHidden">
+                            <div class="form-group mb-0">
+                                <label>Image URL</label>
+                                <input type="text" ng-Model="isFile" ng-disabled="isUrl" formControlName="externalImageUrl" class="form-control" [ngClass]="{'is-invalid': addNews.get('externalImageUrl').touched && addNews.get('externalImageUrl').invalid}" (change)="onChangeExternalImageUrl()">
+
+                                <div class="invalid-feedback">
+                                    <div *ngIf="addNews.get( 'externalImageUrl').errors?.urlValid">Image URL should start with <strong>https://</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"> <span *ngIf="mode=='add'"> Submit</span> <span
+                    *ngIf="mode=='edit'">Update</span> </button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/cropdata-portal/news']">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Form -->
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>
+<!-- Modal -->
+<div #closebutton class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{image}}" class="img-fluid">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="modal-body">
+                    Are you sure want to Change Current Image ?
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    No</button>
+                <button type="button" class="btn btn-success" (click)="hide()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .mat-checkbox-layout {
+        margin: 0 !important;
+    }
+</style>

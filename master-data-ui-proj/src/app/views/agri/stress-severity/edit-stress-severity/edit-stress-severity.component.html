@@ -1,0 +1,60 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong>Edit Stress Severity</strong><small> Form</small></div>
+            <div class="card-body">
+
+                <form [formGroup]="updateStressSeverityForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Stress Severity Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" maxlength="20" [ngClass]="{'is-invalid': updateStressSeverityForm.get('name').touched && updateStressSeverityForm.get('name').invalid}" (change)="trimValue(this.updateStressSeverityForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Stress Severity Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Value <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="value" class="form-control" maxlength="20" [ngClass]="{'is-invalid': updateStressSeverityForm.get('value').touched && updateStressSeverityForm.get('value').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Value is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>End</label>
+                                <input type="text" formControlName="end" class="form-control" maxlength="20"
+                                    [ngClass]="{'is-invalid': updateStressSeverityForm.get('end').touched && updateStressSeverityForm.get('end').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>End is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/stress/stress-severity']">Cancel</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

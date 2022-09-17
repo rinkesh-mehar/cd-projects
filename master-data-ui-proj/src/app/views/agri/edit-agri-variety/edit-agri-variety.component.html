@@ -1,0 +1,135 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Edit Variety</strong><small> Form</small></div>
+                <form [formGroup]="updateVarietyForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="commodityId" class="form-control" [ngClass]="{'is-invalid': updateVarietyForm.get('commodityId').touched && updateVarietyForm.get('commodityId').invalid}" (change)="getHsCodeList();getVarietyListByCommodityId()">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let commodity of CommodityList" value={{commodity.id}}>
+                                        {{commodity.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>HSN Code <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="hsCodeId" class="form-control" [ngClass]="{'is-invalid': updateVarietyForm.get('hsCodeId').touched && updateVarietyForm.get('hsCodeId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let hsCode of HsCodeList" value={{hsCode.id}}>
+                                        {{hsCode.hsCode}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select HSN Code</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Domestic Restrictions <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="domesticRestrictions" class="form-control">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>International Restrictions <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="internationalRestrictions" class="form-control">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 required">
+                                <label>Parent Variety</label>
+                                <select formControlName="parentVarietyID" class="form-control" [ngClass]="{'is-invalid': updateVarietyForm.get('parentVarietyID').touched && updateVarietyForm.get('parentVarietyID').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let variety of varietyList" value={{variety.id}}>
+                                        {{variety.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Parent Variety</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Variety Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': updateVarietyForm.get('name').touched && updateVarietyForm.get('name').invalid}" (change)="trimValue(this.updateVarietyForm.get('name'))">
+                                    <div class="invalid-feedback">
+                                        <div>Variety Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <div class="form-group mb-0">
+                                    <label>Variety Code <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="varietyCode" class="form-control" [ngClass]="{'is-invalid': updateVarietyForm.get('varietyCode').touched && updateVarietyForm.get('varietyCode').invalid}" (change)="trimValue(this.updateVarietyForm.get('varietyCode'))">
+                                    <div class="invalid-feedback">
+                                        <div>Variety Code is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- <div class="row"> -->
+                        <!-- <div class="form-group col-sm-12"> -->
+                        <!-- <label>MspGroup</label> -->
+                        <!-- <select formControlName="mspGroupId" class="form-control" [ngClass]="{'is-invalid': updateVarietyForm.get('mspGroupId').touched && updateVarietyForm.get('mspGroupId').invalid}" (change)="getHsCodeList()"> -->
+                        <!-- <option value="">--Select--</option> -->
+                        <!-- <option *ngFor="let mspGroup of MspGroupList" value={{mspGroup.id}}> -->
+                        <!-- {{mspGroup.name}} -->
+                        <!-- </option> -->
+                        <!-- </select> -->
+                        <!-- <div class="invalid-feedback"> -->
+                        <!-- <div>Please Select MspGroup</div> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
+
+
+
+
+                    </div>
+                    <div class="row" style="align-content: center">
+
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/commodity/variety']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

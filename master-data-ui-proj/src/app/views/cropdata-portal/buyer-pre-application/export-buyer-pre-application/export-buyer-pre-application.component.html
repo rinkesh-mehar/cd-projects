@@ -1,0 +1,37 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Export Agriota Buyer Registration</strong></div>
+                <form [formGroup]="exportBuyerPreApplicationForm" (ngSubmit)="submitForm()" novalidate>
+
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <label>Page No. (One page contains 200 records)</label>
+                                <select formControlName="pageNo" class="form-control" [ngClass]="{'is-invalid': exportBuyerPreApplicationForm.get('pageNo').touched && exportBuyerPreApplicationForm.get('pageNo').invalid}">
+                                  <option value="">--Select--</option>
+                                   <option *ngFor="let pageNo of listOfPageNo" value={{pageNo}}>
+                                       {{pageNo}}
+                                   </option>
+                               </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Page No.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-success " type="submit"> Download </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/cropdata-portal/buyer-pre-application-list']">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>-->
+<app-error-modal #errorModal></app-error-modal>

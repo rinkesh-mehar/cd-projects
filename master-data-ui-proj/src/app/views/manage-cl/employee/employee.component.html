@@ -1,0 +1,151 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Create Employee</strong></div>
+                <form [formGroup]="employeeForm" (ngSubmit)="CreatempForm()" novalidate>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-4 mb-0">
+                                <label>Name<span class="required-asterisk" style="color:red;">*</span></label>
+                                <input matInput formControlName="EmployeeName" placeholder="Name" class="form-control" [ngClass]="{ 'is-invalid': employeeForm.get( 'EmployeeName').touched && employeeForm.get( 'EmployeeName').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Please Enter Name</div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4 mb-0">
+                                <label>Role <span class="required-asterisk" style="color:red;">*</span> </label>
+                                <select formControlName="EmployeeRole" class="form-control" [ngClass]="{ 'is-invalid': employeeForm.get( 'EmployeeRole').touched && employeeForm.get( 'EmployeeRole').invalid}">
+                                                <option value="">--Select--</option>
+                                                <option *ngFor="let  EmployeeRole of RoleList" value={{EmployeeRole.id}}>
+                                                {{EmployeeRole.name}}
+                                            </option>
+                                        </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Role</div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4  mb-0">
+                                <label>Official Email<span class="required-asterisk" style="color:red;">*</span></label>
+                                <input matInput formControlName="OfficailEmail" placeholder="xyz@cropdata.in" class="form-control" pattern="^[a-z0-9.]+@cropdata\.[a-z]{2,3}$" [ngClass]="{ 'is-invalid': employeeForm.get( 'OfficailEmail').touched && employeeForm.get( 'OfficailEmail').invalid}">
+
+
+                                <div class="invalid-feedback">
+                                    <div>Please Enter Valid Email</div>
+                                </div>
+
+                            </div>
+                            <!-- <div class="col mb-0">
+                                <button class="btn btn-success " type="submit">Submit</button>
+                            </div> -->
+                        </div>
+
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-primary " type="submit">Add Employee</button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row" [hidden]="employeeDetailHidden">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Employee Details</strong></div>
+                <form [formGroup]="officialDataFrom" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-6 mb-3">
+                                <label>Personal Email<span class="required-asterisk" style="color:red;">*</span></label>
+
+                                <input matInput formControlName="PersonalEmail" placeholder="xyz@gmail.com" class="form-control" [ngClass]="{ 'is-invalid': officialDataFrom.get( 'PersonalEmail').touched && officialDataFrom.get( 'PersonalEmail').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Please Enter Valid Email</div>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-sm-6 mb-3">
+                                <label>Primary Mobile<span class="required-asterisk" style="color:red;">*</span></label>
+                                <input matInput formControlName="primaryNumber" placeholder="9090909090" class="form-control" maxlength="10" [ngClass]="{ 'is-invalid': officialDataFrom.get( 'primaryNumber').touched && officialDataFrom.get( 'primaryNumber').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Please Enter Valid MobileNumber</div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6 mb-3">
+                                <label>Office <span class="required-asterisk" style="color:red;">*</span> </label>
+                                <select formControlName="office" class="form-control" [ngClass]="{ 'is-invalid': officialDataFrom.get( 'office').touched && officialDataFrom.get( 'office').invalid}">
+                                                <option value="">--Select--</option>
+                                            <option *ngFor="let  office of OfficeList " value={{office.id}}>
+                                                {{office.name}}
+                                            </option>
+                                        </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Office</div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6 mb-3">
+                                <label>Department <span class="required-asterisk" style="color:red;">*</span> </label>
+                                <select formControlName="department" class="form-control" [ngClass]="{ 'is-invalid': officialDataFrom.get( 'department').touched && officialDataFrom.get( 'department').invalid}">
+                                                <option value="">--Select--</option>
+                                            <option *ngFor="let  department of DepartmentList " value={{department.id}}>
+                                                {{department.name}}
+                                            </option>
+                                        </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Department</div>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-sm-6 mb-3">
+                                <label>Employee Designation <span class="required-asterisk" style="color:red;">*</span> </label>
+                                <select formControlName="designation" class="form-control" [ngClass]="{ 'is-invalid': officialDataFrom.get( 'designation').touched && officialDataFrom.get( 'designation').invalid}">
+                                                <option value="">--Select--</option>
+                                            <option *ngFor="let  designation of DesignationList " value={{designation.id}}>
+                                                {{designation.name}}
+                                            </option>
+                                        </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Designation</div>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-sm-6 mb-3">
+                                <label>Reporting Manager <span class="required-asterisk" style="color:red;">*</span> </label>
+                                <select formControlName="reportingManager" class="form-control" [ngClass]="{ 'is-invalid': officialDataFrom.get( 'reportingManager').touched && officialDataFrom.get( 'reportingManager').invalid}">
+                                                <option value="">--Select--</option>
+                                            <option *ngFor="let  reportingManager of ReportingManagerList " value={{reportingManager.id}}>
+                                                {{reportingManager.name}}
+                                            </option>
+                                        </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Reporting Manger</div>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-sm-12 mb-3">
+                                <label>MCT link
+                                    <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input matInput formControlName="mctLink" placeholder="MCT LINK" class="form-control" [ngClass]="{ 'is-invalid': officialDataFrom.get( 'mctLink').touched && officialDataFrom.get( 'mctLink').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Please Enter Name</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-primary " type="submit">Submit</button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

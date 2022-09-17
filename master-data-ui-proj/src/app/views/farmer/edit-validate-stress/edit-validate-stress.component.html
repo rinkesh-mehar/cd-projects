@@ -1,0 +1,257 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong> Task Stress Details</strong></div>
+
+                <div class="card-body">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="pb-2">Basic Details</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid p-0">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h4>District </h4>
+                                        <h6>{{details.districtName}}</h6>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <h4>Commodity </h4>
+                                        <h6>{{details.commodityName}}</h6>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <h4>Variety </h4>
+                                        <h6>{{details.varietyName}}</h6>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <h4>Phenophase </h4>
+                                        <h6>{{details.phenophaseName}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="pb-2">Farmer Given Input</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid p-0">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h4>Plant Part </h4>
+                                        <h6>{{details.plantPartName}}</h6>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <h4>Stress Type </h4>
+                                        <h6>{{details.stressTypeName}}</h6>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <h4>Stress </h4>
+                                        <h6>{{details.stressName}}</h6>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <h4>Stress Stage </h4>
+                                        <h6>{{details.stageName}}</h6>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <hr>
+                                    </div>
+
+                                    <div class="col-sm-12 my-4">
+                                        <h4>Symptom Description </h4>
+                                        <h6>{{details.symptomDescription}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="pb-2">Farmer Given Image</h4>
+                                </div>
+                                <div class="card-body">
+                                    <!--                                                        <a data-toggle="modal" data-target="#imageModal"-->
+                                    <!--                                                           (click)="getImageUrl($event, undefined)">-->
+                                    <!--                                            <h4>Stress </h4>-->
+                                    <h4>{{details.stressName}}</h4>
+                                    <!--                                            <h4>Symptom Description </h4>-->
+                                    <p>{{details.symptomDescription}}</p>
+
+                                    <div #draggable class="img-magnifier-container img-fluid w-100">
+                                        <img id="myimage" src="{{details.farmerGivenImage}}" width="600" height="600">
+
+                                        <!--                                                            <div>-->
+                                        <!--                                                                <p>Set Zoom Level</p>-->
+                                        <!--                                                                <button class="btn btn-info approve" type="button" (click)="increaseZoomLevel()">-->
+                                        <!--                                                                    <i class="fa fa-plus"></i></button>-->
+                                        <!--                                                                <button class="btn btn-info approve" type="button" (click)="decreaseZoomLevel()">-->
+                                        <!--                                                                    <i class="fa fa-minus"></i></button>-->
+
+                                        <!--                                                            </div>-->
+                                    </div>
+
+
+                                    <!--                                                            <img id="myimage" style="cursor:pointer; max-height:700px; margin:0 auto;"-->
+                                    <!--                                                                 src="{{details.farmerGivenImage}}"-->
+                                    <!--                                                                 class="img-fluid w-100"-->
+                                    <!--                                                            >-->
+                                    <!--                                                        </a>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 *ngIf="allSymptomOfSPEC === undefined" class="pb-2">Reference Images Of
+                                        Stress</h4>
+                                    <h4 *ngIf="allSymptomOfSPEC !== undefined" class="pb-2">Reference Images Of All
+                                        Stresses</h4>
+                                </div>
+
+                                <div class="card-body ">
+                                    <carousel *ngIf="allSymptomOfSPEC === undefined"
+                                              [noWrap]="noWrapSlides"
+
+                                              class="w-100">
+                                        <slide *ngFor="let slide of referenceImageArray; let index=index" class="w-100">
+                                            <div class="carousel-caption">
+                                                <!--                                                        <h4>Stress </h4>-->
+                                                <h4>{{details.stressName}}</h4>
+                                                <!--                                                        <h4>Symptom Description </h4>-->
+                                                <p>{{details.symptomDescription}}</p>
+                                            </div>
+                                            <img [src]="slide" alt="image slide" class="img-fluid w-100"
+                                                 style="max-height:700px; margin:0 auto;">
+
+                                        </slide>
+                                    </carousel>
+                                    <carousel [noWrap]="noWrapSlides"
+
+                                              class="w-100">
+                                        <slide *ngFor="let slide of allSymptomOfSPEC; let index=index" class="w-100">
+                                            <div class="carousel-caption">
+                                                <!--                                                        <h4>Stress </h4>-->
+                                                <h4> {{slide.stressName}}</h4>
+                                                <!--                                                        <h4>Symptom Description</h4>-->
+                                                <p>{{slide.symptomDescription}}</p>
+                                            </div>
+                                            <img [src]="slide.symptomImageUrl" alt="image slide" class="img-fluid w-100"
+                                                 style="max-height:700px; margin:0 auto;">
+
+                                            <p style="display: none" id="afterRejectsymptomID">{{slide.symptomID}}</p>
+                                        </slide>
+                                    </carousel>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div style="padding: 0 10px 10px 0">
+                            <button class="btn btn-success approve" type="button"
+                                    (click)="approveSymptom(details.id , details.symptomID,'A')">Approve
+                            </button>
+                        </div>
+                        <div style="padding: 0 10px 10px 0">
+                            <button class="btn btn-danger reject" (click)="getSymptomBySpec()" type="button">Reject
+                            </button>
+                        </div>
+                        <!---No result btn-->
+                        <div style="padding: 0 10px 10px 0">
+                            <button class="btn btn-secondary reject" type="button"
+                                    (click)="approveSymptom(details.id , details.symptomID,'NR')">Not Found
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                <div class="row" *ngIf="allSymptomOfSPEC !== undefined">-->
+                <!--                    <div class="card-body ">-->
+                <!--                        <div class="form-group col-sm-12 mb-0">-->
+                <!--                            <h4 class="pb-2">Symptom Images</h4>-->
+                <!--                            <div class="custom-control custom-checkbox">-->
+                <!--                                <label class="col-md-3 col-sm-4 col-lg-2"-->
+                <!--                                       style="margin-bottom: 0px !important; max-width: 24.666667% !important;"-->
+                <!--                                       *ngFor="let data of allSymptomOfSPEC; let i=index">-->
+                <!--                                    <div class="card symptomBox">-->
+                <!--                                        <div class="card-body">-->
+                <!--                                            <a data-toggle="modal" data-target="#imageModal"-->
+                <!--                                               (click)="getImageUrl($event, data.stressName)">-->
+                <!--                                                <div class="symImgBox">-->
+                <!--                                                    <img style="cursor:pointer;" src="{{data.symptomImageUrl}}">-->
+
+                <!--                                                </div>-->
+                <!--                                            </a>-->
+                <!--                                            <div class="card-footer">-->
+                <!--                                                <div>-->
+                <!--                                                    <input id="{{i}}" style="cursor:pointer;" type="radio" name="symptom"-->
+                <!--                                                           [value]="data.symptomID"-->
+                <!--                                                           (change)="setRejectionSymptomID($event)" style="display:none"/>-->
+                <!--                                                    <label class="m-0" style="cursor:pointer;" for="{{i}}">-->
+                <!--                                                        <b> Symptom: </b>-->
+                <!--                                                        <p title="{{data.symptomDescription}}">{{data.symptomDescription}}</p>-->
+                <!--                                                        <b> Stress Name: </b>-->
+                <!--                                                        <p title="{{data.stressName}}">{{data.stressName}}</p>-->
+                <!--                                                    </label>-->
+                <!--                                                </div>-->
+                <!--                                                <button class="btn btn-success approve" type="button" (click)="setRejectionSymptomID(data.symptomID)">Accept</button>-->
+                <!--                                            </div>-->
+                <!--                                        </div>-->
+                <!--                                    </div>-->
+                <!--                                </label>-->
+
+                <!--                            </div>-->
+
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="imageModalLabel">{{modelStressName}}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="{{imgUrl}}" class="img-fluid w-100">
+            </div>
+            <div class="modal-footer">
+                <button *ngIf="isFarmerImage !== true" type="button" class="btn btn-primary"
+                        (click)="getPreviousImage(imgUrl)">Previous
+                    <i class="fa fa-arrow-left"></i></button>
+                <button *ngIf="isFarmerImage !== true" type="button" class="btn btn-primary"
+                        (click)="getNextImage(imgUrl)">Next
+                    <i class="fa fa-arrow-right"></i></button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>
+<app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>
+<app-info-modal #infoModal></app-info-modal>

@@ -1,0 +1,125 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                        *ngIf="mode=='edit'">Edit </span> Benchmark Variety</strong></div>
+            <form [formGroup]="BenchmarkVarietyForm" (ngSubmit)="submitBenchmarkVarietyForm()" novalidate>
+
+                <div class="card-body">
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Region <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="regionId" class="form-control" [ngClass]="{'is-invalid': BenchmarkVarietyForm.get('regionId').touched && BenchmarkVarietyForm.get('regionId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let region of regionList" value={{region.regionId}}>
+                                    {{region.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Region</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="stateCode" class="form-control" (change)="loadAllSeasonByStateCode()" [ngClass]="{'is-invalid': BenchmarkVarietyForm.get('stateCode').touched && BenchmarkVarietyForm.get('stateCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                        {{state.name}}
+                                    </option>
+                                </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select State</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Season <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="seasonId" class="form-control" (change)="loadAllCommodityByStateCodeAndSeasonId()" [ngClass]="{'is-invalid': BenchmarkVarietyForm.get('seasonId').touched && BenchmarkVarietyForm.get('seasonId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let season of seasonList" value={{season.id}}>
+                                    {{season.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Season</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="commodityId" class="form-control" (change)="loadAllVarietyByCommodity()" [ngClass]="{'is-invalid': BenchmarkVarietyForm.get('commodityId').touched && BenchmarkVarietyForm.get('commodityId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let commodity of commodityList" value={{commodity.commodityId}}>
+                                    {{commodity.commodity}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Commodity</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Variety <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="varietyId" class="form-control" [ngClass]="{'is-invalid': BenchmarkVarietyForm.get('varietyId').touched && BenchmarkVarietyForm.get('varietyId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let variety of varietyList" value={{variety.id}}>
+                                    {{variety.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Variety</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Is Drk Benchmark <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="isDrkBenchmark" class="form-control" [ngClass]="{'is-invalid': BenchmarkVarietyForm.get('isDrkBenchmark').touched && BenchmarkVarietyForm.get('isDrkBenchmark').invalid}">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Is Drk Benchmark</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 mb-0">
+                            <label>Is Agm Benchmark <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="isAgmBenchmark" class="form-control" [ngClass]="{'is-invalid': BenchmarkVarietyForm.get('isDrkBenchmark').touched && BenchmarkVarietyForm.get('isDrkBenchmark').invalid}">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Is Agm Benchmark</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit </span> <span
+                        *ngIf="mode=='edit'">Update </span></button>
+                    <button type="submit" class="btn btn-danger" [routerLink]="['/agri/benchmark-variety']">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

@@ -1,0 +1,59 @@
+.symptomBox {
+  border: solid 1px #555555;
+  .card-body{
+    padding:  0 !important;
+    .symImgBox{
+      height: 100px;
+      overflow: hidden;
+      img{
+        height: 100%;
+        width: 100%;
+      }
+      .card-footer{
+        label{
+         margin:  0!important;
+        }
+      }
+
+    }
+
+  }
+}
+
+
+.carousel-caption {
+  position: relative !important;
+  left: 0 !important;
+  z-index: 10;
+  padding: 0px!important;
+  color: #fff;
+  text-align: left !important;
+  bottom: 0 !important;
+}
+
+.carousel.slide{
+  width: 100%!important;
+}
+
+.img-magnifier-container {
+  position:relative;
+}
+
+//::ng-deep .img-magnifier-glass {
+//  position: absolute;
+//  border: 3px solid #bd0d0d;
+//  border-radius: 50%;
+//  cursor: none;
+//  /*Set the size of the magnifier glass:*/
+//  width: 100px;
+//  height: 100px;
+//}
+
+::ng-deep .img-magnifier-glass {
+  position: absolute;
+  border: 1px solid #bd0d0d;
+  //border-radius: 100%;
+  cursor: crosshair;
+  width: 200px;
+  height: 200px;
+}

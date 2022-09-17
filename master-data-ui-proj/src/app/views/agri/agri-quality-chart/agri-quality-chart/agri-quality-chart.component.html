@@ -1,0 +1,160 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Quality Chart
+                            <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right" [routerLink]="['/yield/quality-chart-add/']"> Add
+                    Quality Chart</button>
+                                <button class="btn btn-primary btn-sm move-right" (click)="onClickMissing()"> Missing </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="input-group mb-3 col-lg-8 col-md-8 p-0">
+                                        <input type="text" class="form-control" placeholder="Search here...  " [(ngModel)]="searchText">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button" (click)="searchQualityChart()">Search</button>
+                                            <button class="btn btn-danger" type="button" (click)="searchText='';searchQualityChart()">Clear</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="btn-group action-buttons col-lg-4 col-md-4">
+                                        <button class="btn btn-success approve" [disabled]="bulkDatas.disbled" type="button" (click)="bulkData('Approved','agri_quality_chart')">Approve All</button>
+                                        <button class="btn btn-danger reject" [disabled]="bulkDatas.disbled" type="button" (click)="bulkData('Rejected','agri_quality_chart')">Reject All</button>
+                                        <button class="btn btn-primary finalise" [disabled]="bulkDatas.disbled" type="button" (click)="bulkData('Active','agri_quality_chart')">Finalize All</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event)">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 20px;" rowspan="2">
+                                            <label class="pure-material-checkbox">
+                                                <input type="checkbox" (change)="bulkDatas.checkAll($event)" id="masterChkBox"> 
+                                        <span></span>
+                                    </label>
+                                        </th>
+                                        <th style="width: 20px;" rowspan="2" mat-sort-header="id">ID</th>
+                                        <th class="text-left" rowspan="2" mat-sort-header="commodity">Commodity</th>
+                                        <th class="text-left" rowspan="2" mat-sort-header="phenophase">Phenophase</th>
+                                        <th class="text-left" rowspan="2" mat-sort-header="healthParameter">Health Parameter</th>
+                                        <th class="text-left" rowspan="2" mat-sort-header="gradeI">Grade I</th>
+                                        <th class="text-left" rowspan="2" mat-sort-header="gradeII">Grade II</th>
+                                        <th class="text-left" rowspan="2" mat-sort-header="gradeIII">Grade III</th>
+                                        <th class="text-center" colspan="2">Band I</th>
+                                        <!-- <th class="text-left">Max Band I</th> -->
+                                        <th class="text-center" colspan="2">Band II</th>
+                                        <!-- <th class="text-left">Max Band II</th> -->
+                                        <th class="text-center" colspan="2">Band III</th>
+                                        <!-- <th class="text-left">Max Band III</th> -->
+                                        <th style="width: 120px;" class="text-center" rowspan="2" mat-sort-header="status">Status</th>
+                                        <th style="width: 150px;" *ngIf="missing==0" rowspan="2">Action</th>
+                                        <th style="width: 80px !important; min-width: 80px !important;" *ngIf="missing==1" rowspan="2">Action</th>
+
+                                    </tr>
+
+                                    <tr>
+                                        <th class="text-left" mat-sort-header="mingradeI">Min</th>
+                                        <th class="text-left" mat-sort-header="maxgradeI">Max</th>
+                                        <th class="text-left" mat-sort-header="mingradeII">Min</th>
+                                        <th class="text-left" mat-sort-header="maxgradeII">Max</th>
+                                        <th class="text-left" mat-sort-header="mingradeIII">Min</th>
+                                        <th class="text-left" mat-sort-header="maxgradeIII">Max</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody *ngIf="pageAgriQualityChart?.content">
+                                    <tr *ngFor="let qualityChart of pageAgriQualityChart.content | searchFilter  :searchText:['commodity','phenophase','healthParameter','gradeI','gradeII','gradeIII','minBandI',
+                    'maxBandI','minBandII','maxBandII','minBandIII','maxBandIII','status']">
+                                        <!-- <tbody>
+                          <tr *ngFor="let qualityChart of QualityChartList"> -->
+                                        <td>
+                                            <label class="pure-material-checkbox">
+                    <input type="checkbox" (change)="bulkDatas.checked($event)" value="{{qualityChart.id}}">
+                    <span></span>
+                </label>
+                                        </td>
+                                        <td scope="row">{{qualityChart.id}}</td>
+                                        <td class="text-left">{{qualityChart.commodity | titlecase}}</td>
+                                        <td class="text-left">{{qualityChart.phenophase | titlecase}}</td>
+                                        <td class="text-left">{{qualityChart.healthParameter}}</td>
+                                        <td class="text-left">{{qualityChart.gradeI}}</td>
+                                        <td class="text-left">{{qualityChart.gradeII}}</td>
+                                        <td class="text-left">{{qualityChart.gradeIII}}</td>
+                                        <!-- <td class="text-left">{{qualityChart.minBandI}}</td>
+                        <td class="text-left">{{qualityChart.maxBandI}}</td>
+                        <td class="text-left">{{qualityChart.minBandII}}</td>
+                        <td class="text-left">{{qualityChart.maxBandII}}</td>
+                        <td class="text-left">{{qualityChart.minBandIII}}</td>
+                        <td class="text-left">{{qualityChart.maxBandIII}}</td> -->
+                                        <td class="text-left">{{qualityChart.mingradeI}}</td>
+                                        <td class="text-left">{{qualityChart.maxgradeI}}</td>
+                                        <td class="text-left">{{qualityChart.mingradeII}}</td>
+                                        <td class="text-left">{{qualityChart.maxgradeII}}</td>
+                                        <td class="text-left">{{qualityChart.mingradeIII}}</td>
+                                        <td class="text-left">{{qualityChart.maxgradeIII}}</td>
+
+                                        <td style="width: 120px;" class="text-center">
+                                            <span style="width: 100px;" class="{{qualityChart.status =='Inactive'?'badge badge-secondary':qualityChart.status =='Approved'?'badge badge-success':qualityChart.status =='Active'?'badge badge-primary':'badge badge-danger'}}">{{qualityChart.status}}</span>
+                                        </td>
+                                        <td *ngIf="missing==0">
+                                            <button type="button" class="btn btn-info btn-sm move-right" title="Edit" [routerLink]="['/yield/quality-chart-edit/', qualityChart.id]" *ngIf="userRightsService.canEdit()"><i
+                                    class="fa fa-pencil-square-o"></i></button>
+                                            <button type="button" class="btn btn-success btn-sm move-right" title="Approve" [disabled]="qualityChart.status == agriQualityChartStatus.APPROVED_STATUS||qualityChart.status == agriQualityChartStatus.ACTIVE_STATUS" (click)="approve(qualityChart,i)" *ngIf="userRightsService.canPrimaryApprove()"><i
+                                    class="fa fa-get-pocket"></i></button>
+                                            <button type="button" class="btn btn-primary btn-sm move-right" title="{{qualityChart.status == agriQualityChartStatus.INACTIVE_STATUS || qualityChart.status == agriQualityChartStatus.REJECTED_STATUS?agriQualityChartStatus.CAN_NOT_FINALIZE:'Finalize'}}"
+                                                [disabled]="qualityChart.status == agriQualityChartStatus.ACTIVE_STATUS || qualityChart.status == agriQualityChartStatus.INACTIVE_STATUS || qualityChart.status == agriQualityChartStatus.REJECTED_STATUS" (click)="finalize(qualityChart,i)"
+                                                *ngIf="userRightsService.canFinalize()"><i
+                                    class="fa  fa-thumbs-up"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm move-right" title="Reject" [disabled]="qualityChart.status == agriQualityChartStatus.REJECTED_STATUS" (click)="reject(qualityChart,i)" *ngIf="userRightsService.canReject()"><i
+                                    class="fa fa-close"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm move-right" title="Delete" [disabled]="qualityChart.status == agriQualityChartStatus.DELETED_STATUS" (click)="delete(qualityChart,i)" *ngIf="userRightsService.canDelete()"><i
+                                    class="fa fa-close"></i></button>
+                                        </td>
+                                        <td *ngIf="missing==1" style="width: 80px !important;">
+                                            <button type="button" class="btn btn-info btn-sm move-right" title="Move To Master" (click)="moveToMaster(qualityChart.id)" *ngIf="userRightsService.canMoveToMaster()"><i class="fa fa-arrow-right"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="pageAgriQualityChart.content.length == 0">
+                                    <td colspan="16" class="text-left">Data Not Found..!!</td>
+                                </tbody>
+                            </table>
+
+                            <div class="row justify-content-between m-0">
+                                <div class="col-xs-9 col-9 text-center p-0" *ngIf="pageAgriQualityChart?.content">
+                                    <pagination [totalItems]="pageAgriQualityChart.totalElements" [(ngModel)]="selectedPage" [maxSize]="maxSize" class="pagination-md" previousText="&lsaquo; Prev" nextText="Next &rsaquo;" firstText="&laquo; First" lastText="Last &raquo; " [boundaryLinks]="true"
+                                        [itemsPerPage]="pageAgriQualityChart.size" [rotate]="false" (numPages)="numPages = $event;" (pageChanged)="onSelect($event.page-1)">
+                                    </pagination>
+                                </div>
+                                <div class="row col-xs-3 col-3 m-0" *ngIf="pageAgriQualityChart?.content">
+                                    <div class="col text-right p-0">
+                                        <label class="text-right">Records per page</label>
+                                        <select class="p-0" (change)="loadData($event)">
+                                    <option value="10" selected>10</option>
+                                    <option *ngFor="let items of records" value="{{items}}">{{items}}</option>
+                                </select> &nbsp;
+                                        <label class="text-center">Page {{selectedPage}} of
+                                    {{pageAgriQualityChart.totalPages}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

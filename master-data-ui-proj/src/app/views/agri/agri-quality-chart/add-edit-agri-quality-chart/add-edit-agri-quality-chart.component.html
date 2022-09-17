@@ -1,0 +1,202 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                        *ngIf="mode=='edit'">Edit </span>Quality Chart</strong></div>
+
+
+            <form [formGroup]="QualityChartForm" (ngSubmit)="submitQualityChartForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                            <!-- <select formControlName="commodityId" class="form-control"
+                                (change)="getVarietyByCommodity()" [ngClass]="{'is-invalid': QualityChartForm.get('commodityId').touched &&
+                                    QualityChartForm.get('commodityId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let commodity of commodityList" value={{commodity.id}}>
+                                    {{commodity.name}}
+                                </option>
+                            </select> -->
+
+                            <select formControlName="commodityId" class="form-control" [ngClass]="{'is-invalid': QualityChartForm.get('commodityId').touched &&
+                                    QualityChartForm.get('commodityId').invalid}" (change)="loadAllPhenophaseByCommodity()">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let commodity of commodityList" value={{commodity.id}}>
+                                    {{commodity.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Commodity</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Phenophase <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="phenophaseId" class="form-control" [ngClass]="{'is-invalid': QualityChartForm.get('phenophaseId').touched && QualityChartForm.get('phenophaseId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let phenophase of phenophaseList" value={{phenophase.phenophaseId}}>
+                                    {{phenophase.phenophase}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Phenophase</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Health Parameter <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="healthParameterId" class="form-control" [ngClass]="{'is-invalid': QualityChartForm.get('healthParameterId').touched && QualityChartForm.get('healthParameterId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let healthParameter of healthParameterList"
+                                    value={{healthParameter.id}}>
+                                    {{healthParameter.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select HealthParameter</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Grade I <span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="text" formControlName="gradeI" class="form-control" [ngClass]="{'is-invalid': QualityChartForm.get('gradeI').touched && QualityChartForm.get('gradeI').invalid}" (change)="trimValue(this.QualityChartForm.get('gradeI'))">
+                            <div class="invalid-feedback">
+                                <div>Grade I is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Grade II <span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="text" formControlName="gradeII" class="form-control" [ngClass]="{'is-invalid': QualityChartForm.get('gradeII').touched && QualityChartForm.get('gradeII').invalid}" (change)="trimValue(this.QualityChartForm.get('gradeII'))">
+                            <div class="invalid-feedback">
+                                <div>Grade II is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Grade III <span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="text" formControlName="gradeIII" class="form-control" [ngClass]="{'is-invalid': QualityChartForm.get('gradeIII').touched && QualityChartForm.get('gradeIII').invalid}" (change)="trimValue(this.QualityChartForm.get('gradeIII'))">
+                            <div class="invalid-feedback">
+                                <div>Grade III is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Min Band I <span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="number" formControlName="mingradeI" class="form-control" [ngClass]="{'is-invalid': QualityChartForm.get('mingradeI').touched && QualityChartForm.get('mingradeI').invalid}">
+                            <div class="invalid-feedback">
+                                <div>Min Band I is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Max Band I <span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="number" formControlName="maxgradeI" class="form-control" [ngClass]="{'is-invalid': QualityChartForm.get('maxgradeI').touched && QualityChartForm.get('maxgradeI').invalid}">
+                            <div class="invalid-feedback">
+                                <div>Max Band I is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Min Band II <span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="number" formControlName="mingradeII" class="form-control" [ngClass]="{'is-invalid': QualityChartForm.get('mingradeII').touched && QualityChartForm.get('mingradeII').invalid}">
+                            <div class="invalid-feedback">
+                                <div>Min Band II is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Max Band II <span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="number" formControlName="maxgradeII" class="form-control" [ngClass]="{'is-invalid': QualityChartForm.get('maxgradeII').touched && QualityChartForm.get('maxgradeII').invalid}">
+                            <div class="invalid-feedback">
+                                <div>Max Band II is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Min Band III <span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="number" formControlName="mingradeIII" class="form-control" [ngClass]="{'is-invalid': QualityChartForm.get('mingradeIII').touched && QualityChartForm.get('mingradeIII').invalid}">
+                            <div class="invalid-feedback">
+                                <div>Min Band III is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 mb-0">
+                            <label>Max Band III <span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="number" formControlName="maxgradeIII" class="form-control" [ngClass]="{'is-invalid': QualityChartForm.get('maxgradeIII').touched && QualityChartForm.get('maxgradeIII').invalid}">
+                            <div class="invalid-feedback">
+                                <div>Max Band III is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit </span> <span
+                        *ngIf="mode=='edit'">Update </span></button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/yield/quality-chart']">cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <strong>Bulk Insert</strong><small> Form</small>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <form (ngSubmit)="submitExcelForm()" novalidate>
+                <div class="card-body">
+
+                    <div class="form-group mb-0">
+                        <label for="file-input">Select excel(.xlsx) file</label>
+                        <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="submit"> Submit </button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/yield/quality-chart']">cancel</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

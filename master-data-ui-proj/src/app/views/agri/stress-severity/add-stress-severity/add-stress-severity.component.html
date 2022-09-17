@@ -1,0 +1,91 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><strong>Add Stress Severity</strong><small> Form</small></div>
+            <div class="card-body">
+
+                <form [formGroup]="stressSeverityForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Stress Severity Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" maxlength="20" [ngClass]="{'is-invalid': stressSeverityForm.get('name').touched && stressSeverityForm.get('name').invalid}" (change)="trimValue(this.stressSeverityForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Stress Severity Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Value <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="value" class="form-control" maxlength="20" [ngClass]="{'is-invalid': stressSeverityForm.get('value').touched && stressSeverityForm.get('value').invalid}" (change)="trimValue(this.stressSeverityForm.get('value'))">
+                                <!-- <div class="invalid-feedback">
+                                    <div>Value is required</div>
+                                </div> -->
+                                <span class="text-danger d-block" *ngIf="(stressSeverityForm.get('value').dirty &&  stressSeverityForm.get('value').value < 0)&& stressSeverityForm.get('end').errors?.pattern">Negative value not allowed</span>
+                                <span class="text-danger d-block" *ngIf="stressSeverityForm.get('value').dirty && stressSeverityForm.get('value').errors?.pattern">Only Numbers Allowed</span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>End</label>
+                                <input type="text" formControlName="end" class="form-control" maxlength="20"
+                                    [ngClass]="{'is-invalid': stressSeverityForm.get('end').touched && stressSeverityForm.get('end').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>End is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <strong>Bulk Insert</strong><small> Form</small>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card-body">
+
+                <form (ngSubmit)="submitExcelForm()" novalidate>
+
+                    <div class="form-group">
+                        <label for="file-input">Select excel(.xlsx) file</label>
+                        <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                    </div>
+                    <button class="btn btn-primary" type="submit"> Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

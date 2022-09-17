@@ -1,0 +1,17 @@
+.card-body .table.table-bordered .thead-light th:first-of-type {
+    width: 90px !important;
+    max-width: initial !important;
+    min-width: initial !important;
+}
+
+.card-body .table.table-bordered .thead-light th:last-of-type {
+    width: 100px !important;
+    max-width: 100px !important;
+    min-width: 100px !important;
+    text-align: center !important;
+}
+
+.card-body .table.table-bordered td:last-of-type {
+    width: 100px !important;
+    text-align: center !important;
+}

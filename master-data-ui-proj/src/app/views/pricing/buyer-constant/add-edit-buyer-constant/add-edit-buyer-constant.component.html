@@ -1,0 +1,64 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                    *ngIf="mode=='edit'">Update </span> Buyer Constant</strong></div>
+
+
+            <form [formGroup]="buyerConstantForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Min slope <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="slopeMin" class="form-control" onkeydown="return event.keyCode !== 69" min="0" [ngClass]="{'is-invalid':buyerConstantForm.get('slopeMin').touched &&buyerConstantForm.get('slopeMin').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Min Slope is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Max Slope <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="slopeMax" class="form-control" onkeydown="return event.keyCode !== 69" min="0" [ngClass]="{'is-invalid':buyerConstantForm.get('slopeMax').touched &&buyerConstantForm.get('slopeMax').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Max Slope is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Buyer Constant <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="buyerConstant" class="form-control" onkeydown="return event.keyCode !== 69" min="0" [ngClass]="{'is-invalid':buyerConstantForm.get('buyerConstant').touched &&buyerConstantForm.get('buyerConstant').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Buyer Constant is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/pricing/buyer-constant']">Cancel</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

@@ -1,0 +1,50 @@
+.btn-outline-dark {
+    /* color: #2f353a; */
+    /* border-color: black; */
+    border-width: 2px;
+}
+
+.btn {
+    box-shadow: 2px 2px 3px #4d3319;
+}
+
+.btn-color {
+    background-color: gray;
+}
+
+.example-custom-date-class {
+    background: #fbd866;
+    border-radius: 100%;
+}
+
+.mat-input-element {
+    padding: inherit !important;
+    width: calc(100% - 56px) !important;
+}
+
+.mat-datepicker-toggle {
+    color: #fff;
+    background-color: #c29f37;
+    border-color: #c29f37;
+    padding: 0 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+}
+
+.mat-input-element {
+    padding: 0.375rem 0.75rem !important;
+}
+
+.mat-calendar-body {
+    font-size: 20px;
+}
+
+.mat-calendar-table-header th {
+    font-size: 20px;
+}
+
+.mat-calendar-body-label,
+.mat-calendar-period-button {
+    font-size: 20px;
+}

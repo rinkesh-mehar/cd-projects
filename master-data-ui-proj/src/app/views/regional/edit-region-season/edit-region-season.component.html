@@ -1,0 +1,81 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Edit Regional Season</strong><small> Form</small></div>
+                <form [formGroup]="updateSeasonForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stateCode" class="form-control" [ngClass]="{'is-invalid': updateSeasonForm.get('stateCode').touched && updateSeasonForm.get('stateCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                        {{state.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select State</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Season <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="seasonId" class="form-control" [ngClass]="{'is-invalid': updateSeasonForm.get('seasonId').touched && updateSeasonForm.get('seasonId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let season of seasonList" value={{season.id}}>
+                                        {{season.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Season</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Start Week <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="startWeek" class="form-control" [ngClass]="{'is-invalid': updateSeasonForm.get('startWeek').touched && updateSeasonForm.get('startWeek').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let startWeek of startWeekList" value={{startWeek}}>
+                                        {{startWeek}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select StartWeek</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <label>End Week <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="endWeek" class="form-control" [ngClass]="{'is-invalid': updateSeasonForm.get('endWeek').touched && updateSeasonForm.get('endWeek').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let endWeek of EndWeekList" value={{endWeek}}>
+                                        {{endWeek}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select EndWeek</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/regional/season']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

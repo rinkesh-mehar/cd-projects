@@ -1,0 +1,55 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Stress Stage</span> <span
+                *ngIf="mode=='edit'">Edit Stress Stage</span></strong></div>
+                <form [formGroup]="stressStageForm" (ngSubmit)="submitForm()" novalidate>
+
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Stress <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stressId" class="form-control" [ngClass]="{'is-invalid': stressStageForm.get('stressId').touched && stressStageForm.get('stressId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let stress of stressList" value={{stress.id}}>
+                                    {{stress.name}}
+                                </option>
+                            </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Stress</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Stage <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stageId" class="form-control" [ngClass]="{'is-invalid': stressStageForm.get('stageId').touched && stressStageForm.get('stageId').invalid}">
+                              <option value="">--Select--</option>
+                              <option *ngFor="let stage of stageList" value={{stage.id}}>
+                                  {{stage.name}}
+                              </option>
+                          </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Stage</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-primary " type="submit"> <span *ngIf="mode=='add'"> Submit</span> <span
+                    *ngIf="mode=='edit'">Update</span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/stress/stress-stage']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

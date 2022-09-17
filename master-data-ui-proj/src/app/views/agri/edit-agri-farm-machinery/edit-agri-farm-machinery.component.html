@@ -1,0 +1,35 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong>Edit Farm Machinery</strong><small> Form</small></div>
+
+
+            <form [formGroup]="updateFarmMachineryForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Farm Machinery Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': updateFarmMachineryForm.get('name').touched && updateFarmMachineryForm.get('name').invalid}" (change)="trimValue(this.updateFarmMachineryForm.get('name'))">
+
+                                <div class="invalid-feedback">
+                                    <div>Farm Machinery Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/agri/farm-machinery']">Cancel</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

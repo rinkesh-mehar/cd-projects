@@ -1,0 +1,327 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span> Physical Verification Approved LH Details</span></strong></div>
+                <div class="card-body">
+                    <form [formGroup]="viewForm" novalidate>
+
+                        <div class="card">
+                            <div class="card-header">Logistic Hub Details</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label>Name Of Logistic Hub</label>
+                                                <input type="text" value="{{lhbasicDetailsList.LhName}}" readonly class="form-control">
+                                                <!-- <h3>{{lhbasicDetailsList.LhName}}</h3> -->
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Contact Person Name</label>
+                                                <input type="text" value="{{lhbasicDetailsList.ContactPersonName}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Contact No. 1</label>
+                                                <input type="text" value="{{lhbasicDetailsList.PrimaryMobile}}" readonly class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label>Contact No. 2</label>
+                                                <input type="text" value="{{lhbasicDetailsList.SecondaryMobile}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Address line 1</label>
+                                                <input type="text" value="{{lhbasicDetailsList.AddressLine1}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Address line 2</label>
+                                                <input type="text" value="{{lhbasicDetailsList.AddressLine2}}" readonly class="form-control">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label>State</label>
+                                                <input type="text" value="{{lhbasicDetailsList.State}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>District</label>
+                                                <input type="text" value="{{lhbasicDetailsList.District}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Regional Lab Name</label>
+                                                <input type="text" value="{{lhbasicDetailsList.RegionName}}" readonly class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label>Latitude</label>
+                                                <input type="number" value="{{lhbasicDetailsList.Latitude}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Longitude</label>
+                                                <input type="text" value="{{lhbasicDetailsList.Longitude}}" readonly class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Owner Details/lessee Details</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label>Name of Logistic Hub owner/Lessee</label>
+                                                <input type="text" value="{{lhbasicDetailsList.OwnerName}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Contact No. 1</label>
+                                                <input type="text" value="{{lhbasicDetailsList.OwnerPrimaryMobile}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Contact No. 2</label>
+                                                <input type="text" value="{{lhbasicDetailsList.OwnerSecondaryMobile}}" readonly class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label>Address line 1</label>
+                                                <input type="text" value="{{lhbasicDetailsList.OwnerAddress1}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Address line 2</label>
+                                                <input type="text" value="{{lhbasicDetailsList.OwnerAddress2}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>State</label>
+                                                <input type="text" value="{{lhbasicDetailsList.OwnerState}}" readonly class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label>District</label>
+                                                <input type="text" value="{{lhbasicDetailsList.OwnerDistrict}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Latitude</label>
+                                                <input type="number" value="{{lhbasicDetailsList.OwnerLatitude}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Longitude</label>
+                                                <input type="text" value="{{lhbasicDetailsList.OwnerLongitude}}" readonly class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Logistic Hub Distance Details</div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <!-- <div class="form-group col-sm-12"> -->
+                                    <div class="col-md-4" *ngFor="let item of distanceDetails">
+                                        <!-- <div class="form-group col-sm-4"> -->
+                                        <label>{{item.Metalabel}}</label>
+                                        <input type="text" value="{{item.MetaValue}}" readonly class="form-control">
+                                        <!-- </div> -->
+                                        <!-- </div> -->
+
+                                        <!-- <input type="text" [value]=item.MetaValue" readonly class="form-control"> -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Logistic Hub structural details</div>
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <div class="col-md-4" *ngFor="let item of booleanList">
+                                        <label>{{item.Metalabel}}</label>
+                                        <span *ngIf="item.MetaValue=='true'">
+                                            <input type="checkbox" checked="checked" readonly ng-model="model" onclick="return false;">
+                                        </span>
+                                        <span *ngIf="item.MetaValue=='false'">
+                                            <input type="checkbox" readonly ng-model="model" onclick="return false;">
+                                        </span>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-4" *ngFor="let item of otherDetails">
+                                        <label>{{item.Metalabel}}</label>
+                                        <span *ngIf="item.MetaValue !='false' && item.MetaValue !='true'">
+                                            <input type="text" title="{{item.MetaValue}}" value="{{item.MetaValue}}" readonly class="form-control">
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">LH Dimension</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label>Length  </label>
+                                                <input type="text" value="{{lhbasicDetailsList.LenghtFT}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Breadth</label>
+                                                <input type="text" value="{{lhbasicDetailsList.BreadthFT}}" readonly class="form-control">
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Height</label>
+                                                <input type="text" value="{{lhbasicDetailsList.HeightFT}}" readonly class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label>Storage Capacity</label>
+                                                <input type="text" value="{{lhbasicDetailsList.CapacityMT}}" readonly class="form-control">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <span style="font-weight: bold;padding-left: 25px; padding-top: 20px;">PERSONAL KYC</span>
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-md-4" *ngFor="let item of getPersonalKycDetails">
+                                        <label>{{item.metaLabel}}</label>
+                                        <ng-container *ngIf="item.metaValue.startsWith('https:', 0); else elseTemplate">
+                                            <a title="Image Preview"><img src="{{item.metaValue}}" class="img-fluid form-control" style="height: 175px !important;" width="50" height="150" alt="image" (click)="imagePreview(item.metaLabel,item.metaValue)"></a>
+                                        </ng-container>
+                                        <ng-template #elseTemplate>
+                                            <input type="text" value="{{item.metaValue}}" readonly class="form-control">
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <span style="font-weight: bold;padding-left: 25px; padding-top: 20px;">COMPANY KYC</span>
+                            <div class="card-body p-4">
+
+                                <div class="row">
+                                    <div class="col-md-4" *ngFor="let item of getCompanyKycDetails">
+                                        <label>{{item.metaLabel}}</label>
+
+                                        <ng-container *ngIf="item.metaValue.startsWith('https:', 0); else elseTemplate">
+                                            <!-- <img src="{{item.metaValue}}" width="100px" height="100px" />-->
+                                            <a title="Image Preview"><img src="{{item.metaValue}}" class="img-fluid form-control" style="height: 175px !important;" width="50" height="150" alt="image" (click)="imagePreview(item.metaLabel,item.metaValue)"></a>
+                                        </ng-container>
+                                        <ng-template #elseTemplate>
+                                            <input type="text" value="{{item.metaValue}}" readonly class="form-control">
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card">
+                            <div class="card-header">Physical Verification Images</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div style="padding: 10px;" class="col-md-4" *ngFor="let item of pvImagesList">
+
+                                        <label><b>{{item.MetaLabel}}</b></label>
+                                        <div class="card-body" style="border: 1px groove rgba(250,250,210,0.5);">
+                                            <div class="row">
+                                                <div class="col-md-4" *ngFor="let val of item.MetaValue.split(',')">
+                                                    <a title="Image Preview"><img src="{{val}}" class="img-fluid form-control" style="height: 100px !important;  width: 100px !important;" alt="image" (click)="imagePreview(item.MetaLabel,val)"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card-footer">
+                            <button class="btn btn-success" type="button" (click)="markWarehouseComplete(1)">Complete</button>&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#rejectAllModal" type="button">Reject</button>
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div #closebutton class="modal down-load-modal" id="rejectAllModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header row justify-content-between m-0">
+                <h4 class="col modal-title">Reject All Document</h4>
+
+                <button type="button" class="close" data-dismiss="modal" title="Close">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <div class="row justify-content-between">
+
+                    <form [formGroup]="rejectionAllForm" (ngSubmit)="submitRejectionAllForm()" novalidate>
+
+                        <label>Please Select Reject Reason</label>
+
+                        <select formControlName="rejectReasonId" class="form-control" [ngClass]="{'is-invalid': rejectionAllForm.get('rejectReasonId').touched && rejectionAllForm.get('rejectReasonId').invalid}">
+                            <option value="">--Select--</option>
+                            <option *ngFor="let rejectionReason of rejectionReasonList"
+                                    value={{rejectionReason.id}}>
+                                {{rejectionReason.name}}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback">
+                            <div>Please Select Reject Reason</div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary" type="submit"> Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>
+<app-image-preview-modal #imagePreviewModal></app-image-preview-modal>

@@ -1,0 +1,7 @@
+table td:first-child {
+    text-align: left !important;
+}
+
+table td:last-child{
+    text-align: center !important;
+}

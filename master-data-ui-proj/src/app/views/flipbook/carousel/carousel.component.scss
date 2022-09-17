@@ -1,0 +1,120 @@
+.slider-box {
+  img {
+    width: 23%;
+    display: inline-block;
+    margin: 1%;
+  }
+}
+
+
+.custom-control-label {
+  margin-bottom: 32px;
+}
+
+.custom-control-label {
+  &:after,
+  &:before {
+    bottom: -1.5rem;
+    left: 50% !important;
+    background-color: transparent;
+    transform: translateX(-50%);
+    top: inherit;
+  }
+
+  &:before {
+    border: #20a8d9 solid 1px;
+  }
+}
+
+.custom-control-label.symptom {
+  margin: 0;
+  &:after,
+  &:before {
+    bottom: 4px;
+    left: -1rem !important;
+    transform: initial;
+    top: inherit;
+  }
+}
+.icons {
+  &.d-block{
+    margin: 0.21875rem 0;
+    width: auto;
+    color: #000000;
+  }
+}
+.custom-control-label {
+  width: 100%;
+}
+
+
+.image-box {
+  max-height: 300px;
+  overflow: auto;
+}
+
+
+.card-body {
+  img,
+  &.card-img-top,
+  &.rounded.mb-2 {
+    height: auto;
+    width: 100%;
+  }
+
+  &.fixed-layout {
+
+    .col-md-12 {
+      margin-bottom: 12px;
+    }
+  }
+
+
+}
+
+.modal-open {
+  overflow: auto !important;
+}
+
+
+
+.tag-btn{
+  color: #000;
+  background-color: #fff;
+  border-color: #6c757d;
+}
+
+
+.custom-control.custom-checkbox {
+  padding-right:15px;
+  padding-left:15px;
+}
+
+.modal-content {
+  .modal-title, .close {
+    color: #000000;
+  }
+
+  .custom-checkbox {
+    margin: 0 0 20px 0;
+
+    img {
+      height: 150px;
+      width: 100%;
+    }
+  }
+}
+
+.custom-checkbox {
+  img {
+    height: 100px;
+    width: 100%;
+  }
+}
+
+.card {
+  .card-img-top {
+    height: 150px;
+    width: 100%;
+  }
+}

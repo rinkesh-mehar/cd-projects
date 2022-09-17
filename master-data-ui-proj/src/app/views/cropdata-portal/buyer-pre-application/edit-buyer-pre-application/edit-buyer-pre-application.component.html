@@ -1,0 +1,1104 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Edit Buyer Pre-Application Form</strong></div>
+                <form [formGroup]="buyerPreApplicationForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+
+                        <h3 class="border-bottom" style="color:#ffd866;">Entity Details : </h3><br>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Nature of Business <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <div class="row">
+                                        <div class="form-group col-sm-1">
+
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input class="custom-control-input" type="radio" name="natureOfBusiness" formControlName="natureOfBusiness" id="natureOfBussinessAgriculture" value="Agriculture">
+                                                <label class="custom-control-label" for="natureOfBussinessAgriculture">Agriculture</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-2">
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input class="custom-control-input" type="radio" name="natureOfBusiness" formControlName="natureOfBusiness" id="natureOfBussinessNonAgriculture" value="Non-Agriculture">
+                                                <label class="custom-control-label" for="natureOfBussinessNonAgriculture">Non-Agriculture</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Application Type <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="applicationTypeID" class="form-control" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('applicationTypeID').touched && buyerPreApplicationForm.get('applicationTypeID').invalid}">
+                                    <option value="">--Select--</option>
+                                <option *ngFor="let applicationType of applicationTypeList" value={{applicationType.id}}>
+                                    {{applicationType.name}}
+                                </option>
+                            </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Application Type</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Present Buisness / Occupation <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="bussinessTypeID" class="form-control" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('bussinessTypeID').touched && buyerPreApplicationForm.get('bussinessTypeID').invalid}">
+                               <option value="">--Select--</option>
+                                <option *ngFor="let businessType of bussinessTypeList" value={{businessType.id}}>
+                                    {{businessType.name}}
+                                </option>
+                            </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Present Buisness / Occupation</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <mat-label>Current / Interested Product <span class="required-asterisk" style="color:red;">*</span></mat-label>
+                                <mat-select formControlName="commoditiesId" multiple class="form-control" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('commoditiesId').touched && buyerPreApplicationForm.get('commoditiesId').invalid}">
+                                    <mat-option *ngFor="let commodity of commodityList" (onSelectionChange)="onClickCommodities($event)" [value]="commodity.id">{{commodity.name}}</mat-option>
+                                    <mat-option (onSelectionChange)="onClickCommodities($event)" [value]="0">Other</mat-option>
+                                </mat-select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Commodities of Interest</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" [hidden]="isCurrentOrInterestedProducts">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Current / Interested Other Product <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="currentOrInterestedProducts" class="form-control" maxlength="512" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'currentOrInterestedProducts').touched && buyerPreApplicationForm.get( 'currentOrInterestedProducts').invalid}"
+                                        (change)="trimValue(this.buyerPreApplicationForm.get('currentOrInterestedProducts'))">
+                                    <div class="invalid-feedback">
+                                        <div>Current / Interested Other Product is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Company Type <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="companyTypeId" class="form-control" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('companyTypeId').touched && buyerPreApplicationForm.get('companyTypeId').invalid}">
+                               <option value="">--Select--</option>
+                                <option *ngFor="let applicantType of applicantTypeList" value={{applicantType.id}}>
+                                    {{applicantType.name}}
+                                </option>
+                            </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Company Type</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Website <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="url" formControlName="website" class="form-control" maxlength="255" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'website').touched && buyerPreApplicationForm.get( 'website').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('website'))">
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="buyerPreApplicationForm.get( 'website').errors?.required">Website URL is required</div>
+                                        <div *ngIf="buyerPreApplicationForm.get( 'website').errors?.pattern">Please Enter Website URL in proper pattern</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Company Name </label>
+                                    <input type="text" formControlName="companyName" class="form-control" maxlength="45" (change)="trimValue(this.buyerPreApplicationForm.get('companyName'))">
+                                    <!-- <div class="invalid-feedback">
+                                        <div>Company Name is required</div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <h3 class="border-bottom" style="color:#ffd866;">Registered Address : </h3><br>
+
+                        <input type="hidden" formControlName="registeredAddressID" class="form-control">
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Country Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="regCountry" maxlength="255" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'regCountry').touched && buyerPreApplicationForm.get( 'regCountry').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('regCountry'))">
+                                    <div class="invalid-feedback">
+                                        <div>Country Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Country Name <span class="required-asterisk" style="color:red;">*</span></label>
+
+                                    <ng-autocomplete formControlName="regCountry" [data]="regCountriesList" [searchKeyword]="keyword" (selected)='selectEventOnRegCountry($event)' placeholder="Enter the Country Name" historyIdentifier="regCountriesList" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                        [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'regCountry').touched && buyerPreApplicationForm.get( 'regCountry').invalid}">
+                                    </ng-autocomplete>
+
+                                    <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item.name"></a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-countriesNotFound>
+                                        <div [innerHTML]="countriesNotFound"></div>
+                                    </ng-template>
+
+                                    <div class="invalid-feedback">
+                                        <div>Country Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Nationality (Company Origin) <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="regCompanyOrigin" class="form-control" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('regCompanyOrigin').touched && buyerPreApplicationForm.get('regCompanyOrigin').invalid}">
+                                    <option value="">--Select--</option>
+                                <option value="Indian">Indian</option>
+                                <option value="International">International</option>
+                            </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Nationality (Company Origin) </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>State Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="regState" maxlength="70" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'regState').touched && buyerPreApplicationForm.get( 'regState').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('regState'))">
+                                    <div class="invalid-feedback">
+                                        <div>State Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>State Name <span class="required-asterisk" style="color:red;">*</span></label>
+
+                                    <ng-autocomplete formControlName="regState" [data]="regStatesList" (selected)='selectEventOnRegState($event)' [searchKeyword]="keyword" placeholder="Enter the State Name" historyIdentifier="regStatesList" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                        [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'regState').touched && buyerPreApplicationForm.get( 'regState').invalid}">
+                                    </ng-autocomplete>
+
+                                    <ng-template #itemTemplate let-regStateItem>
+                                        <a [innerHTML]="regStateItem.name"></a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-regStateNotFound>
+                                        <div [innerHTML]="regStateNotFound"></div>
+                                    </ng-template>
+
+                                    <div class="invalid-feedback">
+                                        <div>State Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>City Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="regCity" maxlength="70" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'regCity').touched && buyerPreApplicationForm.get( 'regCity').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('regCity'))">
+                                    <div class="invalid-feedback">
+                                        <div>City Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>City Name <span class="required-asterisk" style="color:red;">*</span></label>
+
+                                    <ng-autocomplete formControlName="regCity" [data]="regCitiesList" (selected)='selectEventOnRegCity($event)' [searchKeyword]="keyword" placeholder="Enter the City Name" historyIdentifier="regCitiesList" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                        [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'regCity').touched && buyerPreApplicationForm.get( 'regCity').invalid}">
+                                    </ng-autocomplete>
+
+                                    <ng-template #itemTemplate let-regCitiesItem>
+                                        <a [innerHTML]="regCitiesItem.name"></a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-regCitiesNotFound>
+                                        <div [innerHTML]="regCitiesNotFound"></div>
+                                    </ng-template>
+
+                                    <div class="invalid-feedback">
+                                        <div>City Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Street Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="regStreetName" maxlength="255" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'regStreetName').touched && buyerPreApplicationForm.get( 'regStreetName').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('regStreetName'))">
+                                    <div class="invalid-feedback">
+                                        <div>Street Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Building Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="regBuildingName" maxlength="255" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'regBuildingName').touched && buyerPreApplicationForm.get( 'regBuildingName').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('regBuildingName'))">
+                                    <div class="invalid-feedback">
+                                        <div>Building Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>Postal Code <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" class="form-control" formControlName="regPostalCode" maxlength="45" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'regPostalCode').touched && buyerPreApplicationForm.get( 'regPostalCode').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('regPostalCode'))">
+                                <div class="invalid-feedback">
+                                    <div>Postal Code is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <h3 class="border-bottom" style="color:#ffd866;">Bussiness Address : </h3><br>
+
+                        <input type="hidden" formControlName="bussinessAddressID" class="form-control">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Same As Registered Address </label>
+                                    <div class="row">
+                                        <div class="form-group col-sm-1">
+
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input class="custom-control-input" type="radio" name="sameAsRegAddress" formControlName="sameAsRegisteredAddress" id="yes" value="Yes" (click)="onClickSameAsRegAddress($event)">
+                                                <label class="custom-control-label" for="yes">Yes</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-2">
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input class="custom-control-input" type="radio" name="sameAsRegAddress" formControlName="sameAsRegisteredAddress" id="no" value="No" (click)="onClickSameAsRegAddress($event)">
+                                                <label class="custom-control-label" for="no">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Country Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="bussinessCountry" maxlength="255" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'bussinessCountry').touched && buyerPreApplicationForm.get( 'bussinessCountry').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('bussinessCountry'))">
+                                    <div class="invalid-feedback">
+                                        <div>Country Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Country Name <span class="required-asterisk" style="color:red;">*</span></label>
+
+                                    <ng-autocomplete formControlName="bussinessCountry" [data]="bussiCountriesList" (selected)='selectEventOnBussiCountry($event)' [searchKeyword]="keyword" placeholder="Enter the Country Name" historyIdentifier="bussiCountriesList" [itemTemplate]="itemTemplate"
+                                        [notFoundTemplate]="notFoundTemplate" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'bussinessCountry').touched && buyerPreApplicationForm.get( 'bussinessCountry').invalid}">
+                                    </ng-autocomplete>
+
+                                    <ng-template #itemTemplate let-bussiCountriesItem>
+                                        <a [innerHTML]="bussiCountriesItem.name"></a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-bussiCountriesNotFound>
+                                        <div [innerHTML]="bussiCountriesNotFound"></div>
+                                    </ng-template>
+
+                                    <div class="invalid-feedback">
+                                        <div>Country Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>State Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="bussinessState" maxlength="70" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'bussinessState').touched && buyerPreApplicationForm.get( 'bussinessState').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('bussinessState'))">
+                                    <div class="invalid-feedback">
+                                        <div>State Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>state Name <span class="required-asterisk" style="color:red;">*</span></label>
+
+                                    <ng-autocomplete formControlName="bussinessState" [data]="bussiStatesList" (selected)='selectEventOnBussiState($event)' [searchKeyword]="keyword" placeholder="Enter the state Name" historyIdentifier="bussiStatesList" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                        [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'bussinessState').touched && buyerPreApplicationForm.get( 'bussinessState').invalid}">
+                                    </ng-autocomplete>
+
+                                    <ng-template #itemTemplate let-bussiStatesItem>
+                                        <a [innerHTML]="bussiStatesItem.name"></a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-bussiStatesNotFound>
+                                        <div [innerHTML]="bussiStatesNotFound"></div>
+                                    </ng-template>
+
+                                    <div class="invalid-feedback">
+                                        <div>state Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>City Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="bussinessCity" maxlength="70" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'bussinessCity').touched && buyerPreApplicationForm.get( 'bussinessCity').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('bussinessCity'))">
+                                    <div class="invalid-feedback">
+                                        <div>City Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>City Name <span class="required-asterisk" style="color:red;">*</span></label>
+
+                                    <ng-autocomplete formControlName="bussinessCity" [data]="bussiCitiesList" (selected)='selectEventOnBussiCity($event)' [searchKeyword]="keyword" placeholder="Enter the City Name" historyIdentifier="bussiCitiesList" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                        [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'bussinessCity').touched && buyerPreApplicationForm.get( 'bussinessCity').invalid}">
+                                    </ng-autocomplete>
+
+                                    <ng-template #itemTemplate let-bussiCitiesItem>
+                                        <a [innerHTML]="bussiCitiesItem.name"></a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-bussiCitiesNotFound>
+                                        <div [innerHTML]="bussiCitiesNotFound"></div>
+                                    </ng-template>
+
+                                    <div class="invalid-feedback">
+                                        <div>City Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Street Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="bussinessStreetName" maxlength="255" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'bussinessStreetName').touched && buyerPreApplicationForm.get( 'bussinessStreetName').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('bussinessStreetName'))">
+                                    <div class="invalid-feedback">
+                                        <div>Street Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Building Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="bussinessBuildingName" maxlength="255" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'bussinessBuildingName').touched && buyerPreApplicationForm.get( 'bussinessBuildingName').invalid}"
+                                        (change)="trimValue(this.buyerPreApplicationForm.get('bussinessBuildingName'))">
+                                    <div class="invalid-feedback">
+                                        <div>Building Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>Postal Code <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" class="form-control" formControlName="bussinessPostalCode" maxlength="45" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'bussinessPostalCode').touched && buyerPreApplicationForm.get( 'bussinessPostalCode').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('bussinessPostalCode'))">
+                                <div class="invalid-feedback">
+                                    <div>Postal Code is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <h3 class="border-bottom" style="color:#ffd866;">Company Information : </h3><br>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Corporate Identity No. (CIN) <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="cinNumber" maxlength="21" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'cinNumber').touched && buyerPreApplicationForm.get( 'cinNumber').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('cinNumber'))">
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="buyerPreApplicationForm.get( 'cinNumber').errors?.required">Corporate Identity No. (CIN) is required</div>
+                                        <div *ngIf="buyerPreApplicationForm.get( 'cinNumber').errors?.pattern">Please Enter Valid Corporate Identity No. (CIN)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Corporate Identification File </label>
+                                    <input type="file" formControlName="cinImg" (change)="cinImage($event)" accept=".jpg,png,jpeg" class="form-control-file" id="cinImage" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('cinImg').touched && buyerPreApplicationForm.get('cinImg').invalid}">
+                                    <!-- <div class="invalid-feedback">
+                                        <div>Corporate Identification File is required</div>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <input type="hidden" formControlName="cinUrl" class="form-control">
+
+                            <div class="col-sm-3" [hidden]="isCinImg">
+                                <div class="form-group">
+                                    <label>Corporate Identification File</label>
+                                    <a data-toggle="modal" data-target="#cinImageModal"><img src="{{cinUrl}}" class="img-fluid form-control" alt="image"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Date Of Incorporation / License Issue Date <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="date" formControlName="dateOfIncorporation" class="form-control" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('dateOfIncorporation').touched && buyerPreApplicationForm.get('dateOfIncorporation').invalid}">
+
+                                    <div class="invalid-feedback">
+                                        <div>CIN / License Expiry Date is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>CIN / License Expiry Date <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="date" formControlName="cinLiscenceExpiryDate" class="form-control" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('cinLiscenceExpiryDate').touched && buyerPreApplicationForm.get('cinLiscenceExpiryDate').invalid}">
+
+                                    <div class="invalid-feedback">
+                                        <div>CIN / License Expiry Date is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>GST No.</label>
+                                    <input type="text" formControlName="gstNumber" class="form-control" maxlength="15" (change)="trimValue(this.buyerPreApplicationForm.get('gstNumber'))">
+                                    <div class="invalid-feedback">
+                                        <!-- <div *ngIf="buyerPreApplicationForm.get( 'gstNumber').errors?.required">GST No. is required</div> -->
+                                        <div *ngIf="buyerPreApplicationForm.get( 'gstNumber').errors?.pattern">Please Enter Valid GST No.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>GST Certificate File <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="file" formControlName="gstCertificateImg" (change)="gstCertificateImage($event)" accept=".jpg,png,jpeg" class="form-control-file" id="gstCertificateImage" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('gstCertificateImg').touched && buyerPreApplicationForm.get('gstCertificateImg').invalid}">
+                                    <!-- <div class="invalid-feedback">
+                                        <div>GST Certificate File is required</div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-3" [hidden]="isGstCertificateImg">
+                                <div class="form-group">
+                                    <label>GST Certificate File</label>
+                                    <a data-toggle="modal" data-target="#gstCertificateImageModal"><img src="{{gstCertificateUrl}}" class="img-fluid form-control" alt="image"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Udyog Aadhar No. <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="udyogAadharNo" maxlength="21" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'udyogAadharNo').touched && buyerPreApplicationForm.get( 'udyogAadharNo').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('udyogAadharNo'))">
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="buyerPreApplicationForm.get( 'udyogAadharNo').errors?.required">Udyog Aadhar No. is required</div>
+                                        <!-- <div *ngIf="buyerPreApplicationForm.get( 'udyogAadharNo').errors?.pattern">Please Enter Valid Udyog Aadhar No.</div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" formControlName="udyogAadharUrl" class="form-control">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Udyog Aadhar File </label>
+                                    <input type="file" formControlName="udyogAadharImg" (change)="udyogAadharImage($event)" accept=".jpg,png,jpeg" class="form-control-file" id="image" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('udyogAadharImg').touched && buyerPreApplicationForm.get('udyogAadharImg').invalid}">
+                                    <!-- <div class="invalid-feedback">
+                                            <div>Udyog Aadhar File is required</div>
+                                        </div> -->
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3" [hidden]="isUdyogAadharImg">
+                                <div class="form-group">
+                                    <label>Udyog Aadhar File</label>
+                                    <a data-toggle="modal" data-target="#udyogAadharImageModal"><img src="{{udyogAadharUrl}}" class="img-fluid form-control" alt="image"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Income Tax Permanent Account No. <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="panNo" maxlength="21" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'panNo').touched && buyerPreApplicationForm.get( 'panNo').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('panNo'))">
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="buyerPreApplicationForm.get( 'panNo').errors?.required">Income Tax Permanent Account No. is required</div>
+                                        <div *ngIf="buyerPreApplicationForm.get( 'panNo').errors?.pattern">Please Enter Valid Income Tax Permanent Account No.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>PAN File <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="file" formControlName="panImg" (change)="panImage($event)" accept=".jpg,png,jpeg" class="form-control-file" id="panImage" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('panImg').touched && buyerPreApplicationForm.get('panImg').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div>PAN File is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3" [hidden]="isPanImg">
+                                <div class="form-group">
+                                    <label>PAN File</label>
+                                    <a data-toggle="modal" data-target="#panImageModal"><img src="{{panUrl}}" class="img-fluid form-control" alt="image"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>TAN No. <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="tanNo" class="form-control" maxlength="15" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'tanNo').touched && buyerPreApplicationForm.get( 'tanNo').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('tanNo'))">
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="buyerPreApplicationForm.get( 'tanNo').errors?.required">TAN No. is required</div>
+                                        <div *ngIf="buyerPreApplicationForm.get( 'tanNo').errors?.pattern">Please Enter Valid TAN No.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" formControlName="tanUrl" class="form-control">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>TAN File </label>
+                                    <input type="file" formControlName="tanImg" (change)="tanImage($event)" accept=".jpg,png,jpeg" class="form-control-file" id="tanImage" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('tanImg').touched && buyerPreApplicationForm.get('tanImg').invalid}">
+                                    <!-- <div class="invalid-feedback">
+                                        <div>TAN File is required</div>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3" [hidden]="isTanImg">
+                                <div class="form-group">
+                                    <label>TAN File</label>
+                                    <a data-toggle="modal" data-target="#tanImageModal"><img src="{{tanUrl}}" class="img-fluid form-control" alt="image"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="border-bottom" style="color:#ffd866;">Directors/Proprietor/Partner Details : </h3><br>
+
+                        <div class="row" [hidden]="true">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="directorsProprietorPartnerName" class="form-control" maxlength="45" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'directorsProprietorPartnerName').touched && buyerPreApplicationForm.get( 'directorsProprietorPartnerName').invalid}"
+                                        (change)="trimValue(this.buyerPreApplicationForm.get('directorsProprietorPartnerName'))">
+                                    <!-- <div class="invalid-feedback">
+                                        <div>Name is required</div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>First Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="compSignatoryFirstName" class="form-control" maxlength="45" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'compSignatoryFirstName').touched && buyerPreApplicationForm.get( 'compSignatoryFirstName').invalid}"
+                                        (change)="trimValue(this.buyerPreApplicationForm.get('compSignatoryFirstName'))">
+                                    <div class="invalid-feedback">
+                                        <div>First Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Middel Name </label>
+                                    <input type="text" formControlName="compSignatoryMiddleName" class="form-control" maxlength="45" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'compSignatoryMiddleName').touched && buyerPreApplicationForm.get( 'compSignatoryMiddleName').invalid}"
+                                        (change)="trimValue(this.buyerPreApplicationForm.get('compSignatoryMiddleName'))">
+                                    <!-- <div class="invalid-feedback">
+                                        <div>Middel Name is required</div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Last Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="compSignatoryLastName" class="form-control" maxlength="45" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'compSignatoryLastName').touched && buyerPreApplicationForm.get( 'compSignatoryLastName').invalid}"
+                                        (change)="trimValue(this.buyerPreApplicationForm.get('compSignatoryLastName'))">
+                                    <div class="invalid-feedback">
+                                        <div>Last Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Designation <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="companyAuthSignDesignationID" class="form-control" (click)="onClickDesignation()" [ngClass]="{'is-invalid': buyerPreApplicationForm.get('companyAuthSignDesignationID').touched && buyerPreApplicationForm.get('companyAuthSignDesignationID').invalid}">
+                               <option value="">--Select--</option>
+                                <option *ngFor="let desig of designationList" value={{desig.id}}>
+                                    {{desig.name}}
+                                </option>
+                            </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Designation</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" [hidden]="isOtherDesignationNameHidden">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Other Designation <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="otherDesignation" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'otherDesignation').touched && buyerPreApplicationForm.get( 'otherDesignation').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('otherDesignation'))">
+                                    <div class="invalid-feedback">
+                                        <div>Current / Interested Other Product is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Email Address <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="email " formControlName="companyAuthSignEmail" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'companyAuthSignEmail').touched && buyerPreApplicationForm.get( 'companyAuthSignEmail').invalid}"
+                                        (change)="trimValue(this.buyerPreApplicationForm.get('companyAuthSignEmail'))">
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="buyerPreApplicationForm.get( 'companyAuthSignEmail').errors?.required">Email Address is required</div>
+                                        <div *ngIf="buyerPreApplicationForm.get( 'companyAuthSignEmail').errors?.pattern">Please provide a valid Email Address</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Telephone Number </label>
+                                    <input type="text" class="form-control" formControlName="telephoneNumber" maxlength="18">
+                                    <!-- <div class="invalid-feedback">
+                                        <div *ngIf="buyerPreApplicationForm.get( 'telephoneNumber').errors?.required">Telephone Number is required</div>
+                                        <div *ngIf="buyerPreApplicationForm.get( 'telephoneNumber').errors?.pattern">Please provide a valid Telephone Number</div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Same As Telephone Number </label>
+                                    <div class="row">
+                                        <div class="form-group col-sm-1">
+
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input class="custom-control-input" type="radio" name="sameAsTeleNumber" formControlName="sameAsTelephoneNumber" id="y" value="Y" (click)="onClickSameAsTelephoneNumber($event)">
+                                                <label class="custom-control-label" for="y">Yes</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-2">
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input class="custom-control-input" type="radio" name="sameAsTeleNumber" formControlName="sameAsTelephoneNumber" id="n" value="N" (click)="onClickSameAsTelephoneNumber($event)">
+                                                <label class="custom-control-label" for="n">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Mobile Number </label>
+                                    <input type="text" class="form-control" formControlName="companyMobileNumber" maxlength="18">
+                                    <!-- <div class="invalid-feedback">
+                                        <div *ngIf="buyerPreApplicationForm.get( 'companyMobileNumber').errors?.required">Mobile Number is required</div>
+                                        <div *ngIf="buyerPreApplicationForm.get( 'companyMobileNumber').errors?.pattern">Please provide a valid Mobile Number</div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <h3 class="border-bottom" style="color:#ffd866;">Admin Details : </h3><br>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>First Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="adminFirstName" class="form-control" maxlength="45" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'adminFirstName').touched && buyerPreApplicationForm.get( 'adminFirstName').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('adminFirstName'))">
+                                    <div class="invalid-feedback">
+                                        <div>First Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Middle Name </label>
+                                    <input type="text" formControlName="adminMiddleName" class="form-control" maxlength="45" (change)="trimValue(this.buyerPreApplicationForm.get('adminMiddleName'))">
+                                    <!-- <div class="invalid-feedback">
+                                        <div>Middle Name is required</div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Last Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="adminLastName" class="form-control" maxlength="45" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'adminLastName').touched && buyerPreApplicationForm.get( 'adminLastName').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('adminLastName'))">
+                                    <div class="invalid-feedback">
+                                        <div>Last Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Email Address <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="email " formControlName="adminEmailAddress" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'adminEmailAddress').touched && buyerPreApplicationForm.get( 'adminEmailAddress').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('adminEmailAddress'))">
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="buyerPreApplicationForm.get( 'adminEmailAddress').errors?.required">Email Address is required</div>
+                                        <div *ngIf="buyerPreApplicationForm.get( 'adminEmailAddress').errors?.pattern">Please provide a valid Email Address</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Mobile Number <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="adminMobileNumber" maxlength="18" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'adminMobileNumber').touched && buyerPreApplicationForm.get( 'adminMobileNumber').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="buyerPreApplicationForm.get( 'adminMobileNumber').errors?.required">Mobile Number is required</div>
+                                        <div *ngIf="buyerPreApplicationForm.get( 'adminMobileNumber').errors?.pattern">Please provide a valid Mobile Number</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="border-bottom" style="color:#ffd866;">Bank Details : </h3><br>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Bank Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="bankName" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'bankName').touched && buyerPreApplicationForm.get( 'bankName').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('bankName'))">
+                                    <div class="invalid-feedback">
+                                        <div>Bank Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Branch Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="branch" class="form-control" maxlength="45" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'branch').touched && buyerPreApplicationForm.get( 'branch').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('branch'))">
+                                    <div class="invalid-feedback">
+                                        <div>Branch is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Account Type <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="accountType" class="form-control" maxlength="45" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'accountType').touched && buyerPreApplicationForm.get( 'accountType').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('accountType'))">
+                                    <div class="invalid-feedback">
+                                        <div>Account Type is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Account Number <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="accountNumber" class="form-control" maxlength="45" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'accountNumber').touched && buyerPreApplicationForm.get( 'accountNumber').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('accountNumber'))">
+                                    <div class="invalid-feedback">
+                                        <div>Account Number is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Account is operatable since? <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="number" class="form-control" formControlName="isOperationalSince" maxlength="4" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'isOperationalSince').touched && buyerPreApplicationForm.get( 'isOperationalSince').invalid}">
+                                    <div class=" invalid-feedback ">
+                                        <div>Account is operatable since is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <div class="form-group">
+                                    <label>IFSC Code <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="ifsccode" class="form-control" maxlength="45" [ngClass]="{ 'is-invalid': buyerPreApplicationForm.get( 'ifsccode').touched && buyerPreApplicationForm.get( 'ifsccode').invalid}" (change)="trimValue(this.buyerPreApplicationForm.get('ifsccode'))">
+                                    <div class="invalid-feedback">
+                                        <div>IFSC Code is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" formControlName="applicantApplicationId" class="form-control">
+
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-primary " type="submit"> Update </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/cropdata-portal/buyer-pre-application-list']">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>
+
+<!-- CIN Certificate Modal -->
+<div #cinCloseButton class="modal fade" id="cinImageModal" tabindex="-1" role="dialog" aria-labelledby="cinImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="cinImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{cinUrl}}" download="{{cinUrl}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{cinUrl}}" class="img-fluid">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="modal-body">
+                    Are you sure want to Change Current Image ?
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    No</button>
+                <button type="button" class="btn btn-success" (click)="cinHide()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Udyog Aadhar Modal -->
+<div #udyogAadharCloseButton class="modal fade" id="udyogAadharImageModal" tabindex="-1" role="dialog" aria-labelledby="udyogAadharImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="udyogAadharImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{udyogAadharUrl}}" download="{{udyogAadharUrl}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{udyogAadharUrl}}" class="img-fluid">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="modal-body">
+                    Are you sure want to Change Current Image ?
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    No</button>
+                <button type="button" class="btn btn-success" (click)="udyogAadharHide()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PAN Modal -->
+<div #panCloseButton class="modal fade" id="panImageModal" tabindex="-1" role="dialog" aria-labelledby="panImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="panImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{panUrl}}" download="{{panUrl}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{panUrl}}" class="img-fluid">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="modal-body">
+                    Are you sure want to Change Current Image ?
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    No</button>
+                <button type="button" class="btn btn-success" (click)="panHide()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- GST Certificate Modal -->
+<div #gstCertificateCloseButton class="modal fade" id="gstCertificateImageModal" tabindex="-1" role="dialog" aria-labelledby="gstCertificateImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="gstCertificateImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{gstCertificateUrl}}" download="{{gstCertificateUrl}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{gstCertificateUrl}}" class="img-fluid">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="modal-body">
+                    Are you sure want to Change Current Image ?
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    No</button>
+                <button type="button" class="btn btn-success" (click)="gstCertificateHide()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TAN Certificate Modal -->
+<div #tanCloseButton class="modal fade" id="tanImageModal" tabindex="-1" role="dialog" aria-labelledby="tanImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="tanImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{tanUrl}}" download="{{tanUrl}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{tanUrl}}" class="img-fluid">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="modal-body">
+                    Are you sure want to Change Current Image ?
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    No</button>
+                <button type="button" class="btn btn-success" (click)="tanHide()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

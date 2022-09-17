@@ -1,0 +1,11 @@
+import { AgriStresSeverity } from './AgriStressSeverity';
+export class PageAgriStressServity {
+    content : AgriStresSeverity[];
+    totalPages : number;
+    totalElements : number;
+    last : boolean;
+    size : number ;
+    first : boolean ;
+    sort : string ;
+    numberOfElements : number ;
+}

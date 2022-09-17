@@ -1,0 +1,91 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Regional Monthly Travel Time
+                            <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right" [routerLink]="['/regional/monthly-travel-time-add/']"> Add
+                                    Regional Monthly Travel Time</button>
+                                <button class="btn btn-danger btn-sm move-right" (click)="fixBug()"><i class="fa fa-bug" aria-hidden="true"></i> Fix Bugs</button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group mb-3  col-lg-12 col-md-12 p-0">
+                                <input type="text" class="form-control" placeholder="Search here...  " [(ngModel)]="searchText">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" (click)="searchBank()">Search</button>
+                                    <button class="btn btn-danger" type="button" (click)="searchText='';searchBank()">Clear</button>
+                                </div>
+                            </div>
+
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event)">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 20px;" mat-sort-header="id">ID</th>
+                                        <th class="text-left" mat-sort-header="regionName">Region</th>
+                                        <!-- <th class="text-left">Region</th> -->
+                                        <th class="text-left" mat-sort-header="month">Month</th>
+                                        <th class="text-left" mat-sort-header="unitName">Unit</th>
+                                        <th style="width: 80px !important; min-width: 80px !important;">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody *ngIf="pageRegionMonthWBTravelTimeList?.content">
+                                    <tr *ngFor="let regionMonthWB of pageRegionMonthWBTravelTimeList.content | searchFilter :searchText:['regionName','unitName','month']">
+                                        <div title="{{regionMonthWB.errorMessage}}" class="{{regionMonthWB.isValid ? '': 'IsInValid'}}">
+
+                                            <!-- <tbody>
+                  <tr *ngFor="let language of LanguageList"> -->
+                                            <td scope="row">{{regionMonthWB.id}}</td>
+                                            <td class="text-left">{{regionMonthWB.regionName | titlecase}}</td>
+                                            <!-- <td class="text-left">{{language.region}}</td> -->
+                                            <td class="text-left">{{regionMonthWB.month}}</td>
+                                            <td class="text-left">{{regionMonthWB.unitName}}</td>
+                                            <td style="width: 80px !important;">
+                                                <!-- <button type="button" class="btn btn-success btn-sm move-right"
+                    [routerLink]="['/region/language-edit/', language.id]">Edit</button> -->
+
+                                                <button type="button" class="btn btn-info btn-sm move-right" title="Edit" [routerLink]="['/regional/monthly-travel-time-edit/', regionMonthWB.id]" *ngIf="userRightsService.canEdit()"><i
+                                                class="fa fa-pencil-square-o"></i></button>
+                                            </td>
+                                        </div>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="pageRegionMonthWBTravelTimeList.content.length == 0">
+                                    <td colspan="5" class="text-left">Data Not Found..!!</td>
+                                </tbody>
+                            </table>
+
+                            <div class="row justify-content-between m-0">
+                                <div class="col-xs-9 col-9 text-center p-0" *ngIf="pageRegionMonthWBTravelTimeList?.content">
+                                    <pagination [totalItems]="pageRegionMonthWBTravelTimeList.totalElements" [(ngModel)]="selectedPage" [maxSize]="maxSize" class="pagination-md" previousText="&lsaquo; Prev" nextText="Next &rsaquo;" firstText="&laquo; First" lastText="Last &raquo; " [boundaryLinks]="true"
+                                        [itemsPerPage]="pageRegionMonthWBTravelTimeList.size" [rotate]="false" (numPages)="numPages = $event;" (pageChanged)="onSelect($event.page-1)">
+                                    </pagination>
+                                </div>
+                                <div class="row col-xs-3 col-3 m-0" *ngIf="pageRegionMonthWBTravelTimeList?.content">
+                                    <div class="col text-right p-0">
+                                        <label class="text-right">Records per page</label>
+                                        <select class="p-0" (change)="loadData($event)">
+                                    <option value="10" selected>10</option>
+                                    <option *ngFor="let items of records" value="{{items}}">{{items}}</option>
+                                </select> &nbsp;
+                                        <label class="text-center">Page {{selectedPage}} of
+                                    {{pageRegionMonthWBTravelTimeList.totalPages}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

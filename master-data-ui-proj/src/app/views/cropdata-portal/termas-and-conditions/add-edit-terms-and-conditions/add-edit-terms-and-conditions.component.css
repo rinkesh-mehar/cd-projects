@@ -1,0 +1,17 @@
+.dwld {
+    padding: 10px;
+}
+
+.btn-outline-dark {
+    /* color: #2f353a; */
+    /* border-color: black; */
+    border-width: 2px;
+}
+
+.btn {
+    box-shadow: 2px 2px 3px #4d3319;
+}
+
+.btn-color {
+    background-color: gray;
+}

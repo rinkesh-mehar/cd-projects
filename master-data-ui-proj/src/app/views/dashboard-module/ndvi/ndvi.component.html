@@ -1,0 +1,371 @@
+<div class="card">
+
+
+    <div class="card-header">
+        <b>NDVI DATA</b>
+        <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
+            <button type="button" class="btn btn-block btn-primary active" aria-pressed="true" id="option1" (click)="todayButtonClick()">Day</button>
+        </div>
+
+        <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
+            <button type="button" class="btn btn-block btn-primary active" aria-pressed="true" id="option3" (click)="weeklyButtonClick()">Week</button>
+        </div>
+
+        <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
+            <button type="button" class="btn btn-block btn-primary active" aria-pressed="true" id="option2" (click)="monthlyButtonClick()">Month</button>
+        </div>
+    </div>
+    <!-- <div class="card-body" style="position: relative;" (click)="getPieChartKMLData()"> -->
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6 col-lg-3">
+                <div class="brand-card">
+                    <div class="brand-card-header bg-info" style="text-align: center">
+                        <!-- <i class="fa fa-facebook"></i> -->
+                        <!-- <button (click)="getKmlData()" class="btn btn-info" style="color:white;">
+              
+            </button> -->
+                        <h1><b>KML Onboarding</b></h1>
+
+                    </div>
+                    <div class="brand-card-body">
+                        <div style="position: relative;">
+                            <div class="text-value">{{NDVIData?.ReceivedKML}}</div>
+                            <div class="text-uppercase text-muted small"><b>Recived</b></div>
+                        </div>
+                        <div style="position: relative;">
+                            <div class="text-value">{{NDVIData?.OnboardedKML}}</div>
+                            <div class="text-uppercase text-muted small"><b>Onboarded</b></div>
+                        </div>
+                    </div>
+                    <div class="brand-card-footer" style="text-align: center">
+                        <button type="button" class="btn btn-block btn-info active" data-toggle="modal" data-target="#kmlStatusModal" (click)="getTodayKmlStatusData()">Viwe Status</button>
+                        <div id="kmlStatusModal" class="modal fade">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+
+                                        <div class="animated fadeIn">
+                                            <div class="card-columns cols-2">
+                                                <div class="card">
+                                                    <div class="card-header" class="btn btn-block btn-info active">
+                                                        <i class="fa fa-align-justify"></i> Region wise Onboarded KML
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="width: 30%">Region</th>
+                                                                    <th>Received</th>
+                                                                    <th>Completed</th>
+                                                                    <th>Pending</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let status of kmlStatusList">
+                                                                    <td scope="row">{{status.region}}</td>
+                                                                    <td class="text-left">{{status.received}}</td>
+                                                                    <td class="text-left">{{status.completed}}</td>
+                                                                    <td class="text-left">{{status.pending}}</td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="card">
+                                                    <div class="card-header" class="btn btn-block btn-info active">
+                                                        Onboarding Time Duration
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="chart-wrapper">
+                                                            <canvas baseChart class="chart" [data]="kmlStatusData" [labels]="kmlStatusLabel" [chartType]="pieChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                                                        </div>
+
+                                                        <div class="container">
+                                                            <div class="row"> Total Received : {{kmlStat?.recivedKml}} </div>
+                                                            <div class="row"> Total Onboarded : {{kmlStat?.onboardedKml}} </div>
+                                                            <div class="row"> Time taken for Onboarding : {{kmlStat?.totalTimeTaken}} </div>
+                                                            <div class="row"> Total Pending : {{kmlStat?.pendingKml}} </div>
+                                                            <div class="row"> Time required to Onboard Pending KML : {{kmlStat?.timeToComplete}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" data-dismiss="modal" style="color:white;">Close</button>
+                                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                                        <!-- <button type="button" class="btn btn-info">Save changes</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6 col-lg-3">
+                <div class="brand-card">
+                    <div class="brand-card-header bg-success" style="text-align: center">
+                        <h1><b>Sentinel Download</b></h1>
+                    </div>
+                    <div class="brand-card-body">
+                        <div>
+                            <div class="text-value">{{NDVIData?.NewSentileDetected}}</div>
+                            <div class="text-uppercase text-muted small"><b>New</b></div>
+                        </div>
+                        <div>
+                            <div class="text-value">{{NDVIData?.PendingSentileDownloadQueue}}</div>
+                            <div class="text-uppercase text-muted small"><b>Pending</b></div>
+                        </div>
+                        <div>
+                            <div class="text-value">{{NDVIData?.CompletedSentileDownload}}</div>
+                            <div class="text-uppercase text-muted small"><b>Completed</b></div>
+                        </div>
+                    </div>
+                    <!-- <div class="brand-card-footer" style="text-align: center">
+            <button type="button" class="btn btn-block btn-success active">Viwe Status</button>
+          </div> -->
+                    <div class="brand-card-footer" style="text-align: center">
+                        <button type="button" class="btn btn-block btn-success active" data-toggle="modal" data-target="#sentinelDownloadedModal" (click)="getSentinelDownloadedData()">Viwe Status</button>
+                        <div id="sentinelDownloadedModal" class="modal fade">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+
+                                        <div class="animated fadeIn">
+                                            <!-- <div class="card-columns cols-2"> -->
+                                            <div class="card">
+                                                <div class="card-header" class="btn btn-block btn-success active">
+                                                    Sentinel Downloaded Time Duration
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="chart-wrapper">
+                                                        <canvas baseChart class="chart" [data]="sentinelDownloadedData" [labels]="sentinelDownloadedLabel" [chartType]="pieChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                                                    </div>
+
+                                                    <div class="container">
+                                                        <div class="row"> New sentinal count : {{SentinalDownloadDataList?.newCount}} </div>
+                                                        <div class="row"> Completed sentinal count : {{SentinalDownloadDataList?.downloadCompleteSentinalCount}} </div>
+                                                        <div class="row"> Time taken for downloading sentinals : {{SentinalDownloadDataList?.totalTimeTakenForCompleteSentinal}} </div>
+                                                        <div class="row"> Pending sentinal count : {{SentinalDownloadDataList?.downloadPendingSentinalCount}} </div>
+                                                        <!-- <div class="row"> Time taken per Sentinel in Minute :
+                              {{SentinalDownloadDataList?.timeTakenPerSentinelInMinute}} </div> -->
+                                                        <div class="row">Time required to download pending sentinals : {{SentinalDownloadDataList?.timeToCompleteSentinal}} </div>
+                                                    </div>
+
+                                                </div>
+                                                <!-- </div> -->
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                                        <!-- <button type="button" class="btn btn-info">Save changes</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/.col-->
+
+
+            <div class="col-sm-6 col-lg-3">
+                <div class="brand-card">
+                    <div class="brand-card-header bg-warning" style="text-align: center">
+                        <h1><b>Sentinel Analysis</b></h1>
+                        <!-- <h1><b>Analysis Sentinel</b></h1> -->
+                    </div>
+                    <div class="brand-card-body">
+                        <div>
+                            <div class="text-value">{{NDVIData?.AnalysisPendingSentileQueue}}</div>
+                            <div class="text-uppercase text-muted small"><b>Pending</b></div>
+                        </div>
+                        <div>
+                            <div class="text-value">{{NDVIData?.AnalysisCompletedSentile}}</div>
+                            <div class="text-uppercase text-muted small"><b>Completed</b></div>
+                        </div>
+                    </div>
+                    <!-- <div class="brand-card-footer" style="text-align: center">
+            <button type="button" class="btn btn-block btn-warning active" style="color:white;">Viwe Status</button>
+          </div> -->
+
+                    <div class="brand-card-footer" style="text-align: center">
+                        <button type="button" class="btn btn-block btn-warning active" data-toggle="modal" style="color:white;" data-target="#sentinelAnalysedModal" (click)="getSentinelAnalysedData()">Viwe Status</button>
+                        <div id="sentinelAnalysedModal" class="modal fade">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+
+                                        <div class="animated fadeIn">
+                                            <!-- <div class="card-columns cols-2"> -->
+                                            <div class="card">
+                                                <div class="card-header" class="btn btn-block btn-warning active" style="color:white;">
+                                                    Sentinel Analysed Time Duration
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="chart-wrapper">
+                                                        <canvas baseChart class="chart" [data]="sentinelAnalysedData" [labels]="sentinelAnalysedLabel" [chartType]="pieChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                                                    </div>
+
+                                                    <div class="container">
+                                                        <div class="row"> Completed sentinal count : {{SentinelAnalysedDataList?.analyzeCompleteSentinalCount}} </div>
+                                                        <div class="row"> Time taken for analysing sentinals : {{SentinelAnalysedDataList?.timeTakenPerSentinelInMinute}} </div>
+                                                        <div class="row"> Pending sentinal count : {{SentinelAnalysedDataList?.analyzePendingSentinalCount}} </div>
+                                                        <!-- <div class="row">Total time to complete sentinal :
+                              {{SentinelAnalysedDataList?.totalTimeToCompleteSentinalCount}} </div> -->
+                                                        <div class="row"> Time required for analysing pending sentinals : {{SentinelAnalysedDataList?.timeToCompleteAnalyzeSentinal}} </div>
+                                                    </div>
+
+                                                </div>
+                                                <!-- </div> -->
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-warning" data-dismiss="modal" style="color:white;">Close</button>
+                                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                                        <!-- <button type="button" class="btn btn-info">Save changes</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--/.col-->
+
+            <div class="col-sm-6 col-lg-3">
+                <div class="brand-card">
+                    <div class="brand-card-header bg-danger" style="text-align: center">
+                        <h1><b>Benchmark NDVI</b></h1>
+                    </div>
+                    <div class="brand-card-body">
+                        <div>
+                            <div class="text-value">{{NDVIData?.BenchmarkNDVIToBeProcessed}}</div>
+                            <div class="text-uppercase text-muted small"><b>To Be Processed</b></div>
+                        </div>
+                        <div>
+                            <div class="text-value">{{NDVIData?.BenchmarkNDVIProcessed}}</div>
+                            <div class="text-uppercase text-muted small"><b>Processed</b></div>
+                        </div>
+                    </div>
+                    <!-- <div class="brand-card-footer" style="text-align: center">
+            <button type="button" class="btn btn-block btn-danger active">Viwe Status</button>
+          </div> -->
+
+                    <div class="brand-card-footer" style="text-align: center">
+                        <button type="button" class="btn btn-block btn-danger active" data-toggle="modal" data-target="#processedNDVIModal" (click)="getBenchmarkNDVI()">Viwe Status</button>
+                        <div id="processedNDVIModal" class="modal fade">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+
+                                        <div class="animated fadeIn">
+                                            <!-- <div class="card-columns cols-2"> -->
+                                            <div class="card">
+                                                <div class="card-header" class="btn btn-block btn-danger active">
+                                                    Benchmark NDVI Time Duration
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="chart-wrapper">
+                                                        <canvas baseChart class="chart" [data]="benchmarkNDVIData" [labels]="benchmarkNDVILabel" [chartType]="pieChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                                                    </div>
+
+                                                    <div class="container">
+                                                        <div class="row"> Processed benchmark count : {{BenchmarkNDVIDataList?.processedBenchmarkCount}} </div>
+                                                        <div class="row"> Time taken to process benchmark cases : {{BenchmarkNDVIDataList?.timeRequiredToComleteBenchmarks}} </div>
+                                                        <div class="row"> Pending cases for benchmark : {{BenchmarkNDVIDataList?.pendingBenchmark}} </div>
+                                                        <!-- <div class="row"> Total time taken for benchmark : {{BenchmarkNDVIDataList?.totalTimeTakes}} </div> -->
+                                                        <div class="row"> Time required to benchmark pending cases : {{BenchmarkNDVIDataList?.timePerBenchmark}} </div>
+                                                    </div>
+
+                                                </div>
+                                                <!-- </div> -->
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                                        <!-- <button type="button" class="btn btn-info">Save changes</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Bar Chart -->
+<div class="animated fadeIn">
+    <div class="card-columns cols-2">
+        <div class="card">
+            <div class="card-header">
+                Weekly KML Onboarding
+            </div>
+            <div class="card-body">
+                <div class="chart-wrapper">
+                    <canvas baseChart class="chart" [data]="onbordedDataDatasets" [labels]="onbordedDataLabel" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                Hourly Sentinel Downloaded
+            </div>
+            <div class="card-body">
+                <div class="chart-wrapper">
+                    <canvas baseChart class="chart" [data]="sentinelDownloadedLast12HourlyDatasets" [labels]="sentinelDownloadedLast12HourlyDataLabel" [options]="barChart2Options" [legend]="barChart2Legend" [chartType]="barChart2Type" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-header">
+                Hourly Sentinel Analysed
+            </div>
+            <div class="card-body">
+                <div class="chart-wrapper">
+                    <canvas baseChart class="chart" [data]="sentinelAnalysedLast12HourlyDatasets" [labels]="sentinelAnalysedLast12HourlyDataLabel" [options]="barChart3Options" [legend]="barChart3Legend" [chartType]="barChart3Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <div class="card-header">
+                Hourly Processed NDVI
+            </div>
+            <div class="card-body">
+                <div class="chart-wrapper">
+                    <canvas baseChart class="chart" [data]="processedNDVILast12HourlyDatasets" [labels]="processedNDVILast12HourlyDataLabel" [options]="barChart4Options" [legend]="barChart4Legend" [chartType]="barChart4Type" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

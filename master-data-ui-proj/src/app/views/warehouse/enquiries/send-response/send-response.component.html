@@ -1,0 +1,65 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong> Enquiry Request Details</strong></div>
+            <div class="card-body">
+
+                <div *ngIf="isSubmitted">
+                    <div class="alert alert-success" *ngIf="isSuccess">
+                        <strong> {{_statusMsg}} Please Wait ..</strong>.
+                    </div>
+
+                    <div class="alert alert-danger" *ngIf="!isSuccess ">
+                        <strong>{{_statusMsg}}</strong>
+                    </div>
+                </div>
+
+                <form [formGroup]="responseForm" (ngSubmit)="submitForm()" novalidate>
+
+                    <table class="table table-bordered">                        
+                        <tr>
+                            <th>Name :</th>
+                            <td>{{enquiryDetails.name}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Mobile :</th>
+                            <td>{{enquiryDetails.contactNumber}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Email :</th>
+                            <td>{{enquiryDetails.email}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Query :</th>
+                            <td>{{enquiryDetails.query}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Response :</th>
+                            <td>
+                                <div class="form-group">
+                                    <textarea name="description" formControlName="response" class="form-control"
+                                        rows="8" placeholder="Write your response here ..."
+                                        [ngClass]="{'is-invalid': responseForm.get('response').touched && responseForm.get('response').invalid}"></textarea>
+    
+                                    <div class="invalid-feedback">
+                                        <div>Please Add Response Description</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Send Response</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,95 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong>Edit Commodity</strong><small> Form</small></div>
+            <form [formGroup]="updateCommodityForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Commodity Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': updateCommodityForm.get('name').touched && updateCommodityForm.get('name').invalid}" (change)="trimValue(this.updateCommodityForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Commodity Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Scientific Name</label>
+                                <input type="text" class="form-control" formControlName="scientificName">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Description </label>
+                            <textarea formControlName="description" class="form-control" rows="10" maxlength="65000" [ngClass]="{ 'is-invalid': updateCommodityForm.get( 'description').touched && updateCommodityForm.get( 'description').invalid}" (change)="trimValue(this.updateCommodityForm.get('description'))">
+                            </textarea>
+                            <!-- <div class="invalid-feedback">
+                                <div>Description is required</div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Commodity Group</label>
+                            <select formControlName="commodityGroupId" class="form-control" [ngClass]="{'is-invalid': updateCommodityForm.get('commodityGroupId').touched && updateCommodityForm.get('commodityGroupId').invalid}">
+                          <option value="">--Select--</option>
+                          <option *ngFor="let commodityGroup of CommodityGroupList" value={{commodityGroup.id}}>
+                              {{commodityGroup.name}}
+                          </option>
+                      </select>
+                            <!-- <div class="invalid-feedback">
+                                <div>Please Select State</div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Commodity Group Index</label>
+                                <input type="number" class="form-control" formControlName="commodityGroupIndex">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-md-2 mb-0">
+                            <label>Upload Logo <span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="file" formControlName="logoFile" (change)="onLogoChange($event)" class="form-control-file" id="logoFile" [ngClass]="{'is-invalid': updateCommodityForm.get('logoFile').touched && updateCommodityForm.get('logoFile').invalid}">
+                            <div class="invalid-feedback">
+                                <div *ngIf="updateCommodityForm.get( 'logoFile').errors?.required">Uplodad Logo is required</div>
+                                <div *ngIf="updateCommodityForm.get( 'logoFile').errors?.fileSizeValidatorForDoc">Logo size should not be more than 10 MB</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" [hidden]="isLogoHidden">
+                            <div class="form-group mb-0">
+                                <label>Current Logo</label>
+                                <img src="{{logo}}" class="img-fluid form-control" style="height: 100px !important;" width="50" alt="logo">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/commodity/commodities']">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

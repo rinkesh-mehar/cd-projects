@@ -1,0 +1,121 @@
+<style>
+    .style {
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> View Partnership Request Details
+                        </div>
+                        <form [formGroup]="viewPartnershipRequestForm">
+
+                            <div class="card-body">
+
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Name : </label>
+                                            <input type="text" readonly class="form-control" value={{partnershipRequest.name}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Email : </label>
+                                            <input type="text" readonly class="form-control" value={{partnershipRequest.email}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Mobile Number : </label>
+                                            <input type="text" readonly class="form-control" value={{partnershipRequest.mobile}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Organization : </label>
+                                            <input type="text" readonly class="form-control" value={{partnershipRequest.organisationName}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Organization Email : </label>
+                                            <input type="text" readonly class="form-control" value={{partnershipRequest.organisationEmail}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Industry : </label>
+                                            <input type="text" readonly class="form-control" value={{partnershipRequest.industry}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Other Industry Name : </label>
+                                            <input type="text" readonly class="form-control" value={{partnershipRequest.otherIndustry}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Partnership Programs : </label>
+                                            <input type="text" readonly class="form-control" value={{partnershipRequest.partnershipPrograms}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12 mb-0">
+
+                                        <label>Tell us more : </label>
+                                        <textarea readonly class="form-control" rows="4" value={{partnershipRequest.more}}>
+                                            </textarea>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer ">
+                                &nbsp;
+                                <button type="button" class="btn btn-danger" (click)="onClickCancel()">Cancel</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<app-confirmation-madal (hideModal)="modalConfirmation($event) " #confirmModal></app-confirmation-madal>-->
+<!--<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>-->
+<!--<app-error-modal #errorModal></app-error-modal>-->

@@ -1,0 +1,39 @@
+.btn-outline-dark {
+    /* color: #2f353a; */
+    /* border-color: black; */
+    border-width: 2px;
+}
+
+.btn {
+    box-shadow: 2px 2px 3px #4d3319;
+}
+
+.btn-color {
+    background-color: gray;
+}
+
+.popover {
+    background-color: #ffffff !important;
+}
+
+.card-body .table {
+    min-width: 2000px;
+}
+
+.stickyBox {
+    /* Background color */
+    /* Stick to the left */
+    right: 0;
+    position: sticky;
+    /* Displayed on top of other rows when scrolling */
+    z-index: 9999;
+    box-shadow: -1px 0 10px #000000;
+}
+
+td.stickyBox {
+    background-color: #101011 !important;
+}
+
+th.stickyBox {
+    background-color: #1d1d1d !important;
+}

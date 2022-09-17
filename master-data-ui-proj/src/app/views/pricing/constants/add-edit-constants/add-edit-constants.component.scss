@@ -1,0 +1,22 @@
+mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: initial;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.mat-error {
+    margin-top: -14px;
+}
+
+.mat-divider {
+    border-top-color: black;
+}
+
+.mat-flat-button.mat-warn,
+.mat-raised-button.mat-warn,
+.mat-fab.mat-warn,
+.mat-mini-fab.mat-warn {
+    background-color: #d16767;
+}

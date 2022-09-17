@@ -1,0 +1,59 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Pending User KYC list</div>
+
+                        <div *ngIf="isSubmitted">
+                            <div class="alert alert-success" *ngIf="isSuccess">
+                                <strong> {{_statusMsg}} Please Wait ..</strong>.
+                            </div>
+
+                            <div class="alert alert-danger" *ngIf="!isSuccess ">
+                                <strong>{{_statusMsg}}</strong>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 20px;">SrNo</th>
+                                        <th class="text-left">User Name</th>
+                                        <th class="text-left">Email</th>
+                                        <th class="text-left"> KYC Status</th>
+                                        <th style="width: 150px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of userList; let i =index">
+                                        <td scope="row">{{i+1}}</td>
+                                        <td class="text-left">{{user.firstName}} {{user.lastName}} </td>
+                                        <td class="text-left">{{user.email}}</td>
+                                        <td class="text-left">{{user.kycStatus}}</td>
+
+                                        <td>
+                                            <button type="button" class="btn btn-success btn-sm move-right" title="Edit"
+                                                [routerLink]="['/warehouse/user-kyc-approval', user.id]"
+                                                *ngIf="userRightsService.canEdit()"><i
+                                                    class="fa fa-pencil-square-o"></i> Edit</button>
+
+                                        </td>
+                                    </tr>
+<!--                                    <label>{{errorMsg}}</label>-->
+                                <tr *ngIf="errorMsg != undefined">
+                                        <td colspan="5" style="text-align: center">{{errorMsg}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

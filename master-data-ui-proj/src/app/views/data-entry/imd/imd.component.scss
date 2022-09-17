@@ -1,0 +1,143 @@
+        .example-custom-date-class {
+            background: #fbd866;
+            border-radius: 100%;
+        }
+        
+        .mat-input-element {
+            padding: inherit !important;
+            width: calc(100% - 56px) !important;
+        }
+        
+        .mat-datepicker-toggle {
+            color: #fff;
+            background-color: #c29f37;
+            border-color: #c29f37;
+            padding: 0 0.5rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+        }
+        
+        .mat-input-element {
+            padding: 0.375rem 0.75rem !important;
+        }
+        
+        .mat-calendar-body {
+            font-size: 20px;
+        }
+        
+        .mat-calendar-table-header th {
+            font-size: 20px;
+        }
+        
+        .mat-calendar-body-label,
+        .mat-calendar-period-button {
+            font-size: 20px;
+        }
+        
+        .example-month-picker .mat-calendar-period-button {
+            pointer-events: none;
+        }
+        
+        .example-month-picker .mat-calendar-arrow {
+            display: none;
+        }
+        
+        .imdbtn {
+            padding: 30px;
+        }
+        
+        .pdfview {
+            display: inline-grid;
+            color: #fff;
+            background-color: #181924;
+            border: 1px solid #454648;
+            border-radius: 8px;
+            // padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 22px;
+            margin: 8px;
+            height: 90px;
+            width: 95px;
+            padding-top: 8px;
+            .pdfSection {
+                display: flex;
+                button {
+                    width: 50%;
+                    &:last-of-type {
+                        border: none
+                    }
+                }
+            }
+        }
+        
+        .pdfSection {
+            border-top: 1px solid #fbd866;
+        }
+        
+        .modal-title {
+            color: #333;
+            font-weight: 800;
+            font-size: 20px;
+        }
+        
+        .pdfSection button {
+            border-right: 1px solid #fbd866;
+        }
+        
+        .pdf-viewer {
+            height: 500px;
+            width: 100%;
+        }
+        
+        .page * {
+            width: 100% !important;
+            height: max-content;
+        }
+        
+        .ng2-pdf-viewer-container {
+            position: relative !important;
+        }
+        
+        .modal-body {
+            .ng2-pdf-viewer-container[_ngcontent-nex-c361] {
+                overflow-x: auto !important;
+                position: relative !important;
+                height: auto !important;
+                width: max-content !important;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+        
+        #pdfModal {
+            z-index: 999999999999999999999999;
+            .modal-dialog {
+                max-width: 60%;
+                margin: 1.75rem auto;
+                // max-height: calc(100vh - 10.75rem);
+                overflow: auto;
+            }
+        }
+        
+        .pdfSection button {
+            font-weight: 600;
+        }
+        
+        .DetailCard {
+            padding-left: 60px;
+        }
+        
+        .pdfSection {
+            .btn-dark {
+                &.disabled {
+                    color: #555555 !important;
+                    background-color: #313238 !important;
+                    border-color: #000000 !important;
+                }
+            }
+        }
+        
+        .pdfSection button {
+            font-size: 16px !important;
+        }

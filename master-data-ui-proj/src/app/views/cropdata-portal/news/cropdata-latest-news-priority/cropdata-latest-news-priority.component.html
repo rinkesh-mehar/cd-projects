@@ -1,0 +1,104 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> Cropdata Latest News
+                            <button class="ml-3 btn btn-primary" [routerLink]="['/cropdata-portal/news/']">All News</button>
+                            <button class="ml-3 btn btn-primary" [routerLink]="['/cropdata-portal/news/crpodata-priority-news/']">Cropdata News</button>
+                            <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right" [routerLink]="['/cropdata-portal/add-news/']"> Add News</button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="col-lg-12 col-md-12 alert alert-primary">
+                                <h5 class="alert-heading"><strong>Note: </strong></h5>
+                                <p class="m-0">Please drag & drop the news row to set highest priority and submit the changes.</p>
+                            </div>
+                            <div class="input-group mb-3  col-lg-12 col-md-12 p-0">
+                                <input type="text" class="form-control" placeholder="Search here...  " [(ngModel)]="searchText">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" (click)="searchNews()">Search</button>
+                                    <button class="btn btn-danger" type="button" (click)="searchText='';searchNews()">Clear</button>
+                                </div>
+                            </div>
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm mb-0" matSort>
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 20px;">ID</th>
+                                        <th class="text-left" style="width: 500px;">Title</th>
+                                        <th class="text-left" style="width: 150px;">Published Date</th>
+                                        <th class="text-center" style="width: 200px;">External URL</th>
+                                        <th class="text-center" style="width: 200px;">Image</th>
+                                        <th class="text-left" style="width: 200px;">Status</th>
+                                        <th class="text-center">Priority</th>
+                                    </tr>
+                                </thead>
+                                <tbody cdkDropList (cdkDropListDropped)="onDrop($event)">
+                                    <tr *ngFor="let news of NewsList | searchFilter :searchText:['subject','publishedDate','status','priority']" cdkDrag cdkDragLockAxis="y">
+                                        <td scope="row">{{news.id}}</td>
+                                        <td class="text-left col-lg">{{news.subject}}</td>
+                                        <td class="text-left col-lg">{{news.publishedDate}}</td>
+                                        <td class="text-center col-lg">
+                                            <a class="btn btn-success btn-sm move-right" href="{{news.externalUrl}}" target="_blank"><i class="fa fa-link"></i></a>
+                                        </td>
+                                        <td class="text-center col-lg">
+                                            <a data-toggle="modal" data-target="#imageModal" (click)="getImageUrl($event)"><img src="{{news.imageUrl}}" class="img-fluid" width="50"></a>
+                                        </td>
+                                        <td class="text-left col-lg">{{news.status}}</td>
+                                        <th class="text-center col-lg">
+                                            <div class="drag-handle col-lg w-auto">
+                                                <ng-container [ngTemplateOutlet]="dragHandleTmpl">
+                                                </ng-container>
+                                                {{ news.priority }}
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary" (click)="submit(NewsList)">Submit</button>
+                            <!-- <button type="button" class="btn btn-sm btn-danger" [routerLink]="['/cropdata-portal/news']">Cancel</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #dragHandleTmpl>
+    <svg class="bi bi-list handle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd"
+    d="M2.5 11.5A.5.5 0 013 11h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 7h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 3h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"
+    clip-rule="evenodd" />
+</svg>
+</ng-template>
+
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+            </div>
+            <div class="modal-body">
+                <img src="{{imgUrl}}" class="img-fluid">
+            </div>
+            <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- <app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>-->
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

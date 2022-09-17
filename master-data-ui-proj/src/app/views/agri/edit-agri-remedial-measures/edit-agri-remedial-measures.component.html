@@ -1,0 +1,71 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Edit Remedial Measures</strong><small> Form</small></div>
+                <div class="card-body">
+
+                    <form [formGroup]="updateRemedialMeasuresForm" (ngSubmit)="submitForm()" novalidate>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Commodities</label>
+                                <select formControlName="commodityId" class="form-control"
+                                    [ngClass]="{'is-invalid': updateRemedialMeasuresForm.get('commodityId').touched && updateRemedialMeasuresForm.get('commodityId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let commodity of CommodityList" value={{commodity.id}}>
+                                        {{commodity.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Variety</label>
+                                <select formControlName="varietyId" class="form-control"
+                                    [ngClass]="{'is-invalid': updateRemedialMeasuresForm.get('varietyId').touched && updateRemedialMeasuresForm.get('varietyId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let variety of VarietyList" value={{variety.id}}>
+                                        {{variety.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Variety</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" formControlName="name" class="form-control"
+                                        [ngClass]="{'is-invalid': updateRemedialMeasuresForm.get('name').touched && updateRemedialMeasuresForm.get('name').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div>Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="align-content: center">
+
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary" type="submit"> Submit </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

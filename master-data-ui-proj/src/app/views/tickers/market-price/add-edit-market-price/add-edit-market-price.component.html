@@ -1,0 +1,153 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Market Price </span> <span
+                    *ngIf="mode=='edit'">Update Market Price</span></strong></div>
+
+
+
+            <form [formGroup]="marketPlaceFrom" (ngSubmit)="submitMarketPriceForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="commodityId" class="form-control" (change)="loadAllVariety($event)" [ngClass]="{'is-invalid': marketPlaceFrom.get('commodityId').touched && marketPlaceFrom.get('commodityId').invalid}">
+                                <option value="" selected>--Select--</option>
+                                <option *ngFor="let commodity of commodityList" value={{commodity.ID}}>
+                                    {{commodity.Name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Commodity</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Variety <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="varietyId" class="form-control" [ngClass]="{'is-invalid': marketPlaceFrom.get('varietyId').touched && marketPlaceFrom.get('varietyId').invalid}">
+                                <option value="" selected>--Select--</option>
+                                <option *ngFor="let variety of varietyList" value={{variety.ID}}>
+                                    {{variety.Name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Variety</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="stateId" class="form-control" (change)="loadAllDistrict($event)" [ngClass]="{'is-invalid': marketPlaceFrom.get('stateId').touched && marketPlaceFrom.get('stateId').invalid}">
+                                <option value="" selected>--Select--</option>
+                                <option *ngFor="let state of stateList" value={{state.StateCode}}>
+                                    {{state.Name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select State</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>District <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="districtId" class="form-control" (change)="loadAllMarket($event)" [ngClass]="{'is-invalid': marketPlaceFrom.get('districtId').touched && marketPlaceFrom.get('districtId').invalid}">
+                                <option value="" selected>--Select--</option>
+                                <option *ngFor="let district of districtList" value={{district.DistrictCode}}>
+                                    {{district.Name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select District</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Market Name <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="marketId" class="form-control" [ngClass]="{'is-invalid': marketPlaceFrom.get('marketId').touched && marketPlaceFrom.get('marketId').invalid}">
+                                <option value="" selected>--Select--</option>
+                                <option *ngFor="let marketName of marketNameList" value={{marketName.ID}}>
+                                    {{marketName.Name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Market</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <div class="row">
+                                <div class="form-group col-sm-4">
+                                    <div class="form-group">
+                                        <label>Min Price <span class="required-asterisk" style="color:red;">*</span></label>
+                                        <input type="number" class="form-control" formControlName="minPrice" min="0" [ngClass]="{'is-invalid': marketPlaceFrom.get('minPrice').touched && marketPlaceFrom.get('minPrice').invalid}">
+                                        <div class="invalid-feedback">
+                                            <div>Min Price is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-sm-4">
+                                    <div class="form-group">
+                                        <label>Max Price <span class="required-asterisk" style="color:red;">*</span></label>
+                                        <input type="number" class="form-control" formControlName="maxPrice" min="0" [ngClass]="{'is-invalid': marketPlaceFrom.get('maxPrice').touched && marketPlaceFrom.get('maxPrice').invalid}">
+                                        <div class="invalid-feedback">
+                                            <div>Max Price is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-sm-4 mb-0">
+                                    <div class="form-group mb-0">
+                                        <label>Model Price <span class="required-asterisk" style="color:red;">*</span></label>
+                                        <input type="number" class="form-control" formControlName="modalPrice" min="0" [ngClass]="{'is-invalid': marketPlaceFrom.get('modalPrice').touched && marketPlaceFrom.get('modalPrice').invalid}">
+                                        <div class="invalid-feedback">
+                                            <div>Model Price is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="form-group col-sm-12">-->
+                    <!--                            <label>Status</label>-->
+                    <!--                            <select formControlName="status" class="form-control">-->
+                    <!--                                <option value="">&#45;&#45;Select&#45;&#45;</option>-->
+                    <!--                                <option value="Inactive">Inactive</option>-->
+                    <!--                                <option value="Active">Active</option>-->
+                    <!--                            </select>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit </span> <span
+                        *ngIf="mode=='edit'">Update</span></button>
+                    <button type="submit" class="btn btn-danger" [routerLink]="['/tickers/market-price/']">Cancel</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

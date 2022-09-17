@@ -1,0 +1,31 @@
+.progress-loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.3);
+	z-index: 9999;
+}
+
+#loading {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	border: 3px solid #069EB3;
+	border-radius: 50%;
+	border-top-color: #fff;
+	animation: spin 1s ease-in-out infinite;
+	-webkit-animation: spin 1s ease-in-out infinite;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 999999;
+}
+  
+  @keyframes spin {
+	to { -webkit-transform: rotate(360deg); }
+  }
+  @-webkit-keyframes spin {
+	to { -webkit-transform: rotate(360deg); }
+  }

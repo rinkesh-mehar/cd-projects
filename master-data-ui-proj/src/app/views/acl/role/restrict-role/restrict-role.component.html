@@ -1,0 +1,52 @@
+<div class="animated fadeIn">
+    <form novalidate>
+        <div class="row">
+            <!-- Form -->
+            <div class="col-md-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-align-justify"></i> All Roles
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive-sm table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event)">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th style="width: 20px;">ID</th>
+                                    <th mat-sort-header="name">Name</th>
+                                    <th mat-sort-header="description">Description</th>
+                                    <th>Group</th>
+                                    <th mat-sort-header="resourceName">Resource</th>
+                                    <th style="width: 80px !important; min-width: 80px !important;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rolelist; let i = index ">
+                                    <td>{{i + 1}}</td>
+                                    <td>{{data.name}}</td>
+                                    <td>{{data.description | titlecase}}</td>
+                                    <td>
+                                        <ng-container *ngFor="let res of data.restrictions"><span *ngIf="res.groupName">
+                                                {{res.groupName}},</span></ng-container>
+                                    </td>
+                                    <td>
+                                        <ng-container *ngFor="let res of data.restrictions"><span *ngIf="res.resourceName"> {{res.resourceName}},</span></ng-container>
+                                    </td>
+                                    <td style="width: 80px !important;" class="text-right">
+                                        <button class="btn btn-info btn-sm move-right" type="button" style="margin-bottom: 4px" [routerLink]="['/acl/role/manage-role/', data.id]">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="rolelist.length == 0">
+                                <td colspan="6" class="text-left">Data Not Found..!!</td>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

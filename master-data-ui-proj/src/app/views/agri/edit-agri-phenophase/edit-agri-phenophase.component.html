@@ -1,0 +1,44 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong>Edit Phenophase</strong><small> Form</small></div>
+            <form [formGroup]="updatePhenophaseForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+
+                    <div *ngIf="isSubmitted">
+                        <div class="alert alert-success" *ngIf="isSuccess">
+                            <strong> {{_statusMsg}} Please Wait ..</strong>.
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="!isSuccess ">
+                            <strong>{{_statusMsg}}</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Phenophase Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" maxlength="20" [ngClass]="{'is-invalid': updatePhenophaseForm.get('name').touched && updatePhenophaseForm.get('name').invalid}" (change)="trimValue(this.updatePhenophaseForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Phenophase Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/phenophase/phenophase']">Cancel</button>
+                </div>
+
+            </form>
+
+
+
+        </div>
+    </div>
+</div>

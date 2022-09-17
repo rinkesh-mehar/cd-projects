@@ -1,0 +1,80 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong>Add Region</strong><small> Form</small></div>
+            <div class="card-body">
+
+                <div *ngIf="isSubmitted">
+                    <div class="alert alert-success" *ngIf="isSuccess">
+                        <strong> {{_statusMsg}} Please Wait ..</strong>.
+                    </div>
+
+                    <div class="alert alert-danger" *ngIf="!isSuccess ">
+                        <strong>{{_statusMsg}}</strong>
+                    </div>
+                </div>
+
+                <form [formGroup]="regionForm" (ngSubmit)="submitForm()" novalidate>
+                    <!-- <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>TileID</label>
+                                <input type="text" class="form-control" formControlName="tileId" maxlength="50"
+                                    [ngClass]="{'is-invalid': regionForm.get('tileId').touched && regionForm.get('tileId').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>TileId is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>State</label>
+                            <select formControlName="stateCode" class="form-control" [ngClass]="{'is-invalid': regionForm.get('stateCode').touched && regionForm.get('stateCode').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let state of StateList" value={{state.stateCode}}>
+                                    {{state.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select State</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Region Name</label>
+                                <input type="text" class="form-control" formControlName="name" maxlength="50" [ngClass]="{'is-invalid': regionForm.get('name').touched && regionForm.get('name').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Region Name is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control" id="textarea-input" formControlName="description" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>

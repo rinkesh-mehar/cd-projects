@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong> Booking Details</strong></div>
+            <div class="card-body">
+
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Booking ID :</th>
+                        <!-- <td>{{booking.BookingID}}</td> -->
+                        <td>{{booking.BookingID}}</td>
+                    </tr>
+    
+                    <tr>
+                        <th>Transaction ID :</th>
+                        <td>{{booking.TransactionID}}</td>
+                    </tr>
+    
+                    <tr>
+                        <th>Warehouse Name :</th>
+                        <td>{{booking.WareHouseName}}</td>
+                    </tr>
+    
+                    <tr>
+                        <th>Warehouse Registrar :</th>
+                        <td>{{booking.Registrar}}</td>
+                    </tr>
+    
+                    <tr>
+                        <th>Location :</th>
+                        <td>
+                            <b>Address : </b> {{booking.AddressLine1}}, {{booking.AddressLine2}} <br>
+                            <b>District : </b> {{booking.District}} <br>
+                            <b>State : </b> {{booking.State}}
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <th>Booked Quantity :</th>
+                        <td>{{booking.BookedQuantity}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Packaging Size : </th>
+                        <td>{{booking.PackagingSize}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Buyer : </th>
+                        <td>
+                            <b>Name : </b> {{booking.BuyerName}} <br>
+                            <b>Number : </b> {{booking.BuyerContactNumber}} <br>
+                            <b>Email : </b>{{booking.Email}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Commodity : </th>
+                        <td>{{booking.Commodity}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Duration : </th>
+                        <td>
+                            <b>Start : </b> {{booking.StartDate | date}} <br>
+                            <b>End : </b> {{booking.EndDate| date}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Transaction Date : </th>
+                        <td>{{booking.TransactionDate| date}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>

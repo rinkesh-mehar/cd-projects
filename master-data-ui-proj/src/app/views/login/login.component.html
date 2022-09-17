@@ -1,0 +1,63 @@
+<div class="app-body app-login">
+    <main class="main d-flex align-items-center">
+        <div class="container-fluid w-100 p-0" style="max-width: 100%; height: 100vh;">
+            <div class="row no-gutters">
+
+                <div class="col-md-6 mx-auto" style=" height: 100vh;">
+                    <div class="portal-logo text-center">
+                        <a href="http://cropdata.in" target="_blank">
+                            <img src="../../../assets/img/brand/cropdata-logo-white.svg" class="img-fluid">
+                        </a>
+                        <h3>CropData Master Portal</h3>
+                    </div>
+                </div>
+                <div class="col-md-6 login-left-side mx-auto" style=" height: 100vh;">
+                    <div class="card-group">
+                        <div class="card login p-4">
+                            <div class="card-body">
+
+                                <form [formGroup]="loginForm" (ngSubmit)="submitForm()" novalidate>
+                                    <h1>Login</h1>
+                                    <p class="text-muted">Sign In to your account</p>
+                                    <div *ngIf="_statusMsg">
+                                        <div class="alert alert-danger">
+                                            <strong>{{_statusMsg}}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3 form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-user"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Username" formControlName="username" class="form-control" [ngClass]="{'is-invalid': loginForm.get('username').touched && loginForm.get('username').invalid}">
+                                    </div>
+                                    <div class="input-group mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-lock"></i></span>
+                                        </div>
+                                        <input type={{passwordType}} class="form-control" placeholder="Password" formControlName="password" class="form-control" [ngClass]="{'is-invalid': loginForm.get('password').touched && loginForm.get('password').invalid}">
+                                        <div class="input-group-append" (click)="changeView()">
+                                            <span class="input-group-text"><i class="fa fa-eye" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="remember" formControlName="rememberMe">
+                    <label class="custom-control-label" for="remember">Remember Me</label>
+                  </div> -->
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-6">
+                                            <button type="submit" class="btn btn-primary px-4">Login</button>
+                                        </div>
+                                        <div class="col-12 col-md-12 col-lg-6 text-lg-right">
+                                            <button type="button" class="btn btn-link px-0" [routerLink]="['../forgot-password']">Forgot password?</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

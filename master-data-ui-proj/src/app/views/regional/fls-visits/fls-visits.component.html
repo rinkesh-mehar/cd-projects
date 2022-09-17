@@ -1,0 +1,57 @@
+<div class="animated fadeIn">
+  <div class="row">
+      <div class="col-sm-12">
+          <div class="card">
+              <div class="card-header"><span> FLS Visits</span></div>
+              <form [formGroup]="FLSVisitForm" (ngSubmit)="submitForm()" novalidate>
+                  <div class="card-body">
+                      <div class="row">
+
+                          <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <div class="form-group m-0">
+                                <label>Region <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="region_id" class="form-control" [ngClass]="{'is-invalid': FLSVisitForm.get('region_id').touched && FLSVisitForm.get('region_id').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let region of regionList" value={{region.regionId}}>
+                                        {{region.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Region</div>
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card-footer ">
+                      <button class="btn btn-primary " type="submit"> Search</button>
+
+                      <!-- status msg start-->
+                      <div *ngIf="checked">
+                        <div class="alert alert-success mt-4">
+                            <strong>FLS Map Updating Routes & Downloading. Please Wait ..</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span style="color: #000000;" aria-hidden="true">&times;</span>
+                              </button>
+                        </div>
+                    </div>
+                    <!-- status msg end-->
+                  </div>
+              </form>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card" [hidden]="show">
+        <div class="card-header"><span>FLS Map Routes</span></div>
+        
+        <div class="card-body p-0">
+            <iframe src="" frameborder="0" style="border:none;" width="100%" height="800"></iframe>              
+          </div>
+    </div>
+  </div>
+</div>

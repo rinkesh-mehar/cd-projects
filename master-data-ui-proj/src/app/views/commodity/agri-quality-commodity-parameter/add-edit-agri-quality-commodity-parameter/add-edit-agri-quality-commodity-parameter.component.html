@@ -1,0 +1,54 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Quality Commodity Parameter</span> <span
+            *ngIf="mode=='edit'">Edit Quality Commodity Parameter</span></strong></div>
+                <form [formGroup]="qualityCommodityParameterForm" (ngSubmit)="submitForm()" novalidate>
+
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="commodityId" class="form-control" [ngClass]="{'is-invalid': qualityCommodityParameterForm.get('commodityId').touched && qualityCommodityParameterForm.get('commodityId').invalid}">
+                          <option value="">--Select--</option>
+                          <option *ngFor="let commodity of CommodityList" value={{commodity.id}}>
+                              {{commodity.name}}
+                          </option>
+                      </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div>
+                                    <label>Quality Parameter <span class="required-asterisk" style="color:red;">*</span></label></div>
+                                <label class="col-sm-6 col-md-6 col-lg-6" *ngFor="let parameter of QualityParameterList">
+                                    <!-- <input type="text" formControlName="qualityParameterIds" hidden> -->
+                                    <input type="checkbox" [checked]="getSelection(parameter)" (change)="changeHandler(parameter, $event)">
+                                    <label>{{parameter.name}}</label>
+                                </label>
+                                <!-- <div class="invalid-feedback">
+                                    <div>Please Select Quality Parameter</div>
+                                </div> -->
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-primary " type="submit"> <span *ngIf="mode=='add'"> Submit</span> <span
+                *ngIf="mode=='edit'">Update</span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/commodity/quality-commodity-parameter']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

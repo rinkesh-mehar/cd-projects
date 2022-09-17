@@ -1,0 +1,25 @@
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: unset;
+}
+
+::ng-deep .mat-option-pseudo-checkbox.mat-pseudo-checkbox-checked {
+    background-color: #fbd866;
+}
+
+.btn {
+    box-shadow: 2px 2px 3px #4d3319;
+}
+
+select {
+    text-transform: capitalize;
+}
+
+.btn-outline-dark {
+    /* color: #2f353a; */
+    /* border-color: black; */
+    border-width: 2px;
+}
+
+.btn-color {
+    background-color: gray;
+}

@@ -1,0 +1,77 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Farmer Leads
+                            <div class="card-header-actions">
+                                <!-- <button class="btn btn-primary btn-sm move-right"
+                                    [routerLink]="['/general/company-add/']">
+                                    Add Company</button> -->
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event)">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <!-- <th class="text-left">UUID</th> -->
+                                        <th class="text-left" mat-sort-header="farmerName">Farmer Name</th>
+                                        <th class="text-left" mat-sort-header="referenceName">Reference Name</th>
+                                        <th class="text-left" mat-sort-header="referenceMobile">Reference Mobile</th>
+                                        <th class="text-left" mat-sort-header="govtProof">Govt Proof</th>
+                                        <th class="text-left" mat-sort-header="language">Language</th>
+                                        <th class="text-left" mat-sort-header="ownLandSize">Own Land Size (Acres)</th>
+                                        <th class="text-left" mat-sort-header="irrigatedLandSize">Irrigated Land Size (Acres)</th>
+                                        <!-- <th class="text-left">Year</th>
+                                        <th class="text-left">Season</th>
+                                        <th class="text-left">Commodity</th>
+                                        <th class="text-left">Variety</th>
+                                        <th class="text-left">Sowing WeekNo</th>
+                                        <th class="text-left">Harvest WeekNo</th>
+                                        <th class="text-left">Cropping Area (Acres)</th>
+                                        <th class="text-left">Yield (Qtl/Acres)</th> -->
+                                        <th class="text-left" mat-sort-header="vipDesignation">Vip Designation</th>
+                                        <th class="text-left" mat-sort-header="vipStatus">Vip Status</th>
+                                        <th style="width: 150px;">Farmer Yield</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr *ngFor="let farmerLeads of farmerLeadsList">
+                                        <!-- <td class="text-left">{{farmerLeads.id}}</td> -->
+                                        <td scope="row">{{farmerLeads.farmerName}}</td>
+                                        <td class="text-left">{{farmerLeads.referenceName}}</td>
+                                        <td class="text-left">{{farmerLeads.referenceMobile}}</td>
+                                        <td class="text-left">{{farmerLeads.govtProof}}</td>
+                                        <td class="text-left">{{farmerLeads.language}}</td>
+                                        <td class="text-left">{{farmerLeads.ownLandSize}}</td>
+                                        <td class="text-left">{{farmerLeads.irrigatedLandSize}}</td>
+                                        <!-- <td class="text-left">{{farmerLeads.year}}</td>
+                                        <td class="text-left">{{farmerLeads.seasonName}}</td>
+                                        <td class="text-left">{{farmerLeads.commodityName}}</td>
+                                        <td class="text-left">{{farmerLeads.varietyName}}</td>
+                                        <td class="text-left">{{farmerLeads.sowingWeekNo}}</td>
+                                        <td class="text-left">{{farmerLeads.harvestWeekNo}}</td>
+                                        <td class="text-left">{{farmerLeads.croppingArea}}</td>
+                                        <td class="text-left">{{farmerLeads.yield}}</td> -->
+                                        <td class="text-left">{{farmerLeads.vipDesignation}}</td>
+                                        <td class="text-left">{{farmerLeads.vipStatus}}</td>
+
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm move-right" [routerLink]="['/ydc/farmer-yield-edit/', farmerLeads.uuid]">Click</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

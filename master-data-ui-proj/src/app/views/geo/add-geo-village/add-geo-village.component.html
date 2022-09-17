@@ -1,0 +1,89 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Add Village</strong><small> Form</small></div>
+
+
+                <form [formGroup]="villageForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stateCode" class="form-control" (change)="loadAllDistrictsByState($event)" [ngClass]="{'is-invalid': villageForm.get('stateCode').touched && villageForm.get('stateCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let state of StateList" value={{state.stateCode}}>
+                                        {{state.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select State</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>District <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="districtCode" class="form-control" (change)="loadAllTehsilByDistrict($event)" [ngClass]="{'is-invalid': villageForm.get('districtCode').touched && villageForm.get('districtCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let district of DistrictList" value={{district.districtCode}}>
+                                        {{district.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select District</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Tehsil <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="tehsilCode" class="form-control" [ngClass]="{'is-invalid': villageForm.get('tehsilCode').touched && villageForm.get('tehsilCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let tehsil of TehsilList" value={{tehsil.tehsilCode}}>
+                                        {{tehsil.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Tehsil</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Village Code</label>
+                                <input type="number" class="form-control" formControlName="villageCode">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <label>Village Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': villageForm.get('name').touched && villageForm.get('name').invalid}" (change)="trimValue(this.villageForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Village Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Submit </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/geo/village']">Cancel</button>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

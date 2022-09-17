@@ -1,0 +1,80 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                    *ngIf="mode=='edit'">Edit </span>Company</strong></div>
+
+            <form [formGroup]="companyForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Companynt Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': companyForm.get('name').touched && companyForm.get('name').invalid}" (change)="trimValue(this.companyForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Companynt Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Description <span class="required-asterisk" style="color:red;">*</span></label>
+                                <textarea class="form-control" id="textarea-input" [ngClass]="{'is-invalid': companyForm.get('description').touched && companyForm.get('description').invalid}" formControlName="description" rows="4" (change)="trimValue(this.companyForm.get('description'))"></textarea>
+                                <div class="invalid-feedback">
+                                    <div>Description is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit </span> <span
+                        *ngIf="mode=='edit'">Update </span></button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/general/company']">Cancel</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <strong>Bulk Insert</strong><small> Form</small>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <form (ngSubmit)="submitExcelForm()" novalidate>
+                <div class="card-body">
+                    <div class="form-group mb-0">
+                        <label for="file-input">Select excel(.xlsx) file</label>
+                        <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="submit"> Submit </button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/general/company']">Cancel</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

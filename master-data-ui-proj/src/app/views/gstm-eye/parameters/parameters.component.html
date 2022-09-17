@@ -1,0 +1,80 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Parameter List
+                            <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right" [routerLink]="['/gstm-eye/add-parameters/']"> Add Parameter
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group mb-3  col-lg-12 col-md-12 p-0">
+                                <input type="text" class="form-control" placeholder="Search here...  " [(ngModel)]="searchText">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" (click)="searchParameter()">Search
+                                    </button>
+                                    <button class="btn btn-danger" type="button" (click)="searchText='';searchParameter()">Clear
+                                    </button>
+                                </div>
+                            </div>
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event)">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 20px;" mat-sort-header="id">ID</th>
+                                        <th class="text-left" mat-sort-header="parameter">Parameter Name</th>
+                                        <th class="text-left" mat-sort-header="platform">Platform</th>
+                                        <th class="text-left" mat-sort-header="dataType">Data Type</th>
+                                        <th class="text-left" mat-sort-header="category">Category</th>
+                                        <th class="text-left" mat-sort-header="subCategory">Sub-Category</th>
+                                        <th class="text-left" mat-sort-header="status">Status</th>
+                                        <th style="width: 120px !important; min-width: 120px !important;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="pageParameter?.content">
+                                    <tr *ngFor="let parameter of pageParameter.content | searchFilter :searchText:['parameter','platform','dataType','category','subCategory']">
+
+                                        <td scope="row">{{parameter.id}}</td>
+                                        <td class="text-left">{{parameter.parameter}}</td>
+                                        <td class="text-left">{{parameter.platform}}</td>
+                                        <td class="text-left">{{parameter.dataType}}</td>
+                                        <td class="text-left">{{parameter.category}}</td>
+                                        <td class="text-left">{{parameter.subCategory}}</td>
+                                        <td class="text-center">
+                                            <span class="badge badge-danger" *ngIf="parameter.status =='Deleted'">{{parameter.status}}</span>
+                                            <span class="badge badge-secondary" *ngIf="parameter.status =='Inactive'">{{parameter.status}}</span>
+                                            <span class="badge badge-primary" *ngIf="parameter.status =='Active'">{{parameter.status}}</span>
+                                        </td>
+                                        <td style="width: 120px !important;">
+                                            <button type="button" class="btn btn-info btn-sm move-right" title="Edit" [routerLink]="['/gstm-eye/edit-parameters/', parameter.id]" *ngIf="userRightsService.canEdit()"><i
+                                                class="fa fa-pencil-square-o"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm move-right" title="Delete" (click)="deleteParameter(parameter.id)">
+                                            <i class="fa fa-close"></i></button>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="pageParameter.content.length == 0">
+                                    <td colspan="8" class="text-left">Data Not Found..!!</td>
+                                </tbody>
+                            </table>
+                            <div class="col-xs-12 col-12 text-center p-0" *ngIf="pageParameter?.content">
+                                <pagination [totalItems]="pageParameter.totalElements" [(ngModel)]="selectedPage" [maxSize]="maxSize" class="pagination-md" previousText="&lsaquo; Prev" nextText="Next &rsaquo;" firstText="&laquo; First" lastText="Last &raquo; " [boundaryLinks]="true"
+                                    [itemsPerPage]="pageParameter.size" [rotate]="false" (numPages)="numPages = $event;" (pageChanged)="onSelect($event.page-1)">
+                                </pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

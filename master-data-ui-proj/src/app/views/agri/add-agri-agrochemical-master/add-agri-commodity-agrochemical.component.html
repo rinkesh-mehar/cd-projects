@@ -1,0 +1,149 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><strong>Add Agro Commodity Chemical</strong><small> Form</small></div>
+            <form [formGroup]="agrochemicalMasterForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="commodityId" class="form-control" [ngClass]="{'is-invalid': agrochemicalMasterForm.get('commodityId').touched && agrochemicalMasterForm.get('commodityId').invalid}" (change)="getDataByStressType()">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let commodity of CommodityList" value={{commodity.id}}>
+                                    {{commodity.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Commodity</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Stress Type <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="stressTypeId" class="form-control" [ngClass]="{'is-invalid': agrochemicalMasterForm.get('stressTypeId').touched && agrochemicalMasterForm.get('stressTypeId').invalid}" (change)="getDataByStressType()">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let stressType of StressTypeList" value={{stressType.id}}>
+                                    {{stressType.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Stress Type</div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="row" *ngIf="StressList.length != 0">
+                        <div class="form-group col-sm-12">
+                            <label>Stress Name</label>
+                            <div class="custom-control custom-checkbox">
+                                <label formArrayName="stressNameChkBox" title="{{StressList[i].name}}" class="col-md-3 col-sm-4 col-lg-2" *ngFor="let subRes of agrochemicalMasterForm.controls.stressNameChkBox['controls']; let i = index">
+                                    <input type="checkbox" [formControlName]="i">
+                                    {{StressList[i].name}}
+                                </label>
+                            </div>
+
+                        </div>
+                    </div> -->
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Agro Chemical Type <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="agrochemicalTypeId" class="form-control" [ngClass]="{'is-invalid': agrochemicalMasterForm.get('agrochemicalTypeId').touched && agrochemicalMasterForm.get('agrochemicalTypeId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let agrochemicalType of AgrochemicalTypeList"
+                                        value={{agrochemicalType.id}}>
+                                    {{agrochemicalType.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Agro Chemical Type</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Agro Chemical Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="agrochemicalId" class="form-control" [ngClass]="{'is-invalid': agrochemicalMasterForm.get('agrochemicalId').touched && agrochemicalMasterForm.get('agrochemicalId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let agrochemicalname of AgroChemicalNameList" value={{agrochemicalname.id}}>
+                                        {{agrochemicalname.name}}
+                                    </option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Please Select Agro Chemical Name</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Waiting Period (days) <span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="number" onKeyPress="if(this.value.length==9) return false;" formControlName="waitingPeriod" class="form-control" [ngClass]="{'is-invalid': agrochemicalMasterForm.get('waitingPeriod').touched && agrochemicalMasterForm.get('waitingPeriod').invalid}">
+                            <div class="invalid-feedback">
+                                <div>Waiting Period (days) is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 mb-0">
+                            <label>CIBRC Approved</label>
+                            <select formControlName="cibrcApproved" class="form-control">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/agrochemicals/commodity-agrochemical']">Cancel
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <strong>Bulk Insert</strong><small> Form</small>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+
+
+            <form (ngSubmit)="submitExcelForm()" novalidate>
+                <div class="card-body">
+                    <div class="form-group mb-0">
+                        <label for="file-input">Select excel(.xlsx) file</label>
+                        <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="submit"> Submit</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/agrochemicals/agrochemical']">Cancel
+                    </button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

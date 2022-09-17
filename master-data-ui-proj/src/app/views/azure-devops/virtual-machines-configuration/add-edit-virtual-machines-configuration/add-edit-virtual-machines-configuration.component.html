@@ -1,0 +1,82 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add VM Configuration</span> <span
+                *ngIf="mode=='edit'">Edit VM Configuration</span></strong></div>
+                <form [formGroup]="vmcForm" (ngSubmit)="submitForm()" novalidate>
+
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Virtual Machine <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="vmID" class="form-control" [ngClass]="{'is-invalid': vmcForm.get('vmID').touched && vmcForm.get('vmID').invalid}">
+                              <option value="">--Select--</option>
+                          <option *ngFor="let vm of vmList" value={{vm.id}}>
+                              {{vm.name}}
+                          </option>
+                      </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Virtual Machine</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>CPU <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="cpu" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': vmcForm.get( 'cpu').touched && vmcForm.get( 'cpu').invalid}" (change)="trimValue(this.vmcForm.get('cpu'))">
+                                <div class="invalid-feedback">
+                                    <div>CPU is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>RAM <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="ram" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': vmcForm.get( 'ram').touched && vmcForm.get( 'ram').invalid}" (change)="trimValue(this.vmcForm.get('ram'))">
+                                <div class="invalid-feedback">
+                                    <div>RAM is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>Internal Disk <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="internalDisk" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': vmcForm.get( 'internalDisk').touched && vmcForm.get( 'internalDisk').invalid}" (change)="trimValue(this.vmcForm.get('internalDisk'))">
+                                <div class="invalid-feedback">
+                                    <div>Internal Disk is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+
+                                <label>External Disk <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="externalDisk" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': vmcForm.get( 'externalDisk').touched && vmcForm.get( 'externalDisk').invalid}" (change)="trimValue(this.vmcForm.get('externalDisk'))">
+                                <div class="invalid-feedback">
+                                    <div>External Disk is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-primary " type="submit"> <span *ngIf="mode=='add'"> Submit</span> <span
+                    *ngIf="mode=='edit'">Update</span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/azure-devops/vmc']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

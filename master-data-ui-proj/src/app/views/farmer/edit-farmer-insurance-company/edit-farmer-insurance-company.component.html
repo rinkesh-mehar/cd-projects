@@ -1,0 +1,50 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong>Edit Insurance Comapny</strong><small> Form</small></div>
+
+
+            <form [formGroup]="updateInsuranceCompanyForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Insurance Company <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': updateInsuranceCompanyForm.get('name').touched && updateInsuranceCompanyForm.get('name').invalid}" (change)="trimValue(this.updateInsuranceCompanyForm.get('name'))">
+
+                                <div class="invalid-feedback">
+                                    <div>Insurance Company is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 mb-0">
+                            <label>Insurance Type <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="insuranceTypeId" class="form-control" [ngClass]="{'is-invalid': updateInsuranceCompanyForm.get('insuranceTypeId').touched && updateInsuranceCompanyForm.get('insuranceTypeId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let insuranceType of insuranceTypeList" value={{insuranceType.id}}>
+                                    {{insuranceType.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Insurance Type</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/farmer/insurance-company']">Cancel</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

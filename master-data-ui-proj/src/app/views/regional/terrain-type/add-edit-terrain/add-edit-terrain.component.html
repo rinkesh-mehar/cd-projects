@@ -1,0 +1,74 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                    *ngIf="mode=='edit'">Edit </span> Terrain Type</strong></div>
+            <form [formGroup]="regionTerrainForm" (ngSubmit)="submitForm()" novalidate>
+
+                <div class="card-body">
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Region<span style=" color: #ff0000"> *</span></label>
+                                <select class="form-control" formControlName="regionId" *ngIf="mode === 'add'" [ngClass]="{'is-invalid': regionTerrainForm.get('regionId').touched && regionTerrainForm.get('regionId').invalid}">
+                                    <option value="">-- Select Region --</option>
+                                    <option *ngFor="let gr of geoRegionList"
+                                            value="{{gr.regionId}}"> {{gr.name}}</option>
+                                </select>
+                                <select *ngIf="mode === 'edit'" [attr.disabled]="mode === 'edit'" class="form-control" formControlName="regionId" [ngClass]="{'is-invalid': regionTerrainForm.get('regionId').touched && regionTerrainForm.get('regionId').invalid}">
+                                    <option value="">-- Select Region --</option>
+                                    <option *ngFor="let gr of geoRegionList"
+                                            value="{{gr.regionId}}"> {{gr.name}}</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Region is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Terrain Type <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="terrainType" *ngIf="mode === 'add'" class="form-control" [ngClass]="{'is-invalid':regionTerrainForm.get('terrainType').touched &&regionTerrainForm.get('terrainType').invalid}" (change)="trimValue(this.regionTerrainForm.get('terrainType'))">
+                                <input type="text" formControlName="terrainType" *ngIf="mode === 'edit'" readonly class="form-control" [ngClass]="{'is-invalid':regionTerrainForm.get('terrainType').touched &&regionTerrainForm.get('terrainType').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Terrain Type is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Minute Per Kilometer <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="minPerKm" class="form-control" onkeydown="return event.keyCode !== 69" [ngClass]="{'is-invalid':regionTerrainForm.get('minPerKm').touched &&regionTerrainForm.get('minPerKm').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Minute Per Kilometer is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit </span> <span
+                        *ngIf="mode=='edit'">Update </span></button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/regional/terrain']">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

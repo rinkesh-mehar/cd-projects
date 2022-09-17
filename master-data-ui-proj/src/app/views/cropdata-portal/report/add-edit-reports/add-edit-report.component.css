@@ -1,0 +1,8 @@
+.btn {
+    box-shadow: 2px 2px 3px #4d3319;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background,
+::ng-deep .mat-checkbox-indeterminate .mat-checkbox-background {
+    background-color: #fbd866 !important;
+}

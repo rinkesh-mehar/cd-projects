@@ -1,0 +1,158 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+
+        <mat-card>
+
+            <div class="card-header">
+                <strong><span *ngIf="mode=='add'"> Add New </span> ADD MSP and MFP</strong>
+            </div>
+
+            <mat-card-content>
+
+                <form (submit)="submitMspGroupForm(MspGroupForm)" #MspGroupForm="ngForm" novalidate>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <mat-form-field appearance="fill">
+                                <mat-label>State</mat-label>
+                                <mat-select [(ngModel)]="selectedState" name="stateCode" 
+                                   (selectionChange)="loadRegion($event)" (selectionChange)="getAczByStateCode()" required>
+                                    <mat-option *ngFor="let state of stateList" [value]="state.stateCode">
+                                        {{state.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-error *ngIf="MspGroupForm.form.get('stateCode')?.invalid
+                            && MspGroupForm.form.get('stateCode')?.touched">
+                                Please select state
+                            </mat-error>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <mat-form-field appearance="fill">
+                                <mat-label>ACZ</mat-label>
+                                <mat-select [(ngModel)]="selectedAcz" name="acz" 
+                                   (selectionChange)="loadRegion($event)" (selectionChange)="getZonalCommodityByAczId()" required>
+                                   <mat-option *ngFor="let acz of aczList" [value]="acz.id">
+                                    {{acz.name}}
+                                </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-error *ngIf="MspGroupForm.form.get('acz')?.invalid
+                            && MspGroupForm.form.get('acz')?.touched">
+                                Please select ACZ
+                            </mat-error>
+                        </div>
+                    </div>
+                    
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Region</mat-label>
+                                <mat-select [(ngModel)]="selectedRegion" name="regionID" required>
+                                    <mat-option value="">-- Select Region--</mat-option>
+                                    <mat-option *ngFor="let region of regionList" [value]="region.regionID">
+                                        {{region.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-error *ngIf="MspGroupForm.form.get('regionID')?.invalid
+                            && MspGroupForm.form.get('regionID')?.touched">
+                                Please select region
+                            </mat-error>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row" style="padding-top: 20px !important;">
+                        <div class="form-group col-sm-12">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Zonal Commodity</mat-label>
+                                <mat-select [(ngModel)]="selectedCommodity" name="commodityID" 
+                                   (selectionChange)="getZonalVarietyByZonalCommodity()" required>
+                                    <mat-option *ngFor="let commodity of zonalCommodityList" [value]="commodity.id">
+                                        {{commodity.zonalCommodityName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-error *ngIf="MspGroupForm.form.get('commodityID')?.invalid
+                            && MspGroupForm.form.get('commodityID')?.touched">
+                                Please select zonal commodity
+                            </mat-error>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Zonal Variety</mat-label>
+                                <mat-select name="varietyID" class="filter-select" [(ngModel)]="selectedVarietyIDs" [compareWith]="equals" #varietySelect="ngModel" (selectionChange)="getVarietyName()" multiple required matTooltip={{varietyName}}>
+                                    <mat-option disabled="disabled" class="filter-option">
+                                        <button mat-raised-button class="mat-primary fill text-sm" (click)="selectAll(varietySelect, varietyList)" (click)="getVarietyName()">
+                                            Select All
+                                        </button>
+                                        <button mat-raised-button class="mat-accent fill text-sm" (click)="deselectAll(varietySelect)" (click)="getVarietyName()">
+                                            Deselect All
+                                        </button>
+                                    </mat-option>
+                                    <mat-option *ngFor="let variety of varietyList" [value]="variety">{{variety.zonalVarietyName}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-error *ngIf="MspGroupForm.form.get('varietyID')?.invalid
+                            && MspGroupForm.form.get('varietyID')?.touched">
+                                Please select zonal variety
+                            </mat-error>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <mat-form-field appearance="fill">
+                                <mat-label>MSP</mat-label>
+                                <input matInput type="number" name="msp" ngModel min=0 pattern='^[0-9][.0-9]*$' onkeydown="return event.keyCode !== 69" required>
+                            </mat-form-field>
+                            <mat-error *ngIf="MspGroupForm.form.get('msp')?.invalid
+                            && MspGroupForm.form.get('msp')?.touched">
+                                Please insert valid msp price
+                            </mat-error>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 mb-0">
+                            <mat-form-field appearance="fill">
+                                <mat-label>MFP</mat-label>
+                                <input matInput type="number" name="mfp" min=0 ngModel pattern='^[0-9][.0-9]*$' onkeydown="return event.keyCode !== 69" required>
+                            </mat-form-field>
+                            <mat-error *ngIf="MspGroupForm.form.get('mfp')?.invalid
+                            && MspGroupForm.form.get('mfp')?.touched">
+                                Please insert valid mfp price
+                            </mat-error>
+                        </div>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <mat-card-actions style="margin-left: 9px !important;" class="mt-2">
+                        <button mat-raised-button color="primary" mat-button type=submit>Submit</button>
+                        <button mat-raised-button color="warn" mat-button type=button [routerLink]="['/pricing/msp-mfp']">
+                            Cancel</button>
+                    </mat-card-actions>
+
+                </form>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

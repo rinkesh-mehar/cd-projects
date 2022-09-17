@@ -1,0 +1,36 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong>Edit Source Of Water</strong><small> Form</small></div>
+
+
+            <form [formGroup]="updateSourceOfWaterForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Water Source Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': updateSourceOfWaterForm.get('name').touched && updateSourceOfWaterForm.get('name').invalid}" (change)="trimValue(this.updateSourceOfWaterForm.get('name'))">
+
+                                <div class="invalid-feedback">
+                                    <div>Water Source Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/agri/source-of-water']">Cancel</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

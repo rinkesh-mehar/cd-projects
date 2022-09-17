@@ -1,0 +1,67 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Edit Commodity Phenophase</strong><small> Form</small></div>
+                <form [formGroup]="updateCommodityPhenophaseForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+                        <div *ngIf="isSubmitted">
+                            <div class="alert alert-success" *ngIf="isSuccess">
+                                <strong> {{_statusMsg}} Please Wait ..</strong>.
+                            </div>
+
+                            <div class="alert alert-danger" *ngIf="!isSuccess ">
+                                <strong>{{_statusMsg}}</strong>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="commodityId" class="form-control" [ngClass]="{'is-invalid': updateCommodityPhenophaseForm.get('commodityId').touched && updateCommodityPhenophaseForm.get('commodityId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let commodity of CommodityList" value={{commodity.id}}>
+                                        {{commodity.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <label>Phenophase <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="phenophaseId" class="form-control" [ngClass]="{'is-invalid': updateCommodityPhenophaseForm.get('phenophaseId').touched && updateCommodityPhenophaseForm.get('phenophaseId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let phenophase of PhenophaseList" value={{phenophase.id}}>
+                                        {{phenophase.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Phenophase</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" style="align-content: center">
+
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/phenophase/commodity-phenophase']">Cancel</button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

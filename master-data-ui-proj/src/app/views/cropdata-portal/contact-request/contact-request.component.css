@@ -1,0 +1,8 @@
+.card-body .table.table-bordered td:last-of-type {
+    width: 600px !important;
+    text-align: left !important;
+}
+
+.btn {
+    box-shadow: 2px 2px 3px #4d3319;
+}

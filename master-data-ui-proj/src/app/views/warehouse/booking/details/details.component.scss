@@ -1,0 +1,17 @@
+.card-body .table.table-bordered td:last-of-type {
+    width: auto !important;
+    text-align: left !important;
+  }
+  
+  .card-body .table.table-bordered th:first-of-type {
+    width: 300px !important;
+    text-align: left !important;
+  }
+  
+  @media only screen and (max-width: 767px) {
+    .card-body .table.table-bordered th:first-of-type {
+      width: 150px !important;
+      text-align: left !important;
+    }
+  }
+  

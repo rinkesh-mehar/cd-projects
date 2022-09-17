@@ -1,0 +1,495 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$ng-primary: mat-palette($mat-indigo);
+$ng-accent: mat-palette($mat-pink, A200, A100, A400);
+// The warn palette is optional (defaults to red).
+$ng-warn: mat-palette($mat-red);
+// Create the theme object (a Sass map containing all of the palettes).
+$ng-theme: mat-light-theme($ng-primary, $ng-accent, $ng-warn);
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($ng-theme);
+// If you want to override variables do it here
+@import "variables";
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+// If you want to add something do it here
+@import "custom";
+// Custom Style
+.nav-dropdown-items {
+    .nav-link {
+        padding: 8px 16px 8px 38px;
+        font-size: 12px;
+        color: #cccccc !important;
+        &:hover {
+            color: #ffffff !important;
+        }
+    }
+}
+
+.required label:after {
+    color: #e32;
+    content: " *";
+    display: inline;
+}
+
+//material checkbox start
+.pure-material-checkbox {
+    z-index: 0;
+    position: relative;
+    display: inline-block;
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
+    font-family: var(--pure-material-font, "Roboto", "Segoe UI", BlinkMacSystemFont, system-ui, -apple-system);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+
+/* Input */
+
+.pure-material-checkbox>input {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    z-index: -1;
+    position: absolute;
+    left: -10px;
+    top: -8px;
+    display: block;
+    margin: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    box-shadow: none;
+    outline: none;
+    opacity: 0;
+    transform: scale(1);
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.2s;
+}
+
+
+/* Span */
+
+.pure-material-checkbox>span {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+}
+
+
+/* Box */
+
+.pure-material-checkbox>span::before {
+    content: "";
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 3px 11px 3px 1px;
+    border: solid 2px;
+    /* Safari */
+    border-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    border-radius: 2px;
+    width: 18px;
+    height: 18px;
+    vertical-align: top;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+
+/* Checkmark */
+
+.pure-material-checkbox>span::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 10px;
+    height: 5px;
+    border: solid 2px transparent;
+    border-right: none;
+    border-top: none;
+    transform: translate(3px, 4px) rotate(-45deg);
+}
+
+
+/* Checked, Indeterminate */
+
+.pure-material-checkbox>input:checked,
+.pure-material-checkbox>input:indeterminate {
+    background-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+}
+
+.pure-material-checkbox>input:checked+span::before,
+.pure-material-checkbox>input:indeterminate+span::before {
+    border-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+    background-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+}
+
+.pure-material-checkbox>input:checked+span::after,
+.pure-material-checkbox>input:indeterminate+span::after {
+    border-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+}
+
+.pure-material-checkbox>input:indeterminate+span::after {
+    border-left: none;
+    transform: translate(4px, 3px);
+}
+
+.action-buttons button {
+    height: 36px;
+}
+
+
+/* Hover, Focus */
+
+.pure-material-checkbox:hover>input {
+    opacity: 0.04;
+}
+
+.pure-material-checkbox>input:focus {
+    opacity: 0.12;
+}
+
+.pure-material-checkbox:hover>input:focus {
+    opacity: 0.16;
+}
+
+
+/* Active */
+
+.pure-material-checkbox>input:active {
+    opacity: 1;
+    transform: scale(0);
+    transition: transform 0s, opacity 0s;
+}
+
+.pure-material-checkbox>input:active+span::before {
+    border-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+}
+
+.pure-material-checkbox>input:checked:active+span::before {
+    border-color: transparent;
+    background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+}
+
+
+/* Disabled */
+
+.pure-material-checkbox>input:disabled {
+    opacity: 0;
+}
+
+.pure-material-checkbox>input:disabled+span {
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+    cursor: initial;
+}
+
+.pure-material-checkbox>input:disabled+span::before {
+    border-color: currentColor;
+}
+
+.pure-material-checkbox>input:checked:disabled+span::before,
+.pure-material-checkbox>input:indeterminate:disabled+span::before {
+    border-color: transparent;
+    background-color: currentColor;
+}
+
+// material checkbox end
+.sidebar {
+    .nav-link {
+        // white-space: nowrap;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // max-width: 80%;
+        &:hover {
+            color: #ffffff !important;
+        }
+    }
+}
+
+.instruction {
+    width: 200px;
+    cursor: pointer;
+}
+
+.instruction div {
+    width: 200px;
+}
+
+.text {
+    position: relative;
+    font-size: 14px;
+    color: black;
+    width: 250px;
+    /* Could be anything you like. */
+}
+
+.text-concat {
+    position: relative;
+    display: inline-block;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+    /* (Number of lines you want visible) * (line-height) */
+    line-height: 1.2em;
+    text-align: justify;
+}
+
+.text.ellipsis::after {
+    content: "...";
+    position: absolute;
+    right: -12px;
+    bottom: 4px;
+}
+
+.login.card {
+    position: relative;
+    &:before,
+    &:after {
+        z-index: -1;
+        position: absolute;
+        content: "";
+        bottom: 15px;
+        left: 10px;
+        width: 50%;
+        top: 80%;
+        // background: rgba(0, 0, 0, 0.52);
+        // -webkit-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.52);
+        // -moz-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.52);
+        // box-shadow: 0 15px 10px rgba(0, 0, 0, 0.52);
+        -webkit-transform: rotate(-3deg);
+        -moz-transform: rotate(-3deg);
+        -o-transform: rotate(-3deg);
+        -ms-transform: rotate(-3deg);
+        transform: rotate(-3deg);
+    }
+    &::after {
+        -webkit-transform: rotate(3deg);
+        -moz-transform: rotate(3deg);
+        -o-transform: rotate(3deg);
+        -ms-transform: rotate(3deg);
+        transform: rotate(3deg);
+        right: 10px;
+        left: auto;
+    }
+}
+
+.app-login,
+app-forgot-password {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #20a8d8;
+    //background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    background: linear-gradient(135deg, #20a8d8 0%, #000851 100%);
+    opacity: 0.95;
+    .card {
+        &.login {
+            background-color: rgb(0 0 0 / 15%);
+            border: none;
+            box-shadow: 0px 3px 2px rgb(0 0 0 / 50%);
+        }
+    }
+    .btn-primary {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+        border-color: #ffffff !important;
+        font-weight: bold;
+    }
+    .btn-link {
+        color: #ffffff !important;
+    }
+}
+
+.login-left-side {
+    // background-color: rgb(146 146 146 / 30%) !important;
+    background-color: rgb(15 107 218 / 20%) !important;
+    height: 100vh;
+    position: relative;
+    .card-group {
+        position: absolute;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        max-width: 600px;
+    }
+}
+
+.portal-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    img {
+        width: 250px;
+        max-width: 100%;
+        margin-left: -20%;
+    }
+}
+
+.profile-details-table {
+    font-size: 14px;
+    font-weight: bold;
+    td {
+        padding: 3px 10px;
+        vertical-align: top;
+    }
+}
+
+table th:first-child {
+    text-align: center;
+}
+
+table td:first-child {
+    text-align: center;
+}
+
+.thumb {
+    border-radius: 100%;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.21), 0px 7px 5px rgba(0, 0, 0, 0.21);
+    width: 170px;
+    height: 170px;
+    overflow: hidden;
+    padding: 8px;
+    img {
+        margin-top: 9px;
+    }
+}
+
+// .pagination{
+//   overflow-x:scroll;
+// }
+.navbar-toggler.d-none.d-lg-block:nth-of-type(3) {
+    display: none !important;
+}
+
+.custom-control {
+    &.custom-checkbox {
+        padding: 0;
+        label {
+            vertical-align: text-top;
+            margin-bottom: 27px;
+        }
+    }
+}
+
+.page-title {
+    background-color: #20a7d8;
+    color: #ffffff;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    .pagination {
+        overflow-x: auto;
+    }
+    .table {
+        // &.table-sm{
+        //   th,
+        //   td {
+        //     width: 300px;
+        //   }
+        // }
+        min-width: 1000px;
+        &.table-bordered {
+            .thead-light {
+                th {
+                    max-width: 300px;
+                    min-width: initial !important;
+                    vertical-align: top;
+                    &:first-of-type {
+                        width: 50px !important;
+                        max-width: 90px !important;
+                        min-width: initial !important;
+                    }
+                    &:last-of-type {
+                        width: 200px !important;
+                        max-width: 200px !important;
+                        min-width: 200px !important;
+                        text-align: center !important;
+                    }
+                    &:nth-last-child(2) {
+                        >div {
+                            justify-content: center;
+                        }
+                    }
+                }
+            }
+            td {
+                max-width: 300px;
+                min-width: fit-content !important;
+                font-size: 14px;
+                width: fit-content !important;
+                &:first-of-type {
+                    width: 50px;
+                    max-width: 90px;
+                    min-width: initial !important;
+                }
+                &:last-of-type {
+                    width: 200px !important;
+                    text-align: center !important;
+                    .btn {
+                        color: #000000;
+                        &:hover {
+                            color: #ffffff;
+                        }
+                    }
+                }
+                &:nth-last-child(2) {
+                    text-align: center !important;
+                }
+            }
+        }
+    }
+}
+
+.card-footer {
+    padding: 12px 0px;
+    background-color: transparent;
+}
+
+app-login {
+    .custom-control {
+        &.custom-checkbox {
+            padding-left: 1.5rem;
+            label {
+                margin: 0;
+            }
+        }
+    }
+}
+
+.mat-sort-header-container {
+    align-items: center;
+}
+
+.contentCenter {
+    text-align: center;
+    .mat-sort-header-container {
+        justify-content: center;
+    }
+}
+
+.select-option {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.otherImages {
+    padding-top: 28px;
+}

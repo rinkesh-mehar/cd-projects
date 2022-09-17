@@ -1,0 +1,211 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { GeneralUomService } from '../services/general-uom.service';
+import { globalConstants } from '../../global/globalConstants';
+import { ConfirmationMadalComponent } from '../../global/confirmation-madal/confirmation-madal.component';
+import { UserRightsService } from '../../services/user-rights.service';
+import {Sort} from '@angular/material';
+import {SuccessModalComponent} from '../../global/success-modal/success-modal.component';
+import {ErrorModalComponent} from '../../global/error-modal/error-modal.component';
+import { BulkDataService } from '../../agri/services/bulk-data.service';
+
+
+
+@Component({
+  selector: 'app-general-uom',
+  templateUrl: './general-uom.component.html',
+  styleUrls: ['./general-uom.component.scss']
+})
+export class GeneralUomComponent implements OnInit {
+  @ViewChild('confirmModal') public confirmModal: ConfirmationMadalComponent;
+    @ViewChild('successModal') public successModal: SuccessModalComponent;
+    @ViewChild('errorModal') public errorModal: ErrorModalComponent;
+
+ isSubmitted: boolean = false;
+  isSuccess: boolean = false;
+  _statusMsg: string;
+    uomStatus;
+  UomList: any = [];
+
+  searchText: any = '';
+  selectedPage: number = 1;
+  maxSize =10;
+  recordsPerPage: number = 10;
+  records: any = [];
+
+
+  ngOnInit() {
+    this.records = ['20', '50', '100', '200', '250'];
+    this.loadAllUom(0);
+    this.uomStatus = globalConstants;
+  }
+
+  constructor(public bulkDatas: BulkDataService,private userRightsService: UserRightsService,
+    public generalUomService: GeneralUomService
+  ){ }
+
+   // Uom list
+   loadAllUom(page: number) {
+    return this.generalUomService.getPageGeneralUom(page, this.recordsPerPage,this.searchText).subscribe((data: {}) => {
+      this.UomList = data;
+    })
+  }
+
+  onSelect(page: number): void {
+    (<HTMLInputElement>document.getElementById("masterChkBox")).checked = false;
+    this.bulkDatas.disbled = true;
+    // console.log('selected page : ' + page);
+    this.selectedPage = page;
+    this.loadAllUom(page);
+}
+
+    // Delete Uom
+    // deleteUom(data){
+    //   var index = index = this.UomList.map(x => {return x.name}).indexOf(data.name);
+    //    return this.generalUomService.DeleteUom(data.id).subscribe(res => {
+    //     this.UomList.splice(index, 1)
+    //      console.log('Uom deleted!')
+    //    })
+    // }
+
+
+  // Delete Uom
+  delete(data, i) {
+    data.index = i;
+    data.flag = "delete"
+    this.confirmModal.showModal(globalConstants.deleteDataTitle, globalConstants.deleteDataMsg + " " + data.name, data);
+  }
+  // Reject 
+  reject(data, i) {
+    data.index = i;
+    data.flag = "reject"
+    this.confirmModal.showModal(globalConstants.rejectDataTitle, globalConstants.rejectDataMsg + " " + data.name, data);
+  }
+
+  approve(data, i) {
+    data.index = i;
+    data.flag = "approve"
+    this.confirmModal.showModal(globalConstants.approveDataTitle, globalConstants.approveDataMsg + " " + data.name, data);
+  }
+  finalize(data, i) {
+    data.index = i;
+    data.flag = "finalize"
+    this.confirmModal.showModal(globalConstants.finalizeDataTitle, globalConstants.finalizeDataMsg + " " + data.name, data);
+  }
+
+    modalConfirmation(event) {
+        console.log(event);
+        let observable: any;
+        if (event) {
+            this.isSubmitted = true;
+            if (event.flag == 'approve') {
+                observable = this.generalUomService.ApproveUom(event.id);
+            } else if (event.flag == 'finalize') {
+                observable = this.generalUomService.FinalizeUom(event.id);
+            } else if (event.flag == 'delete') {
+                observable = this.generalUomService.DeleteUom(event.id);
+            } else if (event.flag == 'reject') {
+                observable = this.generalUomService.RejectUom(event.id);
+            }
+            observable.subscribe(res => {
+                if (res) {
+                    this.isSuccess = res.success;
+                    if (res.success) {
+                        this._statusMsg = res.message;
+                        this.ngOnInit();
+                        this.successModal.showModal('SUCCESS', res.message, '');
+                    } else {
+                        this.errorModal.showModal('ERROR', res.error, '');
+                    }
+                }
+            }, err => {
+                this.errorModal.showModal('ERROR', err.error, '');
+            });
+        }
+    }
+
+    sortData(sort: Sort) {
+        const data = this.UomList.content.slice();
+        if (!sort.active || sort.direction == '') {
+            this.UomList.content = data;
+            return;
+        }
+
+        function compare(firstValue, secondValue, isAsc: boolean) {
+            return (firstValue < secondValue ? -1 : 1) * (isAsc ? 1 : -1);
+        }
+
+        this.UomList.content = data.sort((firstValue, secondValue) => {
+            const isAsc = sort.direction == 'asc';
+            switch (sort.active) {
+                case globalConstants.ID:
+                    return compare(+firstValue.id, +secondValue.id, isAsc);
+                case 'description':
+                    return compare(firstValue.description, secondValue.description, isAsc);
+                case 'agrochemicalStatus':
+                    return compare(firstValue.agrochemicalStatus, secondValue.agrochemicalStatus, isAsc);
+                case globalConstants.NAME:
+                    return compare(firstValue.name, secondValue.name, isAsc);
+                case globalConstants.STATUS:
+                    return compare(firstValue.status, secondValue.status, isAsc);
+                default:
+                    return 0;
+            }
+        });
+    }
+
+    modalSuccess($event: any) {
+      (<HTMLInputElement>document.getElementById("masterChkBox")).checked = false;
+    this.bulkDatas.disbled = true;
+      // this.ngOnInit();
+      // this.selectedPage = 1;
+    
+      console.log("page : " + this.selectedPage);
+      if(this.selectedPage >= 2){
+        console.log("Inside if");
+      this.loadAllUom(this.selectedPage - 1);
+      this.uomStatus = globalConstants;
+      }else{
+        console.log("Inside else");
+      this.ngOnInit();
+      }
+    }
+
+    searchUOM() {
+      this.selectedPage = 1;
+      console.log(this.searchText);
+      this.loadAllUom(this.selectedPage - 1);
+  }
+
+    bulkData(key,tableName){
+
+      let Values = []
+      let getValue = document.querySelectorAll<HTMLInputElement>('table tbody input:checked')
+     
+      getValue.forEach(function(data,i){
+        Values.push(data.value)
+      })
+      let AllData = {status:key, tableName:tableName, ids:Values.toString()}
+  
+      this.bulkDatas.getData(AllData)
+          .subscribe( data => {
+            data
+            if(data.success == true){
+              this.successModal.showModal('SUCCESS', data.message, '');
+  
+            }else {
+              this.errorModal.showModal('ERROR', data.error, '');
+  
+            }
+  
+          })
+  
+    }
+
+    loadData(event: any) {
+      console.log('pages ', event.target.value);
+      this.recordsPerPage = event.target.value || 10;
+      this.generalUomService.getPageGeneralUom(this.selectedPage - 1, this.recordsPerPage, this.searchText)
+        .subscribe(page => this.UomList = page);
+    }
+
+}

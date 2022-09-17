@@ -1,0 +1,182 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Variety Stress
+                            <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right" [routerLink]="['/stress/variety-stress-add/']"> Add
+                  Variety Stress</button>
+                                <!-- <button class="btn btn-primary btn-sm move-right" (click)="onClickMissing()"> Missing </button> -->
+                                <button class="btn btn-danger btn-sm move-right" (click)="fixBug()"><i class="fa fa-bug" aria-hidden="true"></i> Fix Bugs</button>
+
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="input-group mb-3  col-lg-8 col-md-8 p-0">
+                                        <input type="text" class="form-control" placeholder="Search by Variety...  " [(ngModel)]="searchText">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button" (click)="searchVariety()">Search</button>
+                                            <button class="btn btn-danger" type="button" (click)="searchText='';searchVariety()">Clear</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="btn-group action-buttons col-lg-4 col-md-4">
+                                        <button class="btn btn-success approve" [disabled]="bulkDatas.disbled" type="button" (click)="bulkData('Approved','agri_variety_stress')">Approve All</button>
+                                        <button class="btn btn-danger reject" [disabled]="bulkDatas.disbled" type="button" (click)="bulkData('Rejected','agri_variety_stress')">Reject All</button>
+                                        <button class="btn btn-primary finalise" [disabled]="bulkDatas.disbled" type="button" (click)="bulkData('Active','agri_variety_stress')">Finalize All</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="table table-responsive-sm  table-responsive table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event)">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 20px;">
+                                            <label class="pure-material-checkbox">
+                                                <input type="checkbox" (change)="bulkDatas.checkAll($event)" id="masterChkBox">
+                                        <span></span>
+                                    </label>
+                                        </th>
+                                        <th style="width: 20px;" mat-sort-header="id">ID</th>
+                                        <th class="text-left" mat-sort-header="commodity">Commodity</th>
+                                        <th class="text-left" mat-sort-header="variety">Variety</th>
+                                        <th class="text-left" mat-sort-header="stressType">Stress Type</th>
+                                        <th class="text-left" mat-sort-header="resistantStress">Resistant Stress</th>
+                                        <th class="text-left" mat-sort-header="susceptibleStress">Susceptible Stress</th>
+                                        <th class="text-left" mat-sort-header="tolerantStress">Tolerant Stress</th>
+                                        <th class="text-left" mat-sort-header="description">Description</th>
+                                        <th style="width: 120px;" class="text-center" mat-sort-header="status">Status</th>
+                                        <th style="width: 150px;" *ngIf="missing==0">Action</th>
+                                        <th style="width: 80px !important; min-width: 80px !important;" *ngIf="missing==1">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody *ngIf="pageVarietyStress?.content">
+                                    <tr *ngFor="let varietyStress of pageVarietyStress.content| searchFilter :searchText:['variety']">
+
+                                        <div title="{{varietyStress.errorMessage}}" class="{{varietyStress.isValid ? '': 'IsInValid'}}">
+                                            <!-- <tbody>
+                        <tr *ngFor="let varietyStress of VarietyStressList"> -->
+                                            <td>
+                                                <label class="pure-material-checkbox">
+                <input type="checkbox" (change)="bulkDatas.checked($event)" value="{{varietyStress.id}}">
+                <span></span>
+            </label>
+                                            </td>
+                                            <td scope="row">{{varietyStress.id}}</td>
+
+                                            <td class="text-left">{{varietyStress.commodity |titlecase}}</td>
+                                            <td class="text-left">{{varietyStress.variety}}</td>
+                                            <td class="text-left">{{varietyStress.stressType}}</td>
+
+                                            <td class="text-left">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="col-10 p-0 pr-2">
+                                                        <span *ngIf="varietyStress.resistantStress" class="td-text stress_name">{{varietyStress.resistantStress |titlecase}}</span>
+                                                    </div>
+                                                    <div class="col-2 p-0">
+                                                        <button type="button" class="btn btn-brand  btn-sm float-right td-btn" (click)="showInfoModal('Tolerant Stress',varietyStress.resistantStress)">
+                              <i class="fa fa-eye"></i>
+                            </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-left">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="col-10 p-0 pr-2">
+                                                        <span *ngIf="varietyStress.susceptibleStress" class="td-text stress_name">{{varietyStress.susceptibleStress |titlecase }}</span>
+                                                    </div>
+                                                    <div class="col-2 p-0">
+                                                        <button type="button" class="btn btn-brand  btn-sm float-right td-btn" (click)="showInfoModal('Tolerant Stress',varietyStress.susceptibleStress)">
+                                <i class="fa fa-eye"></i>
+                              </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-left">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="col-10 p-0 pr-2">
+                                                        <span class="td-text stress_name" *ngIf="varietyStress.tolerantStress">{{varietyStress.tolerantStress |titlecase }}</span>
+                                                    </div>
+                                                    <div class="col-2 p-0">
+                                                        <button type="button" class="btn btn-brand  btn-sm float-right td-btn" (click)="showInfoModal('Tolerant Stress',varietyStress.tolerantStress)">
+                              <i class="fa fa-eye"></i>
+                            </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td class="text-left">{{varietyStress.description}}</td>
+                                            <td style="width: 120px;" class="text-center">
+                                                <span style="width: 100px;" class="{{varietyStress.status =='Inactive'?'badge badge-secondary':varietyStress.status =='Approved'?'badge badge-success':varietyStress.status =='Active'?'badge badge-primary':'badge badge-danger'}}">{{varietyStress.status}}</span>
+                                            </td>
+                                            <td *ngIf="missing==0">
+                                                <button type="button" class="btn btn-info btn-sm move-right" title="Edit" [routerLink]="['/stress/variety-stress-edit/', varietyStress.id]"><i class="fa fa-pencil-square-o"></i></button>
+                                                <button type="button" class="btn btn-success btn-sm move-right" title="Approve" [disabled]="varietyStress.status == varietyStressStatus.APPROVED_STATUS||varietyStress.status == varietyStressStatus.ACTIVE_STATUS" (click)="approve(varietyStress)"><i
+                          class="fa fa-get-pocket"></i></button>
+                                                <button type="button" class="btn btn-primary btn-sm move-right" title="{{varietyStress.status == varietyStressStatus.INACTIVE_STATUS || varietyStress.status == varietyStressStatus.REJECTED_STATUS?varietyStressStatus.CAN_NOT_FINALIZE:'Finalize'}}" [disabled]="varietyStress.status == varietyStressStatus.ACTIVE_STATUS || varietyStress.status == varietyStressStatus.INACTIVE_STATUS || varietyStress.status == varietyStressStatus.REJECTED_STATUS"
+                                                    (click)="finalize(varietyStress)"><i
+                          class="fa  fa-thumbs-up"></i></button>
+                                                <button type="button" class="btn btn-danger btn-sm move-right" title="Reject" [disabled]="varietyStress.status == varietyStressStatus.REJECTED_STATUS" (click)="reject(varietyStress)"><i
+                          class="fa fa-close"></i></button>
+                                                <!-- <button type="button" class="btn btn-danger btn-sm move-right" title="Delete"
+                        (click)="delete(varietyStress)"><i
+                          class="fa fa-close"></i></button> -->
+                                            </td>
+                                            <td *ngIf="missing==1" style="width: 80px !important;">
+                                                <button type="button" class="btn btn-info btn-sm move-right" title="Move To Master" (click)="moveToMaster(varietyStress.id)" *ngIf="userRightsService.canMoveToMaster()"><i class="fa fa-arrow-right"></i></button>
+                                            </td>
+
+                                        </div>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="pageVarietyStress.content.length == 0">
+                                    <td colspan="11" class="text-left">Data Not Found..!!</td>
+                                </tbody>
+                            </table>
+
+                            <!-- <nav aria-label="...">
+                <ul style="margin-left: 0px;margin-top:-10px;" class="pagination" *ngIf="pageVarietyStress?.content">
+                  <li *ngFor="let page of ' '.repeat(pageVarietyStress.totalPages).split(''), let i = index "
+                    (click)="onSelect(i)" [class.active]="i === selectedPage" class="page-item"><a
+                      class="page-link">{{i+1}}</a></li>
+                </ul>
+              </nav> -->
+
+                            <div class="row justify-content-between m-0">
+                                <div class="col-xs-9 col-9 text-center p-0" *ngIf="pageVarietyStress?.content">
+                                    <pagination [totalItems]="pageVarietyStress.totalElements" [(ngModel)]="selectedPage" [maxSize]="maxSize" class="pagination-md" previousText="&lsaquo; Prev" nextText="Next &rsaquo;" firstText="&laquo; First" lastText="Last &raquo; " [boundaryLinks]="true"
+                                        [itemsPerPage]="pageVarietyStress.size" [rotate]="false" (numPages)="numPages = $event;" (pageChanged)="onSelect($event.page-1)">
+                                    </pagination>
+                                </div>
+                                <div class="row col-xs-3 col-3 m-0" *ngIf="pageVarietyStress?.content">
+                                    <div class="col text-right p-0">
+                                        <label class="text-right">Records per page</label>
+                                        <select class="p-0" (change)="loadData($event)">
+                        <option value="10" selected>10</option>
+                        <option *ngFor="let items of records" value="{{items}}">{{items}}</option>
+                    </select> &nbsp;
+                                        <label class="text-center">Page {{selectedPage}} of
+                        {{pageVarietyStress.totalPages}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-info-modal #infoModal></app-info-modal>
+<app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

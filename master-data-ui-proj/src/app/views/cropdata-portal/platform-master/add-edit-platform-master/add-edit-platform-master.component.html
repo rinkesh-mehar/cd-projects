@@ -1,0 +1,72 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Platform</span> <span
+              *ngIf="mode=='edit'">Edit Platform</span></strong></div>
+                <form [formGroup]="platformForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" maxlength="50" [ngClass]="{ 'is-invalid': platformForm.get( 'name').touched && platformForm.get( 'name').invalid}" (change)="trimValue(this.platformForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Description</label>
+                                <textarea formControlName="description" class="form-control" rows="10" maxlength="65000" (change)="trimValue(this.platformForm.get('description'))">
+                              </textarea>
+                                <!-- <div class="invalid-feedback">
+                                    <div>Description is required</div>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>View Order</label>
+                                <input type="number" formControlName="viewOrder" class="form-control" (change)="trimValue(this.platformForm.get('viewOrder'))">
+                                <!-- <div class="invalid-feedback">
+                                    <div>Name is required</div>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-2 mb-0">
+                                <label>Upload Logo <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="file" formControlName="logoFile" (change)="onLogoChange($event)" class="form-control-file" id="logoFile" [ngClass]="{'is-invalid': platformForm.get('logoFile').touched && platformForm.get('logoFile').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="platformForm.get( 'logoFile').errors?.required">Uplodad Logo is required</div>
+                                    <div *ngIf="platformForm.get( 'logoFile').errors?.fileSizeValidatorForDoc">Logo size should not be more than 10 MB</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2" [hidden]="isLogo">
+                                <div class="form-group mb-0">
+                                    <label>Current Logo</label>
+                                    <img src="{{logo}}" class="img-fluid form-control" style="height: 100px !important;" width="50" alt="logo">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-primary " type="submit "> <span *ngIf="mode=='add'"> Submit</span> <span
+                  *ngIf="mode=='edit'">Update</span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/cropdata-portal/platform']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

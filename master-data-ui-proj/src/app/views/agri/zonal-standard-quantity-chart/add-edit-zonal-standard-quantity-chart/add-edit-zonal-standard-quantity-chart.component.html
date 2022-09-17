@@ -1,0 +1,186 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                        *ngIf="mode=='edit'">Edit </span>Zonal Standard Quantity Chart </strong></div>
+
+
+
+            <form [formGroup]="standardQuantityChartForm" (ngSubmit)="submitStandardQuantityChartForm()" novalidate>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="stateCode" class="form-control" (change)="loadAczByStateCode()" [ngClass]="{'is-invalid': standardQuantityChartForm.get('stateCode').touched && standardQuantityChartForm.get('stateCode').invalid}">
+                                        <option value="">--Select--</option>
+                                        <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                            {{state.name}}
+                                        </option>
+                                    </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select State</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>ACZ <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="aczId" class="form-control" (change)="loadZonalCommodityByAczId()" [ngClass]="{'is-invalid': standardQuantityChartForm.get('aczId').touched && standardQuantityChartForm.get('aczId').invalid}">
+                                        <option value="">--Select--</option>
+                                        <option *ngFor="let acz of aczList" value={{acz.id}}>
+                                            {{acz.name}}
+                                        </option>
+                                    </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select ACZ</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Zonal Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="zonalCommodityId" class="form-control" (change)="loadZonalVarietyByZonalCommodityId()" [ngClass]="{'is-invalid': standardQuantityChartForm.get('zonalCommodityId').touched && standardQuantityChartForm.get('zonalCommodityId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let zonalCommodity of zonalCommodityList" value={{zonalCommodity.id}}>
+                                    {{zonalCommodity.zonalCommodityName}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Zonal Commodity</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Zonal Variety <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="zonalVarietyId" class="form-control" [ngClass]="{'is-invalid': standardQuantityChartForm.get('zonalVarietyId').touched && standardQuantityChartForm.get('zonalVarietyId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let zonalVariety of zonalVarietyList" value={{zonalVariety.id}}>
+                                    {{zonalVariety.zonalVarietyName}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Zonal Variety</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Standard Quantity PerAcre <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" onKeyPress="if(this.value.length==15) return false;" formControlName="standardQuantityPerAcre" class="form-control" [ngClass]="{'is-invalid': standardQuantityChartForm.get('standardQuantityPerAcre').touched && standardQuantityChartForm.get('standardQuantityPerAcre').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="standardQuantityChartForm.get( 'standardQuantityPerAcre').errors?.required">Standard Quantity PerAcre is required</div>
+                                    <div *ngIf="standardQuantityChartForm.get( 'standardQuantityPerAcre').errors?.pattern">Standard Quantity PerAcre Value must be Numeric</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Standard Positive Variance Percent <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" onKeyPress="if(this.value.length==15) return false;" formControlName="standardPositiveVariancePercent" class="form-control" [ngClass]="{'is-invalid': standardQuantityChartForm.get('standardPositiveVariancePercent').touched && standardQuantityChartForm.get('standardPositiveVariancePercent').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="standardQuantityChartForm.get( 'standardPositiveVariancePercent').errors?.required">Standard Positive Variance Percent is required</div>
+                                    <div *ngIf="standardQuantityChartForm.get( 'standardPositiveVariancePercent').errors?.pattern">Standard Positive Variance Percent Value must be Numeric</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Standard Positive Variance PerAcre <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" onKeyPress="if(this.value.length==15) return false;" formControlName="standardPositiveVariancePerAcre" class="form-control" [ngClass]="{'is-invalid': standardQuantityChartForm.get('standardPositiveVariancePerAcre').touched && standardQuantityChartForm.get('standardPositiveVariancePerAcre').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="standardQuantityChartForm.get( 'standardPositiveVariancePerAcre').errors?.required">Standard Positive Variance PerAcre is required</div>
+                                    <div *ngIf="standardQuantityChartForm.get( 'standardPositiveVariancePerAcre').errors?.pattern">Standard Positive Variance PerAcre Value must be Numeric</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Standard Negative Variance Percent <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" onKeyPress="if(this.value.length==15) return false;" formControlName="standardNegativeVariancePercent" class="form-control" [ngClass]="{'is-invalid': standardQuantityChartForm.get('standardNegativeVariancePercent').touched && standardQuantityChartForm.get('standardNegativeVariancePercent').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="standardQuantityChartForm.get( 'standardNegativeVariancePercent').errors?.required">Standard Negative Variance Percent is required</div>
+                                    <div *ngIf="standardQuantityChartForm.get( 'standardNegativeVariancePercent').errors?.pattern">Standard Negative Variance Percent Value must be Numeric</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Standard Negative Variance PerAcre <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" onKeyPress="if(this.value.length==15) return false;" formControlName="standardNegativeVariancePerAcre" class="form-control" [ngClass]="{'is-invalid': standardQuantityChartForm.get('standardNegativeVariancePerAcre').touched && standardQuantityChartForm.get('standardNegativeVariancePerAcre').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="standardQuantityChartForm.get( 'standardNegativeVariancePerAcre').errors?.required">Standard Negative Variance PerAcre is required</div>
+                                    <div *ngIf="standardQuantityChartForm.get( 'standardNegativeVariancePerAcre').errors?.pattern">Standard Negative Variance PerAcre Value must be Numeric</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit </span> <span
+                        *ngIf="mode=='edit'">Update </span></button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/zonal/standard-quantity-chart']">cancel</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <strong>Bulk Insert</strong><small> Form</small>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <form (ngSubmit)="submitExcelForm()" novalidate>
+                <div class="card-body">
+                    <div class="form-group mb-0">
+                        <label for="file-input">Select excel(.xlsx) file</label>
+                        <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="submit"> Submit </button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/zonal/standard-quantity-chart']">cancel</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

@@ -1,0 +1,290 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add </span> <span
+                        *ngIf="mode=='edit'">Edit </span>Zonal Stress Duration</strong></div>
+
+
+                <form [formGroup]="StressForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stateCode" class="form-control" (change)="loadAczByStateCode()" [ngClass]="{'is-invalid': StressForm.get('stateCode').touched && StressForm.get('stateCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let state of StateList" value={{state.stateCode}}>
+                                        {{state.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select State</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>District <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="districtCode" class="form-control" [ngClass]="{'is-invalid': StressForm.get('districtCode').touched && StressForm.get('districtCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let district of DistrictList" value={{district.districtCode}}>
+                                        {{district.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select District</div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>ACZ <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="aczId" class="form-control" (change)="loadZonalCommodityByAczId()" [ngClass]="{'is-invalid': StressForm.get('aczId').touched && StressForm.get('aczId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let acz of aczList" value={{acz.id}}>
+                                        {{acz.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select ACZ</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Season <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="seasonId" class="form-control" (change)="loadAllCommodityBySeason()" [ngClass]="{'is-invalid': StressForm.get('seasonId').touched && StressForm.get('seasonId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let season of SeasonList" value={{season.id}}>
+                                        {{season.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Season</div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Zonal Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="zonalCommodityId" class="form-control" [ngClass]="{'is-invalid': StressForm.get('zonalCommodityId').touched && StressForm.get('zonalCommodityId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let commodity of zonalCommodityList" value={{commodity.id}}>
+                                        {{commodity.zonalCommodityName}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Zonal Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Variety <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="varietyId" class="form-control" [ngClass]="{'is-invalid': StressForm.get('varietyId').touched && StressForm.get('varietyId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let variety of VarietyList" value={{variety.id}}>
+                                        {{variety.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Variety</div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Start DAS <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" onKeyPress="if(this.value.length==9) return false;" formControlName="startDas" class="form-control" [ngClass]="{'is-invalid': StressForm.get('startDas').touched && StressForm.get('startDas').invalid}">
+                                <!-- <select formControlName="startPhenophaseId" class="form-control" [ngClass]="{'is-invalid': StressForm.get('startPhenophaseId').touched && StressForm.get('startPhenophaseId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let phenophase of PhenophaseList" value={{phenophase.phenophaseId}}>
+                                        {{phenophase.phenophase}}
+                                    </option>
+                                </select> -->
+                                <div class="invalid-feedback">
+                                    <div>Start DAS is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>End DAS <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" onKeyPress="if(this.value.length==9) return false;" formControlName="endDas" class="form-control" [ngClass]="{'is-invalid': StressForm.get('endDas').touched && StressForm.get('endDas').invalid}">
+                                <!-- <select formControlName="endPhenophaseId" class="form-control" [ngClass]="{'is-invalid': StressForm.get('endPhenophaseId').touched && StressForm.get('endPhenophaseId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let phenophase of PhenophaseList" value={{phenophase.phenophaseId}}>
+                                        {{phenophase.phenophase}}
+                                    </option>
+                                </select> -->
+                                <div class="invalid-feedback">
+                                    <div>End DAS is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Stress Type <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stressTypeId" class="form-control" (change)="getStressByCommodityIdAndStressTypeId()" [ngClass]="{'is-invalid': StressForm.get('stressTypeId').touched && StressForm.get('stressTypeId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let stressType of StressTypeList" value={{stressType.id}}>
+                                        {{stressType.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Stress Type</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Stress <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <select formControlName="stressId" class="form-control" [ngClass]="{'is-invalid': StressForm.get('stressId').touched && StressForm.get('stressId').invalid}">
+                                        <option value="">--Select--</option>
+                                        <option *ngFor="let stress of StressList" value={{stress.id}}>
+                                            {{stress.name}}
+                                        </option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        <div>Please Select Stress Name</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Stress Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': StressForm.get('name').touched && StressForm.get('name').invalid}" (change)="trimValue(this.StressForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Stress Name is required</div>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Scientific Name</label>
+                                <input type="text" formControlName="scientificName" class="form-control" [ngClass]="{'is-invalid': StressForm.get('scientificName').touched && StressForm.get('scientificName').invalid}" (change)="trimValue(this.StressForm.get('scientificName'))">
+                                <div class="invalid-feedback">
+                                    <div>Scientific Name is required</div>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Symptoms List</label>
+
+                                <div class="custom-control custom-checkbox">
+                                    <label formArrayName="symptomsListChkBox"
+                                        *ngFor="let subRes of StressForm.controls.symptomsListChkBox['controls']; let i = index"
+                                        class="col-sm-6 col-md-3 col-lg-2">
+                                        <input type="checkbox" [formControlName]="i">
+                                        {{SymptomsList[i].symptom}}
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div> -->
+
+
+                        <!-- <div class="row" style="align-content: center">
+                            <div class="form-group row col-sm-12 mb-0">
+                                <div class="col-md-12">
+                                    <label class="col-form-label" for="file-input">Browse File</label>
+                                </div>
+                                <div class="col-md-12">
+
+                                    <input type="file" id="file-input" name="file-input" accept=".jpeg" (change)="fileChange($event)">
+
+                                    <img [src]="imgPerview" width="100px" *ngIf="imgPerview">
+                                    <img [src]="StressForm.get('imageURL').value" width="100px" *ngIf="StressForm.get('imageURL').value" />
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Symptoms</label>
+                                    <textarea class="form-control" id="textarea-input" formControlName="symptoms"
+                                        rows="4"></textarea>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> <span *ngIf="mode=='add'"> Submit </span> <span
+                            *ngIf="mode=='edit'">Update </span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/zonal/zonal-stress-duration']">Cancel</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <strong>Bulk Insert</strong><small> Form</small>
+                        </div>
+                        <div class="col text-right">
+                            <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <form (ngSubmit)="submitExcelForm()" novalidate>
+                    <div class="card-body">
+                        <!-- <div *ngIf="isSubmittedBulk">
+                            <div class="alert alert-success" *ngIf="isSuccess">
+                                <strong> {{_statusMsg}} Please Wait ..</strong>.
+                            </div>
+
+                            <div class="alert alert-danger" *ngIf="!isSuccess ">
+                                <strong>{{_statusMsg}}</strong>
+                            </div>
+                        </div> -->
+
+
+
+                        <div class="form-group mb-0">
+                            <label for="file-input">Select excel(.xlsx) file</label>
+                            <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Submit </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/zonal/zonal-stress-duration']">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

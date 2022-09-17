@@ -1,0 +1,80 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Edit Commodity Plant Part</strong><small> Form</small></div>
+                <form [formGroup]="updateCommodityPlantPartForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="commodityId" class="form-control" (change)="loadAllCommodityByPhenophase()" [ngClass]="{'is-invalid': updateCommodityPlantPartForm.get('commodityId').touched && updateCommodityPlantPartForm.get('commodityId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let commodity of CommodityList" value={{commodity.id}}>
+                                        {{commodity.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Phenophase <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="phenophaseId" class="form-control" [ngClass]="{'is-invalid': updateCommodityPlantPartForm.get('phenophaseId').touched && updateCommodityPlantPartForm.get('phenophaseId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let phenophase of PhenophaseList" value={{phenophase.phenophaseId}}>
+                                        {{phenophase.phenophase}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Phenophase</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>PlantPart <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="plantPartId" class="form-control" [ngClass]="{'is-invalid': updateCommodityPlantPartForm.get('plantPartId').touched && updateCommodityPlantPartForm.get('plantPartId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let plantPart of PlantPartList" value={{plantPart.id}}>
+                                        {{plantPart.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select PlantPart</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="align-content: center">
+                            <div class="form-group row col-sm-12">
+                                <label class="col-md-1 col-sm-6  col-form-label" for="file-input">Browse File</label>
+                                <div class="col-md-11">
+
+                                    <input type="file" id="file-input" name="file-input" (change)="fileChange($event)">
+
+                                    <img [src]="imgPerview" width="100px" *ngIf="imgPerview">
+                                    <img [src]="updateCommodityPlantPartForm.get('imageURL').value" width="100px" *ngIf="updateCommodityPlantPartForm.get('imageURL').value" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/commodity/commodity-plant-part']">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

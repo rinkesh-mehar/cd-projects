@@ -1,0 +1,101 @@
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Terms And Conditions</span> <span
+                  *ngIf="mode=='edit'">Update Terms And Conditions</span></strong></div>
+            <form [formGroup]="addEditTACFormGroup" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Platform Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="platformId" class="form-control" [ngClass]="{'is-invalid': addEditTACFormGroup.get('platformId').touched && addEditTACFormGroup.get('platformId').invalid}">
+                                  <option value="">--Select--</option>
+                                  <option *ngFor="let platform of platFormList" value="{{platform.id}}">{{platform.name}}</option>
+                              </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Platform Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Terms And Conditions File <span class="required-asterisk" style="color:red;">*</span></label>
+                                        <input type="file" formControlName="tacFile" (change)="tacFileFileChange($event)" accept=".jpg,png,jpeg" class="form-control-file" id="image" [ngClass]="{'is-invalid': addEditTACFormGroup.get('tacFile').touched && addEditTACFormGroup.get('tacFile').invalid}">
+                                        <div class="invalid-feedback">
+                                            <div *ngIf="addEditTACFormGroup.get( 'tacFile').errors?.required">Terms And Conditions File is required</div>
+                                            <div *ngIf="addEditTACFormGroup.get( 'tacFile').errors?.fileSizeValidatorForDoc">File size should not be more than 10 MB</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2" [hidden]="isTacUrl">
+                                    <div class="form-group">
+                                        <label>Current File</label>
+                                        <div>
+                                            <a class="btn btn-color btn-outline-dark btn-sm move-right" target="_blank" href="{{tacUrl}}" title="Termas And Conditions" download="{{tacUrl}}"><i
+                                          class="fa fa-download"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Privacy Policy File <span class="required-asterisk" style="color:red;">*</span></label>
+                                        <input type="file" formControlName="ppFile" (change)="ppFileFileChange($event)" accept=".jpg,png,jpeg" class="form-control-file" id="image" [ngClass]="{'is-invalid': addEditTACFormGroup.get('ppFile').touched && addEditTACFormGroup.get('ppFile').invalid}">
+                                        <div class="invalid-feedback">
+                                            <div *ngIf="addEditTACFormGroup.get( 'ppFile').errors?.required">Privacy Policy File is required</div>
+                                            <div *ngIf="addEditTACFormGroup.get( 'ppFile').errors?.fileSizeValidatorForDoc">File size should not be more than 10 MB</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2" [hidden]="isPpUrl">
+                                    <div class="form-group">
+                                        <label>Current file</label>
+                                        <div>
+                                            <a class="btn btn-color btn-outline-dark btn-sm move-right" target="_blank" href="{{ppUrl}}" title="Privacy Policy" download="{{ppUrl}}"><i
+                                          class="fa fa-download"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Version <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="version" class="form-control" maxlength="45" [ngClass]="{'is-invalid': addEditTACFormGroup.get('version').touched && addEditTACFormGroup.get('version').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Version is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"> <span *ngIf="mode=='add'"> Submit</span> <span
+                  *ngIf="mode=='edit'">Update</span> </button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/cropdata-portal/terms-and-conditions']">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Form -->
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

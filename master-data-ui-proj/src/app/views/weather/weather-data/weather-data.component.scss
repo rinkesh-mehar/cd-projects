@@ -1,0 +1,25 @@
+span {
+    &.num {
+        color: #727373;
+        border: solid 1px #727373;
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        padding: 0;
+        margin: 10px 5px 0 5px;
+        display: inline-block;
+        position: relative;
+        &.active {
+            color: #fff;
+            background: #28a745;
+            border-color: #28a745;
+        }
+        b {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            line-height: normal;
+        }
+    }
+}

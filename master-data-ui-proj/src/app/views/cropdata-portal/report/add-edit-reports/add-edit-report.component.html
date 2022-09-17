@@ -1,0 +1,86 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <!--<div class="card-header"><strong>Add NewsReports</strong><small> Form</small></div>-->
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Reports </span> <span
+                    *ngIf="mode=='edit'">Update Reports</span></strong></div>
+            <form [formGroup]="addReport" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Platform Name <span class="required-asterisk" style="color:red;">*</span></label>
+
+                                <select formControlName="platformID" class="form-control" [ngClass]="{'is-invalid': addReport.get('platformID').touched && addReport.get('platformID').invalid}">
+                        <option value="">--Select--</option>
+                        <option *ngFor="let platform of platFormList" value="{{platform.id}}">{{platform.name}}</option>
+                    </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Platform Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <mat-checkbox color="primary" style="padding-top: 10px" value="Yes" formControlName="setAsAuthenticate" (change)="onsetAsAuthenticateChange()"></mat-checkbox>
+                                <label style="margin: 0;">Set as Authenticate ? &nbsp;</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Title <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="description" formControlName="title" class="form-control" maxlength="255" [ngClass]="{'is-invalid': addReport.get('title').touched && addReport.get('title').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Title is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Upload Report File</label>
+                                <input type="file" formControlName="reportFile" (change)="onFileChange($event)" class="form-control-file" id="reportFile" accept=".jpg,png,jpeg,pdf,docx,doc,xls,xlsx" [ngClass]="{'is-invalid': addReport.get('reportFile').touched && addReport.get('reportFile').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="addReport.get( 'reportFile').errors?.required">Uplodad Report File is required</div>
+                                    <div *ngIf="addReport.get( 'reportFile').errors?.fileSizeValidatorForDoc">File size should not be more than 10 MB</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12" *ngIf="isAuthenticate">
+                            <h3>OR</h3>
+                        </div>
+                        <div class="col-sm-12" *ngIf="isAuthenticate">
+                            <div class="form-group mb-0">
+                                <label>Report File URL <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" ng-Model="isFile" ng-disabled="isUrl" [readonly]="isFileUrlDisabled" formControlName="fileUrl" class="form-control" [ngClass]="{'is-invalid': addReport.get('fileUrl').touched && addReport.get('fileUrl').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div *ngIf="addReport.get( 'fileUrl').errors?.required">Report File URL is required</div>
+                                    <div *ngIf="addReport.get( 'fileUrl').errors?.urlValid">Report File URL should start with <strong>https://</strong></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"> <span *ngIf="mode=='add'"> Submit</span> <span
+                    *ngIf="mode=='edit'">Update</span> </button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/cropdata-portal/reports']">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Form -->
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

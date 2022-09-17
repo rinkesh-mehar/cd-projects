@@ -1,0 +1,380 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                        *ngIf="mode=='edit'">Edit </span> Stress Control Recommendation</strong></div>
+
+
+            <form [formGroup]="stressControlRecommendationForm" (ngSubmit)="submitStressControlRecommendationForm()" novalidate>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="stateCode" class="form-control" (change)="loadAczByStateCode()" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('stateCode').touched && stressControlRecommendationForm.get('stateCode').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let state of StateList" value={{state.stateCode}}>
+                                    {{state.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select State</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACZ List -->
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>ACZ <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="aczId" class="form-control" (change)="loadZonalCommodityByAczId()" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('aczId').touched && stressControlRecommendationForm.get('aczId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let acz of aczList" value="{{acz.id}}">
+                                    {{acz.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select ACZ</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zonal Commodity List -->
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Zonal Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="zonalCommodityId" class="form-control" (change)="getStressListAndAgrochemicalListByCommodityId()" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('zonalCommodityId').touched && stressControlRecommendationForm.get('zonalCommodityId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let zonalCommodity of zonalCommodityList" value={{zonalCommodity.id}}>
+                                    {{zonalCommodity.zonalCommodityName}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Zonal Commodity</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Control Measure <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="stressControlMeasureId" class="form-control" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('stressControlMeasureId').touched && stressControlRecommendationForm.get('stressControlMeasureId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let stressControlMeasure of StressControlMeasureList"
+                                    value={{stressControlMeasure.id}}>
+                                    {{stressControlMeasure.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Control Measure</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Stress Type <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="stressTypeId" class="form-control" (change)="getDataByCommodityAndStressType(); getAgrochemicalDataByCommodityAndStressType()" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('stressTypeId').touched && stressControlRecommendationForm.get('stressTypeId').invalid}">
+                            <option value="">--Select--</option>
+                            <option *ngFor="let stressType of StressTypeList" value={{stressType.id}}>
+                                {{stressType.name}}
+                            </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Stress Type</div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Stress <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="stressId" class="form-control" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('stressId').touched && stressControlRecommendationForm.get('stressId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let stress of StressList" value={{stress.id}}>
+                                    {{stress.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Stress</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Recommendation Name <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="recomendationID" class="form-control" (change)="onChangeRecommendationName()" popover="{{recommendarionName}} " triggers="mouseenter:mouseleave " [ngClass]="{'is-invalid': stressControlRecommendationForm.get('recomendationID').touched && stressControlRecommendationForm.get('recomendationID').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let recommendation of recommendationList" value={{recommendation.id}} >
+                                   <div></div> {{recommendation.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Recommendation Name</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Instruction</label>
+                                <input type="text" formControlName="instructions" class="form-control" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('instructions').touched && stressControlRecommendationForm.get('instructions').invalid}" (change)="trimValue(this.stressControlRecommendationForm.get('instructions'))">
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Agrochemical</label>
+                            <select formControlName="agrochemicalId" class="form-control" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('agrochemicalId').touched && stressControlRecommendationForm.get('agrochemicalId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let agrochemical of AgrochemicalList" value={{agrochemical.id}}>
+                                    {{agrochemical.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Agrochemical</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Dose Per Hectare</label>
+                                <div class="input-group col-8 pl-0">
+                                    <input type="text" class="form-control" formControlName="dosePerHectareMin" placeholder="Enter Min Value" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('dosePerHectareMin').touched && stressControlRecommendationForm.get('dosePerHectareMin').invalid}"
+                                        (change)="calculateDosePerAcr()" />
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">-</span>
+                                    </div>
+
+                                    <input type="text" class="form-control" formControlName="dosePerHectareMax" placeholder="Enter Max Value" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('dosePerHectareMax').touched && stressControlRecommendationForm.get('dosePerHectareMax').invalid}"
+                                        (change)="calculateDosePerAcr()" />
+                                </div>
+                                <div class="invalid-feedback">
+                                    <div>Dose Per Hectare is required</div>
+                                </div>
+                                <span class="text-danger d-block" *ngIf="(stressControlRecommendationForm.get('dosePerHectareMin').dirty &&  stressControlRecommendationForm.get('dosePerHectareMin').value < 0)&& stressControlRecommendationForm.get('dosePerHectareMin').errors?.pattern">Negative value not allowed</span>
+                                <span class="text-danger d-block" *ngIf="stressControlRecommendationForm.get('dosePerHectareMin').dirty && stressControlRecommendationForm.get('dosePerHectareMin').errors?.pattern">Only Numbers Allowed</span>
+                                <span class="text-danger d-block" *ngIf="(stressControlRecommendationForm.get('dosePerHectareMax').dirty &&  stressControlRecommendationForm.get('dosePerHectareMax').value < 0)&& stressControlRecommendationForm.get('dosePerHectareMax').errors?.pattern">Negative value not allowed</span>
+                                <span class="text-danger d-block" *ngIf="stressControlRecommendationForm.get('dosePerHectareMax').dirty && stressControlRecommendationForm.get('dosePerHectareMax').errors?.pattern">Only Numbers Allowed</span>
+
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Per Hectare Uom</label>
+                            <select formControlName="perHectareUomId" class="form-control" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('perHectareUomId').touched && stressControlRecommendationForm.get('perHectareUomId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let perHectareUom of UomList" value={{perHectareUom.id}}>
+                                    {{perHectareUom.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Per Hectare Uom</div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Dose Per Acre</label>
+                                <input type="text" formControlName="dosePerAcre" class="form-control" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('dosePerAcre').touched && stressControlRecommendationForm.get('dosePerAcre').invalid}" (change)="trimValue(this.stressControlRecommendationForm.get('dosePerAcre'))">
+                                <div class="invalid-feedback">
+                                    <div>Dose Per Acre is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Per Acre Uom</label>
+                            <select formControlName="perAcreUomId" class="form-control" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('perAcreUomId').touched && stressControlRecommendationForm.get('perAcreUomId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let perAcreUom of UomList" value={{perAcreUom.id}}>
+                                    {{perAcreUom.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Per Acre Uom</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Water Per Hectare</label>
+                                <div class="input-group col-8 pl-0">
+                                    <input type="text" class="form-control" formControlName="waterPerHectareMin" placeholder="Enter Min Value" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('waterPerHectareMin').touched && stressControlRecommendationForm.get('waterPerHectareMin').invalid}"
+                                        (change)="calculateWaterPerAcr()" />
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">-</span>
+                                    </div>
+                                    <input type="text" class="form-control" formControlName="waterPerHectareMax" placeholder="Enter Max Value" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('waterPerHectareMax').touched && stressControlRecommendationForm.get('waterPerHectareMax').invalid}"
+                                        (change)="calculateWaterPerAcr()" />
+                                </div>
+                                <div class="invalid-feedback">
+                                    <div>Water Per Hectare is required</div>
+                                </div>
+                                <span class="text-danger d-block" *ngIf="(stressControlRecommendationForm.get('waterPerHectareMin').dirty &&  stressControlRecommendationForm.get('waterPerHectareMin').value < 0)&& stressControlRecommendationForm.get('waterPerHectareMin').errors?.pattern">Negative value not allowed</span>
+                                <span class="text-danger d-block" *ngIf="stressControlRecommendationForm.get('waterPerHectareMin').dirty && stressControlRecommendationForm.get('waterPerHectareMin').errors?.pattern">Only Numbers Allowed</span>
+                                <span class="text-danger d-block" *ngIf="(stressControlRecommendationForm.get('waterPerHectareMax').dirty &&  stressControlRecommendationForm.get('waterPerHectareMax').value < 0)&& stressControlRecommendationForm.get('waterPerHectareMax').errors?.pattern">Negative value not allowed</span>
+                                <span class="text-danger d-block" *ngIf="stressControlRecommendationForm.get('waterPerHectareMax').dirty && stressControlRecommendationForm.get('waterPerHectareMax').errors?.pattern">Only Numbers Allowed</span>
+
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                    <!-- <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Per Hectare Water Uom</label>
+                            <select formControlName="perHectareWaterUomId" class="form-control" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('perHectareWaterUomId').touched && stressControlRecommendationForm.get('perHectareWaterUomId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let perHectareUom of UomList" value={{perHectareUom.id}}>
+                                    {{perHectareUom.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Per Hectare Water Uom</div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Water Per Acre</label>
+                                <input type="text" formControlName="waterPerAcre" class="form-control" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('waterPerAcre').touched && stressControlRecommendationForm.get('waterPerAcre').invalid}" (change)="trimValue(this.stressControlRecommendationForm.get('waterPerAcre'))">
+                                <div class="invalid-feedback">
+                                    <div>Dose Per Acre is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Per Acre Water Uom</label>
+                            <select formControlName="perAcreWaterUomId" class="form-control" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('perAcreWaterUomId').touched && stressControlRecommendationForm.get('perAcreWaterUomId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let perAcreUom of UomList" value={{perAcreUom.id}}>
+                                    {{perAcreUom.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Per Acre Uom</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Agrochemical Application</label>
+                            <select formControlName="agrochemApplicationTypeId" class="form-control" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('agrochemApplicationTypeId').touched && stressControlRecommendationForm.get('agrochemApplicationTypeId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let agrochemicalApp of AgrochemicalApplictionList"
+                                    value={{agrochemicalApp.id}}>
+                                    {{agrochemicalApp.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Agrochemical Application </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Agrochemical Instructions</label>
+                            <select formControlName="agrochemicalInstructionID" class="form-control" (change)="onChangeAgroChemicalInstructions()" popover="{{agrochemicalInst}} " triggers="mouseenter:mouseleave " [ngClass]="{'is-invalid': stressControlRecommendationForm.get('agrochemicalInstructionID').touched && stressControlRecommendationForm.get('agrochemicalInstructionID').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let agrochemicalInstructions of agrochemicalInstructionsList" value={{agrochemicalInstructions.id}}>
+                                    {{agrochemicalInstructions.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Agrochemical Instructions</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>AgroChemical Instruction</label>
+                                <input type="text" formControlName="agroChemicalInstructions" class="form-control" [ngClass]="{'is-invalid': stressControlRecommendationForm.get('agroChemicalInstructions').touched && stressControlRecommendationForm.get('agroChemicalInstructions').invalid}"
+                                    (change)="trimValue(this.stressControlRecommendationForm.get('agroChemicalInstructions'))">
+                                <div class="invalid-feedback">
+                                    <div>AgroChemical Instruction is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit </span> <span
+                        *ngIf="mode=='edit'">Update </span></button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/zonal/stress-control-recommendation']">Cancel</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+    <!-- Form
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <strong>Bulk Insert</strong><small> Form</small>
+                      </div>
+                      <div class="col text-right">
+                        <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format" ><i class="fa fa-download" aria-hidden="true"></i></button>
+                      </div>
+                </div>
+            </div>
+            
+
+            <div class="card-body">
+                <div *ngIf="isSubmittedBulk">
+                    <div class="alert alert-success" *ngIf="isSuccess">
+                        <strong> {{_statusMsg}} Please Wait ..</strong>.
+                    </div>
+
+                    <div class="alert alert-danger" *ngIf="!isSuccess ">
+                        <strong>{{_statusMsg}}</strong>
+                    </div>
+                </div>
+
+                <form (ngSubmit)="submitExcelForm()" novalidate>
+
+                    <div class="form-group">
+                        <label for="file-input">Select excel(.xlsx) file</label>
+                        <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                    </div>
+                    <button class="btn btn-primary" type="submit"> Submit </button>
+                </form>
+            </div>
+        </div>
+        
+    </div> -->
+
+
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

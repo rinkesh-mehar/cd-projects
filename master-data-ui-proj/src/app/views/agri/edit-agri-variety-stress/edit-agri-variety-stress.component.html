@@ -1,0 +1,153 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Edit Variety Stress</strong><small> Form</small></div>
+
+
+                <form [formGroup]="updateVarietyStressForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>State</label>
+                                <select formControlName="stateCode" class="form-control"
+                                    [ngClass]="{'is-invalid': updateVarietyStressForm.get('stateCode').touched && updateVarietyStressForm.get('stateCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let state of StateList" value={{state.stateCode}}>
+                                        {{state.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select State</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Region</label>
+                                <select formControlName="regionId" class="form-control"
+                                    [ngClass]="{'is-invalid': updateVarietyStressForm.get('regionId').touched && updateVarietyStressForm.get('regionId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let region of RegionList" value={{region.regionId}}>
+                                        {{region.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Region</div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="commodityId" class="form-control" (change)="loadAllVarietyByCommodity()" [ngClass]="{'is-invalid': updateVarietyStressForm.get('commodityId').touched && updateVarietyStressForm.get('commodityId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let commodity of CommodityList" value={{commodity.id}}>
+                                        {{commodity.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Variety <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="varietyId" class="form-control" [ngClass]="{'is-invalid': updateVarietyStressForm.get('varietyId').touched && updateVarietyStressForm.get('varietyId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let variety of VarietyList" value={{variety.id}}>
+                                        {{variety.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Variety</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Stress Type <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stressTypeId" class="form-control" [ngClass]="{'is-invalid': updateVarietyStressForm.get('stressTypeId').touched && updateVarietyStressForm.get('stressTypeId').invalid}" (change)="getDataByStressType()">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let stressType of StressTypeList" value={{stressType.id}}>
+                                        {{stressType.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Stress Type</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Resistant Stress</label>
+                                <div class="custom-control custom-checkbox">
+                                    <label formArrayName="resistantStresschkBox" title="{{StressList[i].name}}" *ngFor="let subRes of updateVarietyStressForm.controls.resistantStresschkBox['controls']; let i = index">
+                                        <input type="checkbox" [formControlName]="i">
+                                        {{StressList[i].name}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Susceptible Stress</label>
+                                <div class="custom-control custom-checkbox">
+                                    <label formArrayName="susceptibleStresschkBox" title="{{StressList[i].name}}" *ngFor="let subRes of updateVarietyStressForm.controls.susceptibleStresschkBox['controls']; let i = index">
+                                        <input type="checkbox" [formControlName]="i">
+                                        {{StressList[i].name}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Tolerant Stress</label>
+
+                                <div class="custom-control custom-checkbox">
+                                    <label formArrayName="tolerantStresschkBox" title="{{StressList[i].name}}" *ngFor="let subRes of updateVarietyStressForm.controls.tolerantStresschkBox['controls']; let i = index">
+                                        <input type="checkbox" [formControlName]="i">
+                                        {{StressList[i].name}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group mb-0">
+                                    <label>Description</label>
+                                    <textarea class="form-control" id="textarea-input" formControlName="description" rows="4" (change)="trimValue(this.updateVarietyStressForm.get('description'))"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn  btn-primary" type="submit"> Update </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/stress/variety-stress']">Cancel</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

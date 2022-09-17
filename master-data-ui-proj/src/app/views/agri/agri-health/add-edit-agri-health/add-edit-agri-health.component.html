@@ -1,0 +1,118 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                        *ngIf="mode=='edit'">Edit </span> Health</strong></div>
+
+
+            <form [formGroup]="healthForm" (ngSubmit)="submitHealthForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="commodityId" class="form-control" (change)="loadAllCommodityByPhenophase()" [ngClass]="{'is-invalid': healthForm.get('commodityId').touched && healthForm.get('commodityId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let commodity of commodityList" value={{commodity.id}}>
+                                    {{commodity.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Commodity</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Phenophase <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="phenophaseId" class="form-control" [ngClass]="{'is-invalid': healthForm.get('phenophaseId').touched && healthForm.get('phenophaseId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let phenophase of phenophaseList" value={{phenophase.phenophaseId}}>
+                                    {{phenophase.phenophase}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Phenophase</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Health Parameter <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="healthParameterId" class="form-control" [ngClass]="{'is-invalid': healthForm.get('healthParameterId').touched && healthForm.get('healthParameterId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let healthParameter of healthParameterList" value={{healthParameter.id}}>
+                                    {{healthParameter.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Health Parameter</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Specification <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="specification" class="form-control" [ngClass]="{'is-invalid': healthForm.get('specification').touched && healthForm.get('specification').invalid}" (change)="trimValue(this.healthForm.get('specification'))">
+                                <div class="invalid-feedback">
+                                    <div>Specification is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit </span> <span
+                        *ngIf="mode=='edit'">Update </span></button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/yield/health']">Cancel</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <strong>Bulk Insert</strong><small> Form</small>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <form (ngSubmit)="submitExcelForm()" novalidate>
+                <div class="card-body">
+                    <div class="form-group mb-0">
+                        <label for="file-input">Select excel(.xlsx) file</label>
+                        <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="submit"> Submit </button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/yield/health']">Cancel</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

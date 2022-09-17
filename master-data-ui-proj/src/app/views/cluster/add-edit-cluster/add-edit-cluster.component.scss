@@ -1,0 +1,100 @@
+.table.table-bordered {
+  thead {
+    th {
+      background-color: #ededed;
+    }
+  }
+  tbody {
+    td {
+      padding: 10px 25px;
+      h5 {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  &:last-of-type{
+    margin: 0;
+  }
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #8a8a8a;
+}
+.overflow-content {
+  max-height: 434px !important;
+  overflow: auto;
+  padding: 8px;
+  border: solid 1px #ededed;
+}
+
+
+
+
+
+.table {
+  &.table-bordered {
+    .thead-light{
+      th{
+        max-width: 300px;
+        min-width: initial !important;
+        vertical-align: top;
+        width: 300px;
+
+        &:first-of-type{
+          max-width: 300px;
+          min-width: 300px !important;
+          width: 300px;
+        }
+
+        &:last-of-type{
+          max-width: 300px;
+          min-width: 300px !important;
+          width: 300px;
+          text-align: center !important;
+        }
+      }
+    }
+    td{
+      max-width: 300px;
+      min-width: 300px !important;
+      width: 300px;
+      &:first-of-type{
+        max-width: 300px;
+        min-width: 300px !important;
+        width: 300px;
+      }
+
+      &:last-of-type{
+        width: 200px !important;
+        text-align: center !important;
+
+      }
+    }
+
+
+  }
+}
+ol, ul {
+  padding: 0 0 0 15px;
+  margin: 0;
+
+  li {
+    margin: 0 0 5px 0;
+    &:last-of-type{
+      margin: 0;
+    }
+  }
+}
+.table.table-bordered thead th{
+  background-color: transparent !important;
+}
+
+.card-body {
+  .table {
+    min-width: auto;
+    width: 100%;
+  }
+}

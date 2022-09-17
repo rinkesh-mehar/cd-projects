@@ -1,0 +1,98 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                    *ngIf="mode=='edit'">Update </span>Add Regional Connectivity</strong></div>
+                <form #f="ngForm" [formGroup]="regionalConnectivityForm" (ngSubmit)="submitForm(f)" novalidate>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stateCode" class="form-control" (change)="getAllRegionByStateCode()" [ngClass]="{'is-invalid': regionalConnectivityForm.get('stateCode').touched && regionalConnectivityForm.get('stateCode').invalid}">
+                                            <option value="">--Select--</option>
+                                            <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                                {{state.name}}
+                                            </option>
+                                        </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select State</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Region <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="regionId" class="form-control" [ngClass]="{'is-invalid': regionalConnectivityForm.get('regionId').touched && regionalConnectivityForm.get('regionId').invalid}">
+                                            <option value="">--Select--</option>
+                                            <option *ngFor="let region of regionList" value={{region.regionId}}>
+                                                {{region.name}}
+                                            </option>
+                                        </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Region</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Surfaced Proportion <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" onkeydown="return event.keyCode !== 109" onKeyPress="if(this.value.length==15) return false;" formControlName="surfacedProportion" class="form-control" [ngClass]="{'is-invalid': regionalConnectivityForm.get('surfacedProportion').touched 
+                                      && regionalConnectivityForm.get('surfacedProportion').invalid}" (change)="trimValue(this.regionalConnectivityForm.get('surfacedProportion'))">
+
+                                <div class="invalid-feedback">
+                                    <div>Surfaced Proportion is required and it must be Numeric Only</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Unsurfaced Proportion <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" onkeydown="return event.keyCode !== 109" onKeyPress="if(this.value.length==15) return false;" formControlName="unsurfacedProportion" class="form-control" [ngClass]="{'is-invalid': regionalConnectivityForm.get('unsurfacedProportion').touched 
+                                     && regionalConnectivityForm.get('unsurfacedProportion').invalid}" (change)="trimValue(this.regionalConnectivityForm.get('unsurfacedProportion'))">
+
+                                <div class="invalid-feedback">
+                                    <div>Unsurfaced Proportion is required and it must be Numeric Only</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Surfaced TimeMin Perkm <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" onkeydown="return event.keyCode !== 109" onKeyPress="if(this.value.length==15) return false;" formControlName="surfacedTimeMin" class="form-control" [ngClass]="{'is-invalid': regionalConnectivityForm.get('surfacedTimeMin').touched 
+                                     && regionalConnectivityForm.get('surfacedTimeMin').invalid}" (change)="trimValue(this.regionalConnectivityForm.get('surfacedTimeMin'))">
+
+                                <div class="invalid-feedback">
+                                    <div>Surfaced TimeMin Perkm is required and it must be Numeric Only</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <label>Unsurfaced TimeMin Perkm <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" onkeydown="return event.keyCode !== 109" onKeyPress="if(this.value.length==15) return false;" formControlName="unsurfacedTimeMin" class="form-control" [ngClass]="{'is-invalid': regionalConnectivityForm.get('unsurfacedTimeMin').touched 
+                                     && regionalConnectivityForm.get('unsurfacedTimeMin').invalid}" (change)="trimValue(this.regionalConnectivityForm.get('unsurfacedTimeMin'))">
+
+                                <div class="invalid-feedback">
+                                    <div>Unsurfaced TimeMin Perkm is required and it must be Numeric Only</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit" [disabled]="!regionalConnectivityForm.valid"> Submit </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/regional/connectivity']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

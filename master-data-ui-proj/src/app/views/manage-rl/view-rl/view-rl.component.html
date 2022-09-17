@@ -1,0 +1,268 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <!-- Form -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><i class="fa fa-align-justify"></i> View RL Employee Data</div>
+                <form [formGroup]="rlGroup">
+                    <div class="card-body">
+
+                        <div class="container-fluid">
+                            <div class="page-header h4">User Details</div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>RL Employee Role</label>
+                                        <input type="text" class="form-control" readonly value="{{rlUser.roleName}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>Region ID</label>
+                                        <input type="text" class="form-control" readonly value="{{rlUser.regionId}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>RL Employee Id</label>
+                                        <input type="text" class="form-control" readonly value="{{rlUser.id}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>Employee Name</label>
+                                        <input type="text" class="form-control" readonly value="{{rlUser.name}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" readonly value="{{rlUser.email}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>Mobile Number</label>
+                                        <input type="text" class="form-control" readonly value="{{rlUser.mobileNumber}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>Aadhar Number</label>
+                                        <input type="text" class="form-control" readonly value="{{rlUser.aadharNo}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>PAN Number</label>
+                                        <input type="text" class="form-control" readonly value="{{rlUser.panNo}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <input type="text" class="form-control" readonly value="{{rlUser.status}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>Agreement Accepted Status</label>
+                                        <input type="text" class="form-control" readonly value="{{rlUser.aggrementAccepted}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="page-header h4">Employee Bank Details</div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>Bank Name</label>
+                                        <input type="text" class="form-control" readonly value="{{rlUser.bankName}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>Account Number</label>
+                                        <input type="text" class="form-control" readonly value="{{rlUser.accountNumber}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label>IFSC Code</label>
+                                        <input type="text" class="form-control" readonly value="{{rlUser.ifsccode}}" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="page-header h4">Employee Documents</div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>Employee Profile</label>
+                                        <a data-toggle="modal" data-target="#profileImageModal" *ngIf="rlUser.userImageUrl">
+                                            <img src="{{rlUser.userImageUrl}}" class="img-fluid d-block" style="height: auto" width="250" alt="image" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                        </a>
+                                        <div *ngIf="!rlUser.userImageUrl">Image Not Available</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>Aadhar Image</label>
+                                        <a data-toggle="modal" data-target="#aadharImageModal" *ngIf="rlUser.aadharImageUrl">
+                                            <img src="{{rlUser.aadharImageUrl}}" class="img-fluid d-block" style="height: auto" width="250" alt="image" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                        </a>
+                                        <div *ngIf="!rlUser.aadharImageUrl">Image Not Available</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>PAN Image</label>
+                                        <a data-toggle="modal" data-target="#panImageModal" *ngIf="rlUser.panImageUrl">
+                                            <img src="{{rlUser.panImageUrl}}" class="img-fluid d-block" style="height: auto" width="250" alt="image" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                        </a>
+                                        <div *ngIf="!rlUser.panImageUrl">Image Not Available</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>Driving Licence Image</label>
+                                        <a data-toggle="modal" data-target="#drivingImageModal" *ngIf="rlUser.drivingLicenseImageUrl">
+                                            <img src="{{rlUser.drivingLicenseImageUrl}}" class="img-fluid d-block" style="height: auto" width="250" alt="image" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                        </a>
+                                        <div *ngIf="!rlUser.drivingLicenseImageUrl">Image Not Available</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="form-group mb-0">
+                                        <label>Bank Account Image</label>
+                                        <a data-toggle="modal" data-target="#accountImageModal" *ngIf="rlUser.bankImageUrl">
+                                            <img src="{{rlUser.bankImageUrl}}" class="img-fluid d-block" style="height: auto" width="250" alt="image" [ngStyle]="{'cursor': 'not-allowed'}" />
+                                        </a>
+                                        <div *ngIf="!rlUser.bankImageUrl">Image Not Available</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-danger" (click)="onClickCancel()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- user Profile Modal -->
+<div #profileclosebutton class="modal fade" id="profileImageModal" tabindex="-1" role="dialog" aria-labelledby="profileImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="profileImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{rlUser.userImageUrl}}" download="{{rlUser.userImageUrl}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{rlUser.userImageUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--aadhar Image Modal -->
+<div #aadharclosebutton class="modal fade" id="aadharImageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="aadharImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{rlUser.aadharImageUrl}}" download="{{rlUser.aadharImageUrl}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{rlUser.aadharImageUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--pan Image Modal -->
+<div #panclosebutton class="modal fade" id="panImageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="panImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{rlUser.panImageUrl}}" download="{{rlUser.panImageUrl}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{rlUser.panImageUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--driving Image Modal -->
+<div #drivingclosebutton class="modal fade" id="drivingImageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="drivingImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{rlUser.drivingLicenseImageUrl}}" download="{{rlUser.drivingLicenseImageUrl}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{rlUser.drivingLicenseImageUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--account Image Modal -->
+<div #accountclosebutton class="modal fade" id="accountImageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header row justify-content-between m-0">
+                <h5 class="col modal-title" id="accountImageModalLabel">Image</h5>
+                <a class="btn btn-success fa fa-download" style="padding: 3px 10px; border-radius:0.2rem;" title="Download Image" href="{{rlUser.bankImageUrl}}" download="{{rlUser.bankImageUrl}}"></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img src="{{rlUser.bankImageUrl}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>

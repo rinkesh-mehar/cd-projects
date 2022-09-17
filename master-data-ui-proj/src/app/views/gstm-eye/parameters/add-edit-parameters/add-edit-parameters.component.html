@@ -1,0 +1,110 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Parameter</span> <span
+                *ngIf="mode=='edit'">Edit Parameter</span></strong></div>
+
+            <form [formGroup]="parameterFrom" (ngSubmit)="submitParameterForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Parameter <span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="text" formControlName="parameterName" class="form-control" maxlength="20" [ngClass]="{'is-invalid': parameterFrom.get('parameterName').touched && parameterFrom.get('parameterName').invalid}" (change)="trimValue(this.parameterFrom.get('parameterName'))">
+                            <div class="invalid-feedback">
+                                <div>Please Select Parameter</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Platform <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="platformId" class="form-control" (change)="loadAllDataTypeByPlatform()" [ngClass]="{'is-invalid': parameterFrom.get('platformId').touched && parameterFrom.get('platformId').invalid}">
+                                <option value="" selected>--Select--</option>
+                                <option *ngFor="let data of platformList" value={{data.id}}>
+                                    {{data.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Platform</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Data Type <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="dataTypeId" class="form-control" (change)="loadAllCategory()" [ngClass]="{'is-invalid': parameterFrom.get('dataTypeId').touched && parameterFrom.get('dataTypeId').invalid}">
+                                <option value="" selected>--Select--</option>
+                                <option *ngFor="let data of dataTypeList" value={{data.id}}>
+                                    {{data.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select data type</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Category <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="categoryId" class="form-control" (change)="loadAllSubcategory()" [ngClass]="{'is-invalid': parameterFrom.get('categoryId').touched && parameterFrom.get('categoryId').invalid}">
+                                <option value="" selected>--Select--</option>
+                                <option *ngFor="let data of categoryList" value={{data.id}}>
+                                    {{data.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Category</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 mb-0">
+                            <label>Sub-Category <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="subCategoryId" class="form-control" [ngClass]="{'is-invalid': parameterFrom.get('subCategoryId').touched && parameterFrom.get('subCategoryId').invalid}">
+                                <option value="" selected>--Select--</option>
+                                <option *ngFor="let data of subCategoryList" value={{data.id}}>
+                                    {{data.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Sub-Category</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="form-group col-sm-12">-->
+                    <!--                            <label>Status</label>-->
+                    <!--                            <select formControlName="status" class="form-control">-->
+                    <!--                                <option value="">&#45;&#45;Select&#45;&#45;</option>-->
+                    <!--                                <option value="Inactive">Inactive</option>-->
+                    <!--                                <option value="Active">Active</option>-->
+                    <!--                            </select>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit </span> <span
+                        *ngIf="mode=='edit'">Update</span></button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/gstm-eye/parameters/']">
+                            Cancel
+                        </button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

@@ -1,0 +1,70 @@
+<style>
+    .style {
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> View App Details
+                            <!-- <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right" [routerLink]="['/mobile/add-app/']"> Add App</button>
+                            </div> -->
+                        </div>
+                        <form [formGroup]="viewApp">
+                            <div class="card-body">
+                                <div class="row form-control style">
+                                    <label>App Name :  {{dataObj.appName}}</label>
+                                </div>
+
+                                 <div class="row form-control style">
+                                    <label>Version Number : {{dataObj.versionNumber}}</label>
+                                </div>
+
+                                <div class="row form-control style">
+                                    <label>Version Name : {{dataObj.versionName}}</label>
+                                </div>
+
+                                <div class="row form-control style">
+                                    <label>Released Date : {{dataObj.releaseDate}}</label>
+                                </div>
+
+                                 <div class="row form-control style">
+                                    <label>App Key : {{dataObj.appKey}}</label>
+                                </div>
+
+                                <div class="row form-control style">
+                                    <label>Apk Url : </label>&nbsp;&nbsp;<a href="{{dataObj.apkUrl}}">{{dataObj.apkUrl}}</a>
+                                </div>
+
+                                <div class="row form-control style">
+                                    <label>Google App url : {{dataObj.appUrl}}</label>
+                                </div>
+
+                                 <div class="row form-control style">
+                                    <label>Encrypted Key : </label>&nbsp;<a href="{{dataObj.encryptedKey}}">{{dataObj.encryptedKey}}</a>
+                                </div>
+
+
+                                <div class="row form-control style">
+                                    <label>KeyStore File : </label>&nbsp;<a href="{{dataObj.keyStoreFile}}">{{dataObj.keyStoreFile}}</a>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<app-confirmation-madal (hideModal)="modalConfirmation($event) " #confirmModal></app-confirmation-madal>-->
+<!--<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>-->
+<!--<app-error-modal #errorModal></app-error-modal>-->

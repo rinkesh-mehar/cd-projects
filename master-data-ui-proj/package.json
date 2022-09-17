@@ -1,0 +1,93 @@
+{
+    "name": "@coreui/coreui-free-angular-admin-template",
+    "version": "2.5.2",
+    "description": "CoreUI Free Angular 2+ Admin Template",
+    "author": {
+        "name": "Łukasz Holeczek",
+        "url": "http://holeczek.pl",
+        "github": "https://github.com/mrholek",
+        "twitter": "https://twitter.com/lukaszholeczek"
+    },
+    "contributors": [
+        {
+            "name": "Andrzej Kopański",
+            "url": "https://github.com/xidedix"
+        }
+    ],
+    "homepage": "https://coreui.io/angular",
+    "copyright": "Copyright 2019 creativeLabs Łukasz Holeczek",
+    "license": "MIT",
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve",
+        "build": "ng build --prod --aot --buildOptimizer --commonChunk --vendorChunk --optimization --progress",
+        "test": "ng test",
+        "lint": "ng lint",
+        "e2e": "ng e2e"
+    },
+    "private": true,
+    "dependencies": {
+        "@angular/animations": "^10.0.0-rc.0",
+        "@angular/cdk": "~8.2.3",
+        "@angular/cli": "^10.0.0-rc.0",
+        "@angular/common": "^10.0.0-rc.0",
+        "@angular/compiler": "^10.0.0-rc.0",
+        "@angular/core": "^10.0.0-rc.0",
+        "@angular/forms": "^10.0.0-rc.0",
+        "@angular/http": "^8.0.0-beta.10",
+        "@angular/material": "^8.2.3",
+        "@angular/material-moment-adapter": "^11.0.0",
+        "@angular/platform-browser": "^10.0.0-rc.0",
+        "@angular/platform-browser-dynamic": "^10.0.0-rc.0",
+        "@angular/router": "^10.0.0-rc.0",
+        "@coreui/angular": "^2.5.2",
+        "@coreui/coreui": "^2.1.12",
+        "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.3.1",
+        "@coreui/icons": "0.3.0",
+        "angular-ng-autocomplete": "^2.0.5",
+        "bootstrap": "^4.3.1",
+        "chart.js": "^2.8.0",
+        "core-js": "^2.6.9",
+        "flag-icon-css": "^3.3.0",
+        "font-awesome": "^4.7.0",
+        "hammerjs": "^2.0.8",
+        "jquery": "^3.5.1",
+        "moment": "^2.24.0",
+        "mutationobserver-shim": "^0.3.3",
+        "ng2-charts": "^2.3.0",
+        "ng4-loading-spinner": "^1.2.3",
+        "ngx-bootstrap": "^5.0.0",
+        "ngx-perfect-scrollbar": "^8.0.0",
+        "ngx-quicklink": "^0.2.1",
+        "rxjs": "^6.5.2",
+        "simple-line-icons": "^2.4.1",
+        "ts-helpers": "^1.1.2",
+        "tslib": "^2.0.0",
+        "web-animations-js": "^2.3.2",
+        "zone.js": "~0.10.2"
+    },
+    "devDependencies": {
+        "@angular-devkit/build-angular": "~0.1000.0-rc.0",
+        "@angular/compiler-cli": "^10.0.0-rc.0",
+        "@angular/language-service": "^10.0.0-rc.0",
+        "@types/jasmine": "^3.3.13",
+        "@types/jasminewd2": "^2.0.6",
+        "@types/node": "^12.11.1",
+        "codelyzer": "^5.1.2",
+        "jasmine-core": "^3.4.0",
+        "jasmine-spec-reporter": "^4.2.1",
+        "karma": "~5.0.0",
+        "karma-chrome-launcher": "^2.2.0",
+        "karma-coverage-istanbul-reporter": "^2.0.5",
+        "karma-jasmine": "^2.0.1",
+        "karma-jasmine-html-reporter": "^1.4.2",
+        "protractor": "~7.0.0",
+        "ts-node": "^8.3.0",
+        "tslint": "~6.1.0",
+        "typescript": "~3.9.4"
+    },
+    "engines": {
+        "node": ">= 12",
+        "npm": ">= 6"
+    }
+}

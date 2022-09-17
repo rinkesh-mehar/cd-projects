@@ -1,0 +1,151 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add CSV File</span> <span
+                    *ngIf="mode=='edit'">Edit CSV File</span></strong></div>
+            <div class="card-body">
+
+                <form [formGroup]="manageForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Model Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <!--<input type="text" formControlName="status" class="form-control"
+                                       [ngModel]="manageForm."
+                                       [ngClass]="{'is-invalid': manageForm.get('status').touched && manageForm.get('status').invalid}">-->
+                                    <select formControlName="modelId" class="form-control" (change)="getModelTemplate($event)" [ngClass]="{'is-invalid': manageForm.get('modelId').touched && manageForm.get('modelId').invalid}">
+                                    <option [hidden]="mode=='edit'" value="">--Select--</option>
+                                    <option [hidden]="mode=='edit'"  *ngFor="let models of modelsList" value={{models.ID}}>
+                                        {{models.ModelName}}
+                                    </option>
+
+                                </select>
+
+                                    <div class="invalid-feedback">
+                                        <div>Model Name is required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6" *ngIf="modelTemplate != undefined">
+                                    <div class="col text-center">
+                                        <strong>Download Template</strong>
+                                    </div>
+                                    <div class="col text-center">
+                                        <a type="button" class="btn btn-primary btn-padding" href="{{modelTemplate}}" download="{{modelTemplate}}" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i>
+                                            </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+                                        <label for="csv">CSV File <span class="required-asterisk" style="color:red;">*</span></label>
+                                        <input type="file" formControlName="csvFile" (change)="csvFileChange($event)" accept=".csv" class="form-control-file" id="csv" [ngClass]="{'is-invalid': manageForm.get('csvFile').touched && manageForm.get('csvFile').invalid}">
+
+
+
+                                        <div class="invalid-feedback">
+                                            <div>Please Choose CSV File</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+
+                                    <div class="form-group" *ngIf="mode=='edit' && !showDownload">
+                                        <label for="csv">Download Current CSV File</label>
+                                        <button class="down form-control-file" data-toggle="modal" data-target="#myModal" type="download">Download</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-12">
+                             <div class="form-group">
+                                 <label>Status</label>
+                                 <select formControlName="status" class="form-control"
+                                         [ngClass]="{'is-invalid': manageForm.get('status').touched && manageForm.get('status').invalid}">
+                                     <option value="">&#45;&#45;Select&#45;&#45;</option>
+                                     <option value="Pending">Pending</option>
+                                     <option value="Processed">Processed</option>
+                                     <option value="Failed">Failed</option>
+
+                                 </select>
+
+                                    <div class="invalid-feedback">
+                                     <div>Status is required</div>
+                                 </div>
+                             </div>
+                         </div>-->
+
+                        <div class="col-md-12 card-footer">
+                            <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit </span> <span
+                                *ngIf="mode=='edit'">Update</span></button>
+                            <button type="button" class="btn btn-danger" [routerLink]="['/models/manage']">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div #closebutton class="modal down-load-modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Download Conformation</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Are you sure want to download Current file ?
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    No</button>
+                                <a type="button" class="btn btn-success" href="{{fileUrl}}" download="{{fileUrl}}" (click)="hide()">Yes</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div #closeTemplate class="template down-load-modal" id="template">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            &lt;!&ndash; Modal Header &ndash;&gt;
+                            <div class="modal-header">
+                                <h4 class="modal-title">Download Conformation</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            &lt;!&ndash; Modal body &ndash;&gt;
+                            <div class="modal-body">
+                                Are you sure want to download Template file ?
+                            </div>
+
+                            &lt;!&ndash; Modal footer &ndash;&gt;
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    No</button>
+                                <a type="button" class="btn btn-success" href="{{modelTemplate}}" download="{{modelTemplate}}" (click)="hide()">Yes</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>-->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Form -->
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

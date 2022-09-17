@@ -1,0 +1,150 @@
+<div class="row">
+  <!-- Form -->
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header"><strong> KYC Request</strong></div>
+      <div class="card-body">
+          <div *ngIf="isSubmitted">
+            <div class="alert alert-success" *ngIf="isSuccess">
+              <strong> {{ _statusMsg }} Please Wait ..</strong>.
+            </div>
+
+            <div class="alert alert-danger" *ngIf="!isSuccess">
+              <strong>{{ _statusMsg }}</strong>
+            </div>
+          </div>
+
+          <form [formGroup]="userKycForm" (ngSubmit)="submitForm()" novalidate>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Name :</th>
+                    <td>{{ userDetails.firstName }} {{ userDetails.lastName }}</td>
+                </tr>
+
+                <tr>
+                    <th>Mobile :</th>
+                    <td>{{ userDetails.primaryNumber }}, {{ userDetails.secondaryNumber }}</td>
+                </tr>
+
+                <tr>
+                    <th>Email :</th>
+                    <td>{{ userDetails.email }}</td>
+                </tr>
+
+                <tr>
+                    <th>Address :</th>
+                    <td>
+                        Address Line 1 : {{ userDetails.addressLine1 }} <br>
+                        Address Line 2 : {{ userDetails.addressLine2 }} <br>
+                        Tehsil : {{ userDetails.tehsil }} <br>
+                        District : {{ userDetails.district }} <br>
+                        State : {{ userDetails.district }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>User KYC Image :</th>
+                    <td><img [src]="userKycImgUrl + userDetails.imageId" width="200" /></td>
+                </tr>
+
+                <tr>
+                    <th>User KYC Status :</th>
+                    <td>
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-8 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <select formControlName="kycStatus" class="form-control" [ngClass]="{ 'is-invalid': userKycForm.get('kycStatus').touched && userKycForm.get('kycStatus').invalid }">
+                                      <option>Pending</option>
+                                      <option>Approved</option>
+                                      <option>Rejected</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                      <div>KYC Status required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </td>
+                </tr>
+            </table>
+
+            <!-- <div *ngIf="isSubmitted">
+                    <div class="alert alert-success" *ngIf="isSuccess">
+                        <strong> {{_statusMsg}} Please Wait ..</strong>.
+                    </div>
+
+                    <div class="alert alert-danger" *ngIf="!isSuccess ">
+                        <strong>{{_statusMsg}}</strong>
+                    </div>
+                </div>
+
+                <form [formGroup]="userKycForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Name</label>
+                            <input type="text" formControlName="name" class="form-control"
+                                [ngClass]="{'is-invalid': userKycForm.get('name').touched && userKycForm.get('name').invalid}">
+                            <div class="invalid-feedback">
+                                <div> Name is required</div>
+                            </div>
+                            <div class="invalid-feedback">
+                                <div>Please Select Bank</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" formControlName="email" class="form-control"
+                                    [ngClass]="{'is-invalid': userKycForm.get('email').touched && userKycForm.get('email').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>email is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Mobile</label>
+                                <input type="text" formControlName="mobile" class="form-control"
+                                    [ngClass]="{'is-invalid': userKycForm.get('mobile').touched && userKycForm.get('mobile').invalid}">
+
+                                <div class="invalid-feedback">
+                                    <div>Mobile no is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Kyc Status</label>
+                                <select formControlName="kycStatus" class="form-control"
+                                    [ngClass]="{'is-invalid': userKycForm.get('kycStatus').touched && userKycForm.get('mobile').invalid}">
+                                    <option>Pending</option>
+                                    <option>Approved</option>
+
+                                    <option>Reject</option>
+
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Mobile no is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div> -->
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>

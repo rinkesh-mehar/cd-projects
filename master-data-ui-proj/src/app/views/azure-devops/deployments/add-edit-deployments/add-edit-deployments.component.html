@@ -1,0 +1,95 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Deployment</span> <span
+                  *ngIf="mode=='edit'">Edit Deployment</span></strong></div>
+                <form [formGroup]="deploymentForm" (ngSubmit)="submitForm()" novalidate>
+
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Virtual Machine <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="vmID" class="form-control" [ngClass]="{'is-invalid': deploymentForm.get('vmID').touched && deploymentForm.get('vmID').invalid}">
+                                <option value="">--Select--</option>
+                            <option *ngFor="let vm of vmList" value={{vm.id}}>
+                                {{vm.name}}
+                            </option>
+                        </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Virtual Machine</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>Application Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="applicationName" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': deploymentForm.get( 'applicationName').touched && deploymentForm.get( 'applicationName').invalid}" (change)="trimValue(this.deploymentForm.get('applicationName'))">
+                                <div class="invalid-feedback">
+                                    <div>Application Name is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>Application Internal Port <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="applicationInternalPort" class="form-control" maxlength="5" [ngClass]="{ 'is-invalid': deploymentForm.get( 'applicationInternalPort').touched && deploymentForm.get( 'applicationInternalPort').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Application Internal Port is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>Application External Port <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" formControlName="applicationExternalPort" class="form-control" maxlength="5" [ngClass]="{ 'is-invalid': deploymentForm.get( 'applicationExternalPort').touched && deploymentForm.get( 'applicationExternalPort').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Application External Port is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>Docker IP <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="dockerIP" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': deploymentForm.get( 'dockerIP').touched && deploymentForm.get( 'dockerIP').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="deploymentForm.get( 'dockerIP').errors?.required">Docker IP is required</div>
+                                    <div *ngIf="deploymentForm.get( 'dockerIP').errors?.pattern">Please Enter Valid Docker IP</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <div class="form-group mb-0">
+                                    <label>Command Script <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <textarea formControlName="commandScript" class="form-control" rows="10" maxlength="65000" [ngClass]="{ 'is-invalid': deploymentForm.get( 'commandScript').touched && deploymentForm.get( 'commandScript').invalid}" (change)="trimValue(this.deploymentForm.get('commandScript'))">
+                                  </textarea>
+                                    <div class="invalid-feedback">
+                                        <div>Command Script is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-primary " type="submit"> <span *ngIf="mode=='add'"> Submit</span> <span
+                      *ngIf="mode=='edit'">Update</span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/azure-devops/deployments']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

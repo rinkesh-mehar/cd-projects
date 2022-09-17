@@ -1,0 +1,109 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistic hub kyc</title>
+</head>
+
+<body>
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-md-12">
+            <div class="row justify-content-md-center">
+                <div class="col-md-12 from-box">
+                    <form #f="ngForm" [formGroup]="hubkyc" (ngSubmit)="submitKyc(f)">
+                        <div class="card">
+                            <span style="font-weight: bold;padding-left: 25px; padding-top: 20px;">PERSONAL KYC</span>
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Adhar card no  <span class="required-asterisk" style="color:red;">*</span></label>
+                                            <input type="text" formControlName="WMS_072" class="form-control" pattern="^\d{4}\d{4}\d{4}$" maxlength="12" placeholder="EX. 123456789123" [ngClass]="{'is-invalid': hubkyc.get('WMS_072').touched && hubkyc.get('WMS_072').invalid}">
+
+                                            <div class="invalid-feedback">
+                                                <div>Valid Adhar Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Adhar card picture  </label>
+                                            <input type="file" formControlName="WMS_059" class="form-control" (change)="uploadFiles($event.target.files,'WMS_059')" placeholder="Enter adhar picture" accept="image/jpg, image/jpeg , image/png" [ngClass]="{'is-invalid': hubkyc.get('WMS_059').touched && hubkyc.get('WMS_059').invalid}"
+                                            />
+                                            <div class="invalid-feedback">
+                                                <div>Adhar card image is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Pan card no  <span class="required-asterisk" style="color:red;">*</span></label>
+                                            <input type="text" formControlName="WMS_073" class="form-control" min="10" minlength="10" maxlength="10" max="10" pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}" placeholder="EX. ABCDE1234X" [ngClass]="{'is-invalid': hubkyc.get('WMS_073').touched && hubkyc.get('WMS_073').invalid}"
+                                            />
+                                            <div class="invalid-feedback">
+                                                <div>Valid Pan Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Pan card picture</label>
+                                            <input type="file" formControlName="WMS_061" class="form-control" (change)="uploadFiles($event.target.files,'WMS_061')" placeholder="Enter pan card picture" accept="image/jpg, image/jpeg , image/png" [ngClass]="{'is-invalid': hubkyc.get('WMS_061').touched && hubkyc.get('WMS_061').invalid}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <span style="font-weight: bold;padding-left: 25px; padding-top: 20px;">COMPANY KYC</span>
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>License  <span class="required-asterisk" style="color:red;">*</span> </label>
+                                            <input type="text" formControlName="WMS_026" class="form-control" placeholder="Enter license no" maxlength="20" [ngClass]="{'is-invalid': hubkyc.get('WMS_026').touched && hubkyc.get('WMS_026').invalid}" (change)="trimValue(this.hubkyc.get('WMS_026'))"
+                                            />
+                                            <div class="invalid-feedback">
+                                                <div>License Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Warehouse inspection report picture </label>
+                                            <input type="file" formControlName="WMS_070" (change)="uploadFiles($event.target.files,'WMS_070')" class="form-control" placeholder="Enter warehouse picture" accept="image/jpg, image/jpeg , image/png" [ngClass]="{'is-invalid': hubkyc.get('WMS_070').touched && hubkyc.get('WMS_070').invalid}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Warehouse license picture </label>
+                                            <input type="file" formControlName="WMS_027" class="form-control" (change)="uploadFiles($event.target.files,'WMS_027')" placeholder="Enter warehouse license picture" accept="image/jpg, image/jpeg , image/png" [ngClass]="{'is-invalid': hubkyc.get('WMS_027').touched && hubkyc.get('WMS_027').invalid}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Other Document picture </label>
+                                            <input type="file" formControlName="WMS_099" class="form-control" (change)="uploadFiles($event.target.files,'WMS_099')" placeholder="Enter warehouse license picture" accept="image/jpg, image/jpeg , image/png" [ngClass]="{'is-invalid': hubkyc.get('WMS_099').touched && hubkyc.get('WMS_099').invalid}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="padding-left: 25px;">
+                                <button type="submit" class="btn btn-primary" [disabled]="!hubkyc.valid">
+                                    <span> Submit</span>
+                                </button>
+                                <button type="button" class="btn  btn-danger" [routerLink]="['/logistic-hub/lh-shortlisted-kyc']">Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+        <app-error-modal #errorModal></app-error-modal>
+    </div>
+</body>
+
+</html>

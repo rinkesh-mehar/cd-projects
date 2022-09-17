@@ -1,0 +1,199 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Opportunity</span> <span
+                    *ngIf="mode=='edit'">Edit Opportunity</span></strong></div>
+                <form [formGroup]="opportunityForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Platform Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <select formControlName="platformID" class="form-control" [ngClass]="{'is-invalid': opportunityForm.get('platformID').touched && opportunityForm.get('platformID').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let platform of platFormList" value="{{platform.id}}">{{platform.name}}</option>
+                                </select>
+
+                                    <div class="invalid-feedback">
+                                        <div>Platform Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Department <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="departmentID" class="form-control" [ngClass]="{'is-invalid': opportunityForm.get('departmentID').touched && opportunityForm.get('departmentID').invalid}">
+                                 <option value="">--Select--</option>
+                                  <option *ngFor="let department of DepartmentList" value={{department.id}}>
+                                      {{department.name}}
+                                  </option>
+                              </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Department</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Position <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="positionID" class="form-control" [ngClass]="{'is-invalid': opportunityForm.get('positionID').touched && opportunityForm.get('positionID').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let position of PositionList" value={{position.id}}>
+                                    {{position.name}}
+                                </option>
+                            </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Position</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Education <span class="required-asterisk" style="color:red;">*</span>  (Ctrl+click to select Multiple Education)</label>
+                                <select formControlName="educationID" multiple class="form-control" [ngClass]="{'is-invalid': opportunityForm.get('educationID').touched && opportunityForm.get('educationID').invalid}">
+                              <option value="">--Select--</option>
+                              <option *ngFor="let education of EducationList" value={{education.id}}>
+                                  {{education.name}}
+                              </option>
+                          </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Education</div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <mat-label>Education <span class="required-asterisk" style="color:red;">*</span></mat-label>
+                                <mat-select formControlName="educationID" multiple class="form-control" [ngClass]="{'is-invalid': opportunityForm.get('educationID').touched && opportunityForm.get('educationID').invalid}">
+                                    <mat-option *ngFor="let education of EducationList" [value]="education.id">{{education.name}}</mat-option>
+                                </mat-select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Education</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Experience (Ex : 0-2 Years)<span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" formControlName="experience" maxlength="20" [ngClass]="{ 'is-invalid': opportunityForm.get( 'experience').touched && opportunityForm.get( 'experience').invalid}" (change)="trimValue(this.opportunityForm.get('experience'))">
+                                    <div class=" invalid-feedback ">
+                                        <div>Experience is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Location <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" maxlength="255" formControlName="location" [ngClass]="{ 'is-invalid': opportunityForm.get( 'location').touched && opportunityForm.get( 'location').invalid}" (change)="trimValue(this.opportunityForm.get('location'))">
+                                    <div class=" invalid-feedback ">
+                                        <div>Location is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stateCode" class="form-control" (change)="loadAllDistrictsByState($event)" [ngClass]="{ 'is-invalid': opportunityForm.get( 'stateCode').touched && opportunityForm.get( 'stateCode').invalid}">
+                                  
+                                  <option value="">--Select--</option>
+                            <option *ngFor="let state of StateList " value={{state.stateCode}}>
+                                {{state.name}}
+                            </option>
+                        </select>
+                                <div class="invalid-feedback ">
+                                    <div>Please Select State</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>District <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="districtCode" class="form-control" [ngClass]="{ 'is-invalid': opportunityForm.get( 'districtCode').touched && opportunityForm.get( 'districtCode').invalid}">
+                         <option value="">--Select--</option>
+                          <option *ngFor="let district of DistrictList " value={{district.districtCode}}>
+                              {{district.name}}
+                          </option>
+                      </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select District</div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Job Description <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <textarea formControlName="description" class="form-control" rows="10" maxlength="65000" [ngClass]="{ 'is-invalid': opportunityForm.get( 'description').touched && opportunityForm.get( 'description').invalid}" (change)="trimValue(this.opportunityForm.get('description'))">
+                                    </textarea>
+                                    <div class="invalid-feedback">
+                                        <div>Job Description is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 ">
+                                <div class="form-group">
+                                    <label>Job Profile <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <textarea formControlName="profile" class="form-control" rows="10" maxlength="65000" [ngClass]="{ 'is-invalid': opportunityForm.get( 'profile').touched && opportunityForm.get( 'profile').invalid}" (change)="trimValue(this.opportunityForm.get('profile'))">
+                                    </textarea>
+                                    <div class="invalid-feedback">
+                                        <div>Job Profile is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>Remuneration</label>
+                                    <input type="text" formControlName="remuneration" class="form-control" maxlength="200" [ngClass]="{ 'is-invalid': opportunityForm.get( 'remuneration').touched && opportunityForm.get( 'remuneration').invalid}" (change)="trimValue(this.opportunityForm.get('remuneration'))">
+                                    <!-- <div class="invalid-feedback">
+                                        <div>Remuneration is required</div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+
+                                <label>Apply To  <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="email " formControlName="applyTo" class="form-control" maxlength="200" readonly [ngClass]="{ 'is-invalid': opportunityForm.get( 'applyTo').touched && opportunityForm.get( 'applyTo').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Apply To is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-primary " type="submit "> <span *ngIf="mode=='add'"> Submit</span> <span
+                        *ngIf="mode=='edit'">Update</span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/cropdata-portal/opportunities-list']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

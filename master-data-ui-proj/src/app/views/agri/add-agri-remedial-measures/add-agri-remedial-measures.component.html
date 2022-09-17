@@ -1,0 +1,193 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="operationMode=='add'">Add</span> <span
+                            *ngIf="operationMode=='edit'">Edit</span> Agrochemical Brand</strong></div>
+
+
+                <form [formGroup]="remedialMeasuresForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Brand Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="brandName" ngModel maxlength="100" class="form-control" [ngClass]="{'is-invalid': remedialMeasuresForm.get('brandName').touched && remedialMeasuresForm.get('brandName').invalid}" (change)="trimValue(this.remedialMeasuresForm.get('brandName'))">
+                                <div class="invalid-feedback">
+                                    <div>Brand Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Company Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="companyId" class="form-control" [ngClass]="{'is-invalid': remedialMeasuresForm.get('companyId').touched && remedialMeasuresForm.get('companyId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let company of CompanyNameList" [ngValue]="company.id">
+                                        {{ company.name }}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Company Name</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>State</label>
+
+                                <div class="custom-control custom-checkbox">
+                                    <label formArrayName="stateChkBox"
+                                        *ngFor="let subRes of remedialMeasuresForm.controls.stateChkBox['controls']; let i = index"
+                                        class="col-sm-6 col-md-3 col-lg-2" style="    vertical-align: top;">
+                                        <input type="checkbox" [formControlName]="i">
+                                        {{StateList[i].name}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Stress Type</label>
+                                <select formControlName="stressTypeId" class="form-control"
+                                    [ngClass]="{'is-invalid': remedialMeasuresForm.get('stressTypeId').touched && remedialMeasuresForm.get('stressTypeId').invalid}"
+                                    (change)="getDataByStressType()">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let stressType of StressTypeList" value={{stressType.id}}>
+                                        {{stressType.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Stress Type</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Stress</label>
+
+                                <div class="custom-control custom-checkbox">
+                                    <label formArrayName="stressChkBox" class="col-sm-6 col-md-3 col-lg-2"
+                                        *ngFor="let subRes of remedialMeasuresForm.controls.stressChkBox['controls']; let i = index"
+                                        style="margin-right: 10px;">
+                                        <input type="checkbox" [formControlName]="i">
+                                        {{StressList[i].name}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Agrochemical Type <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="agrochemicalTypeId" class="form-control" [ngClass]="{'is-invalid': remedialMeasuresForm.get('agrochemicalTypeId').touched && remedialMeasuresForm.get('agrochemicalTypeId').invalid}" (change)="getDataByAgroChemicalType()">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let agrochemicalType of AgrochemicalTypeList"
+                                        value={{agrochemicalType.id}}>
+                                        {{agrochemicalType.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Agrochemical Type</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Agrochemical</label>
+
+                                <div class="custom-control custom-checkbox">
+                                    <label formArrayName="agrochemicalChkBox"
+                                        *ngFor="let subRes of remedialMeasuresForm.controls.agrochemicalChkBox['controls']; let i = index"
+                                        class="col-sm-6 col-md-3 col-lg-2">
+                                        <input type="checkbox" [formControlName]="i">
+                                        {{AgrochemicalList[i].name}}
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Agrochemical Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="agrochemicalId" class="form-control" [ngClass]="{'is-invalid': remedialMeasuresForm.get('agrochemicalId').touched && remedialMeasuresForm.get('agrochemicalId').invalid}">
+                                        <option value="">--Select--</option>
+                                        <option *ngFor="let agrochemical of AgrochemicalList"
+                                            value={{agrochemical.id}}>
+                                            {{agrochemical.name}}
+                                        </option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select AgroChemical Name</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Agrochemical Status <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="agrochemicalStatus" class="form-control" [ngClass]="{'is-invalid': remedialMeasuresForm.get('agrochemicalStatus').touched && remedialMeasuresForm.get('agrochemicalStatus').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Banned">Banned</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select AgroChemical Status</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> <span *ngIf="operationMode=='add'">Add</span> <span
+                            *ngIf="operationMode=='edit'">Update</span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/agrochemicals/agrochemical-brand']">Cancel</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <strong>Bulk Insert</strong><small> Form</small>
+                        </div>
+                        <div class="col text-right">
+                            <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <form (ngSubmit)="submitExcelForm()" novalidate>
+                    <div class="card-body">
+                        <div class="form-group mb-0">
+                            <label for="file-input">Select excel(.xlsx) file</label>
+                            <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Submit</button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/agrochemicals/agrochemical-brand']">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

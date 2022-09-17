@@ -1,0 +1,283 @@
+<div class="row h-100 justify-content-center align-items-center">
+    <div class="col-md-12">
+        <div class="row justify-content-md-center">
+            <div class="col-md-12 from-box">
+                <form #f="ngForm" [formGroup]="hubPhysicalVerficationImg" (ngSubmit)="submitForm(f)">
+                    <!-- -----------------  -->
+                    <div class="card">
+                        <div class="card-header"> Logistic Hub Images uplaod </div>
+                        <div class="card-body p-4">
+                            <!-- first row of cards -->
+                            <div class="row">
+
+                                <div class="col-sm-3">
+                                    <!-- card 1--- -->
+                                    <div class="card border-primary mb-4" style="max-width: 25rem;">
+                                        <div class="card-header">Warehouse Pictures <span class="required-asterisk" style="color:red;">*</span></div>
+                                        <div class="card-body text-primary">
+                                            <div class="form-group">
+                                                <input type="file" formControlName="WMS_100" id="WMS_100" class="form-control" placeholder="Warehouse Photo" (change)="uploadLhPictures($event,'WMS_100')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_100').touched && hubPhysicalVerficationImg.get('WMS_100').invalid}"
+                                                    multiple>
+                                                <span>Max 3 Files, each 2MB</span>
+                                                <div class="invalid-feedback">
+                                                    <div>Warehouse Pictures required </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ====================== -->
+                                <div class="col-sm-3">
+                                    <!-- card 2--- -->
+                                    <div class="card border-primary mb-4" style="max-width: 25rem;">
+                                        <div class="card-header">Compound Wall / Fencing Pictures <span class="required-asterisk" style="color:red;">*</span></div>
+                                        <div class="card-body text-primary">
+                                            <div class="form-group">
+                                                <input type="file" formControlName="WMS_101" id="WMS_101" class="form-control" placeholder="Warehouse Photo" (change)="uploadLhPictures($event,'WMS_101')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_101').touched && hubPhysicalVerficationImg.get('WMS_101').invalid}"
+                                                    multiple>
+                                                <span>Max 3 Files, each 2MB</span>
+                                                <div class="invalid-feedback">
+                                                    <div>Compound Wall / Fencing Picture required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- ======================== -->
+                                <div class="col-sm-3">
+                                    <!-- card 3--- -->
+                                    <div class="card border-primary mb-4" style="max-width: 25rem;">
+                                        <div class="card-header">Plinth Pictures <span class="required-asterisk" style="color:red;">*</span></div>
+                                        <div class="card-body text-primary">
+                                            <div class="form-group">
+                                                <input type="file" formControlName="WMS_102" class="form-control" placeholder="Warehouse Photo" (change)="uploadLhPictures($event,'WMS_102')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_102').touched && hubPhysicalVerficationImg.get('WMS_102').invalid}"
+                                                    multiple>
+                                                <span>Max 3 Files, each 2MB</span>
+                                                <div class="invalid-feedback">
+                                                    <div>Plinth Pictures required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- ======================== -->
+                                <div class="col-sm-3">
+                                    <!-- card 4--- -->
+                                    <div class="card border-primary mb-4" style="max-width: 25rem;">
+                                        <div class="card-header">Walls Pictures <span class="required-asterisk" style="color:red;">*</span></div>
+                                        <div class="card-body text-primary">
+                                            <div class="form-group">
+                                                <input type="file" formControlName="WMS_110" class="form-control" placeholder="Warehouse Photo" (change)="uploadLhPictures($event,'WMS_110')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_110').touched && hubPhysicalVerficationImg.get('WMS_110').invalid}"
+                                                    multiple>
+                                                <span>Max 3 Files, each 2MB</span>
+                                                <div class="invalid-feedback">
+                                                    <div>Walls Pictures required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- start of row 2===== -->
+                            <div class="row">
+
+                                <div class="col-sm-3">
+                                    <!-- card 1--- -->
+                                    <div class="card border-primary mb-4" style="max-width: 25rem;">
+                                        <div class="card-header">Roof Pictures <span class="required-asterisk" style="color:red;">*</span></div>
+                                        <div class="card-body text-primary">
+                                            <div class="form-group">
+                                                <input type="file" formControlName="WMS_111" class="form-control" placeholder="Warehouse Photo" (change)="uploadLhPictures($event,'WMS_111')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_111').touched && hubPhysicalVerficationImg.get('WMS_111').invalid}"
+                                                    multiple>
+                                                <span>Max 3 Files, each 2MB</span>
+                                                <div class="invalid-feedback">
+                                                    <div>Roof Pictures required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ================== -->
+                                <div class="col-sm-3">
+                                    <!-- card 2--- -->
+                                    <div class="card border-primary mb-4" style="max-width: 25rem;">
+                                        <div class="card-header">Ventilators Pictures <span class="required-asterisk" style="color:red;">*</span></div>
+                                        <div class="card-body text-primary">
+                                            <div class="form-group">
+                                                <input type="file" formControlName="WMS_103" class="form-control" placeholder="Warehouse Photo" (change)="uploadLhPictures($event,'WMS_103')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_103').touched && hubPhysicalVerficationImg.get('WMS_103').invalid}"
+                                                    multiple>
+                                                <span>Max 3 Files, each 2MB</span>
+                                                <div class="invalid-feedback">
+                                                    <div>Ventilators Pictures required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <!-- card 3--- -->
+                                    <div class="card border-primary mb-4" style="max-width: 25rem;">
+                                        <div class="card-header">Shurtters /Doors Pictures <span class="required-asterisk" style="color:red;">*</span></div>
+                                        <div class="card-body text-primary">
+                                            <div class="form-group">
+                                                <input type="file" formControlName="WMS_104" class="form-control" placeholder="Warehouse Photo" (change)="uploadLhPictures($event,'WMS_104')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_104').touched && hubPhysicalVerficationImg.get('WMS_104').invalid}"
+                                                    multiple>
+                                                <span>Max 3 Files, each 2MB</span>
+                                                <div class="invalid-feedback">
+                                                    <div>Shurtters /Doors Pictures required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <!-- card 4--- -->
+                                    <div class="card border-primary mb-4" style="max-width: 25rem;">
+                                        <div class="card-header">Floor Pictures <span class="required-asterisk" style="color:red;">*</span></div>
+                                        <div class="card-body text-primary">
+                                            <div class="form-group">
+                                                <input type="file" formControlName="WMS_105" class="form-control" placeholder="Warehouse Photo" (change)="uploadLhPictures($event,'WMS_105')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_105').touched && hubPhysicalVerficationImg.get('WMS_105').invalid}"
+                                                    multiple>
+                                                <span>Max 3 Files, each 2MB</span>
+                                                <div class="invalid-feedback">
+                                                    <div>Floor Pictures required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--2nd row end-->
+                            <!-- ==============start of row 3 -->
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <!-- card 1--- -->
+                                    <div class="card border-primary mb-4" style="max-width: 25rem;">
+                                        <div class="card-header">Office Area Pictures <span class="required-asterisk" style="color:red;">*</span></div>
+                                        <div class="card-body text-primary">
+                                            <div class="form-group">
+                                                <input type="file" formControlName="WMS_106" class="form-control" placeholder="Warehouse Photo" (change)="uploadLhPictures($event,'WMS_106')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_106').touched && hubPhysicalVerficationImg.get('WMS_106').invalid}"
+                                                    multiple>
+                                                <span>Max 3 Files, each 2MB</span>
+                                                <div class="invalid-feedback">
+                                                    <div>Office Area Pictures required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ===================== -->
+                                <div class="col-sm-3">
+                                    <!-- card 2--- -->
+                                    <div class="card border-primary mb-4" style="max-width: 25rem;">
+                                        <div class="card-header">Labortry Area Pictures <span class="required-asterisk" style="color:red;">*</span></div>
+                                        <div class="card-body text-primary">
+                                            <div class="form-group">
+                                                <input type="file" formControlName="WMS_107" class="form-control" placeholder="Warehouse Photo" (change)="uploadLhPictures($event,'WMS_107')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_107').touched && hubPhysicalVerficationImg.get('WMS_107').invalid}"
+                                                    multiple>
+                                                <span>Max 3 Files, each 2MB</span>
+                                                <div class="invalid-feedback">
+                                                    <div>Labortry Area Pictures required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ===================== -->
+                                <div class="col-sm-3">
+                                    <!-- card 3--- -->
+                                    <div class="card border-primary mb-4" style="max-width: 25rem;">
+                                        <div class="card-header">Parking Area Picture <span class="required-asterisk" style="color:red;">*</span></div>
+                                        <div class="card-body text-primary">
+                                            <div class="form-group">
+                                                <input type="file" formControlName="WMS_108" class="form-control" placeholder="Warehouse Photo" (change)="uploadLhPictures($event,'WMS_108')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_108').touched && hubPhysicalVerficationImg.get('WMS_108').invalid}"
+                                                    multiple>
+                                                <span>Max 3 Files, each 2MB</span>
+                                                <div class="invalid-feedback">
+                                                    <div>Parking Area Picture required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ===================== -->
+                                <!--<div class="col-sm-3">
+                                    &lt;!&ndash; card 4-&#45;&#45; &ndash;&gt;
+                                    <div class="card border-primary mb-4" style="max-width: 25rem;">
+                                        <div class="card-header">Other Pictures</div>
+                                        <div class="card-body text-primary">
+                                            <div class="form-group">
+                                                <label>Select Option</label>
+                                                    <select [value]="otherPictureId" required class="select-option" (change)="selectionAction($event)">
+                                                        <option [value]="undefined" selected>&#45;&#45; select options -&#45;&#45;</option>
+                                                        <option *ngFor="let data of otherLhMetaData"
+                                                                [value]="data.id">
+                                                            {{data.MetaLabel}}
+                                                        </option>
+                                                    </select>
+
+                                                <input #inputFile type="file" formControlName="WMS_109" class="form-control" placeholder="Warehouse Photo" (change)="uploadOtherPictures($event,otherPictureId,'WMS_109')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': otherPictureId != 'undefined'}"
+                                                       multiple>
+                                                <span>Max 3 Files, each 2MB</span>
+                                                <div class="invalid-feedback" *ngIf="otherPictureId != 'undefined'">
+                                                    <div>Parking Area Picture required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>-->
+
+                            </div>
+                            <!--row 3 ends here-->
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <!-- card 4--- -->
+                                        <div class="card border-primary mb-4" style="max-width: 50rem;">
+                                            <div class="card-header">Other Pictures</div>
+                                            <div class="card-body text-primary">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                    <label>Select Option</label>
+                                                    <select [value]="otherPictureId" required class="form-control select-option" (change)="selectionAction($event)">
+                                                        <option [value]="undefined" selected>-- select options ---</option>
+                                                        <option *ngFor="let data of otherLhMetaData"
+                                                                [value]="data.id">
+                                                            {{data.MetaLabel}}
+                                                        </option>
+                                                    </select>
+                                                    </div>
+                                                    <div class="col-sm-6 otherImages">
+                                                    <input #inputFile type="file" formControlName="WMS_109" class="form-control select-option" placeholder="Warehouse Photo" (change)="uploadOtherPictures($event,otherPictureId,'WMS_109')" accept=".jpg,.png,.jpeg" [ngClass]="{'is-invalid': otherPictureId != 'undefined'}"
+                                                           multiple>
+                                                    <span>Max 3 Files, each 2MB</span>
+                                                    <div class="invalid-feedback" *ngIf="otherPictureId != 'undefined'">
+                                                        <div>Parking Area Picture required</div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- main card body div -->
+                        <div class="card-footer" style="padding-left: 25px;">
+                            <button type="submit" class="btn btn-success">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

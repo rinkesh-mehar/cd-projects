@@ -1,0 +1,190 @@
+<style>
+    .style {
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> View Job Application Details
+                        </div>
+
+                        <form [formGroup]="viewJobApplicationForm">
+
+                            <div class="card-body">
+
+
+                                <h3 class="border-bottom">Applicant Details : </h3><br>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Candidate Name : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.applicantName}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Email : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.email}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Mobile : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.mobile}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Address : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.address}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Apply Date : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.createdAt}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Applied Count : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.appliedCount}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h3 class="border-bottom">Opportunity Details : </h3><br>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Platform : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.platform}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Departmant : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.department}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Position : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.position}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Education : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.education}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Experience : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.experience}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Location : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.location}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Description : </label>
+                                            <textarea readonly class="form-control" rows="10" value={{jobApplication.description}}>
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Profile : </label>
+                                            <textarea readonly class="form-control" rows="10" value={{jobApplication.profile}}>
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="form-group">
+                                            <label>Remuneration : </label>
+                                            <input type="text" readonly class="form-control" value={{jobApplication.remuneration}}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12 mb-0">
+
+                                        <label>Apply To : </label>
+                                        <input type="text" readonly class="form-control" value={{jobApplication.applyTo}}>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-footer ">
+                                &nbsp;
+                                <!-- <a href="{{jobApplication.resumeUrl}}">{{jobApplication.resumeUrl}}</a> -->
+                                <button type="button" class="btn btn-danger" (click)="onClickCancel()">Cancel</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<app-confirmation-madal (hideModal)="modalConfirmation($event) " #confirmModal></app-confirmation-madal>-->
+<!--<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>-->
+<!--<app-error-modal #errorModal></app-error-modal>-->

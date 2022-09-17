@@ -1,0 +1,312 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <section id="calendar_filter">
+                <div class="card-header">
+                    <strong>Crop Calendar</strong>
+                </div>
+                <div class="card-body">
+
+
+                    <div *ngIf="isSubmitted">
+                        <div class="alert alert-success" *ngIf="isSuccess">
+                            <strong> {{_statusMsg}} Please Wait ..</strong>.
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="!isSuccess ">
+                            <strong>{{_statusMsg}}</strong>
+                        </div>
+                    </div>
+
+
+                    <form [formGroup]="calendarFilterForm" (ngSubmit)="submitForm()" novalidate>
+                        <div class="row align-items-start">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label><strong>State <span class="required-asterisk" style="color:red;">*</span></strong></label>
+                                    <select formControlName="stateCode" class="form-control" name="State" ngModel (change)="getCommodityByState(calendarFilterForm.get('stateCode').value)" [ngClass]="{'is-invalid': calendarFilterForm.get('stateCode').touched && calendarFilterForm.get('stateCode').invalid}">
+                                        <option ng-option value="">Select</option>
+                                        <option *ngFor="let state of StateList; let i=index" value={{state.stateCode}}>
+                                            {{state.name}}
+                                        </option>
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        <div>Please Select State</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col">
+                                <div class="form-group">
+                                    <label><strong>Region</strong></label>
+                                    <select formControlName="regionId" class="form-control"
+                                        [ngClass]="{'is-invalid': calendarFilterForm.get('regionId').touched && calendarFilterForm.get('regionId').invalid}">
+                                        <option ng-option value="">Select</option>
+                                        <option *ngFor="let region of RegionList; let i=index"
+                                            value={{region.regionId}}>
+                                            {{region.name}}
+                                        </option>
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        <div>Please Select Region</div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label><strong>Commodity <span class="required-asterisk" style="color:red;">*</span></strong></label>
+                                    <select formControlName="commodityId" class="form-control" ngModel (change)="getVarietyByStateAndCommodity(calendarFilterForm.get('stateCode').value, calendarFilterForm.get('commodityId').value)" [ngClass]="{'is-invalid': calendarFilterForm.get('commodityId').touched && calendarFilterForm.get('commodityId').invalid}">
+                                        <option ng-option value="">Select</option>
+                                        <option *ngFor="let commodity of CommodityList; let i=index"
+                                            value={{commodity.id}}>
+                                            {{commodity.name}}
+                                        </option>
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        <div>Please Select Commodity</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label><strong>Variety <span class="required-asterisk" style="color:red;">*</span></strong></label>
+                                    <select formControlName="varietyId" class="form-control" ngModel (change)="loadAllSeason(calendarFilterForm.get('stateCode').value,
+                                     calendarFilterForm.get('commodityId').value, calendarFilterForm.get('varietyId').value)" [ngClass]="{'is-invalid': calendarFilterForm.get('varietyId').touched && calendarFilterForm.get('varietyId').invalid}">
+                                        <option ng-option value="">Select</option>
+                                        <option *ngFor="let variety of VarietyList; let i=index" value={{variety.id}}>
+                                            {{variety.name}}
+                                        </option>
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        <div>Please Select Variety</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label><strong>Season <span class="required-asterisk" style="color:red;">*</span></strong></label>
+                                    <select formControlName="seasonId" class="form-control" [ngClass]="{'is-invalid': calendarFilterForm.get('seasonId').touched && calendarFilterForm.get('seasonId').invalid}">
+                                        <option ng-option value="">Select</option>
+                                        <option *ngFor="let season of SeasonList;let i=index" value={{season.id}}>
+                                            {{season.name}}
+                                        </option>
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        <div>Please Select Season</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer col-12">
+                                <button class="btn btn-md btn-primary" type="submit"> Submit </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card" style="position: relative;">
+            <div class="card-header" *ngIf="cropDataList && cropDataList.filtersDto">
+                <div class="row align-items-center">
+                    <div class="col-lg-11 col-md-9 col-sm-9">
+                        <ul class="m-0 filter_breadcrumb">
+                            <li>State: {{cropDataList.filtersDto.state}}</li>
+                            <li>Commodity: {{cropDataList.filtersDto.commodity}}</li>
+                            <li>Variety: {{cropDataList.filtersDto.variety}}</li>
+                            <li>Season: {{cropDataList.filtersDto.season}}</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-1 col-md-3 col-sm-3 text-right">
+                        <button class="btn btn-md btn-primary print_btn" type="button" (click)="print()">Print</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="cropDataList">
+                <div class="col-md-12">
+                    <div class="table-responsive crop-calender-outer">
+                        <!-- style="min-width: 1828px; overflow: auto;" -->
+                        <table class="table mb-2 crop-calender-table">
+                            <thead *ngIf="cropDataList.generalDto">
+                                <tr class="months">
+                                    <td class="head" rowspan="2">
+                                        <span style="float: right;">Month</span> <br>
+                                        <span style="float: right;">Week</span>
+                                        <span style="float: left;">Parameters</span>
+
+                                    </td>
+                                    <ng-container *ngFor="let _month of getKey(cropDataList.generalDto.months); let N = index">
+                                        <td [attr.colspan]="cropDataList.generalDto.months[_month].length" *ngIf="N < 12" style="text-align: center;" [style.background-color]="monthsColor[_month.slice(0, 3)]">
+                                            <b> {{_month}} </b></td>
+                                    </ng-container>
+                                </tr>
+                                <tr>
+                                    <!-- <td class="head"> Week</td> -->
+                                    <ng-container *ngFor="let _month of getKey(cropDataList.generalDto.months);">
+                                        <td *ngFor="let week of cropDataList.generalDto.months[_month];" [style.background-color]="monthsColor[_month.slice(0, 3)]">
+                                            <b> {{week}}</b></td>
+                                    </ng-container>
+                                </tr>
+                                <tr>
+                                    <td class="head" [attr.colspan]="cropDataList.generalDto.weeks.length+1"></td>
+                                </tr>
+
+                                <!-- regional Weather Params  Start  -->
+                                <tr *ngFor="let weatherParams of getKey(cropDataList.generalDto.weatherParams); let N = index">
+                                    <td class="head"> {{cropDataList.generalDto.weatherParams[weatherParams]}}</td>
+                                    <ng-container *ngFor="let _month of getKey(cropDataList.generalDto.months);">
+                                        <ng-container *ngFor="let week of cropDataList.generalDto.months[_month]; ">
+                                            <td *ngIf="cropDataList.regionalWeatherMap[week];else emptyTd" [style.background-color]="monthsColor[_month.slice(0, 3)]">
+                                                {{cropDataList.regionalWeatherMap[week][weatherParams]}}
+                                            </td>
+                                            <ng-template #emptyTd>
+                                                <td [style.background-color]="monthsColor[_month.slice(0, 3)]"></td>
+                                            </ng-template>
+                                        </ng-container>
+
+                                    </ng-container>
+                                </tr>
+                                <!-- regional Weather Params  End  -->
+
+                                <tr>
+                                    <td class="head" [attr.colspan]="cropDataList.generalDto.weeks.length+1"></td>
+                                </tr>
+
+                                <!-- Phenophase Start -->
+                                <tr>
+                                    <td class="head">Phenophase Image </td>
+                                    <ng-container *ngFor="let phenophase of cropDataList.phophaseList;let p =index">
+                                        <ng-container *ngFor="let week of cropDataList.generalDto.weeks;let k =index ">
+                                            <td *ngIf="checkPhenophse(week,p,true,k)">
+                                            </td>
+                                        </ng-container>
+                                        <td [attr.colspan]="phenophase.span" [style.background-color]="phenophaseColor[p]">
+                                            <div style="width: 100%;">
+                                                <img [src]="phenophase.imageUrl" style="max-width: 100%; height: 100px; vertical-align:middle" />
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container *ngFor="let week of cropDataList.generalDto.weeks;let k =index ">
+                                        <td *ngIf="checkPhenophse(week,p,false,k)">
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                                <tr>
+                                    <td class="head">Phenophase </td>
+                                    <ng-container *ngFor="let phenophase of cropDataList.phophaseList;let p =index">
+                                        <ng-container *ngFor="let week of cropDataList.generalDto.weeks;let k =index ">
+                                            <td *ngIf="checkPhenophse(week,p,true,k)"> </td>
+                                        </ng-container>
+                                        <td [attr.colspan]="phenophase.span" [style.background-color]="phenophaseColor[p]">
+                                            {{phenophase.phenophaseName}}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container *ngFor="let week of cropDataList.generalDto.weeks;let k =index ">
+                                        <td *ngIf="checkPhenophse(week,p,false,k)"> </td>
+                                    </ng-container>
+                                </tr>
+                                <!-- Phenophase End -->
+
+                                <tr>
+                                    <td class="head" [attr.colspan]="cropDataList.generalDto.weeks.length+1"></td>
+                                </tr>
+                                <!-- favourableWeatherList Start -->
+                                <tr *ngFor="let weatherParams of getKey(cropDataList.generalDto.weatherParams); let N = index">
+                                    <td class="head">{{weatherParams}} </td>
+
+                                    <ng-container *ngFor="let favourableWeather of cropDataList.favourableWeatherList;let p =index">
+                                        <ng-container *ngFor="let week of cropDataList.generalDto.weeks;let k =index ">
+                                            <td *ngIf="checkFavourableWeather(week,p,true,k)">
+                                            </td>
+                                        </ng-container>
+                                        <td [attr.colspan]="favourableWeather.span" [style.background-color]="phenophaseColor[p]">
+
+                                            {{getspecificationValue(favourableWeather.favourableWeatherMap[weatherParams])}}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container *ngFor="let week of cropDataList.generalDto.weeks;let k =index ">
+                                        <td *ngIf="checkFavourableWeather(week,p,false,k)">
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                                <!-- favourableWeatherList End -->
+                                <tr>
+                                    <td class="head" [attr.colspan]="cropDataList.generalDto.weeks.length+1"></td>
+                                </tr>
+                                <!-- conduciveWeatherList Start -->
+                                <tr *ngFor="let conduciveWeather of cropDataList.conduciveWeatherList; let N = index">
+                                    <td class="" [style.background-color]="conduciveWeatherColor[N]" style="border:1px solid black">
+                                        <b>{{conduciveWeather.bioticStress}} </b></td>
+
+                                    <ng-container *ngFor="let week of cropDataList.generalDto.weeks;let k =index ">
+                                        <!-- <td *ngIf="week < conduciveWeather.startWeek" style="border-left:none" ></td> -->
+                                        <td *ngIf="k < cropDataList.generalDto.weeks.indexOf(conduciveWeather.startWeek)" style="border-left:none"> </td>
+
+                                    </ng-container>
+                                    <td [attr.colspan]="conduciveWeather.span" [style.background-color]="conduciveWeatherColor[N]" style="border:1px solid black">
+
+                                        <ng-container *ngIf="conduciveWeather.conduciveWeatherMap">
+                                            <ng-container *ngFor="let key of getKey(conduciveWeather.conduciveWeatherMap)">
+                                                <span> {{cropDataList.generalDto.weatherParams[key]}} :
+                                                    {{getspecificationValue(conduciveWeather.conduciveWeatherMap[key])}}
+                                                </span> ,
+                                            </ng-container>
+                                        </ng-container>
+                                    </td>
+                                    <ng-container *ngFor="let week of cropDataList.generalDto.weeks;let k =index ">
+                                        <td *ngIf="k > cropDataList.generalDto.weeks.indexOf(conduciveWeather.endWeek)" style="border-left:none">
+
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                                <!-- conduciveWeatherList End -->
+                                <tr>
+                                    <td class="head" [attr.colspan]="cropDataList.generalDto.weeks.length+1"></td>
+                                </tr>
+
+                            </thead>
+
+                            <!-- with static data -->
+                            <!-- <thead>
+                                <tr class="months">
+                                    <th class="head">Parameters \ Week</th>
+                                    <ng-container *ngFor="let _month of _months; let N = index">
+                                        <th [attr.colspan]="_month._noWeek" [style.background-color]="_month._color"
+                                            *ngIf="N < 12" style="text-align: center;">{{_month.name}}</th>
+                                    </ng-container>
+                                </tr>
+
+                                <tr *ngFor="let _month of _months;let k =index ">
+                                    <td class="head"> {{getParam(k)}} </td>
+                                    <ng-container *ngIf="getParam(k) == 'week'">
+                                        <td *ngFor="let j of arrayOne(52);let i=index"
+                                            [style.background-color]="_month._color">{{i+1}}</td>
+                                    </ng-container>
+                                    <ng-container *ngIf="getParam(k) != 'week'">
+                                        <td *ngFor="let j of arrayOne(52);let i=index"
+                                            [style.background-color]="_month._color"></td>
+                                    </ng-container>
+
+                                </tr>
+                            </thead> -->
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

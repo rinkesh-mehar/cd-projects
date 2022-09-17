@@ -1,0 +1,120 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New </span> <span
+                        *ngIf="mode=='edit'">Edit </span> Stress Control Measures</strong></div>
+
+
+            <form [formGroup]="stressControlMeasuresForm" (ngSubmit)="submitStressControlMeasuresForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="commodityId" class="form-control" (change)="loadAllStressByCommodity($event)" [ngClass]="{'is-invalid': stressControlMeasuresForm.get('commodityId').touched && stressControlMeasuresForm.get('commodityId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let commodity of commodityList" value={{commodity.id}}>
+                                    {{commodity.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Commodity</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Stress <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="stressId" class="form-control" [ngClass]="{'is-invalid': stressControlMeasuresForm.get('stressId').touched && stressControlMeasuresForm.get('stressId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let stress of stressList" value={{stress.id}}>
+                                    {{stress.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Stress</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Stress Severity <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="stressSeverityId" class="form-control" [ngClass]="{'is-invalid': stressControlMeasuresForm.get('stressSeverityId').touched && stressControlMeasuresForm.get('stressSeverityId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let stressSeverity of StressSeverityList" value={{stressSeverity.id}}>
+                                    {{stressSeverity.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Stress Severity</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 mb-0">
+                            <label>Control Measure <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="stressControlMeasureId" class="form-control" [ngClass]="{'is-invalid': stressControlMeasuresForm.get('stressControlMeasureId').touched && stressControlMeasuresForm.get('stressControlMeasureId').invalid}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let stressControlMeasure of ControlMeasureList" value={{stressControlMeasure.id}}>
+                                    {{stressControlMeasure.name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Control Measure</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit </span> <span
+                        *ngIf="mode=='edit'">Update </span></button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/stress/stress-control-measures']">Cancel</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+    <!-- Form -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <strong>Bulk Insert</strong><small> Form</small>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <form (ngSubmit)="submitExcelForm()" novalidate>
+                <div class="card-body">
+                    <div class="form-group mb-0">
+                        <label for="file-input">Select excel(.xlsx) file</label>
+                        <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="submit"> Submit </button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/stress/stress-control-measures']">Cancel</button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

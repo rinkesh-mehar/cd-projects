@@ -1,0 +1,63 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Bands
+                            <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right"
+                                        [routerLink]="['/commodity/add-band/']">
+                                    Add Band
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th style="width: 20px;">ID</th>
+                                    <th class="text-left">Band Name</th>
+                                    <th class="text-center" style="width: 200px;">Status</th>
+                                    <th style="width: 150px;">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let band of bandList">
+                                    <td scope="row">{{band.id}}</td>
+                                    <td class="text-left">{{band.name}}</td>
+                                    <td class="text-center">
+                                        <span class="badge badge-danger"
+                                              *ngIf="band.status =='Deleted'">{{band.status}}</span>
+                                        <span class="badge badge-success"
+                                              *ngIf="band.status =='Inactive'">{{band.status}}</span>
+                                        <span class="badge badge-info"
+                                              *ngIf="band.status =='Active'">{{band.status}}</span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-success btn-sm move-right" title="Edit"
+                                                [routerLink]="['/commodity/edit-band/', band.id]"
+                                                *ngIf="userRightsService.canEdit()"><i
+                                                class="fa fa-pencil-square-o">Edit</i></button>
+                                        <button type="button" class="btn btn-danger btn-sm move-right" title="Delete"
+                                                (click)="deleteBand(band.id)">
+                                            <i class="fa fa-close">Delete</i></button>
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

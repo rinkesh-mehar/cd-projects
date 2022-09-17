@@ -1,0 +1,40 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Notification List
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Brief</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of notification" style="cursor: pointer;">
+                                        <td style="height: 40px; padding-top: 10px;" title="View Brief" [ngStyle]="{'background-color':item.viewStatus == 0 ? '#FFFFFF' : '#F0F3F5' }" (click)="notificationDetails(item.id)">
+                                            {{item.subject}}
+                                        </td>
+                                        <td title="View {{item.type}} Brief" [ngStyle]="{'background-color':item.viewStatus == 0 ? '#FFFFFF' : '#F0F3F5' }" style="width: 50px; text-align: right; padding-top: 10px;">
+                                            <span class="badge badge-pill badge-danger" *ngIf="item.type=='Error'">{{item.type}}</span>
+                                            <span class="badge badge-pill badge-warning" *ngIf="item.type=='Warning'">{{item.type}}</span>
+                                            <span class="badge badge-pill badge-info" *ngIf="item.type=='Notice'">{{item.type}}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

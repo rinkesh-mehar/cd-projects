@@ -1,0 +1,132 @@
+<div class="row">
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong> KYC Request</strong></div>
+            <div class="card-body">
+                <!--                <form [formGroup]="userKycForm" (ngSubmit)="submitForm()" novalidate>-->
+                <div *ngIf="listSlots == ''">
+                    <h5 style="text-align: center">Slots not found!</h5>
+                </div>
+
+                <div *ngFor="let slot of listSlots;let i=index">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+
+                            <th>
+                                <h6>Slot No :</h6>
+                            </th>
+                            <td>
+                                <p class="m-0">{{ slot.id }}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+
+                            <th>
+                                <h6>Warehouse Name :</h6>
+                            </th>
+                            <td>
+                                <p class="m-0">{{ slot.warehouseName}}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <h6>Warehouse KYS Status :</h6>
+                            </th>
+                            <td>
+                                <p class="m-0">{{slot.warehouseKYCStatus}}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <h6> Start Date :</h6>
+                            </th>
+                            <td>
+                                <p class="m-0"> {{slot.startDate}}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <h6> End Date :</h6>
+                            </th>
+                            <td>
+                                <p class="m-0"> {{slot.endDate}}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <h6>Capacity MT :</h6>
+                            </th>
+                            <td><p class="m-0">{{slot.capacityMT}}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <h6>Slot Cost</h6>
+                            </th>
+                            <td>
+                                <p class="m-0">{{slot.slotCost}}</p>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="slot.kycStatus =='Rejected'">
+                            <th>Response :</th>
+                            <td>
+                                    <textarea name="description" class="form-control"
+                                              rows="8" placeholder="Write your reason here..."
+                                              #rejectedStatus="ngModel"
+                                              [(ngModel)]="slot.statusResponse"
+                                              [ngClass]="{'is-invalid': rejectedStatus.touched && rejectedStatus.invalid}"
+                                              required>
+
+                                    </textarea>
+
+                                <div class="invalid-feedback">
+                                    <div>Please Add Response Description</div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>User KYC Status :</th>
+                            <td>
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-6 col-md-8 col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <select class="form-control" #kycstatus="ngModel"
+                                                    [(ngModel)]="slot.kycStatus"
+                                                    [ngClass]="{'is-invalid': kycstatus.touched && kycstatus.invalid}"
+                                                    required>
+                                                <option value="Pending">Pending</option>
+                                                <option value="Approved">Approved</option>
+                                                <option value="Rejected">Rejected</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                <div>KYC Status required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary m-0 waves-effect waves-light" (click)="submit(listSlots)">Submit
+                    </button>
+                </div>
+                <!--                </form>-->
+            </div>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-confirmation-madal #confirmModal></app-confirmation-madal>

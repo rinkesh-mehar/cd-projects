@@ -1,0 +1,88 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><strong>Add Model</strong><small> Form</small></div>
+
+
+            <form [formGroup]="modelForm" (ngSubmit)="submitForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Model Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="modelName" class="form-control" [ngClass]="{'is-invalid': modelForm.get('modelName').touched && modelForm.get('modelName').invalid}" (change)="trimValue(this.modelForm.get('modelName'))">
+                                <div class="invalid-feedback">
+                                    <div>Model Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group mb-0">
+                                <label>Model Description <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" class="form-control" formControlName="modelDescription" [ngClass]="{'is-invalid': modelForm.get('modelDescription').touched && modelForm.get('modelDescription').invalid}" (change)="trimValue(this.modelForm.get('modelDescription'))">
+                                <div class="invalid-feedback">
+                                    <div>model Description is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>ModelDescription</label>
+                                <input type="text" class="form-control" formControlName="modelDescription"
+                                       [ngClass]="{'is-invalid': modelForm.get('modelDescription').touched && modelForm.get('modelDescription').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>modelDescription is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/models/List']">Cancel</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+
+    <!-- Form -->
+    <!-- <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <strong>Upload Template</strong><small> Form</small>
+                    </div> -->
+    <!--<div class="col text-right">
+                        <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()"
+                                title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>-->
+    <!-- </div>
+            </div>
+
+            <div class="card-body">
+
+
+                <div class="form-group">
+                    <label for="file-input">Select csv(.csv) file</label>
+                    <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".csv" (change)="csvFileChange($event)" [ngClass]="{'is-invalid': modelForm.get('csvFile').touched && modelForm.get('csvFile').invalid}">
+
+                    <div class="invalid-feedback">
+                        <div>Please Choose CSV File</div>
+                    </div>
+                </div>
+
+            </div>
+        </div> -->
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

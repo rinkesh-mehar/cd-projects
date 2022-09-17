@@ -1,0 +1,348 @@
+
+
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-md-12">
+            <div class="row justify-content-md-center">
+                <div class="col-md-12 from-box">
+                    <form #f ="ngForm" [formGroup]="hubPhysicalVerficationImg" (ngSubmit)="submitBandForm(f)" novalidate>
+                        <!-- a separate card Compound Wall / Fencing Picture -->
+                        <div class="card">
+                            <span style="font-weight: bold;padding-left: 25px; padding-top: 20px;">Compound Wall /
+                                Fencing Picture</span>
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Cemented & GI Sheet Walls Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_007" class="form-control"
+                                                placeholder="Cemented & GI Sheet Walls Photo"
+                                                (change)="upload_WMS_007Image($event)" accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_007').touched && hubPhysicalVerficationImg.get('WMS_007').invalid}">
+                                            <div class="invalid-feedback">
+                                                    <div> File size should be 2MB</div>
+                                                <!-- <div>Cemented & GI Sheet Walls Photo is required</div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Cemented walls Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_009" class="form-control"
+                                                placeholder="Cemented walls Photo"
+                                                (change)="upload_WMS_009Image($event)" accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_009').touched && hubPhysicalVerficationImg.get('WMS_009').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div> Cemented walls Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Compound Wall Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_076" class="form-control"
+                                                placeholder="Compound Wall Photo" (change)="upload_WMS_076Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_076').touched && hubPhysicalVerficationImg.get('WMS_076').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Compound Wall Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Fencing Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_075" class="form-control"
+                                                placeholder="Fencing Photo" (change)="upload_WMS_075Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_075').touched && hubPhysicalVerficationImg.get('WMS_075').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Fencing Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- a separate card Roof Pictures-->
+                        <div class="card">
+                            <span style="font-weight: bold;padding-left: 25px; padding-top: 20px;">Roof Pictures</span>
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Roof (Iron sheet) Photo(Max 2MB)</label>
+                                            <input type="file" formControlName="WMS_045" class="form-control"
+                                                placeholder="Roof (Iron sheet) Photo"
+                                                (change)="upload_WMS_045Image($event)" accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_045').touched && hubPhysicalVerficationImg.get('WMS_045').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Roof (Iron sheet) Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Roof (Asbestos sheet) Photo(Max 2MB)</label>
+                                            <input type="file" formControlName="WMS_041" class="form-control"
+                                                placeholder="Roof (Asbestos sheet) Photo"
+                                                (change)="upload_WMS_041Image($event)" accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_041').touched && hubPhysicalVerficationImg.get('WMS_041').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Roof (Asbestos sheet) Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Roof (GI Sheet) Photo(Max 2MB)</label>
+                                            <input type="file" formControlName="WMS_043" class="form-control"
+                                                placeholder="Roof (GI Sheet) Photo"
+                                                (change)="upload_WMS_043Image($event)" accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_043').touched && hubPhysicalVerficationImg.get('WMS_043').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Roof (GI Sheet) Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- a separate card Floor Pictures-->
+                        <div class="card">
+                            <span style="font-weight: bold;padding-left: 25px; padding-top: 20px;">Floor Pictures</span>
+                            <div class="card-body p-4">
+                                <div class="row">
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Tiles Cemented Floor Photo(Max 2MB)</label>
+                                            <input type="file" formControlName="WMS_051" class="form-control"
+                                                placeholder="Tiles Cemented Floor Photo"
+                                                (change)="upload_WMS_051Image($event)" accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_051').touched && hubPhysicalVerficationImg.get('WMS_051').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Tiles Cemented Floor Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Muded Floor Photo(Max 2MB)</label>
+                                            <input type="file" formControlName="WMS_031" class="form-control"
+                                                placeholder="Muded Floor Photo" (change)="upload_WMS_031Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_031').touched && hubPhysicalVerficationImg.get('WMS_031').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Muded Floor Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- -----------------  -->
+
+                        <!-- a separate card Roof Pictures-->
+                        <div class="card">
+                            <span style="font-weight: bold;padding-left: 25px; padding-top: 20px;">Door Pictures</span>
+                            <div class="card-body p-4">
+                                <div class="row">
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Door Photo:(Max 2MB)</label>
+                                            <input type="file" formControlName="WMS_015" class="form-control"
+                                                placeholder="Door Photo" (change)="upload_WMS_015Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_015').touched && hubPhysicalVerficationImg.get('WMS_015').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Door Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Shutter Photo(Max 2MB)</label>
+                                            <input type="file" formControlName="WMS_047" class="form-control"
+                                                placeholder="Shutter Photo" (change)="upload_WMS_047Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_047').touched && hubPhysicalVerficationImg.get('WMS_047').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Shutter Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- -----------------  -->
+
+                        <!-- a separate card Plinth Pictures-->
+                        <div class="card">
+                            <span style="font-weight: bold;padding-left: 25px; padding-top: 20px;">Plinth
+                                Pictures</span>
+                            <div class="card-body p-4">
+                                <div class="row">
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Plinth Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_097" class="form-control"
+                                                placeholder="Door Photo" (change)="upload_WMS_097Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_097').touched && hubPhysicalVerficationImg.get('WMS_097').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Plinth Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Plinth Slope Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_098" class="form-control"
+                                                placeholder="Shutter Photo" (change)="upload_WMS_098Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_098').touched && hubPhysicalVerficationImg.get('WMS_098').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Plinth Slope is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- -----------------  -->
+                        <div class="card">
+                            <span style="font-weight: bold;padding-left: 25px; padding-top: 20px;">Warehouse Images
+                                Form</span>
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Warehouse Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_070" class="form-control"
+                                                placeholder="Warehouse Photo" (change)="upload_WMS_070Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_070').touched && hubPhysicalVerficationImg.get('WMS_070').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Warehouse Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>CCTV Camera Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_083" class="form-control"
+                                                placeholder="CCTV Camera Photo" (change)="upload_WMS_083Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_083').touched && hubPhysicalVerficationImg.get('WMS_083').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>CCTV Camera Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Office Area Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_086" class="form-control"
+                                                placeholder="Office Area Photo" (change)="upload_WMS_086Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_086').touched && hubPhysicalVerficationImg.get('WMS_086').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Office Area Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Laboratory Area Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_087" class="form-control"
+                                                placeholder="Laboratory Area Photo"
+                                                (change)="upload_WMS_087Image($event)" accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_087').touched && hubPhysicalVerficationImg.get('WMS_087').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Laboratory Area Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Parking Area Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_089" class="form-control"
+                                                placeholder="Parking Area Photo" (change)="upload_WMS_089Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_089').touched && hubPhysicalVerficationImg.get('WMS_089').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Parking Area Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Gate Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_077" class="form-control"
+                                                placeholder="Gate Photo" (change)="upload_WMS_077Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_077').touched && hubPhysicalVerficationImg.get('WMS_077').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Gate Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Other Photo(Max 2MB):</label>
+                                            <input type="file" formControlName="WMS_085" class="form-control"
+                                                placeholder="Other Photo" (change)="upload_WMS_085Image($event)"
+                                                accept=".jpg,.png,.jpeg"
+                                                [ngClass]="{'is-invalid': hubPhysicalVerficationImg.get('WMS_085').touched && hubPhysicalVerficationImg.get('WMS_085').invalid}">
+                                            <div class="invalid-feedback">
+                                                <div>Other Photo is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="card-footer" style="padding-left: 25px;">
+                                <button type="submit" class="btn btn-sm btn-success">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>
+

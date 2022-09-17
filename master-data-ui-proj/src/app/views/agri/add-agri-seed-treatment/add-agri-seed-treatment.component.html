@@ -1,0 +1,126 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header"><strong>Add Seed Treatment Agent</strong><small> Form</small></div>
+
+
+                <form [formGroup]="seedTreatmentForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="commodityId" class="form-control" [ngClass]="{'is-invalid': seedTreatmentForm.get('commodityId').touched && seedTreatmentForm.get('commodityId').invalid}" (change)="getVarietyByCommodity()">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let commodity of CommodityList" value={{commodity.id}}>
+                                        {{commodity.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Commodity</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Variety <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="varietyId" class="form-control" [ngClass]="{'is-invalid': seedTreatmentForm.get('varietyId').touched && seedTreatmentForm.get('varietyId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let variety of VarietyList" value={{variety.id}}>
+                                        {{variety.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Variety</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Seed Treatment Agent Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': seedTreatmentForm.get('name').touched && seedTreatmentForm.get('name').invalid}" (change)="trimValue(this.seedTreatmentForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Seed Treatment Agent Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Dose <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="dose" class="form-control" [ngClass]="{'is-invalid': seedTreatmentForm.get('dose').touched && seedTreatmentForm.get('dose').invalid}">
+
+                                <span class="text-danger d-block" *ngIf="(seedTreatmentForm.get('dose').dirty &&  seedTreatmentForm.get('dose').value < 0)&& seedTreatmentForm.get('dose').errors?.pattern">Negative value not allowed</span>
+                                <span class="text-danger d-block" *ngIf="seedTreatmentForm.get('dose').dirty && seedTreatmentForm.get('dose').errors?.pattern">Only Numbers Allowed</span>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <label>UOM <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="uomId" class="form-control" [ngClass]="{'is-invalid': seedTreatmentForm.get('uomId').touched && seedTreatmentForm.get('uomId').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let uom of UomList" value={{uom.id}}>
+                                        {{uom.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select UOM</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Submit </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/stress/seed-treatment']">Cancel</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <strong>Bulk Insert</strong><small> Form</small>
+                        </div>
+                        <div class="col text-right">
+                            <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <form (ngSubmit)="submitExcelForm()" novalidate>
+                    <div class="card-body">
+
+                        <div class="form-group mb-0">
+                            <label for="file-input">Select excel(.xlsx) file</label>
+                            <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Submit </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/stress/seed-treatment']">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

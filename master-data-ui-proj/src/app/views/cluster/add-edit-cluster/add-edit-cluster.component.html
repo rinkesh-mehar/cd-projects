@@ -1,0 +1,364 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><strong>Cluster Information</strong></div>
+            <form #subregion="ngForm" (ngSubmit)="getDetails(subregion)" ngNativeValidate>
+                <div class="card-body">
+
+                    <div *ngIf="isSubmitted">
+                        <div class="alert alert-danger">
+                            <strong>{{_statusMsg}}</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-2">
+                            <div class="form-group">
+                                <label>Region ID</label>
+                                <input type="number" name="regionId" ngModel [(ngModel)]="regionId" (change)="getActiveStates()" class="form-control">
+                                <div *ngIf="regionId == 0" class="invalid-feedback">
+
+                                    <div>Commodity Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <div class="form-group">
+                                <label>Source Name</label>
+                                <select name="sourceId" class="form-control" [(ngModel)]="sourceId">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let source of sourceList" [ngValue]="source.id">
+                                        {{source.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-md-6 mb-0">
+                            <div class="card">
+                                <div class="card-header">
+                                    <span><strong><label class="m-0">Quad Keys <span class="required-asterisk" style="color:red;">*</span></label>
+                                    </strong>
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <textarea class="form-control" rows="7" required ngModel name="subregion"> </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-6 mb-0">
+                            <div class="card">
+                                <div class="card-header">
+                                    <span><strong>Selected Sub-Regions</strong></span>
+                                </div>
+                                <div class="card-body">
+                                    <span *ngIf="_isShow">
+                                        <!-- <span class="subregion" *ngFor="let _sregion of _regionDetails">{{_sregion}}, </span> -->
+                                    <span class="subregion" *ngFor="let _sregion of _details[0].subRegion">{{_sregion}}, </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Get Details</button>
+                    <button type="reset" class="btn btn-primary">Reset</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/cluster/cluster-list']">Cancel</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="card" *ngIf="_isShow">
+            <div class="card-header"><strong>Regional Information</strong></div>
+            <div class="card-body">
+                <div class="row m-0">
+                    <table class="table table-bordered">
+                        <ng-container>
+                            <tbody>
+                                <tr>
+                                    <td class="col-md-3 table-content">
+                                        <h5>Overlaid State/district</h5>
+                                        <div class="overflow-content">
+                                            <table *ngFor="let _details of _details" class="inner-details-table table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th align="left" style="text-align: left !important;">{{_details.state}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td align="left" style="text-align: left !important;">
+                                                            <ul>
+                                                                <li *ngFor="let _detailr of _details['district']">{{_detailr}}</li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-3 table-content">
+                                        <h5>Selected Sub-Region</h5>
+                                        <div class="overflow-content">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th align="left" style="text-align: left !important;">Sub-Region</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngFor="let _details of _details">
+                                                    <tr>
+                                                        <td align="left" style="text-align: left !important;">
+                                                            <ul>
+                                                                <li *ngFor="let _detailr of _details['subRegion']">{{_detailr}}</li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-3 table-content">
+                                        <h5>Overlaid Villages</h5>
+                                        <div class="overflow-content">
+                                            <table class="table table-bordered" *ngFor="let _details of _details">
+                                                <thead>
+                                                    <tr>
+                                                        <th align="left" style="text-align: left !important;">{{_details.state}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td align="left" style="text-align: left !important;">
+                                                            <ol>
+                                                                <li *ngFor="let _detailr of _details['village']">{{_detailr}}</li>
+                                                            </ol>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-3 table-content">
+                                        <h5>Selection Details</h5>
+                                        <div class="overflow-content">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th align="left" style="text-align: left !important;">Number Of Sub-Region having village</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let _details of _details ;let i =index ;let c = count; ">
+                                                        <td *ngIf="i == (c-1)" align="left" style="text-align: left !important;">{{_details.totalSubRegion}} / 256</td>
+                                                    </tr>
+                                                </tbody>
+
+                                                <thead>
+                                                    <tr>
+                                                        <th align="left" style="text-align: left !important;">Number Of States</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let _details of _details ;let i =index ;let c = count;">
+                                                        <td *ngIf="i == (c-1)" align="left" style="text-align: left !important;">{{_details.stateCount}} </td>
+                                                    </tr>
+                                                </tbody>
+
+                                                <thead>
+                                                    <tr>
+                                                        <th align="left" style="text-align: left !important;">Number Of District</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let _details of _details ;let i =index ;let c = count; ">
+                                                        <td *ngIf="i == (c-1)" align="left" style="text-align: left !important;">{{_details.districtCount}} </td>
+                                                    </tr>
+                                                </tbody>
+
+                                                <thead>
+                                                    <tr>
+                                                        <th align="left" style="text-align: left !important;">Number Of Villages</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let _details of _details ;let i =index ;let c = count;">
+                                                        <td *ngIf="i == (c-1)" align="left" style="text-align: left !important;">{{_details.villageCount}} </td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </ng-container>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" *ngIf="_isShow">
+            <div class="card-header"><strong>Regional Office Details</strong></div>
+            <div class="card-body">
+                <form #region="ngForm" (ngSubmit)="saveRegion(region)" ngNativeValidate>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Name<span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" name="regionName" ngModel class="form-control">
+                                <span class="text-danger" *ngIf="region.value.regionName == null || region.value.regionName == ''">Region Name is required</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>State<span class="required-asterisk" style="color:red;">*</span></label>
+                                <select name="stateCode" ngModel class="form-control" (change)="getActiveDistrictByStateCode($event)">
+                                    <option value= "">--Select--</option>
+                                    <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                        {{state.name}}
+                                    </option>
+                                </select>
+                                <span class="text-danger" *ngIf="region.value.stateCode == null || region.value.stateCode == ''">State is required</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>District Name<span class="required-asterisk" style="color:red;">*</span></label>
+                                <select name="districtCode" ngModel class="form-control">
+                                     <option value= "">--Select--</option>
+                                     <option *ngFor="let district of districtList" value={{district.districtCode}}>
+                                         {{district.name}}
+                                     </option>
+                                 </select>
+                                <span class="text-danger" *ngIf="region.value.districtCode == null || region.value.districtCode == ''">District is required</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Address<span class="required-asterisk" style="color:red;">*</span></label>
+                                <textarea name="address" ngModel class="form-control" placeholder="Enter address here...">
+                                </textarea>
+                                <span class="text-danger" *ngIf="region.value.address == null || region.value.address == ''">Address is required</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>PIN Number<span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" name="pin" ngModel class="form-control">
+                                <span class="text-danger" *ngIf="region.value.pin == null || region.value.pin == ''">Pin is required</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Phone Number<span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" name="mobileNo" ngModel class="form-control" maxlength="10">
+                                <span class="text-danger" *ngIf="region.value.mobileNo == null || region.value.mobileNo == ''">mobileNo is required</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Contact Person Name</label>
+                                <input type="text" name="contactPerson" ngModel class="form-control">
+                                <div class="invalid-feedback">
+                                    <div>Contact Person is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Working Hours<span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" name="workingHours" ngModel class="form-control" maxlength="3">
+                                <span class="text-danger" *ngIf="region.value.workingHours == null || region.value.workingHours == ''">Working hours is required</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Percentage of Absence<span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" name="percentageOfAbsence" ngModel class="form-control">
+                                <span class="text-danger" *ngIf="region.value.percentageOfAbsence == null || region.value.percentageOfAbsence == ''">Percentage of Absence is required</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Percentage of Inefficency<span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" name="percentageOfInefficency" ngModel class="form-control">
+                                <span class="text-danger" *ngIf="region.value.percentageOfInefficency == null || region.value.percentageOfInefficency == ''">Percentage of Inefficency is required</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  <div class="row">
+                          <div class="col-sm-12 col-md-12">
+                              <div class="form-group">
+                                  <label>Region Name</label>
+                                  <input type="text" name="regionName" ngModel class="form-control" maxlength="20" required="true">
+                                  <div class="invalid-feedback">
+                                      <div>Region Name is required</div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>-->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Office Latitude<span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="text" class="form-control" name="lats" required="true" ngModel>
+                            <span class="text-danger" *ngIf="region.value.lats == null || region.value.lats == ''">Office Latitude is required</span>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Office Longitude<span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="text" class="form-control" name="loges" required="true" ngModel>
+                            <span class="text-danger" *ngIf="region.value.loges == null || region.value.loges == ''">Office Longitude is required</span>
+                        </div>
+                        <div class="col-md-4">
+                            <label>MMPK Part Count*<span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="number" name="mmpkPartCount" ngModel class="form-control" required="true">
+                            <span class="text-danger" *ngIf="region.value.mmpkPartCount == null || region.value.mmpkPartCount == ''">Mmpk Part Count is required</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control" ngModel name="regionDesc" row="10" placeholder="Enter description here..."> </textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Response Model -->
+
+    <div bsModal #resp="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="resp" aria-hidden="true">
+        <div [ngClass]="_class" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Result</h4>
+                    <button type="button" class="close" (click)="resp.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>{{_responseMsg}}</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="resp.hide()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>

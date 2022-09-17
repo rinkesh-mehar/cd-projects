@@ -1,0 +1,116 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Edit Regional Connectivity</strong>
+                </div>
+                <form [formGroup]="updateRegionalForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>State <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="stateCode" class="form-control" (change)="getAllRegionByStateCode()" [ngClass]="{'is-invalid': updateRegionalForm.get('stateCode').touched && updateRegionalForm.get('stateCode').invalid}">
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let state of stateList" value={{state.stateCode}}>
+                                        {{state.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select State</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Region <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="regionId" class="form-control" [ngClass]="{'is-invalid': updateRegionalForm.get('regionId').touched && updateRegionalForm.get('regionId').invalid}">
+                                    <option value="">--Select Region--</option>
+                                    <option *ngFor="let region of regionList" value={{region.regionId}}>
+                                        {{region.name}}
+                                    </option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    <div>Please Select Region</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Surfaced Proportion <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="number" onKeyPress="if(this.value.length==15) return false;" formControlName="surfacedProportion" class="form-control" [ngClass]="{'is-invalid': updateRegionalForm.get('surfacedProportion').touched && updateRegionalForm.get('surfacedProportion').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="updateRegionalForm.get('surfacedProportion').errors?.pattern">Surfaced Proportion must be Numeric</div>
+                                        <div *ngIf="updateRegionalForm.get('surfacedProportion').errors?.required">Surfaced Proportion is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Unsurfaced Proportion <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="number" onKeyPress="if(this.value.length==15) return false;" formControlName="unsurfacedProportion" class="form-control" [ngClass]="{'is-invalid': updateRegionalForm.get('unsurfacedProportion').touched && updateRegionalForm.get('unsurfacedProportion').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="updateRegionalForm.get('unsurfacedProportion').errors?.pattern">Unsurfaced Proportion must be Numeric</div>
+                                        <div *ngIf="updateRegionalForm.get('unsurfacedProportion').errors?.required">Unsurfaced Proportion is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Surfaced TimeMin Perkm <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="number" onKeyPress="if(this.value.length==15) return false;" formControlName="surfacedTimeMin" class="form-control" [ngClass]="{'is-invalid': updateRegionalForm.get('surfacedTimeMin').touched && updateRegionalForm.get('surfacedTimeMin').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="updateRegionalForm.get('surfacedTimeMin').errors?.pattern">Surfaced TimeMin Perkm must be Numeric</div>
+                                        <div *ngIf="updateRegionalForm.get('surfacedTimeMin').errors?.required">Surfaced TimeMin Perkm is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Unsurfaced TimeMin Perkm <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="number" onKeyPress="if(this.value.length==15) return false;" formControlName="unsurfacedTimeMin" class="form-control" [ngClass]="{'is-invalid': updateRegionalForm.get('unsurfacedTimeMin').touched && updateRegionalForm.get('unsurfacedTimeMin').invalid}">
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="updateRegionalForm.get('unsurfacedTimeMin').errors?.pattern">Unsurfaced TimeMin Perkm must be Numeric</div>
+                                        <div *ngIf="updateRegionalForm.get('unsurfacedTimeMin').errors?.required">Unsurfaced TimeMin Perkm is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/regional/connectivity']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

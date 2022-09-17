@@ -1,0 +1,101 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-12">
+        <div class="card">
+
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add Commodity Stress</span> <span
+                *ngIf="mode=='edit'">Edit Commodity Stress</span></strong></div>
+
+            <form [formGroup]="commodityStressForm" (ngSubmit)="submitCommodityStressForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Commodity <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="commodityId" class="form-control" (change)="loadAllPhenophase($event)" [ngClass]="{'is-invalid': commodityStressForm.get('commodityId').touched && commodityStressForm.get('commodityId').invalid}">
+                                <option value="" selected>--Select--</option>
+                                <option *ngFor="let commodity of commodityList" value={{commodity.ID}}>
+                                    {{commodity.Name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Commodity</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Phenophase <span class="required-asterisk" style="color:red;">*</span></label>
+                            <select formControlName="phenophaseId" class="form-control" (change)="loadStressByCommodityAndPhenophase($event)" [ngClass]="{'is-invalid': commodityStressForm.get('phenophaseId').touched && commodityStressForm.get('phenophaseId').invalid}">
+                                <option value="" selected>--Select--</option>
+                                <option *ngFor="let phenophase of phenophaseList" value={{phenophase.ID}}>
+                                    {{phenophase.Name}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                <div>Please Select Phenophase</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 mb-0">
+                            <label>Stress Name</label>
+                            <div class="custom-control custom-checkbox">
+                                <div *ngIf="stressIDs === undefined">
+                                    <label class="col-md-3 col-sm-4 col-lg-2" style="margin-bottom: 0px !important; max-width: 24.666667% !important;" *ngFor="let data of stressList; let i=index">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <input type="checkbox"
+                                                       [value]="data.ID" (change)="addCheckBox($event)"/>
+                                                {{data.Name}}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div *ngIf="stressIDs !== undefined">
+                                    <label class="col-md-3 col-sm-4 col-lg-2" style="margin-bottom: 0px !important; max-width: 24.666667% !important;" *ngFor="let data of stressList; let i=index">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <input type="checkbox"
+                                                       [checked]="stressIDs.includes(data.ID.toString())"
+                                                       [value]="data.ID" (change)="addCheckBox($event)"/>
+                                                {{data.Name}}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="form-group col-sm-12">-->
+                    <!--                            <label>Status</label>-->
+                    <!--                            <select formControlName="status" class="form-control">-->
+                    <!--                                <option value="">&#45;&#45;Select&#45;&#45;</option>-->
+                    <!--                                <option value="Inactive">Inactive</option>-->
+                    <!--                                <option value="Active">Active</option>-->
+                    <!--                            </select>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'">Submit</span><span *ngIf="mode=='edit'">Update</span></button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/tickers/commodity-stress/']">
+                            Cancel
+                        </button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

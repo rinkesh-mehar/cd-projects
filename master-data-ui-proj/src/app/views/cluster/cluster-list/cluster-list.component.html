@@ -1,0 +1,202 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> All Region's
+                    <div class="card-header-actions">
+                        <button class="btn btn-primary btn-sm move-right" [routerLink]="['/cluster/cluster-add/']"> Add Region</button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-responsive-sm  table-responsive table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event)">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-left" mat-sort-header="region">Region ID </th>
+                                <th class="text-left" mat-sort-header="regionName">Region Name</th>
+                                <th class="text-left" mat-sort-header="state">State</th>
+                                <th class="text-left" mat-sort-header="district">District</th>
+                                <th style="width: 80px; min-width: 80px !important;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cluster of ClusterList ; let i = index ">
+                                <td class="text-left">{{cluster.region}}</td>
+                                <td class="text-left">{{cluster.regionName | titlecase}}</td>
+                                <td class="text-left">{{cluster.state | titlecase}}</td>
+                                <td class="text-left">{{cluster.district}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-sm move-right" title="Edit Only State Allowed " (click)="Msg('edit',cluster.region,cluster.state);reset();delModal.show()">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </button>
+                                    <!-- <button type="button" class="btn btn-danger btn-sm move-right" title="Delete Region" (click)="Msg('del',cluster.region,'')" (click)="delModal.show()"> -->
+                                    <!-- <i class="fa fa-close" ></i> -->
+                                    <!-- </button> -->
+                                </td>
+                        </tbody>
+                        <tbody *ngIf="ClusterList.length == 0">
+                            <td colspan="9" class="text-left">Data Not Found..!!</td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div bsModal #delModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="resp" aria-hidden="true">
+    <div [ngClass]="_class" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{_genericMsg1}}</h4>
+                <button type="button" class="close" (click)="delModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="_genericMsg1 === 'Delete' || _genericMsg1 === 'Done' || _genericMsg1 === 'Failed'">
+                <h5>{{_genericMsg2}}</h5>
+            </div>
+            <div class="modal-body" *ngIf="_genericMsg1 === 'Edit Region'">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- <img src="{{_baseURL}}{{_imageID}}" class="img-fluid"> -->
+                        <img src="{{_imageID}}" class="img-fluid" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Region Name<span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" name="regionName" [(ngModel)]="regionName" class="form-control">
+                                    <span class="text-danger" *ngIf="regionName == null || regionName == ''">Please Enter Region Name</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>State<span class="required-asterisk" style="color:red;">*</span></label>
+                                    <select class="form-control" (change)="chncd($event)">
+                                <option [selected]="state.stateName == _state" value="{{state.stateCode}}"
+                                    *ngFor="let state of _stateList ;let i=index ">{{state.stateName}}</option>
+                            </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>District<span class="required-asterisk" style="color:red;">*</span></label>
+                                    <select class="form-control">
+                                <option [selected]="district.districtCode == _district" value="{{district.districtCode}}"
+                                        *ngFor="let district of _districtList ;let i=index ">{{district.name}}</option>
+                            </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Address<span class="required-asterisk" style="color:red;">*</span></label>
+                                    <textarea name="address" [(ngModel)]="address" class="form-control">
+                            </textarea>
+                                    <span class="text-danger" *ngIf="address == null || address == ''">Address is required</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>PIN</label>
+                                    <input type="url" name="pin" [(ngModel)]="pin" class="form-control">
+                                    <!--                            <span class="text-danger" *ngIf="pin == null || pin == ''">pin is required</span>-->
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="url" name="phoneNumber" [(ngModel)]="phoneNumber" class="form-control">
+                                    <!--                            <span class="text-danger" *ngIf="phoneNumber == null || phoneNumber == ''">Phone Number is required</span>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Person Name</label>
+                            <input type="text" name="regionMmpk" [(ngModel)]="contactPerson" class="form-control">
+                            <!--<span class="text-danger" *ngIf="contactPerson == null || contactPerson == ''">Contact Person Name is Required</span>-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Office Latitude<span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" name="latitude" [(ngModel)]="lat" class="form-control">
+                                    <span class="text-danger" *ngIf="lat == null || lat == ''">Office Latitude is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Office Longitude<span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" name="longitude" [(ngModel)]="log" class="form-control">
+                                    <span class="text-danger" *ngIf="log == null || log == ''">Office Longitude is required</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="mmpk">MMPK URL<span class="required-asterisk" style="color:red;">*</span></label>
+                            <input type="url" name="regionMmpk" [(ngModel)]="mmpkFileUrl" class="form-control">
+                            <span class="text-danger" *ngIf="validURL">Please add MMPK URL</span>
+                        </div> -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="shipeFile">Shape File*</label>
+                                <input type="file" (change)="shapeFiles($event)" ngModel="shapeFile" class="form-control-file" id="zip">
+                                <span class="text-danger" *ngIf="isShapeFile== false">Please choose zip file</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="csv">CSV</label>
+                                    <input type="file" (change)="csvFileChange($event)" accept=".csv" ngModel="regionCSV" class="form-control-file" id="csv">
+                                    <span class="text-danger" *ngIf="isCsvFile && uploadFile[1]== null">Please choose file</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="regionImage">Region Image</label>
+                                    <input type="file" (change)="imageChange($event)" ngModel="regionImage" class="form-control-file" id="img">
+                                    <span class="text-danger" *ngIf="isRegionImageFile && uploadFile[1]== null">Please choose file</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="csvFile">
+                            <div class="col-md-6">
+                                <label for="row">Total Rows<span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" class="form-control" [(ngModel)]="totalRow" [ngClass]="{'is-invalid': isRow  && (totalRow == null || totalRow == '')}" id="row">
+                                <span class="text-danger" *ngIf="isRow && totalRow == null">Please Insert row</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="column">Total Column<span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="number" class="form-control" [(ngModel)]="totalColumn" [ngClass]="{'is-invalid': isColumn  && (totalColumn == null || totalColumn == '')}" id="column">
+                                <span class="text-danger" *ngIf="isColumn && totalColumn == null">Please Insert Column</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" *ngIf="_genericMsg1 === 'Edit Region'" class="btn btn-secondary" (click)="regionAction(_idx,'edit')">Update</button>
+                <button type="button" *ngIf="_genericMsg1 === 'Delete'" class="btn btn-secondary" (click)="regionAction(_idx,'del')">{{_genericMsg1}}</button>
+                <button type="button" class="btn btn-secondary" (click)="delModal.hide()">Close</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>

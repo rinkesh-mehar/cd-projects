@@ -1,0 +1,36 @@
+<h3 class="page-title"><i class="fa fa-calendar">&nbsp;Weather Data Available</i></h3>
+<div class="row">
+    <div class="col-sm-12 col-lg-6" *ngFor="let year of yearList ; let i = index">
+
+        <div class="card text-white">
+            <div class="card-body">
+                <div class="container-fluid" style="padding: 0 15px;">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <!-- <p class="d-inline">{{year.Year}}</p> -->
+                            <button type="button" class="btn btn-primary d-block w-100" (click)="getMonthByYear(year.Year,i)">{{year.Year}}</button>
+
+                            <div *ngIf="year.months"><br>
+
+                                <div class="row">
+                                    <div class="col-4 mb-3 text-center" *ngFor="let month of year.months ; let monthIndex =index">
+                                        <button type="button" class="btn btn-primary d-block w-100" (click)="getWeeksByYearAndMonth(year.Year,i,month.MonthNo,monthIndex)">
+                                                {{month.MonthName}}
+                                        </button>
+
+                                        <div *ngIf="month.week">
+                                            <span class="num" *ngFor="let week of month.week ; let weekIndex =index">
+                                                <b>{{week.Week}}</b> 
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

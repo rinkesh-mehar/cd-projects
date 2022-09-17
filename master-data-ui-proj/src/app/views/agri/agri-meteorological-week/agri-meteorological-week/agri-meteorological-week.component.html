@@ -1,0 +1,141 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Meteorological Week
+                            <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right" [routerLink]="['/agri/meteorological-week-add/']"> Add
+                  Meteorological Week</button>
+                            </div>
+                        </div>
+
+                        <div class="btn-group action-buttons ml-auto col-lg-4 col-md-4 mt-4">
+                            <button class="btn btn-success approve" [disabled]="bulkDatas.disbled" type="button" (click)="bulkData('Approved','agri_meteorological_weeks')">Approve All</button>
+                            <button class="btn btn-danger reject" [disabled]="bulkDatas.disbled" type="button" (click)="bulkData('Rejected','agri_meteorological_weeks')">Reject All</button>
+                            <button class="btn btn-primary finalise" [disabled]="bulkDatas.disbled" type="button" (click)="bulkData('Active','agri_meteorological_weeks')">Finalize All</button>
+                        </div>
+
+                        <!-- //-------------------------------------------------------------- -->
+
+
+                        <div class="card-body">
+
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event)">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 20px;">
+                                            <label class="pure-material-checkbox">
+                                      <input type="checkbox" (change)="bulkDatas.checkAll($event)">
+                                      <span></span>
+                                  </label>
+                                        </th>
+                                        <th style="width: 20px;" mat-sort-header="id">ID</th>
+                                        <th class="text-left" mat-sort-header="weekNo">Week No</th>
+                                        <th class="text-left">Start Date</th>
+                                        <th class="text-left">End Date</th>
+                                        <th class="text-left" mat-sort-header="status">Status</th>
+                                        <th style="width: 150px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let meteorologicalWeek of MeteorologicalWeekList; let i = index">
+                                        <td>
+                                            <label class="pure-material-checkbox">
+                            <input type="checkbox" (change)="bulkDatas.checked($event)" value="{{meteorologicalWeek.id}}">
+                            <span></span>
+                        </label>
+                                        </td>
+
+                                        <td scope="row">{{meteorologicalWeek.id}}</td>
+                                        <td class="text-left">{{meteorologicalWeek.weekNo}}</td>
+
+                                        <td class="text-left">{{meteorologicalWeek.startDay}}&nbsp; {{ this.months[meteorologicalWeek.startMonth-1].name}}&nbsp;
+                                        </td>
+                                        <td class="text-left">
+                                            {{meteorologicalWeek.endDay}}&nbsp;{{ this.months[meteorologicalWeek.endMonth-1].name}}</td>
+                                        <td class="text-left">
+                                            {{meteorologicalWeek.status}}</td>
+
+                                        <td>
+                                            <button type="button" class="btn btn-info btn-sm move-right" title="Edit" [routerLink]="['/agri/meteorological-week-edit/', meteorologicalWeek.id]" *ngIf="userRightsService.canEdit()"><i class="fa fa-pencil-square-o"></i></button>
+                                            <button type="button" class="btn btn-success btn-sm move-right" title="Approve" [disabled]="meteorologicalWeek.status == meteorologicalWeekStatus.APPROVED_STATUS" (click)="approve(meteorologicalWeek,i)" *ngIf="userRightsService.canPrimaryApprove()"><i
+                          class="fa fa-get-pocket"></i></button>
+                                            <button type="button" class="btn btn-primary btn-sm move-right" title="Finalize" [disabled]="meteorologicalWeek.status == meteorologicalWeekStatus.ACTIVE_STATUS" (click)="finalize(meteorologicalWeek,i)" *ngIf="userRightsService.canFinalize()"><i
+                          class="fa  fa-thumbs-up"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm move-right" title="Reject" [disabled]="meteorologicalWeek.status == meteorologicalWeekStatus.REJECTED_STATUS" (click)="reject(meteorologicalWeek,i)" *ngIf="userRightsService.canReject()"><i
+                          class="fa fa-close"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm move-right" title="Delete" [disabled]="meteorologicalWeek.status == meteorologicalWeekStatus.DELETED_STATUS" (click)="delete(meteorologicalWeek,i)" *ngIf="userRightsService.canDelete()"><i
+                          class="fa fa-close"></i></button>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="MeteorologicalWeekList.length == 0">
+                                    <td colspan="7" class="text-left">Data Not Found..!!</td>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- //------------------------------------------------------- -->
+
+                        <!-- <div class="card-body">
+              <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                <thead class="thead-light">
+                  <tr>
+                    <th style="width: 20px;">ID</th>
+                    <th class="text-left">Week No</th>
+                    <th class="text-left">Start Day</th>
+                    <th class="text-left">Start Month</th>
+                    <th class="text-left">End Day</th>
+                    <th class="text-left">End Month</th>
+                    <th style="width: 150px;">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let meteorologicalWeek of MeteorologicalWeekList">
+                    <td scope="row">{{meteorologicalWeek.id}}</td>
+                    <td class="text-left">{{meteorologicalWeek.weekNo}}</td>
+                    <!-- get month by get month name -->
+                        <!-- <td class="text-left">{{ this.months[meteorologicalWeek.startMonth-1].name}} -
+                      {{meteorologicalWeek.startMonth}}</td>
+                      <td class="text-left">{{meteorologicalWeek.startDay}}</td>
+                    <td class="text-left">{{ this.months[meteorologicalWeek.endMonth-1].name}} -
+                      {{meteorologicalWeek.endMonth}}</td> -->
+                        <!-- <td class="text-left">{{ this.months[meteorologicalWeek.startMonth-1].name}}</td>
+                    <td class="text-left">{{meteorologicalWeek.startDay}}</td>
+                    <td class="text-left">{{ this.months[meteorologicalWeek.endMonth-1].name}}</td>
+                    <td class="text-left">{{meteorologicalWeek.endDay}}</td>
+                    <td>
+                      <button type="button" class="btn btn-success btn-sm move-right" title="Edit"
+                        [routerLink]="['/agri/meteorological-week-edit/', meteorologicalWeek.id]"
+                        *ngIf="userRightsService.canEdit()"><i class="fa fa-pencil-square-o"></i></button>
+                      <button type="button" class="btn btn-info btn-sm move-right" title="Approve"
+                        (click)="approve(meteorologicalWeek,i)" *ngIf="userRightsService.canPrimaryApprove()"><i
+                          class="fa fa-get-pocket"></i></button>
+                      <button type="button" class="btn btn-primary btn-sm move-right" title="Finalize"
+                        (click)="finalize(meteorologicalWeek,i)" *ngIf="userRightsService.canFinalize()"><i
+                          class="fa  fa-thumbs-up"></i></button>
+                      <button type="button" class="btn btn-danger btn-sm move-right" title="Reject"
+                        (click)="reject(meteorologicalWeek,i)" *ngIf="userRightsService.canReject()"><i
+                          class="fa fa-close"></i></button>
+                      <button type="button" class="btn btn-danger btn-sm move-right" title="Delete"
+                        (click)="delete(meteorologicalWeek,i)" *ngIf="userRightsService.canDelete()"><i
+                          class="fa fa-close"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

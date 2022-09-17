@@ -1,0 +1,71 @@
+<div id="ui-view">
+        <div>
+          <div class="animated fadeIn">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card">
+      
+                  <div class="card-header">
+                    <i class="fa fa-align-justify"></i> All Yield Correction Criteria
+                    <div class="card-header-actions">
+                      <button class="btn btn-primary btn-sm move-right" [routerLink]="['/yield/yield-correction-criteria-add/']"> Add
+                        Yield Correction Criteria</button>
+                    </div>
+                  </div>
+      
+      
+                <div *ngIf="isSubmitted">
+                  <div class="alert alert-success" *ngIf="isSuccess">
+                    <strong> {{_statusMsg}} Please Wait ..</strong>.
+                  </div>
+      
+                  <div class="alert alert-danger" *ngIf="!isSuccess ">
+                    <strong>{{_statusMsg}}</strong>
+                  </div>
+                </div>
+      
+                  <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                      <thead class="thead-light">
+                        <tr>
+                          <th style="width: 20px;">ID</th>
+                          <th class="text-left">Yield Correction Criteria</th>
+                          <th class="text-left">Status</th>
+                          <th style="width: 150px;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let yieldCorrectionCriteria of YieldCorrectionCriteriaList">
+                          <td scope="row">{{yieldCorrectionCriteria.id}}</td>
+                          <td class="text-left">{{yieldCorrectionCriteria.name}}</td>
+                          <td class="text-left">{{yieldCorrectionCriteria.status}}</td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-sm move-right" title="Edit"
+                            [routerLink]="['/yield/yield-correction-criteria-edit/', yieldCorrectionCriteria.id]" *ngIf="userRightsService.canEdit()"><i
+                              class="fa fa-pencil-square-o"></i></button>
+                          <button type="button" class="btn btn-info btn-sm move-right" title="Approve"
+                            (click)="approve(yieldCorrectionCriteria,i)" *ngIf="userRightsService.canPrimaryApprove()"><i
+                              class="fa fa-get-pocket"></i></button>
+                          <button type="button" class="btn btn-primary btn-sm move-right" title="Finalize"
+                            (click)="finalize(yieldCorrectionCriteria,i)" *ngIf="userRightsService.canFinalize()"><i
+                              class="fa  fa-thumbs-up"></i></button>
+                              
+                          <button type="button" class="btn btn-danger btn-sm move-right" title="Reject"
+                            (click)="reject(yieldCorrectionCriteria,i)" *ngIf="userRightsService.canReject()"><i
+                              class="fa fa-close"></i></button>
+                          <button type="button" class="btn btn-danger btn-sm move-right" title="Delete"
+                            (click)="delete(yieldCorrectionCriteria,i)" *ngIf="userRightsService.canDelete()"><i
+                              class="fa fa-close"></i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>

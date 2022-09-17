@@ -1,0 +1,149 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add New CropData App</span></strong></div>
+                <div class="card-body">
+                <strong><span *ngIf="mode=='edit'"> Update CropData App</span></strong>
+                    <div class="card-body">
+                        <form [formGroup]="addApp" (ngSubmit)="submitForm()" novalidate>
+                            <div class="card" style="padding:20px;">
+                                <div class="row">
+                                    
+                                    <div class="form-group col-sm-12">
+                                        <label>App Name</label>
+                                        <input type="text" formControlName="appName" class="form-control" [ngClass]="{'is-invalid': addApp.get('appName').touched && addApp.get('appName').invalid}">
+
+                                        <div class="invalid-feedback">
+                                            <div>App Name is required</div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label>Version Number</label>
+                                        <input type="number" min="0" formControlName="versionNumber" class="form-control">
+
+                                        <div class="invalid-feedback">
+                                            <div>Version Number is required</div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label>Version Name</label>
+                                        <input type="text" formControlName="versionName" class="form-control">
+
+                                        <div class="invalid-feedback">
+                                            <div>Version Name is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <label>Whats New Implemented</label>
+                                        <textarea type="text" formControlName="versionLog" class="form-control" width="100%" height="500px"></textarea>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label>Released Date</label>
+                                        <input type="date" formControlName="releaseDate" class="form-control fa-fa-calendar-o"
+                                               [ngClass]="{'is-invalid': addApp.get('releaseDate').touched && addApp.get('releaseDate').invalid}">
+
+                                        <div class="invalid-feedback">
+                                            <div>Released Date is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                <div class="form-group col-sm-12">
+                                    <label>Google App Url</label>
+                                    <input type="text" formControlName="appUrl" class="form-control">
+
+                                </div>
+                                </div>
+                            </div>
+
+                            <div class="card" style="padding:20px;">
+                                <div class="row" style="align-content: center">
+                                    <div class="form-group row col-sm-12">
+                                        <label class="col-sm-3" for="file-input">Upload Apk</label>
+                                        <div class="col-sm-9">
+                                            <input type="file" formControlName="apkUrl" (change)="uploadApkUrl($event)">
+                                            <a href="{{editobj.apkUrl}}">{{editobj.apkUrl}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="card" style="padding:20px;">
+                                <div class="row" style="align-content: center">
+                                    <div class="form-group row col-sm-12">
+                                        <label class="col-sm-3" for="file-input">Upload Encrypted Key</label>
+                                        <div class="col-sm-9">
+                                            <input type="file" id="file-input" formControlName="encryptedKey" (change)="uploadEncryptedKey($event)">
+                                            <a href ="{{editobj.encryptedKey}}">{{editobj.encryptedKey}}</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" style="padding:20px;">
+                                <div class="row" style="align-content: center">
+                                    <div class="form-group row col-sm-12">
+                                        <label class="col-sm-3" for="file-input">Upload KeyStore File</label>
+                                        <div class="col-sm-9">
+                                            <input type="file" formControlName="keyStoreFile" (change)="uploadKeyStoreFile($event)">
+                                            <a href ="{{editobj.keyStoreFile}}">{{editobj.keyStoreFile}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <button class="btn btn-sm btn-primary" type="submit"> Submit </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>
+
+
+<div class="modal" #myModal id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header" style="color:white"> 
+                    <h4 class="modal-title">SUCCESS</h4> 
+                     
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body" style="background-color:white;">
+                <span style="color:black; font-size:15px;" id="msg"></span>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" id="onBtn" style="background-color:#4dbd74;color:white" (click)="modalClose()" class="btn btn-secondary" data-dismiss="modal">
+                        OK</button>
+                </div>
+            </div>
+        </div>
+    </div>

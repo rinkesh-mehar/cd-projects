@@ -1,0 +1,117 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong><span *ngIf="mode=='add'"> Add VM</span> <span
+                *ngIf="mode=='edit'">Edit VM</span></strong></div>
+                <form [formGroup]="vmForm" (ngSubmit)="submitForm()" novalidate>
+
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="name" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': vmForm.get( 'name').touched && vmForm.get( 'name').invalid}" (change)="trimValue(this.vmForm.get('name'))">
+                                <div class="invalid-feedback">
+                                    <div>Name is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>Private IP <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="privateIP" class="form-control" maxlength="50" [ngClass]="{ 'is-invalid': vmForm.get( 'privateIP').touched && vmForm.get( 'privateIP').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="vmForm.get( 'privateIP').errors?.required">Private IP is required</div>
+                                    <div *ngIf="vmForm.get( 'privateIP').errors?.pattern">Please Enter Valid Private IP</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>Public IP <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="publicIP" class="form-control" maxlength="50" [ngClass]="{ 'is-invalid': vmForm.get( 'publicIP').touched && vmForm.get( 'publicIP').invalid}">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="vmForm.get( 'publicIP').errors?.required">Public IP is required</div>
+                                    <div *ngIf="vmForm.get( 'publicIP').errors?.pattern">Please Enter Valid public IP</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>VNet Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="vnetName" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': vmForm.get( 'vnetName').touched && vmForm.get( 'vnetName').invalid}" (change)="trimValue(this.vmForm.get('vnetName'))">
+                                <div class="invalid-feedback">
+                                    <div>VNet Name is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+
+                                <label>User Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="userName" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': vmForm.get( 'userName').touched && vmForm.get( 'userName').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>User Name is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="mode=='add'">
+                            <div class="form-group col-sm-12 mb-0">
+
+                                <label>Password <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="password" class="form-control" maxlength="255" [ngClass]="{ 'is-invalid': vmForm.get( 'password').touched && vmForm.get( 'password').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Password is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="mode=='edit'">
+                            <div class="form-group col-sm-12">
+
+                                <label>Password <span class="required-asterisk" style="color:red;">*</span></label>
+                                <input type="text" formControlName="password" class="form-control" maxlength="255" [ngClass]="{ 'is-invalid': vmForm.get( 'password').touched && vmForm.get( 'password').invalid}">
+                                <div class="invalid-feedback">
+                                    <div>Password is required</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="mode=='edit'">
+                            <div class="form-group col-sm-12 mb-0">
+                                <label>Status <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="status" class="form-control" [ngClass]="{'is-invalid': vmForm.get('status').touched && vmForm.get('status').invalid}">
+                                <option value="">--Select--</option>
+                            <option *ngFor="let vmStatus of vmStatusList" value={{vmStatus}}>
+                                {{vmStatus}}
+                            </option>
+                        </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select Status</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <button class="btn btn-primary " type="submit"> <span *ngIf="mode=='add'"> Submit</span> <span
+                    *ngIf="mode=='edit'">Update</span> </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/azure-devops/vm']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

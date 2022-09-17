@@ -1,0 +1,130 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> All Zonal Commodity Cultivation Cost
+                            <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right" [routerLink]="['/zonal/commodity-cultivation-cost/commodity-cultivation-cost-add/']">
+                                    Add Zonal Commodity Cultivation Cost
+                                </button>
+                                <!-- <button class="btn btn-danger btn-sm move-right" (click)="fixBug()"><i class="fa fa-bug" aria-hidden="true"></i> Fix Bugs</button> -->
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="input-group mb-3  col-lg-8 col-md-8 p-0">
+                                        <input type="text" class="form-control" placeholder="Search here...  " [(ngModel)]="searchText">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button" (click)="searchCultivationCost()">
+                                                Search
+                                            </button>
+                                            <button class="btn btn-danger" type="button" (click)="searchText='';searchCultivationCost()">Clear
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group action-buttons col-lg-4 col-md-4">
+                                        <button class="btn btn-success approve" [disabled]="bulkDatas.disbled" type="button" (click)="bulkData('Approved','zonal_commodity_cultivation_cost')">Approve All
+                                        </button>
+                                        <button class="btn btn-danger reject" [disabled]="bulkDatas.disbled" type="button" (click)="bulkData('Rejected','zonal_commodity_cultivation_cost')">Reject All
+                                        </button>
+                                        <button class="btn btn-primary finalise" [disabled]="bulkDatas.disbled" type="button" (click)="bulkData('Active','zonal_commodity_cultivation_cost')">Finalize All
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm" matSort (matSortChange)="sortData($event)">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 20px;">
+                                            <label class="pure-material-checkbox">
+                                                <input type="checkbox" (change)="bulkDatas.checkAll($event)" id="masterChkBox">
+                                            <span></span>
+                                        </label>
+                                        </th>
+                                        <th style="width: 20px;" mat-sort-header="id">ID</th>
+                                        <th class="text-left" mat-sort-header="stateName">State</th>
+                                        <th class="text-left" mat-sort-header="acz">ACZ</th>
+                                        <th class="text-left" mat-sort-header="zonalCommodity">Zonal Commodity</th>
+                                        <th class="text-left" mat-sort-header="costOfCultivation">Cost Of Cultivation</th>
+                                        <th class="text-left" mat-sort-header="costOfProduction">Cost Of Production</th>
+                                        <th style="width: 120px;" class="text-center" mat-sort-header="status">Status</th>
+                                        <th style="width: 180px; max-width: 180px;min-width: 180px;">Action</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody *ngIf="pageZonalCommodityCultivationCost?.content">
+                                    <tr *ngFor="let cultivationCost of pageZonalCommodityCultivationCost.content  | searchFilter :searchText:['id','stateName','acz','zonalCommodity','costOfCultivation','costOfProduction','status']">
+                                        <td><label class="pure-material-checkbox">
+                                            <input type="checkbox" (change)="bulkDatas.checked($event)"
+                                                   value="{{cultivationCost.id}}">
+                                            <span></span>
+                                        </label></td>
+                                        <td scope="row">{{cultivationCost.id}}</td>
+                                        <td class="text-left">{{cultivationCost.stateName |titlecase}}</td>
+                                        <td class="text-left">{{cultivationCost.acz |titlecase}}</td>
+                                        <td class="text-left"><b>Commodity : </b>{{cultivationCost.zonalCommodity}}<br> <b>Sowing Week Start : </b>{{cultivationCost.zcSowingWeekStart}}
+                                            <br> <b>Sowing Week End : </b>{{cultivationCost.zcSowingWeekEnd}}</td>
+                                        <td class="text-left">{{cultivationCost.costOfCultivation}}</td>
+                                        <td class="text-left">{{cultivationCost.costOfProduction}}</td>
+                                        <td style="width: 120px;" class="text-center">
+                                            <span style="width: 100px;" class="{{cultivationCost.status =='Inactive'?'badge badge-secondary':cultivationCost.status =='Approved'?'badge badge-success':cultivationCost.status =='Active'?'badge badge-primary':'badge badge-danger'}}">{{cultivationCost.status}}</span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info btn-sm move-right" title="Edit" [routerLink]="['/zonal/commodity-cultivation-cost/commodity-cultivation-cost-edit/', cultivationCost.id]" *ngIf="userRightsService.canEdit()"><i
+                                                    class="fa fa-pencil-square-o"></i></button>
+                                            <button type="button" class="btn btn-success btn-sm move-right" title="Approve" [disabled]="cultivationCost.status == cultivationCostStatus.APPROVED_STATUS||cultivationCost.status == cultivationCostStatus.ACTIVE_STATUS" (click)="approve(cultivationCost,i)"
+                                                *ngIf="userRightsService.canPrimaryApprove()"><i
+                                                    class="fa fa-get-pocket"></i></button>
+                                            <button type="button" class="btn btn-primary btn-sm move-right" title="{{cultivationCost.status == cultivationCostStatus.INACTIVE_STATUS || cultivationCost.status == cultivationCostStatus.REJECTED_STATUS?cultivationCostStatus.CAN_NOT_FINALIZE:'Finalize'}}"
+                                                [disabled]="cultivationCost.status == cultivationCostStatus.ACTIVE_STATUS || cultivationCost.status == cultivationCostStatus.INACTIVE_STATUS || cultivationCost.status == cultivationCostStatus.REJECTED_STATUS"
+                                                (click)="finalize(cultivationCost,i)" *ngIf="userRightsService.canFinalize()"><i
+                                                    class="fa  fa-thumbs-up"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm move-right" title="Reject" (click)="reject(cultivationCost,i)" [disabled]="cultivationCost.status == cultivationCostStatus.REJECTED_STATUS" *ngIf="userRightsService.canReject()"><i
+                                                    class="fa fa-close"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm move-right" title="Delete" (click)="delete(cultivationCost,i)" [disabled]="cultivationCost.status == cultivationCostStatus.DELETED_STATUS" *ngIf="userRightsService.canDelete()"><i
+                                                    class="fa fa-close"></i></button>
+                                        </td>
+                                        <!-- </div> -->
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="pageZonalCommodityCultivationCost.content.length == 0">
+                                    <td colspan="11" class="text-left">Data Not Found..!!</td>
+                                </tbody>
+                            </table>
+
+                            <div class="row justify-content-between m-0">
+                                <div class="col-xs-9 col-9 text-center p-0" *ngIf="pageZonalCommodityCultivationCost?.content">
+                                    <pagination [totalItems]="pageZonalCommodityCultivationCost.totalElements" [(ngModel)]="selectedPage" [maxSize]="maxSize" class="pagination-md" previousText="&lsaquo; Prev" nextText="Next &rsaquo;" firstText="&laquo; First" lastText="Last &raquo; " [boundaryLinks]="true"
+                                        [itemsPerPage]="pageZonalCommodityCultivationCost.size" [rotate]="false" (numPages)="numPages = $event;" (pageChanged)="onSelect($event.page-1)">
+                                    </pagination>
+                                </div>
+                                <div class="row col-xs-3 col-3 m-0" *ngIf="pageZonalCommodityCultivationCost?.content">
+                                    <div class="col text-right p-0">
+                                        <label class="text-right">Records per page</label>
+                                        <select class="p-0" (change)="loadData($event)">
+                                        <option value="10" selected>10</option>
+                                        <option *ngFor="let items of records" value="{{items}}">{{items}}</option>
+                                    </select> &nbsp;
+                                        <label class="text-center">Page {{selectedPage}} of
+                                        {{pageZonalCommodityCultivationCost.totalPages}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <app-image-preview-modal #imagePreviewModal></app-image-preview-modal> -->
+<app-confirmation-madal (hideModal)="modalConfirmation($event)" #confirmModal></app-confirmation-madal>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

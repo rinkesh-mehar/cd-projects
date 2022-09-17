@@ -1,0 +1,106 @@
+node{
+    def AppName = "master-data-ui"
+	def ActiveProfile = "dev"
+	def remote = [:]
+	remote.name = "dev-server"
+    remote.allowAnyHosts = true
+	
+	remote.user = 'dev-admin'
+  	remote.password = 'password'
+  
+  	def configPassword = 'password'
+
+	stage('Checkout SCM'){
+		checkout scm  
+	}
+
+	stage('Build & Tag Docker Image'){
+
+        if("development" == "${env.BRANCH_NAME}") { 
+	   		sh 'echo Building Image on DEV Server'
+            sh "docker build -f Dockerfile-dev -t ${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER} ."
+	        sh "docker tag ${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER} ${DockerRegistryURL}/toolsuite/${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER}"
+        } else if("demo" == "${env.BRANCH_NAME}") { 
+			sh 'echo Building Image on DEMO Server'
+            sh "docker build -f Dockerfile-demo -t ${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER} ."
+	        sh "docker tag ${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER} ${DockerRegistryURL}/toolsuite/${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER}"
+        } else if("uat" == "${env.BRANCH_NAME}") { 
+		  sh 'echo Building Image on UAT Server'
+		  sh "docker build -f Dockerfile-uat -t ${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER} ."
+	      sh "docker tag ${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER} ${DockerRegistryURL}/toolsuite/${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER}"
+		} else if("master" == "${env.BRANCH_NAME}") { 
+		  sh 'echo Building Image on PRODUCTION Server'
+		}
+	 
+	}
+    
+    stage('Push Docker Image'){
+        withCredentials([string(credentialsId: 'docker-reg-pwd', variable: 'DockerRegPWD')]) {
+            sh "docker login ${DockerRegistryURL} -u maintainer -p ${DockerRegPWD}"
+        }
+        sh "docker push ${DockerRegistryURL}/toolsuite/${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER}"
+    }
+    
+   stage('Deploy to Dev Server'){
+      sh 'echo Starting Deployment'
+      
+	   if("development" == "${env.BRANCH_NAME}") { 
+	   		sh 'echo Deploying on DEV Server'
+		    withCredentials([usernamePassword(credentialsId: 'dev-server-ssh', passwordVariable: 'password', usernameVariable: 'userName')]) {
+	        remote.user = userName
+	        remote.password = password
+	      	remote.name = "dev-server"
+	      	remote.host = "${env.DevServerIP}"
+	      	
+	         withCredentials([string(credentialsId: 'docker-reg-pwd', variable: 'DockerRegPWD')]) {
+	       		sshCommand remote: remote, command: "docker login ${DockerRegistryURL} -u maintainer -p ${DockerRegPWD}"
+		      	sshCommand remote: remote, command: "docker stop ${AppName} || true && docker rm ${AppName} || true"
+		      	sshCommand remote: remote, command: "docker pull ${DockerRegistryURL}/toolsuite/${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER}"
+		      	
+		      	withCredentials([usernamePassword(credentialsId: 'Dev-Config-User', passwordVariable: 'password', usernameVariable: 'userName')]) {
+		      		configPassword = password
+		      		sshCommand remote: remote, command: "docker run --restart=always -d  --net cropdata-network --name ${AppName} --hostname ${AppName} -e config.password=${configPassword} -e config.uri=${env.DevConfigURI} -e ActiveProfile=${ActiveProfile} -e EUREKA_URI=${env.DEV_EUREKA_URI} -v /var/log/${AppName}/:/var/log/${AppName}/ -v /home/${remote.user}/docker_data/toolsuite/${AppName}/:/home/ -v /etc/timezone:/etc/timezone:ro ${DockerRegistryURL}/toolsuite/${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER}"
+		      	}//with Dev-Config-User
+		     }//with docker-reg-pwd
+	      }//with dev-server-ssh credentials
+		} else if("uat" == "${env.BRANCH_NAME}") { 
+		  sh 'echo Deploying on DELL UAT Server'
+		   withCredentials([usernamePassword(credentialsId: 'cropdata-ssh', passwordVariable: 'password', usernameVariable: 'userName')]) {
+	        remote.user = userName
+	        remote.password = password
+	      	remote.name = "demo-server"
+	      	remote.host = "${env.DemoServerIP}"
+	      	
+	         withCredentials([string(credentialsId: 'docker-reg-pwd', variable: 'DockerRegPWD')]) {
+	       		sshCommand remote: remote, command: "docker login ${DockerRegistryURL} -u maintainer -p ${DockerRegPWD}"
+		      	sshCommand remote: remote, command: "docker stop ${AppName} || true && docker rm ${AppName} || true"
+		      	sshCommand remote: remote, command: "docker pull ${DockerRegistryURL}/toolsuite/${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER}"
+		      	
+		      	withCredentials([usernamePassword(credentialsId: 'Config-User-Demo', passwordVariable: 'password', usernameVariable: 'userName')]) {
+		      		configPassword = password
+		      		sshCommand remote: remote, command: "docker run --restart=always -d  --net cropdata-network --name ${AppName} --hostname ${AppName} -e config.password=${configPassword} -e config.uri=${env.DemoConfigURI} -e ActiveProfile=${ActiveProfile} -e EUREKA_URI=${env.DEMO_EUREKA_URI} -v /var/log/${AppName}/:/var/log/${AppName}/ -v /home/${remote.user}/docker_data/toolsuite/${AppName}/:/home/ -v /etc/timezone:/etc/timezone:ro ${DockerRegistryURL}/toolsuite/${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER}"
+		      	}//with Config-User-Demo
+		     }//with docker-reg-pwd
+	      }//with cropdata-ssh credentials
+		}else if("demo" == "${env.BRANCH_NAME}") { 
+			sh 'echo Deploying on Azure DEMO Server'
+			withCredentials([usernamePassword(credentialsId: 'cdt-ts-msui-6', passwordVariable: 'password', usernameVariable: 'userName')]) {
+	        remote.user = userName
+	        remote.password = password
+	      	remote.name = "azure-demo-server"
+	      	remote.host = "${env.AzureDemo_CDT_TS_MSUI_IP}"
+	      	
+	         withCredentials([string(credentialsId: 'docker-reg-pwd', variable: 'DockerRegPWD')]) {
+	       		sshCommand remote: remote, command: "docker login ${DockerRegistryURL} -u maintainer -p ${DockerRegPWD}"
+		      	sshCommand remote: remote, command: "docker stop ${AppName} || true && docker rm ${AppName} || true"
+		      	sshCommand remote: remote, command: "docker pull ${DockerRegistryURL}/toolsuite/${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER}"
+		      	sshCommand remote: remote, command: "docker run --restart=always -d  --net=host  --name ${AppName} --hostname ${AppName} -v /var/log/toolsuite/${AppName}/:/var/log/${AppName}/ -v /home/${remote.user}/docker_data/toolsuite/${AppName}/:/home/ -v /etc/timezone:/etc/timezone:ro ${DockerRegistryURL}/toolsuite/${AppName}-${env.BRANCH_NAME}:${BUILD_NUMBER}"
+		     }//with docker-reg-pwd
+			}
+		} else if("master" == "${env.BRANCH_NAME}") { 
+		  sh 'echo Deploying on PRODUCTION Server'
+		}
+
+     sh 'echo Deployment Successful'
+   }
+}

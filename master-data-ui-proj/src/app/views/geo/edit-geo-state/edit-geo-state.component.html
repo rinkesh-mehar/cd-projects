@@ -1,0 +1,62 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>Edit State</strong><small> Form</small></div>
+
+
+                <form [formGroup]="updateStateForm" (ngSubmit)="submitForm()" novalidate>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Country <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="countryCode" class="form-control" [ngClass]="{'is-invalid': updateStateForm.get('countryCode').touched && updateStateForm.get('countryCode').invalid}">
+                                    <!-- (change)="loadAllStateByCountryCode($event)" -->
+                                    <option value="">--Select--</option>
+                                    <option *ngFor="let country of CountryList" value={{country.countryCode}}>
+                                        {{country.name}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Please Select CountryCode</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group">
+                                    <label>State Code</label>
+                                    <input type="number" class="form-control" formControlName="stateCode">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12 mb-0">
+                                <div class="form-group mb-0">
+                                    <label>State Name <span class="required-asterisk" style="color:red;">*</span></label>
+                                    <input type="text" formControlName="name" class="form-control" maxlength="20" [ngClass]="{'is-invalid': updateStateForm.get('name').touched && updateStateForm.get('name').invalid}" (change)="trimValue(this.updateStateForm.get('name'))">
+                                    <div class="invalid-feedback">
+                                        <div>Please Select State Name</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/geo/state']">Cancel</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

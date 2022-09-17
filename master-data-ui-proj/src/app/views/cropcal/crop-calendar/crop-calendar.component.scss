@@ -1,0 +1,102 @@
+@media only print {
+    #print-section {
+        scale: 0.5;
+    }
+}
+
+@media print {
+    /* All your print styles go here */
+    #print-section {
+        transform: scale(0.57);
+        -webkit-transform-origin-x: 0;
+        -webkit-transform-origin-y: 0;
+        background-color: #ffffff;
+    }
+    #calendar_filter,
+    .print_btn,
+    .stress_add_btn .btn {
+        display: none;
+    }
+    .filter_breadcrumb {
+        transform: scale(0.5);
+        -webkit-transform-origin-x: 0;
+    }
+}
+
+.card {
+    ul {
+        padding: 0;
+        li {
+            display: inline-block;
+            padding: 0 15px;
+            font-size: 18px;
+            position: relative;
+            font-weight: bold;
+            &:after {
+                content: "\f105";
+                position: absolute;
+                right: -4px;
+                top: 50%;
+                font-family: FontAwesome;
+                font-size: 27px;
+                transform: translateY(-50%);
+            }
+            &:last-of-type {
+                &:after {
+                    display: none;
+                }
+            }
+            &:first-of-type {
+                padding-left: 0;
+            }
+        }
+    }
+}
+
+.crop-calender-outer {
+    // .crop-calender-table th, 
+    .crop-calender-table td {
+        padding: 0px 8px;
+        border-top: 1px solid black;
+        border-left: 1px solid black;
+        text-align: center;
+        max-width: 50px;
+        color: #000000;
+    }
+    .crop-calender-table tr td:last-child {
+        border-right: 1px solid black;
+    }
+    .head {
+        padding: 2px;
+        background: #ccc;
+        font-weight: bold;
+        text-align: left !important;
+        vertical-align: middle;
+        max-width: 120px !important;
+    }
+    @media only screen and (max-width: 1828px) {
+        body {
+            .crop-calender-table {
+                min-width: 1828px;
+                overflow: auto;
+            }
+        }
+    }
+    @media only screen and (max-width: 1200px) {
+        body {
+            .crop-calender-table {
+                min-width: 1200px;
+                overflow: auto;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    form {
+        .col {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+}

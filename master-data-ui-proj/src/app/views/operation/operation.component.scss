@@ -1,0 +1,5 @@
+.card-body .table.table-bordered {
+  td:nth-last-child(2), td:last-of-type, .thead-light th:last-of-type{
+    text-align: left !important;
+  }
+}

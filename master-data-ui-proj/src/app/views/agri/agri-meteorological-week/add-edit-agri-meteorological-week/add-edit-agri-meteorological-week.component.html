@@ -1,0 +1,188 @@
+<div class="row">
+
+    <!-- Form -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><strong><span *ngIf="mode=='add'"> Add</span> <span *ngIf="mode=='edit'">Edit
+                    </span>Meteorological Week</strong></div>
+
+
+            <form [formGroup]="meteorologicalWeekForm" (ngSubmit)="submitMeteorologicalWeekForm()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Week No <span class="required-asterisk" style="color:red;">*</span></label>
+                                <!-- *ngFor="let item of [].constructor(10); let i = index"
+                                <input type="text" formControlName="weekNo" class="form-control"
+                                    [ngClass]="{'is-invalid': meteorologicalWeekForm.get('weekNo').touched && meteorologicalWeekForm.get('weekNo').invalid}"> -->
+
+
+                                <select formControlName="weekNo" class="form-control" [ngClass]="{'is-invalid': meteorologicalWeekForm.get('weekNo').touched && meteorologicalWeekForm.get('weekNo').invalid}">
+                                    <option value="">-- Select Week --</option>
+                                    <option *ngFor="let item of [].constructor(52); let i = index" value="{{i+1}}">
+                                        {{i+1}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Week No is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Start Month <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="startMonth" class="form-control" [ngClass]="{'is-invalid': meteorologicalWeekForm.get('startMonth').touched && meteorologicalWeekForm.get('startMonth').invalid}" (change)="monthChange()">
+                                    <option value="">-- Start Month --</option>
+                                    <option *ngFor="let item of months; let i = index" value="{{item.value}}">
+                                        {{item.name}} -{{item.value}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Start Month is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Start Day <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="startDay" class="form-control" [ngClass]="{'is-invalid': meteorologicalWeekForm.get('startDay').touched && meteorologicalWeekForm.get('startDay').invalid}">
+                                    <option value="">-- Start Day --</option>
+                                    <option *ngFor="let item of [].constructor(monthDays); let i = index"
+                                        value="{{i+1}}">
+                                        {{i+1}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>Start Day is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <div class="form-group mb-0">
+                                <label>End Month <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="endMonth" class="form-control" [ngClass]="{'is-invalid': meteorologicalWeekForm.get('endMonth').touched && meteorologicalWeekForm.get('endMonth').invalid}" (change)="monthEndChange()">
+                                    <option value="">-- End Month --</option>
+                                    <option *ngFor="let item of months; let i = index" value="{{item.value}}">
+                                        {{item.name}} -{{item.value}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>End Month is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group mb-0">
+                                <label>End Day <span class="required-asterisk" style="color:red;">*</span></label>
+                                <select formControlName="endDay" class="form-control" [ngClass]="{'is-invalid': meteorologicalWeekForm.get('endDay').touched && meteorologicalWeekForm.get('endDay').invalid}">
+                                    <option value="">-- End Day --</option>
+                                    <option *ngFor="let item of [].constructor(monthDays); let i = index"
+                                        value="{{i+1}}">
+                                        {{i+1}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>End Day is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row mt-3 mb-2">
+                        <div class="col-sm-12"><label><strong>End :</strong></label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>End Day</label>
+                                <select formControlName="endDay" class="form-control"
+                                    [ngClass]="{'is-invalid': meteorologicalWeekForm.get('endDay').touched && meteorologicalWeekForm.get('endDay').invalid}">
+                                    <option value="">-- End Day --</option>
+                                    <option *ngFor="let item of [].constructor(31); let i = index" value="{{i+1}}">
+                                        {{i+1}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>End Day is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>End Month</label>
+                                <select formControlName="endMonth" class="form-control"
+                                    [ngClass]="{'is-invalid': meteorologicalWeekForm.get('endMonth').touched && meteorologicalWeekForm.get('endMonth').invalid}">
+                                    <option value="">-- End Month --</option>
+                                    <option *ngFor="let item of [].constructor(12); let i = index" value="{{i+1}}">
+                                        {{i+1}}
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <div>End Month is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary"><span *ngIf="mode=='add'"> Submit</span> <span
+                        *ngIf="mode=='edit'">Update</span></button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/agri/meteorological-week']">Cancel</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <strong>Bulk Insert</strong><small> Form</small>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-primary" (click)="downloadExcelFormat()" title="Download Format"><i class="fa fa-download" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div>
+
+                <form (ngSubmit)="submitExcelForm()" novalidate>
+                    <div class="card-body">
+                        <div class="form-group mb-0">
+                            <label for="file-input">Select excel(.xlsx) file</label>
+                            <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".xlsx" (change)="uploadExcel($event)">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit"> Submit </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/agri/meteorological-week']">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+    <app-error-modal #errorModal></app-error-modal>

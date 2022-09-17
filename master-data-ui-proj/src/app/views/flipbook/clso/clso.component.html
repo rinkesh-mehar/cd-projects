@@ -1,0 +1,129 @@
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-12">
+        <section class="mb-5">
+            <div class="row justify-content-md-center">
+                <div class="col-md-12 from-box">
+                    <form #symptoms="ngForm" (ngSubmit)="getSymptoms(symptoms)" ngNativeValidate>
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fa fa-align-justify"></i> Flipbook
+                                <div class="card-header-actions">
+                                    <button class="btn btn-primary btn-sm move-right" [routerLink]="['/flipbook/add-benchmark-img']">Add
+                                            Flipbook Benchmark Images</button>
+                                </div>
+                            </div>
+
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label><strong>Commodity <span class="required-asterisk" style="color:red;">*</span></strong></label>
+                                            <!-- <select class="form-control" ngModel required name="commodityId" (change)="cmd($event.target.value)"> -->
+                                            <select class="form-control" ngModel required name="commodityId" (change)="strType($event.target.value, 1)">
+                                                    <option selected value="">Select Commodity</option>
+                                                    <option value="{{_cmd._id}}" *ngFor="let _cmd of _data['_cmd']">{{_cmd._name}}</option>
+                                                </select>
+                                        </div>
+                                    </div>
+
+                                    <!--                                    <div class="col-md-6">-->
+                                    <!--                                        <div class="form-group">-->
+                                    <!--                                            <label for="phenophaseID"><strong>Phenophase :</strong></label>-->
+                                    <!--                                            <select class="form-control" ngModel required name="phenophaseId" (change)="strType($event.target.value, 2)">-->
+                                    <!--                                                    <option selected value="">Select Phenophase</option>-->
+                                    <!--                                                    <option value="{{_phn._id}}" *ngFor="let _phn of _phenoData['_phn']">{{_phn._name}}</option>-->
+                                    <!--                                                </select>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+
+                                    <!-- <div class="col-md-6" *ngIf="type.value != 4"> -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="plantPartID"><strong>Plant Part <span class="required-asterisk" style="color:red;">*</span></strong></label>
+                                            <select class="form-control" required id="plantPartId" ngModel name="plantPartId" (change)="strType($event.target.value, 2)">
+                                                    <option selected value="">Select Plant Part</option>
+                                                    <option value="{{_pltp._id}}" *ngFor="let _pltp of _plantpData['_pltp']">{{_pltp._name}}</option>
+                                                </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="stressTypeID"><strong>Stress Type <span class="required-asterisk" style="color:red;">*</span></strong></label>
+                                            <select class="form-control" required id="stressTypeId" #type ngModel name="stressTypeId" (change)="strType($event.target.value, 3)" (change)="getTypeValue(type.value)">
+                                                    <option selected value="">Select Stress Type</option>
+                                                    <option value="{{_stp._id}}" *ngFor="let _stp of _stressType['_stp']">{{_stp._name}}</option>
+                                                </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- <ng-container *ngIf="_strbool"> -->
+                                    <div class="col-md-6" *ngIf="_strbool">
+                                        <div class="form-group">
+                                            <label for="stress"><strong>Stress <span class="required-asterisk" style="color:red;">*</span></strong></label>
+                                            <select class="form-control" required id="stressId" ngModel name="stressId" (change)="strType($event.target.value, 4)">
+                                                    <option selected value="">Select Stress</option>
+                                                    <option value="{{_str._id}}" *ngFor="let _str of _stress['_str']">{{_str._name}}</option>
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <!-- </ng-container> -->
+
+                                    <!--                                    <div class="col-md-6" *ngIf="_strType==2 && _strbool">-->
+                                    <!--                                        <div class="form-group">-->
+                                    <!--                                            <label for="stressStage"><strong>Stress Stage <span class="required-asterisk" style="color:red;">*</span></strong></label>-->
+                                    <!--                                            <select class="form-control" required id="stressStageId" ngModel name="stressStageId">-->
+                                    <!--                                                    <option selected value="">Select Stress Stage</option>-->
+                                    <!--                                                    <option value="{{_strStg._id}}" *ngFor="let _strStg of _stressStage['_strStg']">{{_strStg._name}}</option>-->
+                                    <!--                                                </select>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+
+                                    <div class="col-md-12">
+                                        <div class="form-group pt-2 m-0">
+                                            <button type="submit" class="btn btn-primary"> Search <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <app-carousel></app-carousel>
+        </section>
+    </div>
+</div>
+
+<div id="Thumb-view" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #resp="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="resp" aria-hidden="true">
+    <div [ngClass]="_class" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Operation Done</h4>
+                <button type="button" class="close" (click)="resp.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>{{_responseMsg}}</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="resp.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

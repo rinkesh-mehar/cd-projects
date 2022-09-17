@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group mb-0">
+                    <label for="file-input">Select zip(.zip) file</label>
+                    <input class="form-control-file" type="file" id="file-input" name="file-input" accept=".zip"
+                           (change)="getZip($event)">
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <button class="btn btn-primary" (click)="uploadZip()" type="submit"> Submit</button>
+                <button type="button" class="btn btn-danger" [routerLink]="['/flipbook']">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-success-modal (hideModal)="modalSuccess($event)" #successModal></app-success-modal>
+<app-error-modal #errorModal></app-error-modal>

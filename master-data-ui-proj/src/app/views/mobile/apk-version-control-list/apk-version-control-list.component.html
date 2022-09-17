@@ -1,0 +1,71 @@
+<div id="ui-view">
+    <div>
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-align-justify"></i> Mobile App Versions
+                            <div class="card-header-actions">
+                                <button class="btn btn-primary btn-sm move-right" [routerLink]="['/mobile/add-app/']"> Add App</button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group mb-3  col-lg-10 col-md-10 p-0">
+                                <input type="text" class="form-control" placeholder="Search here...  " [(ngModel)]="searchText">
+                                <div class="input-group-append">
+                                     <button class="btn btn-primary" type="button" (click)="searchVersion()">Search</button>
+                                     <button class="btn btn-danger" type="button" (click)="searchText='';searchVersion()">Clear</button>
+                                </div>
+                            </div>
+                            <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 20px;">Sr No</th>
+                                        <th class="text-left" style="width: 250px;">App Name</th>
+                                        <th class="text-left" style="width: 150px;">Version No.</th>
+                                        <th class="text-left" style="width: 200px;">Version Name</th>
+                                        <th class="text-left" style="width: 200px;">Release Date</th>
+                                        <th class="text-left" style="width: 800px;">Apk Url</th>
+                                        <th style="width: 150px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let app of pageVersion.content | searchFilter :searchText:['appName']">
+                                        <td scope=" row ">{{app.id}}</td>
+                                        <td class="text-left ">{{app.appName}}</td>
+                                        <td class="text-left ">{{app.versionNumber}}</td>
+                                        <td class="text-left ">{{app.versionName}}</td>
+                                        <td class="text-left ">{{app.releaseDate}}</td>
+                                        <td class="text-left ">{{app.apkUrl}}</td>
+
+                                        <td>
+
+                                            <button type="button " class="btn btn-success btn-sm move-right " title="Edit " [routerLink]="[ '/mobile/edit-apk/', app.id] "><i
+                                                class="fa fa-pencil-square-o "></i></button>
+                                            <button type="button " class="btn btn-warning btn-sm move-right " title="View " [routerLink]="[ '/mobile/view-apk/', app.id]"><i
+                                                    class="fa fa-eye "></i></button>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                             <div class="col-xs-12 col-12 text-center p-0 " *ngIf="pageVersion?.content ">
+                                <pagination [totalItems]="pageVersion.totalElements " [(ngModel)]="selectedPage " [maxSize]="maxSize " class="pagination-md " previousText="&lsaquo; Prev " nextText="Next &rsaquo; " firstText="&laquo; First " lastText="Last
+                                        &raquo; " [boundaryLinks]="true " [itemsPerPage]="pageVersion.size "
+                                    [rotate]="false " (numPages)="numPages=$event; " (pageChanged)="onSelect($event.page-1) ">
+                                </pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<app-confirmation-madal (hideModal)="modalConfirmation($event) " #confirmModal></app-confirmation-madal>-->
+<!--<app-success-modal (hideModal)="modalSuccess($event) " #successModal></app-success-modal>-->
+<!--<app-error-modal #errorModal></app-error-modal>-->
