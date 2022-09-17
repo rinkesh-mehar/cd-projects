@@ -1,0 +1,8 @@
+/target/
+/.settings/
+.attach_pid*
+/.project
+*.log*
+/.classpath
+/bin/
+/.factorypath

@@ -1,0 +1,33 @@
+Web-site APIs
+----------------------------------------------------------------------------
+For News:
+
+[GET] Get all news data w/o pagination -> http://localhost:8082/site/news
+[GET] Get all news data with pagination -> http://localhost:8082/site/news/list
+[GET] Get news data with id -> http://localhost:8082/site/news/1
+[POST] Save news data -> http://localhost:8082/site/news
+[PUT] Update news data with id -> http://localhost:8082/site/news/1
+
+For Reports:
+
+[GET] Get all reports data w/o pagination -> http://localhost:8082/site/reports
+[GET] Get all reports data with pagination -> http://localhost:8082/site/reports/list
+[GET] Get reports data with id -> http://localhost:8082/site/reports/1
+[POST] Save reports data -> http://localhost:8082/site/reports
+[PUT] Update reports data with id -> http://localhost:8082/site/reports/1
+
+For Commodity Alias:
+
+[GET] Get commodity and alias list -> http://localhost:8082/agri/commodity/alias
+[POST] Tag commodity with alias -> http://localhost:8082/agri/commodity/alias/tag
+
+For State Alias:
+
+[GET] Get state and alias list -> http://localhost:8082/geo/state/alias
+[POST] Tag state with alias -> http://localhost:8082/geo/state/alias/tag
+
+For District Alias:
+
+[GET] Get state and alias list -> http://localhost:8082/geo/district/alias
+[GET] Get district list by StateCode -> http://localhost:8082/geo/district/alias/{stateCode}
+[POST] Tag district with alias -> http://localhost:8082/geo/district/alias/tag

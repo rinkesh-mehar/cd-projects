@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: cdt-master-data
+  cloud:
+    config:
+      uri: ${config.url}
+      username: ${config.username}
+      password: ${config.password}
+      label: v1.0
+  profiles:
+    active:
+      - ${active.profile}
