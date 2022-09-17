@@ -1,0 +1,72 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Release-Cropdata-Portal CI
+
+on:
+  push:
+    branches: [ release ]
+  pull_request:
+    branches: [ release ]
+
+jobs:
+  continuous-integration:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
+      #      - name: Run test
+      #        run: npm test
+      #      - run: npm test
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/release_cropdata_portal_ui:latest
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+  continuous-deplyment:
+    runs-on: ubuntu-latest
+    needs: continuous-integration
+    steps:
+      - name: Conneting...  Digital Ocean Droplet
+        uses: appleboy/ssh-action@master # An action made to control Linux servers
+        with: # We set all our secrets here for the action, these won't be shown in the action logs
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          # key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            git clone https://github.com/cloud-cropdata-in/helm-cropdata-portal.git
+            cd helm-cropdata-portal/
+            git checkout release
+            aws eks update-kubeconfig --region ap-south-1 --name cdt-prod-ts-eks-cluster
+            helm upgrade --install --recreate-pods -i cropdata-portal-ui cropdata-portal-ui -n javaapi
+            export NODE_PORT=$(kubectl get --namespace javaapi -o jsonpath="{.spec.ports[0].nodePort}" services cropdata-portal-ui)
+            cd
+            rm -rf helm-cropdata-portal
+            echo "Deployment Done..."

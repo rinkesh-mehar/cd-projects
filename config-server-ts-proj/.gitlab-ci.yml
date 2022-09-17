@@ -1,0 +1,35 @@
+image: docker:latest
+services:
+  - docker:dind
+
+variables:
+  SPRING_PROFILES_ACTIVE: gitlab-ci,jdbc
+  DOCKER_DRIVER: overlay2
+  USER_GITLAB: siddhant
+  APP_NAME: toolsuite-ms-structure
+  REPO: microservice-structure
+
+stages:
+  - build
+  - deploy
+
+maven-build:
+  image: maven:3.6-jdk-11
+  stage: build
+  only:
+    - master
+  script:
+  - mvn package
+  - ls -lah target/
+  artifacts:
+    paths:
+      - target/*.jar
+
+docker-build:
+  stage: deploy
+  only:
+    - master
+  script:
+  - docker build -t $CI_PROJECT_NAME .
+  - docker stop $CI_PROJECT_NAME && docker rm $CI_PROJECT_NAME
+  - docker run --restart=always -d  --net cropdata-network --name $CI_PROJECT_NAME -p 8763:8763 -v /var/log/config-server/:/var/log/config-server/ $CI_PROJECT_NAME

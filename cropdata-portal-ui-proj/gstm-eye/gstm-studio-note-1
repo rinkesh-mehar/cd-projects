@@ -1,0 +1,139 @@
+# -- zl=13&
+# -- nx=&
+# -- ny=&
+# -- mx=&
+# -- my=
+# -- for=rfp / rfv
+
+
+# Table Name = feature_group_name_zlN
+# Columns = feature-1, feature-2, ..., feature-n
+
+
+# GeoJSON format
+
+# var mapdata = {
+
+# 	"type": "FeatureCollection",
+# 	"name": "meuse",
+# 	"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+
+# 	"features": [
+
+# 		// Row 1
+# 		{ 
+# 			"type": "Feature", 
+# 			"id": 0, 
+
+# 			"properties": { 
+# 				"TileID": "142726", 
+# 				"rfp": 93, 
+# 				"color": '#AB3456'
+# 			}, 
+
+# 			"geometry": { 
+# 				"type": "Polygon", 
+# 				"coordinates": [ 
+# 					[ 
+# 						[ 93.515619046610396, 6.698946433662901 ], 
+# 						[ 93.515619046610396, 7.375645148212059 ], 
+# 						[ 94.218744001848066, 7.375645148212059 ], 
+# 						[ 94.218744001848066, 6.698946433662901 ], 
+# 						[ 93.515619046610396, 6.698946433662901 ] 
+# 					] 
+# 				] 
+# 			} 
+# 		},
+
+# 		// Row 2
+# 		{ 
+# 			"type": "Feature", 
+# 			"id": 0, 
+
+# 			"properties": { 
+# 				"TileID": "142726", 
+# 				"rfp": 93, 
+# 				"color": '#AB3456'
+# 			}, 
+
+# 			"geometry": { 
+# 				"type": "Polygon", 
+# 				"coordinates": [ 
+# 					[ 
+# 						[ 93.515619046610396, 6.698946433662901 ], 
+# 						[ 93.515619046610396, 7.375645148212059 ], 
+# 						[ 94.218744001848066, 7.375645148212059 ], 
+# 						[ 94.218744001848066, 6.698946433662901 ], 
+# 						[ 93.515619046610396, 6.698946433662901 ] 
+# 					] 
+# 				] 
+# 			} 
+# 		},
+# 	]
+# }
+
+
+if (req$args$for == 'rfv' || req$args$for == 'rfp' || req$args$for == 'yar') {
+	joinTable = paste0('gstm_studio.pricing_zl', req$args$zl) # gstm_studio.pricing_zl13
+} elseif () {
+
+}
+
+query = paste0("SELECT 
+	"Feature" as type,
+    "Polygon" as 
+    ROW_NUMBER() OVER (
+        ORDER BY TileID
+    ) as id,
+	zl13.TileID,
+    zl13.MinX,
+    zl13.MinY,
+    zl13.MaxX,
+    zl13.MaxY,
+    (
+		case 
+			when dtbl.rfp > 0 && dtbl.rfp < 10 then "#ADEFC8"
+			when dtbl.rfp > 11 && dtbl.rfp < 20 then "#3367AA"
+			when dtbl.rfp > 21 && dtbl.rfp < 30 then "#8235Ea"
+			when dtbl.rfp > 31 && dtbl.rfp < 40 then "#ADEFC8"
+			when dtbl.rfp > 41 && dtbl.rfp < 50 then "#AD22C8"
+			when dtbl.rfp > 51 && dtbl.rfp < 60 then "#A17FC8"
+			when dtbl.rfp > 61 && dtbl.rfp < 70 then "#AD1238"
+			when dtbl.rfp > 71 && dtbl.rfp < 80 then "#4512C8"
+			when dtbl.rfp > 81 && dtbl.rfp < 90 then "#AD4428"
+			when dtbl.rfp > 91 && dtbl.rfp < 100 then "#A567C8"
+		end
+    ) as color
+FROM gstm_cone.tile_zl13 as zl13
+INNER JOIN ", joinTable , " AS dtbl ON dtbl.TileID = zl", req$args$zl,".TileID
+WHERE minx > 74.5257568359375 and miny > 30.28041626667403
+and maxx < 77.55523681640625 and maxy < 31.926523733115935;")
+
+
+
+# SELECT  
+# "Feature" as type, 
+# ROW_NUMBER() OVER ( ORDER BY TileID ) as id, 
+# zl13.TileID, 
+# zl13.MinX, 
+# zl13.MinY, 
+# zl13.MaxX, 
+# zl13.MaxY, 
+# ( 
+# 	case  
+# 	when dtbl.rfp > 0 && dtbl.rfp < 10 then "#ADEFC8" 
+# 	when dtbl.rfp > 11 && dtbl.rfp < 20 then "#3367AA" 
+# 	when dtbl.rfp > 21 && dtbl.rfp < 30 then "#8235Ea" 
+# 	when dtbl.rfp > 31 && dtbl.rfp < 40 then "#ADEFC8" 
+# 	when dtbl.rfp > 41 && dtbl.rfp < 50 then "#AD22C8" 
+# 	when dtbl.rfp > 51 && dtbl.rfp < 60 then "#A17FC8" 
+# 	when dtbl.rfp > 61 && dtbl.rfp < 70 then "#AD1238" 
+# 	when dtbl.rfp > 71 && dtbl.rfp < 80 then "#4512C8" 
+# 	when dtbl.rfp > 81 && dtbl.rfp < 90 then "#AD4428" 
+# 	when dtbl.rfp > 91 && dtbl.rfp < 100 then "#A567C8" 
+# 	end 
+# ) as color 
+# FROM gstm_cone.tile_zl13 as zl13 
+# INNER JOIN  gstm_studio.pricing_zl13  AS dtbl ON dtbl.TileID = zl13.TileID 
+# WHERE minx > 74.5257568359375 and miny > 30.28041626667403 
+# and maxx < 77.55523681640625 and maxy < 31.926523733115935;

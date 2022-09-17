@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: SELECT AttrKey,AttrValue FROM libraries_properties where LibraryID IN (SELECT LibraryID FROM application_libraries where ApplicationID=(SELECT ID FROM application where Name=?) AND EnvProfile=? AND Label=?)
+          order: 1
+  datasource:
+    url: ${CONFIG_DB_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${config.dbUser}
+    password: ${config.dbPassword}
+    initialization-mode: always
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 5000
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL55Dialect
+        format_sql: true
+    hibernate.ddl-auto: update
+    hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  profiles:
+    active:
+    - jdbc
+  security:
+    user:
+      name: ${config.username}
+      password: ${config.password}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    service-url:
+      defaultZone: ${eureka}
+logging:
+  file: /var/log/config-server/config-server.log
+  pattern:
+    console: '%d %-5level %logger : %msg%n'
+    file: '%d %-5level [%thread] %logger : %msg%n'
+  level:
+    org.hibernate: ERROR
+    in.cropdata: INFO

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Our Regional labs</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+        <style>
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+            }
+
+            #map {
+                width: 100%;
+                height: 100vh;
+            }
+
+            h1,
+            p {
+                margin: 0;
+            }
+
+            .leaflet-popup-content p {
+                margin: 0;
+            }
+
+            .leaflet-popup-content h3 {
+                color: #2935e8;
+                font-size: 1rem;
+            }
+
+            .leaflet-popup-content h4 {
+                color: #ff25f3;
+                margin-bottom: 5px;
+            }
+
+            .leaflet-popup-content h3,
+            .leaflet-popup-content h4,
+            .leaflet-popup-content p {
+                margin: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="map"></div>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script>
+            var headquarter = L.icon({
+                iconUrl: '/images/central-lab.png',
+                iconSize: [24, 24],
+                iconAnchor: [24, 24],
+                popupAnchor: [-12, -15],
+            })
+
+            var centralLab = L.icon({
+                iconUrl: '/images/central-lab.png',
+                iconSize: [24, 24],
+                iconAnchor: [24, 24],
+                popupAnchor: [-12, -15],
+            })
+
+            var regionalLabs = L.icon({
+                iconUrl: '/images/regions.png',
+                iconSize: [24, 24],
+                iconAnchor: [24, 24],
+                popupAnchor: [-12, -15],
+            })
+
+            var specialLab = L.icon({
+                iconUrl: '/images/special-lab.png',
+                iconSize: [24, 24],
+                iconAnchor: [24, 24],
+                popupAnchor: [-12, -15],
+            })
+
+            var regions = L.layerGroup()
+            //cropData
+            L.marker([21.120899, 79.0480639], { icon: headquarter }).bindPopup('<h3>CropData Technology Pvt. Ltd.</h3><h4>Nagpur (MH)</h4><p>Corporate Headquarter</p>').addTo(regions)
+            //
+            L.marker([16.225, 80.655792], { icon: regionalLabs }).bindPopup('<h3>Tenali</h3><h4>Guntur (AP)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([16.9111077, 81.67064], { icon: regionalLabs }).bindPopup('<h3>Nidadavolu</h3><h4>West Godavari (AP)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([24.26884, 72.194951], { icon: regionalLabs }).bindPopup('<h3>Deesa</h3><h4>Banaskantha (GJ)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([21.135895796944176, 73.11118652050655], { icon: regionalLabs }).bindPopup('<h3>Bardoli</h3><h4>Surat (GJ)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([23.804234, 72.372929], { icon: regionalLabs }).bindPopup('<h3>Unjha</h3><h4>Mehsana (GJ)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([21.600561, 71.233859], { icon: regionalLabs }).bindPopup('<h3>Amreli</h3><h4>Amreli (GJ)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([29.8479433, 76.6646459], { icon: regionalLabs }).bindPopup('<h3>Kaul</h3><h4>Kaithal (HR)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([27.227523, 79.050765], { icon: regionalLabs }).bindPopup('<h3>Manipuri</h3><h4>Manipuri (UP)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([27.467736, 78.302608], { icon: regionalLabs }).bindPopup('<h3>Jalesar</h3><h4>Hathras (UP)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([23.390691, 76.71553], { icon: regionalLabs }).bindPopup('<h3>Shajapur</h3><h4>Shajapur (MP)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([22.058547, 78.92519], { icon: regionalLabs }).bindPopup('<h3>Chhindwara</h3><h4>Chhindwara (MP)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([26.5001928, 77.9817697], { icon: regionalLabs }).bindPopup('<h3>Morena</h3><h4>Morena (MP)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([21.015044, 79.367714], { icon: regionalLabs }).bindPopup('<h3>Kuhi</h3><h4>Nagpur (MH)</h4><p>Central Lab</p>').addTo(regions)
+
+            L.marker([20.41, 76.85], { icon: regionalLabs }).bindPopup('<h3>Alegaon</h3><h4>Akola (MH)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([19.52, 75.99], { icon: regionalLabs }).bindPopup('<h3>Ghansangvi</h3><h4>Jalna (MH)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([21.32, 78.01], { icon: regionalLabs }).bindPopup('<h3>Morshi</h3><h4>Amravati (MH)</h4><p>Regional Lab</p>').addTo(regions)
+
+            // L.marker(
+            // 	[30.7087205 , 76.799295],
+            // 	{ icon: specialLab }
+            // ).bindPopup('<h3>Chandigarh</h3><h4>Chandigarh (PB)</h4><p>Special Lab</p>').addTo(regions);
+
+            //
+
+            L.marker([25.153862918539534, 76.29600860305517], { icon: regionalLabs }).bindPopup('<h3>Anta</h3><h4>Baran (RJ)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([20.92368780177578, 75.33512255531461], { icon: regionalLabs }).bindPopup('<h3>Erandol</h3><h4>Jalgaon (MH)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([29.749220664292558, 73.9088094859225], { icon: regionalLabs }).bindPopup('<h3>Ganeshgarh</h3><h4>Sri Ganganagar (RJ)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([27.201257945374326, 77.03609980356478], { icon: regionalLabs }).bindPopup('<h3>Kherli</h3><h4>Alwar (RJ)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([17.38800116628886, 79.8904994079944], { icon: regionalLabs }).bindPopup('<h3>Maripeda</h3><h4>Mahabubabad (TS)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([28.57594385512188, 76.46740017188078], { icon: regionalLabs }).bindPopup('<h3>Matanhail</h3><h4>Jhajjar (HR)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([31.675790848274424, 75.2552359952217], { icon: regionalLabs }).bindPopup('<h3>Mehta Chowk</h3><h4>Amritsar (PB)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([22.69021897264184, 72.85950868940745], { icon: regionalLabs }).bindPopup('<h3>Nadiad</h3><h4>Kheda (GJ)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([23.711045998963236, 77.08978964978199], { icon: regionalLabs }).bindPopup('<h3>Narsinghgarh</h3><h4>Rajgarh (MP)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([27.294892908020763, 79.96405508387392], { icon: regionalLabs }).bindPopup('<h3>Sandi</h3><h4>Hardoi (UP)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([26.99115784413408, 81.46698699854403], { icon: regionalLabs }).bindPopup('<h3>Sirauli</h3><h4>Barabanki (UP)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([24.752628815441437, 78.83270884402907], { icon: regionalLabs }).bindPopup('<h3>Tikamgarh</h3><h4>Tikamgarh (MP)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([12.107264175181717, 79.24770883962185], { icon: regionalLabs }).bindPopup('<h3>Vettavalam</h3><h4>Tiruvannamalai (TN)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([17.976595045141334, 79.58377321388168], { icon: regionalLabs }).bindPopup('<h3>Warangal</h3><h4>Warangal (TS)</h4><p>Regional Lab</p>').addTo(regions)
+
+            L.marker([20.04381503067215, 74.48402620200442], { icon: regionalLabs }).bindPopup('<h3>Yeola</h3><h4>Nashik (MH)</h4><p>Regional Lab</p>').addTo(regions)
+
+            //var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+            var mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+
+            var grayscale = L.tileLayer(mbUrl, { id: 'mapbox/light-v10', tileSize: 512, zoomOffset: -1 })
+            var streets = L.tileLayer(mbUrl, { id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1 })
+            var satellite = L.tileLayer(mbUrl, { id: 'mapbox/satellite-streets-v11', tileSize: 512, zoomOffset: -1 })
+
+            var openstreetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+
+            var map = L.map('map', {
+                // center: [23.5120, 80.3290],
+                center: [24.512, 80.329],
+                zoom: 5,
+                minZoom: 4,
+                layers: [openstreetmap, regions],
+            })
+
+            var baseLayers = {
+                Grayscale: grayscale,
+                Streets: streets,
+                Satellite: satellite,
+                'Openstreet ': openstreetmap,
+            }
+
+            var overlays = {
+                Regions: regions,
+            }
+
+            var layerControl = L.control.layers(baseLayers, overlays).addTo(map)
+
+            // var latlngs = [
+            // 		[45.51, -122.68],
+            // 		[37.77, -122.43],
+            // 		[34.04, -118.2]
+            // ];
+
+            // var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+
+            $.ajax({
+                url: '/js/indiaBoundaryLine.geojson',
+                dataType: 'script',
+                success: function () {
+                    L.geoJson(indiaBoundaryLine, {
+                        style: mapStyle,
+                    }).addTo(map)
+                },
+            })
+            function mapStyle(feature) {
+                return {
+                    fillColor: feature.properties.Color,
+                    weight: 1,
+                    opacity: 1,
+                    // color: '#2935e8',
+                    color: '#2935e8',
+                    dashArray: 0,
+                    fillOpacity: 0.0,
+                }
+            }
+
+            // 		var polylinePoints = [
+            //     [37.781814, -122.404740],
+            //     [37.781719, -122.404637],
+            //     [37.781489, -122.404949],
+            //     [37.780704, -122.403945],
+            //     [37.780012, -122.404827]
+            //   ];
+
+            //   var polyline = L.polyline(polylinePoints).addTo(map);
+        </script>
+    </body>
+</html>

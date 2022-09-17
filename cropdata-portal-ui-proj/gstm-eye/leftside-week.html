@@ -1,0 +1,242 @@
+<a href="#!" class="nav-toggle open-bar" onclick="sidePanelControl()" ><i class="fas fa-bars"></i></a>
+<div class="analyticData pt-5">
+   <div class="gstmHeader">
+      <h1 class="page-title"> Region Value Index <a href="#!" class="nav-toggle close-bar" onclick="sidePanelControl()" ><i class="fas fa-bars"></i ></a> </h1>
+   </div>
+   <div class="details" style="max-height: calc(100% - 47px)">
+      <div class="weekCalendar">
+         <div class="table-responsive py-4">
+            <table class="weekTable">
+               <tbody>
+                  <tr>
+                     <th>Jan</th>
+                     <td> <button onclick="weekNumClick(event)">1</button> </td>
+                     <td> <button onclick="weekNumClick(event)">2</button> </td>
+                     <td> <button onclick="weekNumClick(event)">3</button> </td>
+                     <td> <button onclick="weekNumClick(event)">4</button> </td>
+                     <td> <button onclick="weekNumClick(event)">5</button> </td>
+                  </tr>
+                  <tr>
+                     <th>Feb</th>
+                     <td> <button onclick="weekNumClick(event)">6</button> </td>
+                     <td> <button onclick="weekNumClick(event)">7</button> </td>
+                     <td> <button onclick="weekNumClick(event)">8</button> </td>
+                     <td> <button onclick="weekNumClick(event)">9</button> </td>
+                  </tr>
+                  <tr>
+                     <th>Mar</th>
+                     <td> <button onclick="weekNumClick(event)">10</button> </td>
+                     <td> <button onclick="weekNumClick(event)">11</button> </td>
+                     <td> <button onclick="weekNumClick(event)">12</button> </td>
+                     <td> <button onclick="weekNumClick(event)">13</button> </td>
+                  </tr>
+                  <tr>
+                     <th>Apr</th>
+                     <td> <button onclick="weekNumClick(event)">14</button> </td>
+                     <td> <button onclick="weekNumClick(event)">15</button> </td>
+                     <td> <button onclick="weekNumClick(event)">16</button> </td>
+                     <td> <button onclick="weekNumClick(event)">17</button> </td>
+                     <td> <button onclick="weekNumClick(event)">18</button> </td>
+                  </tr>
+                  <tr>
+                     <th>May</th>
+                     <td> <button onclick="weekNumClick(event)">19</button> </td>
+                     <td> <button onclick="weekNumClick(event)">20</button> </td>
+                     <td> <button onclick="weekNumClick(event)">21</button> </td>
+                     <td> <button onclick="weekNumClick(event)">22</button> </td>
+                  </tr>
+                  <tr>
+                     <th>Jun</th>
+                     <td> <button onclick="weekNumClick(event)">23</button> </td>
+                     <td> <button onclick="weekNumClick(event)">24</button> </td>
+                     <td> <button onclick="weekNumClick(event)">25</button> </td>
+                     <td> <button onclick="weekNumClick(event)">26</button> </td>
+                  </tr>
+                  <tr>
+                     <th>Jul</th>
+                     <td> <button onclick="weekNumClick(event)">27</button> </td>
+                     <td> <button onclick="weekNumClick(event)">28</button> </td>
+                     <td> <button onclick="weekNumClick(event)">29</button> </td>
+                     <td> <button onclick="weekNumClick(event)">30</button> </td>
+                     <td> <button onclick="weekNumClick(event)">31</button> </td>
+                  </tr>
+                  <tr>
+                     <th>Aug</th>
+                     <td> <button onclick="weekNumClick(event)">32</button> </td>
+                     <td> <button onclick="weekNumClick(event)">33</button> </td>
+                     <td> <button onclick="weekNumClick(event)">34</button> </td>
+                     <td> <button onclick="weekNumClick(event)">35</button> </td>
+                  </tr>
+                  <tr>
+                     <th>Sep</th>
+                     <td> <button onclick="weekNumClick(event)">36</button> </td>
+                     <td> <button onclick="weekNumClick(event)">37</button> </td>
+                     <td> <button onclick="weekNumClick(event)">38</button> </td>
+                     <td> <button onclick="weekNumClick(event)">39</button> </td>
+                  </tr>
+                  <tr>
+                     <th>Oct</th>
+                     <td> <button onclick="weekNumClick(event)">40</button> </td>
+                     <td> <button onclick="weekNumClick(event)">41</button> </td>
+                     <td> <button onclick="weekNumClick(event)">42</button> </td>
+                     <td> <button onclick="weekNumClick(event)">43</button> </td>
+                     <td> <button onclick="weekNumClick(event)">44</button> </td>
+                  </tr>
+                  <tr>
+                     <th>Nov</th>
+                     <td> <button onclick="weekNumClick(event)">45</button> </td>
+                     <td> <button onclick="weekNumClick(event)">46</button> </td>
+                     <td> <button onclick="weekNumClick(event)">47</button> </td>
+                     <td> <button onclick="weekNumClick(event)">48</button> </td>
+                  </tr>
+                  <tr>
+                     <th>Dec</th>
+                     <td> <button onclick="weekNumClick(event)">49</button> </td>
+                     <td> <button onclick="weekNumClick(event)">50</button> </td>
+                     <td> <button onclick="weekNumClick(event)">51</button> </td>
+                     <td> <button onclick="weekNumClick(event)">52</button> </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <!--hidden for temporary-->
+      <div class="px-3 py-3 box-details border-top">
+         <h6 class="highlight-text">Region Profile</h6>
+         <div class="row">
+            <div class="col-6 value-outer">
+               <div class="preload">
+                  <span class="place_label irrigated-area" >Irrigated Area</span > 
+                  <div class="mainvalue"> <span class="value irrigated-value">48 %</span> </div>
+               </div>
+            </div>
+            <div class="col-6 value-outer pl-0">
+               <div class="preload">
+                  <span class="place_label nsa-ratio">NSA/TGA Ratio</span> 
+                  <div class="mainvalue"> <span class="value nsa-ratio-value">61 %</span> </div>
+               </div>
+            </div>
+            <div class="col-6 value-outer">
+               <div class="preload">
+                  <span class="place_label lh-size">Avg. LH Size</span> 
+                  <div class="mainvalue"> <span class="value lh-size-value" title="Average land holding size in hectares" >2.83 Ha</span > </div>
+               </div>
+            </div>
+            <div class="col-6 value-outer pl-0">
+               <div class="preload">
+                  <span class="place_label production">Production</span> 
+                  <div class="mainvalue"> <span class="value production-value" title="Production value in metric ton" >1,534.00 MT</span > </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!--hidden for temporary-->
+      <div class="px-3 py-3 box-details border-top commodity_famous">
+         <h6 class="highlight-text"> Season <span class="season preload" style="display: inline-block; vertical-align: middle" >Kharif</span > </h6>
+         <div class="clr"></div>
+         <h6 class="highlight-text">Focus Crops</h6>
+         <ol id="focus-crops" type="1" class="preload">
+            <li title="Maize"> <span style="background-color: #95ff0b">1</span> Maize </li>
+            <li title="Paddy"> <span style="background-color: #95ff0b">2</span> Paddy </li>
+            <li title="Arhar"> <span style="background-color: #95ff0b">3</span> Arhar </li>
+            <li title="Bajra"> <span style="background-color: #95ff0b">4</span> Bajra </li>
+            <li title="Jowar"> <span style="background-color: #95ff0b">5</span> Jowar </li>
+            <li title="Groundnut"> <span style="background-color: #95ff0b">6</span> Groundnut </li>
+         </ol>
+      </div>
+      <img alt="" src="images/GSTM-yar-legend-2.svg" class="legend img-fluid"/> 
+      <div class="px-3 py-3 box-details">
+         <h6 class="mb-3 highlight-text">Top Risk Free Crops</h6>
+         <table class="table table-bordered">
+            <thead>
+               <tr>
+                  <th>Crops</th>
+                  <th>Risk (%)</th>
+               </tr>
+            </thead>
+            <tbody id="top-risk">
+               <tr>
+                  <td>Mango</td>
+                  <td>10.44</td>
+               </tr>
+               <tr>
+                  <td>Ginger</td>
+                  <td>10.47</td>
+               </tr>
+               <tr>
+                  <td>Castor seed</td>
+                  <td>10.68</td>
+               </tr>
+               <tr>
+                  <td>Green Chilli</td>
+                  <td>10.71</td>
+               </tr>
+               <tr>
+                  <td>Dry Chilli</td>
+                  <td>10.83</td>
+               </tr>
+               <tr>
+                  <td>Maize</td>
+                  <td>10.92</td>
+               </tr>
+               <tr>
+                  <td>Paddy</td>
+                  <td>11.43</td>
+               </tr>
+               <tr>
+                  <td>Guar seed</td>
+                  <td>11.45</td>
+               </tr>
+               <tr>
+                  <td>Moong</td>
+                  <td>11.77</td>
+               </tr>
+               <tr>
+                  <td>Sesame</td>
+                  <td>12.24</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="gstmFooter">
+      <p class="copyrights"> <span>Powered by CropData</span> </p>
+   </div>
+</div>
+<div class="hover-result briefShift" onclick="briefPanelControl()">
+   <div class="container" style="width: 275px">
+      <div class="row">
+         <div class="col-12 pl-0">
+            <h4 style=" font-weight: bold; background-color: rgb(0 0 0 / 12%); padding: 10px 15px; color: #064979; " > Tile Analytics </h4>
+         </div>
+         <div class="col-6 pr-0">
+            <div class="label_tag">Risk</div>
+            <div class="riskValue value" id="yarValue"></div>
+         </div>
+         <div class="col-6 p-0">
+            <div class="label_tag">Irrigated Area</div>
+            <div class="irrigatedValue value"></div>
+         </div>
+         <div class="col-12 pr-0 mt-2">
+            <div class="label_tag">Avg. LH Size</div>
+            <div class="avgLhSizeValue value"></div>
+         </div>
+         <div class="col-12 pr-0 mt-2">
+            <div class="label_tag d-inline-block mt-2">Focus Crops</div>
+            <br/> 
+            <div class="d-inline-block" id="crops"></div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script>
+    //==============Get Current Week Number==============//
+
+var currentWeekNumber = Math.ceil(( new Date("2021-02-17").getDay() + 1 + Math.floor((new Date("2021-02-17") - new Date(new Date("2021-02-17").getFullYear(), 0, 1)) / (24 * 60 * 60 * 1000))) / 7);
+console.log(currentWeekNumber);
+$(".weekTable td button").filter(function() {
+    return $(this).text() === ""+currentWeekNumber+"";
+}).addClass('active');
+// $('.weekTable td button:contains('+currentWeekNumber+')').addClass('active');
+</script>

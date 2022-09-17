@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Add Configuration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+body, h1 {
+	font-family: "Raleway", Arial, sans-serif
+}
+
+h1 {
+	letter-spacing: 6px
+}
+
+.w3-row-padding img {
+	margin-bottom: 12px
+}
+</style>
+</head>
+<body>
+	<!-- Header -->
+	<header class="w3-panel w3-center w3-opacity" style="padding: 16px">
+		<h1 class="w3-xlarge">Cropdata Config Server</h1>
+	</header>
+	<div class="panel-group" style="margin-top: 20px;">
+		<div class="panel panel-primary" style="padding-bottom: 20px;">
+			<div class="panel-heading">
+
+				<div class="row">
+					<div class="col-md-6">
+						<form th:action="@{/admin/home}" method="get" align="left">
+							<button class="btn btn-md-2 btn-info " name="adminHome"
+								type="Submit">Home</button>
+						</form>
+
+					</div>
+					<div class="col-md-6">
+						<form th:action="@{/logout}" method="get" align="right">
+							<button class="btn btn-md-2 btn-danger " name="registration"
+								type="Submit">Logout</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
+			</div>
+
+			<div class="container my-5 ">
+				<h3 align="center">Add Configuration</h3>
+				<div class="card">
+					<div class="card-body">
+						<div class="col-md-6" style="float: none; margin: 0 auto">
+							<form action="#" th:action="@{/admin/createProperty}"
+								th:object="${property}" method="post">
+								<div class="row">
+									<div class="form-group col-md-12 ">
+										<label for="application" class="col-form-label">Application
+										</label> <input type="text" th:field="*{application}"
+											class="form-control" id="application"
+											placeholder="Application" />
+									</div>
+									<div class="form-group col-md-12 ">
+										<label for="profile" class="col-form-label">Profile </label> <input
+											type="text" th:field="*{profile}" class="form-control"
+											id="profile" placeholder="Profile" />
+									</div>
+									<div class="form-group col-md-12">
+										<label for="label" class="col-form-label">Label </label> <input
+											type="text" th:field="*{label}" class="form-control"
+											id="label" placeholder="Label" />
+									</div>
+									<div class="form-group col-md-12">
+										<label for="key" class="col-form-label">Key </label> <input
+											type="text" th:field="*{key}" class="form-control" id="key"
+											placeholder="Key" />
+									</div>
+									<div class="form-group col-md-12">
+										<label for="value" class="col-form-label">Value </label> <input
+											type="text" th:field="*{value}" class="form-control"
+											id="value" placeholder="Value" />
+									</div>
+									<div class="col-md-6">
+										<input type="submit" class="btn btn-primary " value=" Submit ">
+									</div>
+									<input type="hidden" id="id" th:field="*{id}">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

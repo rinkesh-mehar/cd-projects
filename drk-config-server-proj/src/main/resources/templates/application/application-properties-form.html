@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Add Configuration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+body, h1 {
+	font-family: "Raleway", Arial, sans-serif
+}
+
+h1 {
+	letter-spacing: 6px
+}
+
+.w3-row-padding img {
+	margin-bottom: 12px
+}
+</style>
+</head>
+<body>
+	<!-- Header -->
+	<header class="w3-panel w3-center w3-opacity" style="padding: 16px">
+		<h1 class="w3-xlarge">Cropdata Config Server</h1>
+	</header>
+	<div class="panel-group" style="margin-top: 20px;">
+		<div class="panel panel-primary" style="padding-bottom: 20px;">
+			<div class="panel-heading">
+
+				<div class="row">
+					<div class="col-md-6">
+						<form th:action="@{/homePage}" method="get" align="left">
+							<button class="btn btn-md-2 btn-info " name="adminHome"
+								type="Submit">Home</button>
+						</form>
+
+					</div>
+					<div class="col-md-6">
+						<form th:action="@{/logout}" method="get" align="right">
+							<button class="btn btn-md-2 btn-danger " name="registration"
+								type="Submit">Logout</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<p class="admin-message-text text-center" th:utext="${message}"></p>
+			</div>
+
+			<div class="container my-5 ">
+				<h3 align="center">Add Application Property</h3>
+				<div class="card">
+					<div class="card-body">
+						<div class="col-md-6" style="float: none; margin: 0 auto">
+							<form action="#" th:action="@{/application/properties-add}"
+								th:object="${applicationProperty}" method="post">
+								<div class="row">
+									<div class="form-group col-md-12 "
+										th:if="${operationMode != 'edit'}">
+										<label for="application" class="col-form-label">Application
+											Name </label> <select class="form-control" id="applicationId"
+											name="applicationId" required th:field="*{applicationId}"
+											onChange="applicationChange(this)"
+											th:readonly="${operationMode == 'edit'}">
+											<option th:each="app : ${applicationList}"
+												th:value="${app.id}" th:text="${app.name}"></option>
+
+										</select>
+										<!-- <input type="text" id="applicationName"
+											th:field="*{applicationName}" class="form-control"
+											id="applicationName" placeholder="Application"  style="display:none;"/>
+											 -->
+										<input type="hidden" id="applicationName"
+											th:attr="name='applicationName'" />
+
+									</div>
+
+									<div class="form-group col-md-12 "
+										th:if="${operationMode == 'edit'}">
+										<label for="application" class="col-form-label">Application
+											Name </label> <input type="text" id="applicationName"
+											th:field="*{applicationName}" class="form-control"
+											placeholder="Application" readonly="readonly" /> <input
+											type="number" id="applicationId" th:field="*{applicationId}"
+											th:attr="name='applicationId'" style="display: none;" />
+									</div>
+
+
+									<div class="form-group col-md-12 ">
+										<label for="envProfile" class="col-form-label">Env
+											Profile </label> <select class="form-control" id="envProfile"
+											name="envProfile" required th:field="*{envProfile}">
+											<option value="">Select</option>
+											<option value="dev">dev</option>
+											<option value="local">local</option>
+											<option value="test">test</option>
+											<option value="stage">stage</option>
+											<option value="uat">uat</option>
+											<option value="demo">demo</option>
+											<option value="prod">prod</option>
+										</select>
+									</div>
+									<div class="form-group col-md-12">
+										<label for="label" class="col-form-label">Label </label> <input
+											type="text" th:field="*{label}" class="form-control"
+											id="label" placeholder="Label" />
+									</div>
+
+
+									<div class="form-group col-md-12">
+
+										<label for="libraries" class="col-form-label">Libraries</label><br>
+										<th:block th:each="lib : ${librariesList}">
+											<input type="checkbox" name="libraries" th:value="${lib.id}"
+												th:id="'library_'+${lib.id}" />
+											<label th:text="${lib.name}"></label>
+										</th:block>
+
+									</div>
+
+									<div class="col-md-6">
+										<a type="button" href="/application/list"
+											class="btn btn-secondary btn-md">Back</a> <input
+											type="submit" class="btn btn-primary btn-md" value=" Submit ">
+									</div>
+									<input type="hidden" id="id" th:field="*{id}">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	function applicationChange(ele) {
+		var sel = document.getElementById("applicationName").value = ele.options[ele.selectedIndex].text;
+	}
+
+	$('#envProfile')
+			.change(
+					function() {
+
+						var applicationId = document
+								.getElementById("applicationId").value;
+						var envProfile = document.getElementById("envProfile").value;
+
+						$.getJSON(
+								"/application/application-library?applicationId="
+										+ applicationId + "&envProfile="
+										+ envProfile, {
+									cityId : $(this).val(),
+									ajax : 'true'
+								}, function(data) {
+
+									var libraries = document
+											.getElementsByName("libraries");
+
+									for (var i = 0; i < libraries.length; i++) {
+										if (libraries[i].type == "checkbox") {
+											libraries[i].checked = false;
+										}
+									}
+
+									for (let i = 0; i < data.length; i++) {
+										$('#library_' + data[i].libraryId)
+												.prop('checked', true);
+																	}
+									try{
+									document
+									.getElementById("label").value=data[0].label;
+									}catch(err){}
+
+								});
+					});
+
+	$('#envProfile').trigger("change");
+	$('#applicationId').trigger("change");
+</script>
+</html>

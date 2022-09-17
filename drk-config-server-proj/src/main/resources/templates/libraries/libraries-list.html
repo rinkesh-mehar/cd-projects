@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Application</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+body, h1 {
+	font-family: "Raleway", Arial, sans-serif
+}
+
+h1 {
+	letter-spacing: 6px
+}
+
+.w3-row-padding img {
+	margin-bottom: 12px
+}
+</style>
+</head>
+<body>
+	<!-- Header -->
+	<header class="w3-panel w3-center w3-opacity" style="padding: 16px">
+		<h1 class="w3-xlarge">Cropdata Config Server</h1>
+	</header>
+	<div class="panel-group" style="margin-top: 20px;">
+		<div class="panel panel-primary" style="padding-bottom: 20px;">
+			<div class="panel-heading">
+
+				<div class="row">
+					<div class="col-md-6">
+						<form th:action="@{/homePage}" method="get" align="left">
+							<button class="btn btn-md-2 btn-info " name="adminHome"
+								type="Submit">Home</button>
+						</form>
+
+					</div>
+					<div class="col-md-6">
+						<form th:action="@{/logout}" method="get" align="right">
+							<button class="btn btn-md-2 btn-danger " name="registration"
+								type="Submit">Logout</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body text-center">
+
+				<a th:href="@{/libraries-add}" class="btn btn-primary"> Add
+					Libraries </a> <a th:href="@{/libraries-property-add}"
+					class="btn btn-primary"> Add Libraries properties</a>
+				<p class="admin-message-text text-center" th:utext="${message}"></p>
+			</div>
+
+			<div class="container my-5 ">
+				<h3 align="center">Libraries List</h3>
+				<div class="card">
+					<div class="card-body">
+						<div class="col-md-10" style="float: none; margin: 0 auto">
+							<form action="#" th:action="@{/application/save}"
+								th:object="${applicationModel}" method="post">
+								<div class="row">
+									<div class="table-responsive">
+										<table class="table table-bordered">
+											<thead class="thead-dark">
+												<tr>
+													<th style="width: 50px;">ID</th>
+													<th style="width: 938px;">Name</th>
+													<th colspan=2 style="width: 200px !important;">Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												<div id="accordion">
+													<tr th:each="proprty : ${librariesList}">
+														<td th:text="${proprty.id}"></td>
+
+														<td><a href="#" data-toggle="collapse"
+															th:data-target="'#prop'+${proprty.id}"
+															aria-expanded="true" aria-controls="collapse1">
+																<h5 th:text="${proprty.name}"></h5>
+														</a>
+															<div th:id="'prop'+${proprty.id}" class="collapse"
+																data-parent="#accordion">
+																<table class="table table-bordered">
+																	<thead>
+																		<tr>
+																			<th>Attribute Name</th>
+																			<th>Attribute Value</th>
+																			<th style="width: 150px;">Action</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr
+																			th:each="librariesProprty : ${librariesPropertiesList.get(proprty.name)}">
+																			<td th:text="${librariesProprty.attrKey}">1</td>
+																			<td th:text="${librariesProprty.attrValue}">1</td>
+																			<td><a class="btn btn-success btn-sm"
+																				th:href="@{/libraries-property-edit/{id}(id=${librariesProprty.id})}">
+																					Edit </a> <a class="btn btn-danger btn-sm"
+																				th:onclick="'javascript:deleteLibrariesProprty(' + ${librariesProprty.id} + ');'">
+																					Delete </a></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div></td>
+														<td><a
+															th:href="@{/libraries-edit/{id}(id=${proprty.id})}"
+															class="btn btn-primary "> Edit Library</a></td>
+														<td><a
+															th:href="@{/libraries-properties-add/{id}(id=${proprty.id})}"
+															class="btn btn-primary "> Add Properties </a></td>
+													</tr>
+												</div>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+<script type="text/javascript">
+	function deleteLibrariesProprty(id) {
+
+		var r = confirm("Do you want to delete this property");
+		if (r == true) {
+			$.get("/libraries-property-delete/" + id, function(data) {
+				console.log(data);
+
+				alert(data);
+				location.reload();
+			});
+		}
+
+	}
+</script>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+Latest compiled and minified CSS
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Roboto:400,500,700&display=swap"
+	rel="stylesheet">
+<link href="public/css/style.css" rel="stylesheet" type="text/css">
+<title>Application</title>
+</head>
+
+<body>
+	<div class="container">
+		<h1 class="page-title mt-5 mb-5">Libraries List</h1>
+		<a th:href="@{/libraries-add}" class="btn btn-primary"> Add
+			Libraries </a> <a th:href="@{/libraries-property-add}"
+			class="btn btn-primary"> Add Libraries properties</a>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						<thead class="thead-dark">
+							<tr>
+								<th style="width: 50px;">ID</th>
+								<th style="width: 938px;">Name</th>
+								<th colspan=2 style="width: 100px !important;">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<div id="accordion">
+								<tr th:each="proprty : ${librariesList}">
+									<td th:text="${proprty.id}"></td>
+
+									<td><a href="#" data-toggle="collapse"
+										th:data-target="'#prop'+${proprty.id}" aria-expanded="true"
+										aria-controls="collapse1"> <span th:text="${proprty.name}"></span>
+									</a>
+
+
+										<div th:id="'prop'+${proprty.id}" class="collapse"
+											data-parent="#accordion">
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th>Attribute Name</th>
+														<th>Attribute Value</th>
+														<th style="width: 150px;" >Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr
+														th:each="librariesProprty : ${librariesPropertiesList.get(proprty.name)}">
+														<td th:text="${librariesProprty.attrKey}">1</td>
+														<td th:text="${librariesProprty.attrValue}">1</td>
+														<td><a class="btn btn-success btn-sm"
+															th:href="@{/libraries-property-edit/{id}(id=${librariesProprty.id})}">
+																Edit </a> <a class="btn btn-danger btn-sm"
+															th:onclick="'javascript:deleteLibrariesProprty(' + ${librariesProprty.id} + ');'">
+																Delete </a></td>
+													</tr>
+												</tbody>
+											</table>
+										</div></td>
+
+									<td><a th:href="@{/libraries-edit/{id}(id=${proprty.id})}"
+										class="btn btn-primary"> Edit </a></td>
+								</tr>
+
+							</div>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+<script type="text/javascript">
+	function deleteLibrariesProprty(id) {
+
+		var r = confirm("Do you want to delete this property");
+		if (r == true) {
+			$.get("/libraries-property-delete/" + id, function(data) {
+				console.log(data);
+				
+				alert(data);
+				location.reload();
+			});
+		}
+
+	}
+</script>
+
+</html> -->

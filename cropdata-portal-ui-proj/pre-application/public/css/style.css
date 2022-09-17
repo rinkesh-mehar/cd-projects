@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  background-image: url("../images/bg_4.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  font-size: 16px;
+}
+
+.opq {
+  background: rgba(228, 228, 228, 0.1);
+}
+
+.opq h4, .opq h6{
+    color: #ffffff;  
+}
+a {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.page-title {
+  text-align: center;
+  color: #ffffff;
+}
+
+.box-container {
+  margin: 30px auto;
+  border: solid 3px rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 5px 8px 14px rgba(0, 0, 0, 0.12);
+}
+
+form * {
+  line-height: normal;
+}
+
+form label {
+  color: #ffffff;
+  font-size: 0.875rem;
+  line-height: 23px;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  
+}
+.col-md-12 .form-group:last-of-type {
+  margin-bottom: 0;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #2935e8;
+  border-color: #2935e8;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #2935e8;
+  background-color: #2935e8;
+}
+
+.table th {
+  width: 300px;
+  vertical-align: top;
+}
+.box-container h3 {
+  background-color: #ededed;
+  padding: 15px 20px;
+  margin: 0;
+}
+th.sr_no {
+  width: 110px;
+}
+
+.table td,
+.table thead th {
+  font-size: 14px;
+}
+.custom-select.custom-multiselect {
+  height: calc(5.5em + 5.75rem + 12px) !important;
+}

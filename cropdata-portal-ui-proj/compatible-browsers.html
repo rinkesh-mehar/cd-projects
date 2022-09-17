@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+  <meta charset="utf-8">
+  <title>Compatible Browsers | CropData</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <!-- Styles -->
+  <link rel="stylesheet" href="ie-js-css/outdatedBrowser.min.css">
+  <link rel="stylesheet" href="ie-js-css/mobile.min.css">
+
+  <!--[if lte IE 9]>
+        <link rel="stylesheet" type="text/css" href="ie-js-css/ie9-and-down.min.css">
+    <![endif]-->
+
+  <!--[if lte IE 8]>
+        <link rel="stylesheet" type="text/css" href="ie-js-css/ie8-and-down.min.css">
+    <![endif]-->
+
+  <script src="ie-js-css/modernizr-2.6.2.min.js"></script>
+  <!-- IE function that returns browser is Internet Explorer-->
+  <script>
+    function isIE() {
+      ua = navigator.userAgent;
+      /* MSIE used to detect old browsers and Trident used to newer ones*/
+      var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+      return is_ie;
+    }
+    /* Check and redirect to another page */
+    if (isIE()) {
+      // location.replace("compatible-browsers.html");
+      // alert("Please Use Microsoft Edge");
+      // location.replace("index.html")
+    } else {
+      location.replace("index.html")
+    }
+  </script>
+  <noscript>
+    <style type="text/css">
+      .menu,
+      .newBrowser {
+        display: none;
+      }
+
+      .disabledJS {
+        display: block;
+      }
+
+      .c_browsers.hideBrowsers {
+        opacity: 1;
+      }
+
+      .browser .statistic,
+      .browser .download {
+        display: block;
+        opacity: 0;
+        margin-left: 0;
+        left: 0;
+        width: 100%;
+      }
+
+      .browser .download a {
+        max-width: 210px;
+        width: 80%;
+      }
+
+      .browser:hover .statistic,
+      .browser:hover .download {
+        opacity: 1;
+      }
+    </style>
+  </noscript>
+
+</head>
+
+<body class="noajax  home">
+
+  <div id="container" class="container effect">
+    <div class="pusher">
+      <!-- LOAD CONTENT -->
+      <div class="loadContent current">
+
+        <div id="content" class="home" role="main">
+
+          <div id="preload" aria-hidden="true">
+            <img src="ie-js-css/images/browsers-bg.png" alt="">
+            <img src="ie-js-css/images/operatingsystems-bg.png" alt="">
+          </div>
+          <div class="inner">
+
+            <!--  HEADER  -->
+            <header class="title" role="banner">
+              <div class="browserVersion newBrowser">
+                <h1>Outdated Browser</h1>
+                <p>For a better experience, keep your browser up to date. Check here for latest versions.</p>
+              </div>
+              <div class="browserVersion disabledJS" aria-hidden="true">
+                <h1>Outdated Browser</h1>
+                <p>Javascript is disabled in your web browser. Turn it on for a better experience.</p>
+              </div>
+              <div class="browserVersion ifMobile" aria-hidden="true">
+                <h1>Outdated Browser</h1>
+                <p>This is a tool for desktop, <br>but feel free to explore.</p>
+              </div>
+              <!-- end HEADER  -->
+            </header>
+
+            <section class="c_browsers sorted kwicks kwicks-horizontal hideBrowsers">
+
+              <!-- BROWSER - Chrome -->
+              <div id="chrome" class="browser">
+                <h3 class="statistic"><span>69.1%</span> people are using <br>this browser</h3>
+                <div class="center">
+                  <h2><span></span> GOOGLE CHROME</h2>
+                  <div class="download">
+                    <a href="https://www.google.com/chrome/browser/desktop/" target="_blank" class="browserlink" data-track="Google Chrome">DOWNLOAD</a>
+                    <h4>VERSION <span>74</span></h4>
+                  </div>
+                </div>
+                <div class="available">
+                  <h4>AVAILABLE FOR </h4>
+                  <ul>
+                    <li class="windows"><span>Windows</span></li>
+                    <li class="mac"><span>Mac OS</span></li>
+                    <li class="linux"><span>Linux</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- BROWSER - Firefox -->
+              <div id="firefox" class="browser">
+                <h3 class="statistic"><span>9.7%</span> people are using <br>this browser</h3>
+                <div class="center">
+                  <h2><span></span> MOZILLA FIREFOX</h2>
+                  <div class="download">
+                    <a href="https://www.mozilla.org/firefox/new/" target="_blank" class="browserlink" data-track="Mozilla Firefox">DOWNLOAD</a>
+                    <h4>VERSION <span>67</span></h4>
+                  </div>
+                </div>
+                <div class="available">
+                  <h4>AVAILABLE FOR </h4>
+                  <ul>
+                    <li class="windows"><span>Windows</span></li>
+                    <li class="mac"><span>Mac OS</span></li>
+                    <li class="linux"><span>Linux</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- BROWSER - Internet Explorer -->
+              <div id="internetExplorer" class="browser">
+                <h3 class="statistic"><span>0.1%</span> people are using <br>this browser</h3>
+                <div class="center">
+                  <h2 class="edge"><span></span> MICROSOFT EDGE </h2>
+                  <div class="download">
+                    <a class="edge-btn" href="https://www.microsoft.com/software-download/windows10" target="_blank" class="browserlink" data-track="Internet Explorer">DOWNLOAD WIN10</a>
+                    <h4>VERSION <span>18</span></h4>
+                    <h5>Available only with Windows 10</h5>
+                  </div>
+                </div>
+                <div class="available">
+                  <h4>AVAILABLE FOR </h4>
+                  <ul class="single">
+                    <li class="windows"><span>Windows</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- BROWSER - Safari -->
+              <div id="safari" class="browser">
+                <h3 class="statistic"><span>8.6%</span> people are using <br>this browser</h3>
+                <div class="center">
+                  <h2><span></span> APPLE SAFARI</h2>
+                  <div class="download">
+                    <a class="macos-btn" href="https://www.apple.com/osx/" target="_blank" class="browserlink" data-track="Apple Safari">DOWNLOAD macOS</a>
+                    <h4>VERSION <span>12</span></h4>
+                    <h5>Available only with macOS</h5>
+                  </div>
+                </div>
+                <div class="available">
+                  <h4>AVAILABLE FOR </h4>
+                  <ul class="single">
+                    <li class="mac"><span>Mac OS</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- BROWSER - Opera -->
+              <div id="opera" class="browser">
+                <h3 class="statistic"><span>2.4%</span> people are using <br>this browser</h3>
+                <div class="center">
+                  <h2><span></span> OPERA</h2>
+                  <div class="download">
+                    <a href="https://www.opera.com/?utm_medium=roc&utm_source=burocratik&utm_campaign=outdatedbrowser" target="_blank" data-track="Opera" class="browserlink">DOWNLOAD</a>
+                    <h4>VERSION <span>60</span></h4>
+                  </div>
+                </div>
+                <div class="available">
+                  <h4>AVAILABLE FOR </h4>
+                  <ul>
+                    <li class="windows"><span>Windows</span></li>
+                    <li class="mac"><span>Mac OS</span></li>
+                    <li class="linux"><span>Linux</span></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- end SECTION -->
+            </section>
+
+            <!-- end .inner -->
+          </div>
+          <!-- end #content -->
+        </div>
+        <!-- end .loadContent -->
+      </div>
+
+
+      <!-- end .pusher -->
+    </div>
+
+
+    <!-- end .container -->
+  </div>
+
+
+  <!-- KEEP CALM MESSAGE -->
+  <div class="keep_calm" aria-hidden="true">
+    <p class="center">keep calm <br><span class="xs">this is a tool for</span>desktop<br><span class="xs">not</span> mobile devices</p>
+    <p class="close">Close</p>
+  </div>
+
+
+  <!-- ============= SCRIPTS ============= -->
+  <script src="ie-js-css/jquery-1.10.1.min.js"></script>
+  <script src="ie-js-css/outdatedBrowser.min.js"></script>
+  <script src="ie-js-css/xDomainRequest.js"></script>
+
+  <!--[if !IE]><!-->
+  <script type="text/javascript" src="ie-js-css/main.min.js"></script>
+  <!--<![endif]-->
+
+  <!--[if gte IE 9]>
+      <script type="text/javascript" src="ie-js-css/main-2.min.js"></script>
+    <![endif]-->
+
+
+</body>
+
+</html>

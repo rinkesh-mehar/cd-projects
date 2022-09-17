@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: drk-cctc
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    config:
+      uri: ${config.url}
+      username: ${config.username}
+      password: ${config.password}
+      label: v1.0
+  profiles:
+    active:
+      - ${active.profile}

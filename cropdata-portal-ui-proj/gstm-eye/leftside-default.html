@@ -1,0 +1,131 @@
+<a href="#!" class="nav-toggle open-bar" onclick="sidePanelControl()"><i class="fas fa-bars"></i></a>
+<div class="analyticData">
+    <div class="gstmHeader">
+        <h1 class="page-title">Area Stability Index
+            <a href="#!" class="nav-toggle close-bar" onclick="sidePanelControl()"><i class="fas fa-bars"></i></a>
+        </h1>
+
+    </div>
+    <div class="px-3 mt-5" style=" margin-top: 35px;">
+        <h3 class="theme-color highlight-text m-0">
+            <div class="in highlight-text tspt-70 regionpreload" style="display: inline-block; text-transform: capitalize; width: 100%; color: #0d9aff; line-height: 1.5rem; margin-bottom: 5px;">
+            </div>
+            <div class="clr"></div>
+        </h3>
+        <span style="font-style: italic;">
+      <span class="address tspt-70 regionpreload" style="display: inline-block; text-transform: capitalize;width: 100%;"> </span>
+        <div class="clr"></div>
+        </span>
+        <div class="row" style="background-color: #000000;">
+            <div class="col-auto" style="line-height: 34px;color: #dcad00;font-weight: bold;font-size: 1.2rem;">Window Analytics</div>
+            <div class="col-auto data-link mb-2">Year &nbsp;<span class="tspt-70 preload" style="height: 18px; display: inline-block; vertical-align: middle;"><span class="year"></span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="details">
+        <div class="px-3 py-3 box-details border-top">
+            <h6 class="highlight-text">Region Profile</h6>
+            <div class="row">
+                <div class="col-6 value-outer">
+                    <div class="tspt-70 preload">
+                        <span class="place_label irrigated-area"></span>
+                        <div class="mainvalue">
+                            <span class="value irrigated-value"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 value-outer pl-0">
+                    <div class="tspt-70 preload">
+                        <span class="place_label nsa-ratio"></span>
+                        <div class="mainvalue">
+                            <span class="value nsa-ratio-value"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-6 value-outer">
+                    <div class="tspt-70 preload">
+                        <span class="place_label lh-size"></span>
+                        <div class="mainvalue">
+                            <span class="value lh-size-value"> </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 value-outer pl-0">
+                    <div class="tspt-70 preload">
+                        <span class="place_label production"></span>
+                        <div class="mainvalue">
+                            <span class="value production-value"> </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="px-3 py-3 box-details border-top commodity_famous">
+            <h6 class="highlight-text">Season <span class="season tspt-70 preload" style="display: inline-block;vertical-align: middle;"></span></h6>
+            <div class="clr"></div>
+            <h6 class="highlight-text">Focus Crops</h6>
+            <ol id="focus-crops" type="1" class="tspt-70 preload">
+            </ol>
+        </div>
+
+        <img alt="" src="images/GSTM-yar-legend-2.svg" class="legend img-fluid">
+
+        <div class="px-3 py-3 box-details">
+            <h6 class="mb-3 highlight-text">Top Risk Free Crops</h6>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Crops</th>
+                        <th>Risk (%)</th>
+                    </tr>
+                </thead>
+                <tbody id="top-risk"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="gstmFooter">
+        <!-- <p></p> -->
+        <p class="copyrights">
+            <span>Powered by CropData</span>
+        </p>
+
+    </div>
+
+</div>
+
+<div class="hover-result briefShift" onclick="briefPanelControl()">
+    <div class="container" style="width: 275px;">
+        <div class="row">
+            <div class="col-12 pl-0">
+                <h4 style="font-weight: bold;background-color: rgb(0 0 0 / 12%);padding: 10px 15px;color: #064979;">Tile Analytics
+
+                </h4>
+            </div>
+            <div class="col-6 pr-0">
+                <div class="label_tag">Risk</div>
+                <div class="riskValue value" id="yarValue"></div>
+            </div>
+            <div class="col-6 p-0">
+                <div class="label_tag">Irrigated Area</div>
+                <div class="irrigatedValue value"></div>
+            </div>
+            <div class="col-12 pr-0 mt-2">
+                <div class="label_tag">Avg. LH Size</div>
+                <div class="avgLhSizeValue value"></div>
+            </div>
+
+            <div class="col-12 pr-0 mt-2">
+                <div class="label_tag d-inline-block mt-2">Focus Crops</div>
+                <br>
+                <div class="d-inline-block" id="crops"></div>
+            </div>
+        </div>
+    </div>
+</div>

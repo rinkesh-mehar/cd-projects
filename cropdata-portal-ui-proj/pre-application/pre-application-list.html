@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+    <link href="public/css/style.css" rel="stylesheet" type="text/css">
+    <title>Pre Application Form</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="page-title mt-5 mb-5">Pre-Application List</h1>
+        <form action="" method="POST" enctype="multipart/form-data">
+            <table class="table table-bordered opq">
+                <thead class="thead-dark">
+                    <tr>
+                        <th style="width: 46px !important;" class="sr_no">Sr. No</th>
+                        <th width="800">Details</th>
+                        <th style="width: 86px !important;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1</strong></td>
+                        <td>
+                            <div class="d-flex">
+                                <div class="names mr-3">
+                                    <span><strong>Applicant Name</strong></span>
+                                    <span><strong>:</strong></span>
+                                    <span class="small_name"> Name</span>
+                                </div>
+
+                                <div class="names mr-3">
+                                    <span><strong>Applicant Name</strong></span>
+                                    <span><strong>:</strong></span>
+                                    <span class="small_name"> Name</span>
+                                </div>
+
+                                <div class="names mr-3">
+                                    <span><strong>Applicant Name</strong></span>
+                                    <span><strong>:</strong></span>
+                                    <span class="small_name"> Name</span>
+                                </div>
+
+                                <div class="names mr-3">
+                                    <span><strong>Applicant Name</strong></span>
+                                    <span><strong>:</strong></span>
+                                    <span class="small_name"> Name</span>
+                                </div>
+
+                                <div class="names mr-3">
+                                    <span><strong>Applicant Name</strong></span>
+                                    <span><strong>:</strong></span>
+                                    <span class="small_name"> Name</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td><a class="btn btn-primary w-100" href="/buyers/view/${buyer.id}">View</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6_pni7x4fdtQJt2wVzknzIGZFOG_rd7c&libraries=places"></script>
+    <script>
+        var input = document.getElementById('autocomplete');
+        var autocomplete = new google.maps.places.Autocomplete(input,{types: ['(cities)']});
+        google.maps.event.addListener(autocomplete, 'place_changed', function(){
+            var place = autocomplete.getPlace();
+        })
+    </script>
+</body>
+
+</html>

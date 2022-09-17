@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <meta name="description" content="The first real-time interactive map that allows exploring and comparing fields and crops in India customized to farmer's respective crop, location, and vulnerability to different kinds of stress.">
+    <meta name="keywords" content="CropData, Agriculture Services, Agriculture service providers, Farming services, Krishi, Dr. Krishi, Agriculture E-Marketplace">
+    <meta name="author" content="Sachin Suri - MD, CropData, Designed & Developed by Prakash Patil">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>GSTM Eye | CropData</title>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <!-- Google Map -->
+    <script src="https://maps.google.com/maps/api/js?v=3&sensor=false"></script>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="lib/leaflet/leaflet.css" />
+    <script src="lib/leaflet/leaflet.js"></script>
+    <script src="lib/leaflet/Google.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <!-- IE function that returns browser is Internet Explorer-->
+    <script>
+        function isIE() {
+            ua = navigator.userAgent;
+            /* MSIE used to detect old browsers and Trident used to newer ones*/
+            var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+            return is_ie;
+        }
+        /* Check and redirect to another page */
+        if (isIE()) {
+            location.replace("compatible-browsers.html");
+        }
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176736470-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-176736470-1');
+    </script>
+
+</head>
+
+<body>
+    <div id="loading">
+        <div id="loading-center">
+            <div id="loading-center-absolute">
+                <img alt="" loading="lazy" src="images/gstm-eye-2.gif" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+    <div class="logo-section">
+        <img alt="" loading="lazy" src="../images/gstm-logo.svg">
+    </div>
+
+
+    <div class="filters">
+
+        <!-- <div class="searchContainer d-flex">
+            <div class="col-auto p-0">
+                <div class="input-group">
+                    <div class="input-group-prepend d-flex">
+                        <div class="input-group-text">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                    <input type="search" class="form-control" id="searchParam" placeholder="Search...">
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="moreFilterGallery" type="button" data-bs-toggle="modal" data-bs-target="#filterGallery">
+                    <i class="fas fa-sitemap"></i>
+                </div>
+            </div>
+        </div> -->
+        <!-- <div class="col-auto dropdown p-0">
+            <a href="#!" class="btn btn-secondary filterBtn" title="Search By Location">
+                <i class="fas fa-filter"></i>
+            </a>
+        </div>
+        <div class="col-auto dropdown p-0">
+            <div class="container filterContainer" style="display: none;">
+                <div class="row">
+                    <div class="col-auto p-0" style="border-right: solid 3px #000000; margin-right: 2px;">
+                        <div class="row m-0">
+                            <div class="col-auto p-0">
+                                <div>
+                                    <div class="dropdown state-parent show">
+                                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="state" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">State</a>
+                                        <div class="dropdown-menu" aria-labelledby="state">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto p-0">
+                                <div class="dropdown district-parent show">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">District</a>
+                                    <div class="dropdown-menu" aria-labelledby="district">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto p-0">
+                                <div class="dropdown region-parent show">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="region" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Region</a>
+                                    <div class="dropdown-menu" aria-labelledby="region">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-auto p-0">
+                        <div class="dropdown Platforms-parent show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="Platforms" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Platforms</a>
+                            <div class="dropdown-menu" aria-labelledby="Platforms">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-auto p-0">
+                        <div class="dropdown data_type-parent show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="data_type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data Type</a>
+                            <div class="dropdown-menu" aria-labelledby="data_type">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-auto p-0">
+                        <div class="dropdown category-parent show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="category" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</a>
+                            <div class="dropdown-menu" aria-labelledby="category">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-auto p-0">
+                        <div class="dropdown sub_category-parent show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="sub_category" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Category</a>
+                            <div class="dropdown-menu" aria-labelledby="sub_category">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-auto p-0">
+                        <div class="dropdown parameter-parent show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="parameter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Parameter</a>
+                            <div class="dropdown-menu" aria-labelledby="parameter">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+
+
+
+    <!--Filter Gallery-->
+    <div class="modal fade" id="filterGallery" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="filterGalleryLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterGalleryLabel">Explore your search...</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-4">
+                                <div class="form-group">
+                                    <label for="platforms">Platforms</label>
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="platforms">
+                                        <option selected>Choose Platform</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-4">
+                                <div class="form-group">
+                                    <label for="datatypes">Datatype</label>
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="datatypes">
+                                        <option selected>Choose Datatype</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-4">
+                                <div class="form-group">
+                                    <label for="categories">Category</label>
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="categories">
+                                        <option selected>Choose Category</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="filterResultSection">
+                                    <h6 class="categoryTitle">Subcategory Name</h6>
+                                    <!-- Nav tabs -->
+                                    <div class="d-flex align-items-start subcategoryData">
+                                        <div class="nav flex-column nav-pills me-3 col-auto" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Paramter 1</button>
+                                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Paramter 2</button>
+                                            <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Paramter 3</button>
+                                            <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Paramter 4</button>
+                                        </div>
+
+                                        <!-- Tab panes -->
+                                        <div class="tab-content" id="v-pills-tabContent">
+                                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                1Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit nisi unde quia enim iure asperiores, hic aspernatur quis, impedit vitae quod sapiente aliquam sed quibusdam eligendi possimus? Ducimus, repellat ipsam?
+                                            </div>
+                                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                                2Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit nisi unde quia enim iure asperiores, hic aspernatur quis, impedit vitae quod sapiente aliquam sed quibusdam eligendi possimus? Ducimus, repellat ipsam?
+                                            </div>
+                                            <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                                                3Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit nisi unde quia enim iure asperiores, hic aspernatur quis, impedit vitae quod sapiente aliquam sed quibusdam eligendi possimus? Ducimus, repellat ipsam?
+                                            </div>
+                                            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                                                4Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit nisi unde quia enim iure asperiores, hic aspernatur quis, impedit vitae quod sapiente aliquam sed quibusdam eligendi possimus? Ducimus, repellat ipsam?
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="filterResultSection">
+                                    <h6 class="categoryTitle">Subcategory Name</h6>
+                                    <!-- Nav tabs -->
+                                    <div class="d-flex align-items-start subcategoryData">
+                                        <div class="nav flex-column nav-pills me-3 col-auto" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                            <button class="nav-link" id="home-tab2" data-bs-toggle="tab" data-bs-target="#home2" type="button" role="tab" aria-controls="home2" aria-selected="true">Paramter 1</button>
+                                            <button class="nav-link active" id="profile-tab2" data-bs-toggle="tab" data-bs-target="#profile2" type="button" role="tab" aria-controls="profile2" aria-selected="false">Paramter 2</button>
+                                            <button class="nav-link" id="messages-tab2" data-bs-toggle="tab" data-bs-target="#messages2" type="button" role="tab" aria-controls="messages2" aria-selected="false">Paramter 3</button>
+                                            <button class="nav-link" id="settings-tab2" data-bs-toggle="tab" data-bs-target="#settings2" type="button" role="tab" aria-controls="settings2" aria-selected="false">Paramter 4</button>
+                                        </div>
+
+                                        <!-- Tab panes -->
+                                        <div class="tab-content" id="v-pills-tabContent">
+                                            <div class="tab-pane fade" id="home2" role="tabpanel" aria-labelledby="home-tab2">
+                                                1Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit nisi unde quia enim iure asperiores, hic aspernatur quis, impedit vitae quod sapiente aliquam sed quibusdam eligendi possimus? Ducimus, repellat ipsam?
+                                            </div>
+                                            <div class="tab-pane fade show active" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
+                                                2Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit nisi unde quia enim iure asperiores, hic aspernatur quis, impedit vitae quod sapiente aliquam sed quibusdam eligendi possimus? Ducimus, repellat ipsam?
+                                            </div>
+                                            <div class="tab-pane fade" id="messages2" role="tabpanel" aria-labelledby="messages-tab2">
+                                                3Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit nisi unde quia enim iure asperiores, hic aspernatur quis, impedit vitae quod sapiente aliquam sed quibusdam eligendi possimus? Ducimus, repellat ipsam?
+                                            </div>
+                                            <div class="tab-pane fade" id="settings2" role="tabpanel" aria-labelledby="settings-tab2">
+                                                4Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit nisi unde quia enim iure asperiores, hic aspernatur quis, impedit vitae quod sapiente aliquam sed quibusdam eligendi possimus? Ducimus, repellat ipsam?
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="zoom-level"></div>
+    <div id="left-side-bar"></div>
+    <div id="zl-nav" class="zl-right">
+        <ul>
+            <!-- <li id="7" class="class-7"><span>ZL 7</span> <span>State</span></li>
+			<li id="8" class="class-8"><span>ZL 8</span> <span>Division</span></li> -->
+            <li id="9" class="class-9"><span>ZL 9</span> <span>District (78x78 Km)</span></li>
+            <li id="10" class="class-10"><span>ZL 10</span> <span>Sub-District (39x39 Km)</span></li>
+            <li id="11" class="class-11"><span>ZL 11</span> <span>Block (20x20 Km)</span></li>
+            <li id="12" class="class-12"><span>ZL 12</span> <span>Sub-Block (10x10 km)</span></li>
+            <li id="13" class="class-13"><span>ZL 13</span> <span>Panchayat (5x5 km)</span></li>
+            <li id="14" class="class-14"><span>ZL 14</span> <span>Village (2x2 km)</span></li>
+        </ul>
+    </div>
+    <div class="right-side-box" style="width: 100%;" id="cdt-map"></div>
+
+    </div>
+    <!-- jQuery-->
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+    <!-- jQuery-FusionCharts -->
+    <script type="text/javascript" src="https://rawgit.com/fusioncharts/fusioncharts-jquery-plugin/develop/dist/fusioncharts.jqueryplugin.min.js"></script>
+    <!-- Fusion Theme -->
+    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <script>
+        // $("#filterGallery").on('show.bs.modal', function() {
+        //     var firstTabEl = document.querySelector('#v-pills-tab li:last-child a')
+        //     var firstTab = new bootstrap.Tab(firstTabEl)
+
+        //     firstTab.show()
+
+
+        // });
+    </script>
+</body>
+
+</html>

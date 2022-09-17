@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>GSTM Studio | CropData</title>
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+  <!-- Google Map -->
+  <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="lib/leaflet/leaflet.css" />
+  <script src="lib/leaflet/leaflet.js"></script>
+  <script src="lib/leaflet/Google.js"></script>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+
+  <div id="loading">
+    <div id="loading-center">
+      <div id="loading-center-absolute">
+        <img alt="" loading="lazy" src="images/gstm-eye-2.gif" class="img-fluid">
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-section">
+    <img alt="" loading="lazy" src="../images/gstm-logo.svg">
+  </div>
+
+  <!-- <div class="filters">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-auto p-0">
+					<a href="#!" class="btn btn-secondary search-btn" title="Search By Location">
+						<i class="fas fa-search"></i>
+					</a>
+				</div>
+
+				<div class="col-auto p-0">
+					<div class="dropdown state-parent show">
+						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="state" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">State</a>
+						<div class="dropdown-menu" aria-labelledby="state">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-auto p-0">
+					<div class="dropdown district-parent show">
+						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">District</a>
+						<div class="dropdown-menu" aria-labelledby="district">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-auto p-0">
+					<div class="dropdown Platforms-parent show">
+						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="Platforms" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Platforms</a>
+						<div class="dropdown-menu" aria-labelledby="Platforms">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-auto p-0">
+					<div class="dropdown data_type-parent show">
+						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="data_type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data Type</a>
+						<div class="dropdown-menu" aria-labelledby="data_type">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-auto p-0">
+					<div class="dropdown category-parent show">
+						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="category" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</a>
+						<div class="dropdown-menu" aria-labelledby="category">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-auto p-0">
+					<div class="dropdown sub_category-parent show">
+						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="sub_category" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Category</a>
+						<div class="dropdown-menu" aria-labelledby="sub_category">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-auto p-0">
+					<div class="dropdown parameter-parent show">
+						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="parameter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Parameter</a>
+						<div class="dropdown-menu" aria-labelledby="parameter">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+  <div class="zoom-level"></div>
+
+
+
+  <div id="left-side-bar"></div>
+
+  <div id="zl-nav" class="zl-right">
+    <ul>
+      <li id="7" class="class-7"><span>ZL 7</span> <span>State</span></li>
+      <li id="8" class="class-8"><span>ZL 8</span> <span>Division</span></li>
+      <li id="9" class="class-9"><span>ZL 9</span> <span>District (78x78 Km)</span></li>
+      <li id="10" class="class-10"><span>ZL 10</span> <span>Sub-District (39x39 Km)</span></li>
+      <li id="11" class="class-11"><span>ZL 11</span> <span>Block (20x20 Km)</span></li>
+      <li id="12" class="class-12"><span>ZL 12</span> <span>Sub-Block (10x10 km)</span></li>
+      <li id="13" class="class-13"><span>ZL 13</span> <span>Panchayat (5x5 km)</span></li>
+      <li id="14" class="class-14"><span>ZL 14</span> <span>Village (2x2 km)</span></li>
+    </ul>
+  </div>
+
+
+  <div class="right-side-box" style="width: 100%;" id="cdt-map"></div>
+
+  </div>
+
+
+  <!-- jQuery-->
+
+  <!-- Latest compiled JavaScript -->
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+  <!-- jQuery-FusionCharts -->
+  <script type="text/javascript" src="https://rawgit.com/fusioncharts/fusioncharts-jquery-plugin/develop/dist/fusioncharts.jqueryplugin.min.js"></script>
+  <!-- Fusion Theme -->
+  <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+
+  <!-- <script src="http://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+	<script src="https://raw.githubusercontent.com/leaflet-extras/leaflet-providers/master/leaflet-providers.js"></script> -->
+
+  <script>
+
+    if (window.location.host.search("api.ts.cropdata.in") > -1) {
+      var baseUrl = "http://api.ts.cropdata.in/gstm-studio/data"
+    } else if (window.location.host.search("api.tsuat.cropdata.in") > -1) {
+      var baseUrl = "http://api.ts.cropdata.in/gstm-studio/data"
+    } else {
+      var baseUrl = "http://192.168.0.67:8081/data";
+    }
+
+    console.log(baseUrl);
+
+    var mLocation = baseUrl + '/st';
+    var dFilter = baseUrl + '/filters';
+    var forx = '';
+    var nine = '';
+    var region = '';
+    var regions = '';
+    var dabbaLayer = '';
+    var mapdata2 = '';
+    var mapTilesCache = [];
+    var analyticsCache = [];
+    var regionBoundaryCache = undefined;
+    var parameter = 28;
+    var polyline = undefined;
+    var reqVars = null;
+    var tileId = null;
+    var urlVars = {};
+    var current_lat;
+    var current_lng;
+    var stateId
+    var pId
+    var dId
+    var cId
+    var scId
+    var paraId
+
+    function prepareUrl(northWest, southEast) {
+
+      urlVars['zl'] = zl;
+      urlVars['p'] = parameter;
+      urlVars['tid'] = tileId == null ? '' : tileId;
+      urlVars['lat'] = current_lat == undefined ? '' : current_lat;
+      urlVars['lng'] = current_lng == undefined ? '' : current_lng;
+
+      if (northWest != undefined) {
+        urlVars['ltX'] = northWest.lng;
+        urlVars['ltY'] = northWest.lat;
+      }
+
+      if (northWest != undefined) {
+        urlVars['rbX'] = southEast.lng;
+        urlVars['rbY'] = southEast.lat;
+      }
+
+      reqVars = getRequestVars();
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + reqVars;
+
+      if (history.pushState) {
+        window.history.pushState({ path: newurl }, '', newurl);
+      }
+
+    }
+
+    function getRequestVars() {
+      var reqArr = [];
+      for (k in urlVars) {
+        var v = urlVars[k]
+        reqArr.push(k + "=" + v);
+      }
+      return (reqArr.join('&'));
+    }
+
+
+
+    function renderMap(data) {
+
+      map.removeLayer(dabbaLayer);
+
+      dabbaLayer = L.geoJson(data, {
+        style: overlay_layer,
+        onEachFeature: function (feature, layer) {
+          layer.on("click", function (event) {
+            brief_call(feature.properties.TileID);
+          });
+        },
+      }).addTo(map);
+
+      fetchAnalysis();
+
+      zoom = map.getZoom();
+
+      // Remove 25 region polyline
+      if (polyline != undefined) {
+        map.removeLayer(polyline);
+      }
+
+      // Draw 25 region polyline
+      if (zoom >= 4 && zoom <= 10) {
+        renderRegionBoundary();
+      }
+    }
+
+
+    function highlightFeature(e) {
+      var layer = e.target;
+
+      layer.setStyle({
+        weight: 5,
+        color: 'black',
+        dashArray: '',
+        fillOpacity: 0.2
+      });
+
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+      }
+    }
+
+
+    // function loadRequest(pzoom) {
+    // 	$.ajax({
+    // 		// url: "data/pranay-3.geojson",
+    // 		url: baseUrl + "/map?zl=" + pzoom + "&p=80&tid=&lat=&lng=&ltX=&ltY=&rtX=&rtY=&rbX=&rbY=&lbX=&lbY=",
+    // 		dataType: "script",
+    // 		success: function () {
+
+    // 			dabbaLayer = L.geoJson(mapdata2, {
+    // 				style: overlay_layer,
+    // 				onEachFeature: function (feature, layer) {
+    // 					layer.bindPopup('<h4>' + feature.properties.TileID + '</h4><p>PYaR: ' + feature.properties.Pyar + '</p><p>SeasonID: ' + feature.properties.SeasonID + '</p>');
+    // 				},
+    // 			}).addTo(map);
+
+    // 			console.log(analyticsData);
+
+    // 			// Zoom to India
+    // 			ZoomToIndia()
+    // 		}
+    // 	});
+    // }
+
+
+    function resetHighlight(e) {
+      dabbaLayer.resetStyle(e.target);
+    }
+
+    function zoomToFeature(e) {
+      map.fitBounds(e.target.getBounds());
+    }
+
+    function dabbasOnEachFeature(feature, layer) {
+      layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+      });
+    }
+
+    function onEachFeature(feature, layer) {
+      layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+      });
+    }
+
+
+    function plolyStyle(feature) {
+      return {
+        fillColor: feature.properties.Color,
+        weight: 1,
+        opacity: 1,
+        color: '#ff25f3',
+        dashArray: 0,
+        fillOpacity: 0.8
+      }
+    }
+
+
+    function dabbaStyle(feature) {
+      return {
+        fillColor: feature.properties.Color,
+        weight: 1,
+        opacity: 1,
+        color: '#2935e8',
+        dashArray: 0,
+        fillOpacity: 0.8
+      }
+    }
+
+    function district_data(feature) {
+      return {
+        fillColor: feature.properties.Color,
+        weight: 1,
+        opacity: 1,
+        color: '#2935e8',
+        dashArray: 0,
+        fillOpacity: 0.0
+      }
+    }
+
+    function tehsil_data(feature) {
+      return {
+        fillColor: feature.properties.Color,
+        weight: 0.5,
+        opacity: 1,
+        color: 'rgba(0,0,0, 0.8)',
+        dashArray: 2,
+        fillOpacity: 0.0
+      }
+    }
+
+    function llStyle(feature) {
+      return {
+        fillColor: feature.properties.Color,
+        weight: 1,
+        opacity: 1,
+        color: 'rgba(0,0,0, 0.1)',
+        dashArray: 0,
+        fillOpacity: 0.0
+      }
+    }
+    function overlay_layer(feature) {
+      return {
+        fillColor: feature.properties.Color,
+        weight: 1,
+        opacity: 0.1,
+        color: 'black',
+        dashArray: 1,
+        fillOpacity: 0.8
+      }
+    }
+
+    function ZoomToIndia() {
+      var corner1 = L.latLng(35.494009507787766, 97.40256147663614),
+        corner2 = L.latLng(7.965534776232332, 68.1766451353734),
+        bounds = L.latLngBounds(corner1, corner2);
+      map.fitBounds(bounds);
+
+    }
+
+    function ZoomToRegion(region) {
+
+      if (region == 1) {
+        var corner1 = L.latLng(32.0232133942454, 76.35498046875),
+          corner2 = L.latLng(31.37357161574468, 74.24972534179688),
+          bounds = L.latLngBounds(corner1, corner2);
+      } else if (region == 2) {
+        var corner1 = L.latLng(maxy, maxx),
+          corner2 = L.latLng(miny, minx),
+          bounds = L.latLngBounds(corner1, corner2);
+      }
+
+      map.fitBounds(bounds);
+    }
+
+
+    function renderRegionBoundary() {
+
+      if (regionBoundaryCache == undefined) {
+        $.ajax({
+          url: "data/25lines.geojson",
+          dataType: "script",
+          success: function () {
+            regionBoundaryCache = polyline
+            polyline = L.geoJson(polyline, {
+              style: plolyStyle,
+            }).addTo(map);
+          }
+        });
+      } else {
+        polyline = L.geoJson(regionBoundaryCache, {
+          style: plolyStyle,
+        }).addTo(map);
+      }
+    }
+
+    function fetchAnalysis() {
+
+      analysisDataUrl = baseUrl + '/analytics?' + getRequestVars();
+
+      // Fetch and cache the analytics data
+      $.ajax({
+        url: analysisDataUrl,
+        dataType: "script",
+        success: function () {
+          renderAnalyticsData(analyticsData);
+        }
+      });
+    }
+
+
+
+    function fetchPlaceNameUnderPointer() {
+      // console.log("fetchPlaceNameUnderPointer");
+      placeDataUrl = baseUrl + '/analytics/region?' + getRequestVars();
+      // Fetch and cache the analytics data
+      $.ajax({
+        url: placeDataUrl,
+        dataType: "script",
+        success: function () {
+          let regionName = regionData.in;
+          let regionDistName = regionData.district;
+          $('.in').html(regionData.in);
+          console.log(regionData)
+          $('.address').html(regionData.district + (regionData.district != '' ? ", " : '') + regionData.state);
+        }
+      });
+    }
+
+    function brief_call(tId) {
+
+      tileId = tId;
+      prepareUrl(); // This will push new URL in history
+      var briefUrl = baseUrl + "/analytics/brief?" + getRequestVars();
+
+      $.ajax({
+        url: briefUrl,
+        dataType: "script",
+        success: function () {
+          // console.log(briefAnalyticsData);
+          let avgIrrigation = briefAnalyticsData.regionProfile.values.avgIrrigation;
+          let avgAverageLhSize = briefAnalyticsData.regionProfile.values.avgAverageLhSize;
+          let focusCrops = briefAnalyticsData.focusCrops;
+
+          $(".hover-result").show();
+          $(".irrigatedValue, .avgLhSizeValue, #crops").empty();
+          $(".irrigatedValue").append(avgIrrigation);
+          $(".avgLhSizeValue").append(avgAverageLhSize);
+
+          $.each(focusCrops, function (index, value) {
+            var cropName = `<div class="value-crop">${value.cropName}</div>`;
+            $("#crops").append(cropName);
+          });
+        }
+
+      });
+    }
+
+    function renderAnalyticsData(analyticsData) {
+
+      $('.preload').removeClass('tspt-70');
+
+      if (analyticsData.template == 'production') {
+        $('#left-side-bar').load('leftside-production.html');
+        return false
+      } else if (analyticsData.template == 'pricing') {
+        $('#left-side-bar').load('leftside-pricing.html');
+      }
+      let focusCrops = analyticsData.focusCrops;
+      let riskFreeCrops = analyticsData.riskFreeCrops;
+      let region = analyticsData.region;
+      let regionProfile = analyticsData.regionProfile;
+
+
+      let totalProduction = regionProfile.values.totalProduction;
+      $('.production-value').text(totalProduction);
+
+      // if (zl == 9) {
+      // 	totalProduction = totalProduction / 1000000;
+      // 	$('.production-value').text(Math.ceil(totalProduction) + ' MT');
+
+      // } else if (zl == 10) {
+
+      // 	totalProduction = totalProduction / 100000;
+      // 	$('.production-value').text(Math.ceil(totalProduction) + ' LT');
+
+      // } else if (zl == 11) {
+      // 	totalProduction = totalProduction / 100000;
+      // 	$('.production-value').text(Math.ceil(totalProduction) + ' LT');
+
+      // } else if (zl == 12) {
+      // 	totalProduction = totalProduction / 100000;
+      // 	$('.production-value').text(Math.ceil(totalProduction) + ' LT');
+
+      // } else if (zl == 13) {
+
+      // 	totalProduction = totalProduction / 1000;
+      // 	$('.production-value').text(Math.ceil(totalProduction) + " KT");
+
+      // } else if (zl == 14) {
+      // 	$('.production-value').text(Math.ceil(totalProduction) + ' Tons');
+      // }
+
+
+
+      // console.log("zl" + zl + ", data" + get_values);
+      //for showing focus crops 
+
+      var getFocus = '';
+      var getVillages = '';
+
+      var fid = 1;
+      $.each(focusCrops, function (index, value) {
+        if (index <= 5) {
+          getFocus += `<li title="${value.cropName}"><span style="background-color:${value.color}">${fid}</span> ${value.cropName}</li>`
+        }
+        fid++;
+      });
+
+      $.each(riskFreeCrops, function (index, value) {
+
+        getVillages += `<tr>
+							<td>${value.cropName}</td>
+							<td>${value.value}</td>
+						</tr>`
+      });
+
+      $("#focus-crops").html(getFocus);
+      $("#top-risk").html(getVillages);
+      // end
+
+      $('.season').html(analyticsData.season);
+      $('.irrigated-area').html(regionProfile.fields.avgIrrigation);
+      $('.nsa-ratio').html(regionProfile.fields.avgNsaTgaPer);
+      $('.lh-size').html(regionProfile.fields.avgAverageLhSize);
+      $('.production').html(regionProfile.fields.totalProduction);
+
+      $('.irrigated-value').html(regionProfile.values.avgIrrigation);
+      $('.nsa-ratio-value').html(regionProfile.values.avgNsaTgaPer);
+      $('.lh-size-value').html(regionProfile.values.avgAverageLhSize);
+      $('.year').html('<a href="#">' + region.years[0] + '</a>');
+
+    }
+
+
+    // Create the map
+    var map = L.map('cdt-map', {
+      minZoom: 5,
+      maxZoom: 14
+    })
+
+
+    // var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // 	maxZoom: 19,
+    // 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    // });
+
+    // var Stadia_AlidadeSmoothDark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+    // 	maxZoom: 20,
+    // 	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    // });
+
+    // L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    // 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    // });
+
+
+    // Add Google map
+    // var Stadia_AlidadeSmoothDark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+    // 	maxZoom: 14,
+    // 	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    // });
+    // map.addLayer(Stadia_AlidadeSmoothDark);
+
+
+    // var Stadia_AlidadeSmooth = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+    // 	maxZoom: 20,
+    // 	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    // });
+    // map.addLayer(Stadia_AlidadeSmooth);
+
+
+    googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+      maxZoom: 14,
+      subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    });
+    map.addLayer(googleStreets);
+
+
+    // Add Google map
+    // var googleLayer = new L.Google();
+    // map.addLayer(googleLayer);
+
+    $(document).ready(function () {
+
+      $('#left-side-bar').load('leftside-default.html');
+      // $('#left-side-bar').load('leftside-production.html');
+
+      map.addEventListener('mousemove', function (ev) {
+        current_lat = ev.latlng.lat;
+        current_lng = ev.latlng.lng;
+      });
+
+      $.ajax({
+        url: "data/nine.geojson",
+        dataType: "script",
+        success: function () {
+          dabbaLayer = L.geoJson(mapdata, {
+            style: llStyle,
+          }).addTo(map);
+
+          $.ajax({
+            url: "data/district.geojson",
+            dataType: "script",
+            success: function () {
+
+              district = L.geoJson(district, {
+                style: district_data
+              }).addTo(map);
+
+              ZoomToIndia();
+
+              // $.ajax({
+              // 	url: "data/tehsil.geojson",
+              // 	dataType: "script",
+              // 	success: function () {
+              // 		tehsil = L.geoJson(tehsil, {
+              // 			style: tehsil_data,
+              // 			// onEachFeature: function (feature, layer) {
+              // 			// 	layer.bindPopup('<h1>' + feature.properties.Index + '</h1><p>name: ' + feature.properties.Long + '</p>');
+              // 			// }
+              // 		}).addTo(map);
+
+              // 		// $.ajax({
+              // 		// 	url: "data/regions.geojson",
+              // 		// 	dataType: "script",
+              // 		// 	success: function () {
+              // 		// 		regions = L.geoJson(mapdata, {
+              // 		// 			style: dabbaStyle,
+              // 		// 			// onEachFeature: function (feature, layer) {
+              // 		// 			// 	layer.bindPopup('<h1>' + feature.properties.Index + '</h1><p>name: ' + feature.properties.Long + '</p>');
+              // 		// 			// }
+              // 		// 		}).addTo(map);
+              // 		// 	}
+              // 		// });
+
+              // 		// Zoom to India
+              // 		ZoomToIndia()
+              // 	}
+              // });
+
+            }
+          });
+        }
+      });
+
+
+      // add a scale at at your map.
+      var scale = L.control.scale().addTo(map);
+
+      // To call the brief analytics
+      map.on('click', function (e) {
+        // console.log("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
+        current_lat = e.latlng.lat;
+        current_lng = e.latlng.lng;
+      });
+
+
+      map.on('moveend', function (e) {
+
+        $('.preload').addClass('tspt-70');
+
+        zoom = map.getZoom();
+        // console.log('zoom=' + zoom)
+
+        if (zoom > 4) {
+
+          if (zoom <= 7) {
+            zl = '09'
+          } else if (zoom == 8) {
+            zl = '09'
+          } else if (zoom == 9) {
+            zl = '09'
+          } else if (zoom == 10) {
+            zl = 10
+          } else if (zoom == 11) {
+            zl = 11
+          } else if (zoom == 12) {
+            zl = 12
+          } else if (zoom == 13) {
+            zl = 13
+          } else if (zoom == 14) {
+            zl = 14
+          } else if (zoom == 15) {
+            zl = 14
+          } else if (zoom == 16) {
+            zl = 14
+          } else if (zoom == 17) {
+            zl = 14
+          } else if (zoom == 18) {
+            zl = 14
+          } else if (zoom == 19) {
+            zl = 14
+          } else if (zoom == 20) {
+            zl = 14
+          } else {
+            zl = 20
+          }
+
+          bounds = map.getBounds();
+          var northWest = bounds.getNorthWest(),
+            southEast = bounds.getSouthEast();
+
+          prepareUrl(northWest, southEast);
+          var mapDataUrl = baseUrl + '/map?' + getRequestVars();
+
+          console.log(urlVars);
+          fetchPlaceNameUnderPointer();
+
+          if (parseInt(zl) < 10) {
+            if (mapTilesCache[zl] == undefined) {
+              // Fetch and cache the map data
+              $.ajax({
+                url: mapDataUrl,
+                dataType: "script",
+                success: function (respData) {
+                  mapTilesCache[zl] = mapdata2;
+                  renderMap(mapdata2);
+                  $("#loading").fadeOut();
+                }
+              });
+            } else {
+              renderMap(mapTilesCache[zl]);
+            }
+          } else if (parseInt(zl) > 9) {
+            // Call map after zl 9
+            $.ajax({
+              url: mapDataUrl,
+              dataType: "script",
+              success: function () {
+                renderMap(mapdata2);
+              }
+            });
+          }
+
+          fetchPlaceNameUnderPointer();
+
+          $("#zl-nav ul").find(".active").removeClass("active");
+
+          if (zoom == '6') {
+            $("#zl-nav ul").find(".active").removeClass("active");
+            $("#zl-nav ul").find(".class-6").addClass("active");
+          }
+
+          if (zoom == '7') {
+            $("#zl-nav ul").find(".active").removeClass("active");
+            $("#zl-nav ul").find(".class-7").addClass("active");
+          }
+
+          if (zoom == '8') {
+            $("#zl-nav ul").find(".active").removeClass("active");
+            $("#zl-nav ul").find(".class-8").addClass("active");
+          }
+
+          if (zoom == '9') {
+            $("#zl-nav ul").find(".active").removeClass("active");
+            $("#zl-nav ul").find(".class-9").addClass("active");
+          }
+
+          if (zoom == '10') {
+            $("#zl-nav ul").find(".active").removeClass("active");
+            $("#zl-nav ul").find(".class-10").addClass("active");
+          }
+
+          if (zoom == '11') {
+            $("#zl-nav ul").find(".active").removeClass("active");
+            $("#zl-nav ul").find(".class-11").addClass("active");
+          }
+
+          if (zoom == '12') {
+            $("#zl-nav ul").find(".active").removeClass("active");
+            $("#zl-nav ul").find(".class-12").addClass("active");
+          }
+
+          if (zoom == '13') {
+            $("#zl-nav ul").find(".active").removeClass("active");
+            $("#zl-nav ul").find(".class-13").addClass("active");
+          }
+
+          if (zoom == '14') {
+            $("#zl-nav ul").find(".active").removeClass("active");
+            $("#zl-nav ul").find(".class-14").addClass("active");
+          }
+          $("#zl-nav ul li").on('click', function () {
+            var zoom_level = $(this).attr('id');
+            $("#zl-nav ul").find(".active").removeClass("active");
+            if (zoom_level == zoom_level) {
+              map.setZoom(zoom_level);
+              $(this).addClass("active");
+            }
+          });
+        }
+      });
+
+      // Trigger moveend on filter click
+      // $('#regions').on('change', function () {
+      // 	region = $(this).val();
+      // 	// show India boundary
+      // 	if (region == '') {
+      // 		ZoomToIndia()
+      // 	}
+      // 	// show region boundary
+      // 	else {
+      // 		ZoomToRegion(region)
+      // 	}
+      // });
+      // $('.fltr').on('click', function () {
+      // 	forx = $(this).attr('id');
+      // 	map.fire('moveend');
+      // });
+
+
+    });
+
+    function hide_st(id) {
+
+      stateId = id;
+      $(".district-parent").show();
+      $(".state-parent").hide();
+
+      $.ajax({
+        url: mLocation + '?st=' + id + '&f=1',
+        dataType: "json",
+        type: "GET",
+        success: function (data) {
+          var vData = '';
+          $.each(data, function (index, value) {
+            vData += `<a class="dropdown-item" href="#" onclick="filterAddr( ${id}, ${value.id})" data-id="${value.id}">${value.name}</a>`
+          });
+          $(".district-parent .dropdown-menu").append(vData);
+        },
+        error: function (jqXHR, textStatus, errorThrown) { }
+      });
+    }
+
+    function filterAddr(stateId, id) {
+      $.ajax({
+        url: mLocation + '?st=' + stateId + '&f=' + id,
+        dataType: "json",
+        type: "POST",
+        success: function (data) {
+          // console.log(mLocation);
+        },
+        error: function (jqXHR, textStatus, errorThrown) { }
+      });
+    }
+
+    function get_dType(id) {
+      pId = id;
+      $(".data_type-parent").show();
+      $(".Platforms-parent").hide();
+
+      $.ajax({
+        url: dFilter + '?plf=' + pId + '&dt=' + 0 + '&ct=' + 0 + '&sct=' + 0 + '&f=' + 1,
+        dataType: "json",
+        type: "GET",
+        success: function (data) {
+          var fData = '';
+          $.each(data, function (index, value) {
+            fData += `<a class="dropdown-item" href="#" onclick="get_c( ${pId}, ${value.id})" data-id="${value.id}">${value.name}</a>`
+          });
+          $(".data_type-parent .dropdown-menu").append(fData);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        }
+      });
+    }
+
+    function get_c(pId, id) {
+      dId = id;
+      $(".category-parent").show();
+      $(".data_type-parent").hide();
+
+      $.ajax({
+        url: dFilter + '?plf=' + pId + '&dt=' + dId + '&ct=' + 0 + '&sct=' + 0 + '&f=' + 2,
+        dataType: "json",
+        type: "GET",
+        success: function (data) {
+          var fData = '';
+          $.each(data, function (index, value) {
+            fData += `<a class="dropdown-item" href="#" onclick="get_sc( ${pId}, ${dId}, ${value.id})" data-id="${value.id}">${value.name}</a>`
+          });
+          $(".category-parent .dropdown-menu").append(fData);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        }
+      });
+    }
+
+    function get_sc(pId, dId, id) {
+      cId = id;
+      $(".sub_category-parent").show();
+      $(".category-parent").hide();
+
+      $.ajax({
+        url: dFilter + '?plf=' + pId + '&dt=' + dId + '&ct=' + cId + '&sct=' + 0 + '&f=' + 3,
+        dataType: "json",
+        type: "GET",
+        success: function (data) {
+
+          if (data == '') {
+            $(".parameter-parent").show();
+            $(".sub_category-parent").hide();
+            $.ajax({
+              url: dFilter + '?plf=' + pId + '&dt=' + dId + '&ct=' + cId + '&sct=' + 0 + '&f=' + 4,
+              dataType: "json",
+              type: "GET",
+              success: function (data) {
+                var fData = '';
+                $.each(data, function (index, value) {
+                  fData += `<a class="dropdown-item" href="#" onclick="get_p( ${pId}, ${dId}, ${cId}, 0, ${value.id})" data-id="${value.id}">${value.name}</a>`
+                });
+                $(".parameter-parent .dropdown-menu").append(fData);
+
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+
+              }
+            });
+          } else {
+            var fData = '';
+            $.each(data, function (index, value) {
+              fData += `<a class="dropdown-item" href="#" onclick="get_p( ${pId}, ${dId}, ${cId}, ${value.id})" data-id="${value.id}">${value.name}</a>`
+            });
+            $(".sub_category-parent .dropdown-menu").append(fData);
+          }
+          // var fData = '';
+          // $.each(data, function (index, value) {
+          // 	fData += `<a class="dropdown-item" href="#" onclick="get_p( ${pId}, ${dId}, ${cId}, ${value.id})" data-id="${value.id}">${value.name}</a>`
+          // });
+          // $(".sub_category-parent .dropdown-menu").append(fData);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        }
+      });
+    }
+
+    function get_p(pId, dId, cId, id) {
+      scId = id;
+      $(".parameter-parent").show();
+      $(".sub_category-parent").hide();
+
+      $.ajax({
+        url: dFilter + '?plf=' + pId + '&dt=' + dId + '&ct=' + cId + '&sct=' + scId + '&f=' + 4,
+        dataType: "json",
+        type: "GET",
+        success: function (data) {
+          var fData = '';
+          $.each(data, function (index, value) {
+            fData += `<a class="dropdown-item" href="#" onclick="get_filter( ${pId}, ${dId}, ${cId}, ${scId}, ${value.id})" data-id="${value.id}">${value.name}</a>`
+          });
+          $(".parameter-parent .dropdown-menu").append(fData);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        }
+      });
+    }
+
+    $(function () {
+      $.ajax({
+        url: mLocation + '?st=0&f=0',
+        dataType: "json",
+        type: "GET",
+        success: function (data) {
+          var vData = '';
+          $.each(data, function (index, value) {
+            vData += `<a class="dropdown-item" href="#" onclick="hide_st(${value.id})" data-id="${value.id}">${value.name}</a>`
+          });
+          $(".state-parent .dropdown-menu").append(vData);
+        },
+        error: function (jqXHR, textStatus, errorThrown) { }
+      });
+
+      //get Platforms values
+      $.ajax({
+        url: dFilter + '?plf=' + 0 + '&dt=' + 0 + '&ct=' + 0 + '&sct=' + 0 + '&f=' + 0,
+        dataType: "json",
+        type: "GET",
+        success: function (data) {
+          var fData = '';
+          $.each(data, function (index, value) {
+            fData += `<a class="dropdown-item" href="#" onclick="get_dType(${value.id})" data-id="${value.id}">${value.name}</a>`
+          });
+          $(".Platforms-parent .dropdown-menu").append(fData);
+        },
+        error: function (jqXHR, textStatus, errorThrown) { }
+      });
+
+      $('.search-btn').on('click', function () {
+        $(".search-btn").hide();
+        $(".state-parent").show();
+      });
+
+    });
+  </script>
+</body>
+
+</html>

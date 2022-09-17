@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Library</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+body, h1 {
+	font-family: "Raleway", Arial, sans-serif
+}
+
+h1 {
+	letter-spacing: 6px
+}
+
+.w3-row-padding img {
+	margin-bottom: 12px
+}
+</style>
+</head>
+<body>
+	<!-- Header -->
+	<header class="w3-panel w3-center w3-opacity" style="padding: 16px">
+		<h1 class="w3-xlarge">Cropdata Config Server</h1>
+	</header>
+	<div class="panel-group" style="margin-top: 20px;">
+		<div class="panel panel-primary" style="padding-bottom: 20px;">
+			<div class="panel-heading">
+
+				<div class="row">
+					<div class="col-md-6">
+						<form th:action="@{/homePage}" method="get" align="left">
+							<button class="btn btn-md-2 btn-info " name="adminHome"
+								type="Submit">Home</button>
+						</form>
+
+					</div>
+					<div class="col-md-6">
+						<form th:action="@{/logout}" method="get" align="right">
+							<button class="btn btn-md-2 btn-danger " name="registration"
+								type="Submit">Logout</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="alert alert-success"
+					th:if="${message != null && message !=''}">
+					<p class="admin-message-text text-center" th:utext="${message}"></p>
+				</div>
+			</div>
+
+			<div class="container my-5 ">
+				<h3 align="center">Library Properties</h3>
+				<div class="card">
+					<div class="card-body">
+						<div class="col-md-6" style="float: none; margin: 0 auto">
+							<form autocomplete="off" action="#"
+								th:action="@{/libraries-properties-save}"
+								th:object="${librariesPropertiesModel}" method="post"
+								id="form_data" class="form-horizontal" role="form">
+								<div class="row">
+									<div class=" form-group col-md-12 ">
+										<label for="libraryId">Libraries:</label> <select
+											class="form-control" id="libraryId" name="libraryId"
+											required="" th:field="*{libraryId}">
+											<option th:each="lib : ${librariesList}" th:value="${lib.id}"
+												th:text="${lib.name}"></option>
+
+										</select> <input type="number" id="id" th:field="*{id}"
+											th:attr="name='id'" style="display: none;" />
+									</div>
+									<div class="form-group col-md-12 ">
+										<label for="attrKey">Attribute Key:</label> <input type="text"
+											class="form-control" id="attrKey" name="attrKey"
+											th:field="*{attrKey}" required
+											placeholder="Enter Attribute Key">
+									</div>
+									<div class="form-group  col-md-12">
+										<label for="attrValue">Attribute Value:</label> <input
+											type="text" class="form-control" id="attrValue"
+											name="attrValue" required th:field="*{attrValue}"
+											placeholder="Enter Attribute Value">
+									</div>
+
+									<div class="col-md-6">
+										<!-- <div class="form-group text-center">
+											<a type="button" class="btn btn-secondary btn-md">Clear</a> <input
+												type="button" value="Add" class="btn btn-primary btn-md"
+												click="add()">
+										</div> -->
+
+										<!-- 										<div class="col-md-6">
+ -->
+										<div class="form-group text-center">
+											<a type="button" href="/libraries-list"
+												class="btn btn-secondary btn-md">Back</a> <input
+												type="submit" value="Submit" class="btn btn-primary btn-md">
+											<!-- </div> -->
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<table class="table table-bordered" id="librariesProprtyTable">
+										<thead>
+											<tr>
+												<th>Attribute Name</th>
+												<th>Attribute Value</th>
+												<th style="width: 150px;">Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="librariesProprty : ${librariesPropertiesList}"
+												th:id="'row_'+${librariesProprtyStat.index}">
+												<td th:text="${librariesProprty.attrKey}">1</td>
+												<td th:text="${librariesProprty.attrValue}">1</td>
+												<td><a class="btn btn-success btn-sm"
+													th:href="@{/libraries-property-edit/{id}(id=${librariesProprty.id})}">
+														Edit </a> <a class="btn btn-danger btn-sm"
+													th:onclick="'javascript:deleteLibrariesProprty(' + ${librariesProprty.id} + ','+${librariesProprtyStat.index} +');'">
+														Delete </a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<div class="row">
+
+									<!-- <div class="col-md-6">
+										<div class="form-group text-center">
+											<a type="button" href="/libraries-list"
+												class="btn btn-secondary btn-md">Back</a> <input
+												type="submit" value="Submit" class="btn btn-primary btn-md">
+										</div>
+									</div> -->
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	/* var ctx = "${pageContext.request.contextPath}"
+
+	 console.log(ctx) */
+
+	function deleteLibrariesProprty(id, index) {
+
+		var r = confirm("Do you want to delete this property");
+		if (r == true) {
+			$.get("/libraries-property-delete/" + id, function(data) {
+				console.log(data);
+				alert(data);
+
+				var row = document.getElementById("row_" + index);
+				row.parentNode.removeChild(row);
+
+				/* location.reload(); */
+			});
+		}
+
+	}
+</script>
+</html>

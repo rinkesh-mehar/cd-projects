@@ -1,0 +1,310 @@
+
+<style>
+  #market-share {
+    height: 400px
+  }
+
+  #average-data {
+    height: 300px
+  }
+
+
+  #defects {
+    height: 300px
+  }
+
+</style>
+
+<div id="market-share"></div>
+<div id="average-data"></div>
+<div id="defects"></div>
+<script>
+  $("#defects").insertFusionCharts({
+  type: "pareto2d",
+  width: "100%",
+  height: "100%",
+  dataFormat: "json",
+  dataSource: {
+    chart: {
+      caption: " Top Hardware Defects Frequency",
+      subcaption: "Last year - ACME Computers",
+      theme: "fusion",
+      yaxisname: "# reported instances",
+      syaxisname: "% of total instances",
+      decimals: "1",
+      drawcrossline: "1"
+    },
+    data: [
+      {
+        label: "Hard-Disk",
+        value: "40"
+      },
+      {
+        label: "PCB",
+        value: "22"
+      },
+      {
+        label: "Printer",
+        value: "12"
+      },
+      {
+        label: "CDROM",
+        value: "10"
+      },
+      {
+        label: "Keyboard",
+        value: "6"
+      }
+    ]
+  }
+});
+
+
+$("#average-data").insertFusionCharts({
+  type: "spline",
+  width: "100%",
+  height: "100%",
+  dataFormat: "json",
+  dataSource: {
+    chart: {
+      caption: "Average Monthly Temperature in Texas",
+      yaxisname: "Average Monthly Temperature",
+      anchorradius: "5",
+      plottooltext: "Average temperature in $label is <b>$dataValue</b>",
+      showhovereffect: "1",
+      showvalues: "0",
+      numbersuffix: "°C",
+      theme: "fusion",
+      anchorbgcolor: "#72D7B2",
+      palettecolors: "#72D7B2"
+    },
+    data: [
+      {
+        label: "Jan",
+        value: "1"
+      },
+      {
+        label: "Feb",
+        value: "5"
+      },
+      {
+        label: "Mar",
+        value: "10"
+      },
+      {
+        label: "Apr",
+        value: "12"
+      },
+      {
+        label: "May",
+        value: "14"
+      },
+      {
+        label: "Jun",
+        value: "16"
+      },
+      {
+        label: "Jul",
+        value: "20"
+      },
+      {
+        label: "Aug",
+        value: "22"
+      },
+      {
+        label: "Sep",
+        value: "20"
+      },
+      {
+        label: "Oct",
+        value: "16"
+      },
+      {
+        label: "Nov",
+        value: "7"
+      },
+      {
+        label: "Dec",
+        value: "2"
+      }
+    ]
+  }
+});
+
+
+  $("#market-share").insertFusionCharts({
+  type: "msstackedcolumn2dlinedy",
+  width: "100%",
+  height: "100%",
+  dataFormat: "json",
+  dataSource: {
+    chart: {
+      caption: "Market Share of Korean Automobile Manufacturers in US",
+      subcaption: "2011 - 2016",
+      pyaxisname: "Units Sold",
+      syaxisname: "% of total market share",
+      snumbersuffix: "%",
+      syaxismaxvalue: "25",
+      theme: "fusion",
+      showvalues: "0",
+      drawcrossline: "1",
+      divlinealpha: "20"
+    },
+    categories: [
+      {
+        category: [
+          {
+            label: "2011"
+          },
+          {
+            label: "2012"
+          },
+          {
+            label: "2013"
+          },
+          {
+            label: "2014"
+          },
+          {
+            label: "2015"
+          },
+          {
+            label: "2016"
+          }
+        ]
+      }
+    ],
+    dataset: [
+      {
+        dataset: [
+          {
+            seriesname: "Honda City",
+            data: [
+              {
+                value: "997281"
+              },
+              {
+                value: "1063599"
+              },
+              {
+                value: "1063964"
+              },
+              {
+                value: "1152123"
+              },
+              {
+                value: "1289128"
+              },
+              {
+                value: "1394972"
+              }
+            ]
+          },
+          {
+            seriesname: "Honda Civic",
+            data: [
+              {
+                value: "196354"
+              },
+              {
+                value: "259493"
+              },
+              {
+                value: "234755"
+              },
+              {
+                value: "205717"
+              },
+              {
+                value: "205081"
+              },
+              {
+                value: "224978"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        dataset: [
+          {
+            seriesname: "Hyundai Verna",
+            data: [
+              {
+                value: "373709"
+              },
+              {
+                value: "391276"
+              },
+              {
+                value: "380002"
+              },
+              {
+                value: "411456"
+              },
+              {
+                value: "476001"
+              },
+              {
+                value: "500537"
+              }
+            ]
+          },
+          {
+            seriesname: "Hyundai Sonata",
+            data: [
+              {
+                value: "47548"
+              },
+              {
+                value: "73130"
+              },
+              {
+                value: "107659"
+              },
+              {
+                value: "179783"
+              },
+              {
+                value: "202390"
+              },
+              {
+                value: "156107"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    lineset: [
+      {
+        seriesname: "Market Share %",
+        plottooltext:
+          "Total market share of Korean cars in $label is <b>$dataValue</b> in US",
+        showvalues: "0",
+        data: [
+          {
+            value: "17.74"
+          },
+          {
+            value: "19.23"
+          },
+          {
+            value: "15.43"
+          },
+          {
+            value: "12.34"
+          },
+          {
+            value: "15.34"
+          },
+          {
+            value: "21.17"
+          }
+        ]
+      }
+    ]
+  }
+});
+
+</script>

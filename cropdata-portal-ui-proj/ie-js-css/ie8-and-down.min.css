@@ -1,0 +1,84 @@
+.browser .statistic,
+.menu {
+  display: none;
+}
+#content,
+body {
+  background-color: #f25648 !important;
+}
+.home .title {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+.home .title h1,
+.home .title p {
+  color: #fff;
+}
+.browser {
+  position: relative !important;
+  float: left !important;
+  width: 20% !important;
+}
+.browser .center {
+  top: 25%;
+  height: 45%;
+}
+.browser .download {
+  display: block;
+  opacity: 0;
+  margin-left: 0;
+  left: 0;
+  width: 100%;
+}
+.browser .download a {
+  max-width: 210px;
+  width: 80%;
+}
+.browser h2 span {
+  background: url(../imgs/browsers-bg-ie.png) no-repeat;
+}
+.browser h2.edge span {
+  background: url(../imgs/browsers-bg-ie-edge.png) no-repeat;
+}
+.available ul li {
+  margin: 0 6px;
+  text-indent: 0;
+  background: url(../imgs/operatingsystems-bg-ie.png) no-repeat;
+}
+.download a:hover {
+  background: #fff !important;
+}
+body.error404,
+body.error404 #content {
+  background-color: #241706 !important;
+  cursor: pointer;
+}
+.error404 {
+  background: url(../files/404-bg-ie.jpg) top center no-repeat #241706;
+}
+.error404 .keep_calm {
+  background: 0 0;
+  position: relative;
+}
+.error404 a,
+a.link-oldones {
+  text-decoration: none;
+  cursors: default;
+  color: #fff;
+}
+a.link-oldones {
+  display: block;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  font-size: 25px;
+  line-height: 30px;
+  font-weight: 700;
+}
+#awwwards,
+#awwwardsDev {
+  display: none;
+}

@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Application</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+body, h1 {
+	font-family: "Raleway", Arial, sans-serif
+}
+
+h1 {
+	letter-spacing: 6px
+}
+
+.w3-row-padding img {
+	margin-bottom: 12px
+}
+</style>
+</head>
+<body>
+	<!-- Header -->
+	<header class="w3-panel w3-center w3-opacity" style="padding: 16px">
+		<h1 class="w3-xlarge">Cropdata Config Server</h1>
+	</header>
+	<div class="panel-group" style="margin-top: 20px;">
+		<div class="panel panel-primary" style="padding-bottom: 20px;">
+			<div class="panel-heading">
+
+				<div class="row">
+					<div class="col-md-6">
+						<form th:action="@{/homePage}" method="get" align="left">
+							<button class="btn btn-md-2 btn-info " name="adminHome"
+								type="Submit">Home</button>
+						</form>
+
+					</div>
+					<div class="col-md-6">
+						<form th:action="@{/logout}" method="get" align="right">
+							<button class="btn btn-md-2 btn-danger " name="registration"
+								type="Submit">Logout</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="alert alert-success"
+					th:if="${message != null && message !=''}">
+					<p class="admin-message-text text-center" th:utext="${message}"></p>
+				</div>
+			</div>
+
+			<div class="container my-5 ">
+				<h3 align="center">Libraries</h3>
+				<div class="card">
+					<div class="card-body">
+						<div class="col-md-6" style="float: none; margin: 0 auto">
+							<form autocomplete="off" action="#"
+								th:action="@{/libraries-save}" th:object="${librariesModel}"
+								method="post" class="form-horizontal" role="form">
+								<div class="row">
+
+
+									<div class="form-group col-md-12 ">
+										<label for="application">Library :</label> <input type="text"
+											th:field="*{name}" class="form-control" required
+											placeholder="Add library Name" />
+									</div>
+
+									<input type="hidden" id="id" th:field="*{id}">
+
+									<div class="col-md-6">
+										<a type="button" href="/libraries-list"
+											class="btn btn-secondary btn-md">Back</a> <input
+											type="submit" value="Submit" class="btn btn-primary btn-md">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+</html>
+

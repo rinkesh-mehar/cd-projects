@@ -1,0 +1,22 @@
+####
+
+
+POST https://api-dev.cropdata.in/aefc/register-buyer
+content-type:application/json
+
+
+{"natureOfBusiness": "Agriculture", "companyName": "test company", "mobileNumber": "9545069837","emailAddress": "tanmay.jambhulkar@cropdata.in"}
+
+
+####
+POST https://api-ts.cropdata.in/api-gateway/add
+content-type:application/json
+
+{
+  "path": "/aefc/**",
+  "serviceId": "aefc-api",
+  "url": "http://aefc-api:7092"
+}
+
+#####
+GET https://api-uat.cropdata.in/api-gateway/all-services
