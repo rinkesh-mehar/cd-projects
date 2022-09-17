@@ -1,0 +1,134 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+<div class="content-wrapper">
+  <div class="page-title-bar">
+    <h2>
+      Vehicle Schedule
+    </h2>
+  </div>
+  <div class="page-content">
+    <form [formGroup]="VehicleScheduleForm" (ngSubmit)="onSubmit()">
+
+      <!--Map Tiles & Village List section starts-->
+      <div>
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 assign-task-list">
+        <div class="row flex-row">
+          <div class="col-md-6 col-sm-12 col-xs-12 flex-col">
+            <div class="title-line">
+              <h4>Map Tiles*</h4>
+            </div>
+            <div class="clearfix maptile-area">
+              <div class="mapTile" (click)="getTD($event)">
+
+              </div>
+              <div *ngIf="submitted && this.selectedTiles.length == 0">
+                  <div class="error-message left-15" *ngIf="this.selectedTiles.length == 0">{{multiselecterrormessage}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12 col-xs-12  flex-col">
+            <div class="title-line">
+              <h4>Village List*</h4>
+            </div>
+            <div class="village-list">
+              <div class="list-head">
+
+                <ul>
+                  <li>
+                    <span class="checkbox-col">
+                      <label class="checkbox">
+                        <input type="checkbox" [checked]="selectAll" (change)="setAllValue(villageList, schedulevillageList)">
+                        <span class="checkmark"></span>
+                      </label>
+                    </span>
+
+                    <span class="place">
+                      Village Name</span>
+                    <span class="selected-count" *ngIf="schedulevillageList && schedulevillageList.villages && schedulevillageList.villages.length >0">
+                      {{schedulevillageList.villages.length}} Selected
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <div class="list" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+                <ul>
+                  <li *ngFor="let villageItem of villageList">
+                    <span class="checkbox-col">
+                      <label class="checkbox">
+                        <input type="checkbox" (change)="setCheckedValue(villageItem,schedulevillageList)" value=" {{villageItem}}" formControlName="village" [ngClass]="{ 'is-invalid': submitted && f.village.errors }"
+                        [checked]="isChecked(villageItem)">
+                        <span class="checkmark"></span>
+                      </label>
+                    </span>
+                    <span class="place">
+                      {{villageItem.villageName}}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div *ngIf="submitted && f.village.errors">
+                <div class="error-message left-15" *ngIf="f.village.errors.required">{{multiselecterrormessage}}</div>
+            </div>
+           
+          </div>
+
+        </div>
+      </div>
+      <!-- Map Tiles & Village List section end-->
+      <!--State & Region section starts-->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box vehicle-schedule-form">
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Schedule Date*</label>
+              <div class="date-box">
+                  <input type="text" [(ngModel)]="vehiclescheduleform.scheduledate" placement="top right" placeholder="DD-MM-YYYY" class="form-control datepicker-range" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ showWeekNumbers:false, dateInputFormat: 'DD-MM-YYYY', customTodayClass: 'today-date' }"
+                  [bsValue]="currentSystemDate" [minDate]="minDate" [readonly]="true" formControlName="scheduledate"  [ngClass]="{ 'is-invalid': submitted && f.scheduledate.errors }">
+                  <img src="../../../assets/img/calendar.svg" class="calender-datepicker" alt="Calendar">
+                </div>
+                <div *ngIf="submitted && f.scheduledate.errors">
+                    <div class="error-message" *ngIf="f.scheduledate.errors.required">{{textboxerrormessage}}</div>
+                </div>
+            </div>
+          </div>
+         
+
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>VIN Number*</label>
+               <select class="form-control" [(ngModel)]="vehiclescheduleform.vinnumber" formControlName="vinnum" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.vinnum.errors }">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option *ngFor="let item of vinnumberlist;" [ngValue]="item">{{item}}</option>
+              </select>
+              <div *ngIf="submitted && f.vinnum.errors">
+                  <div class="error-message" *ngIf="f.vinnum.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--State & Region section end-->
+
+      
+      <!-- Button Area Begin-->
+      <div class="clearfix page-action">
+        <button class="btn btn-secondary" type="button" [routerLink]="['/vehicle-schedule-list']">Cancel</button>
+        <button type="submit" class="btn btn-primary" type="submit">Submit</button>
+
+      </div>
+    </div>
+      <!-- Button Area END-->
+    </form>
+  </div>
+</div>
+
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

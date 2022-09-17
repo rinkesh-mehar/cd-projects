@@ -1,0 +1,111 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+<div class="content-wrapper">
+    <div class="page-title-bar">
+        <h2>
+            Monitor Cash
+        </h2>
+    </div>
+    <div class="page-content">
+        <div class="full-width search-box monitor-search">
+            <ul class="list-selecttag">
+                <li class="search-right">
+                    <div class="search-text">Search</div>
+                    <div class="search-input">
+                        <div class="form-container">
+                            <div class="search-in">
+                                <form [formGroup]="namemobilesearch" (ngSubmit)="searchData()">
+                                    <input type="text" class="form-control" [(ngModel)]="search" formControlName="namemobile" placeholder="FLS Name / Mobile Number" [ngClass]="{ 'is-invalid': submitted && f.namemobile.errors }">
+                                    <button class="btn btn-primary" type="submit">Search</button>
+                                    <div *ngIf="submitted && f.namemobile.errors">
+                                        <div class="error-message" *ngIf="f.namemobile.errors.required">{{textboxerrormessage}}</div>
+                                        <div class="error-message" *ngIf="f.namemobile.errors.pattern">{{invalidvalueerrormessage}}</div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+            <div class="table-section monitor-cash-block">
+                <div class="table-responsive">
+                    <table id="monitor-cash-table" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="sorting-hide">Sl No</th>
+                                <th>FLS ID</th>
+                                <th>FLS Name</th>
+                                <th>Cash Collected</th>
+                                <th class="sorting-hide" width="30%">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of monitorcash;let i = index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{item.flsId}}</td>
+                                <td>{{item.flsName}}</td>
+                                <td>{{item.cashCollected}}</td>
+                                <td class="text-center actions-btn">
+                                    <button class="btn btn-secondary btn-sm" (click)="receiveModal(item.flsId)">Receive</button>
+                                    <button class="btn btn-primary btn-sm" (click)="viewDetails(viewDetailsModal,item.flsId)">View Details</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #viewDetailsModal>
+    <div class="success-modal">
+        <div class="modal-header sucess-message">
+            <h4 class="modal-title pull-left">{{modalService.config.initialState.heading}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+                <span><img src="../../../assets/img/close-icon.svg" alt="Close"></span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div class="table-section monitor-cash-block"  malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="15%">Case ID</th>
+                                    <th width="20%">Task type</th>
+                                    <th width="25%">Farmer Name</th>
+                                    <th width="20%">Village Name</th>
+                                    <th width="10%">Total Amount</th>
+                                    <th width="10%">Amount Collected</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of monitorviewDetails;let i = index;">
+                                    <td width="15%">{{item.caseId}}</td>
+                                    <td width="20%">{{item.taskType}}</td>
+                                    <td width="25%">{{item.farmerName}}</td>
+                                    <td width="20%">{{item.villageName}}</td>
+                                    <td width="10%">{{item.totalAmount}}</td>
+                                    <td width="10%">{{item.amountCollected}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

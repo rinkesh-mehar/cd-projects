@@ -1,0 +1,252 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+<div class="content-wrapper">
+  <div class="page-title-bar relative">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2>
+          Dr.Krishi Technical - Call Center Tele-Caller Harvest Monitoring
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="page-content">
+
+    <!--General Information starts-->
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+      <h3 class="Form-Heading">
+        <span>General Information</span>
+      </h3>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Farmer Name</label>
+            <input type="text" class="form-control" [(ngModel)]="contactInfo.farmerName" disabled>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Name of Crop</label>
+            <input type="text" class="form-control" [(ngModel)]="cropinfo.crop" disabled>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Variety</label>
+            <input type="text" class="form-control" [(ngModel)]="cropinfo.variety" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>State</label>
+            <input type="text" class="form-control" [(ngModel)]="contactInfo.stateName" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Region</label>
+            <input type="text" class="form-control" [(ngModel)]="contactInfo.regionName" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>District</label>
+            <input type="text" class="form-control" [(ngModel)]="contactInfo.districtName" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Village</label>
+            <input type="text" class="form-control" [(ngModel)]="contactInfo.villageName" disabled>
+          </div>
+        </div>
+        <!-- <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Season</label>
+            <input type="text" class="form-control" [(ngModel)]="cropinfo.sowingweek" disabled>
+          </div>
+        </div> -->
+
+      </div>
+    </div>
+    <!--General Information end-->
+    <!--Right Details start-->
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+      <h3 class="Form-Heading">
+        <span>Right ID - {{harvestMonitoringForm.rightId}}</span>
+      </h3>
+      <div class="row">
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Harvest Date</label>
+            <input type="text" class="form-control" [(ngModel)]="rightInfo.harvestWeek" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Current Quantity</label>
+            <input type="number" class="form-control" [(ngModel)]="rightInfo.currentQuantity" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Sowing Week</label>
+            <input type="text" class="form-control" [(ngModel)]="cropinfo.sowingweek" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Allowable Variance in Quantity(+ve)(UOM)</label>
+            <input type="number" class="form-control" [(ngModel)]="rightInfo.allowableVarianceQtyPos" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Allowable Variance in Quantity(-ve)(UOM)</label>
+            <input type="number" class="form-control" [(ngModel)]="rightInfo.allowableVarianceQtyNeg" disabled>
+          </div>
+        </div>
+        <form [formGroup]="RightForm" (ngSubmit)="onSubmit()">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Harvested Quantity</label>
+            <input type="number" class="form-control" formControlName="harvestedQuantity" [(ngModel)]="rightDeatils.harvestedQuantity" placeholder="Insert Harvested Quantity">
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Deliverable Quantity</label>
+            <input type="number" class="form-control deliverableQuantity" formControlName="deliverableQuantity" [(ngModel)]="rightDeatils.deliverableQuantity" placeholder="Insert Deliverable Quantity">
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <!--Right Details end-->
+    <!--Primary Number-->
+    <form [formGroup]="ScheduleForm" (ngSubmit)="onSubmit()">
+      <!--Schedule starts-->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box schedule-block">
+        <div class="row">
+<!--          <div class="col-md-6 col-sm-12 col-xs-12">-->
+<!--            <div class="full-width border-line">-->
+<!--              <div class="col-md-12 col-sm-12 col-xs-12 no-padding">-->
+<!--                <ul class="schedule-ul">-->
+<!--                  <li class="right-border-li">-->
+<!--                    <div class="heading-box">-->
+<!--                      <h4 class="schedule-head">Primary Number</h4>-->
+<!--                    </div>-->
+<!--                    <div class="Number-box">-->
+<!--                      <a>{{schedulecalendar.primarynumber}}-->
+<!--                        <img src="../../../assets/img/call-icon.png"  alt="Call">-->
+<!--                      </a>-->
+<!--                    </div>-->
+<!--                  </li>-->
+<!--                </ul>-->
+
+<!--              </div>-->
+<!--              <div class="col-md-12 col-sm-12 col-xs-12 no-padding">-->
+<!--                <ul class="schedule-ul">-->
+<!--                  <li>-->
+<!--                    <div class="heading-box">-->
+<!--                      <h4 class="schedule-head">Secondary Number</h4>-->
+<!--                    </div>-->
+<!--                    <div class="Number-box">-->
+<!--                      <a>{{schedulecalendar.secondarynumber}}-->
+<!--                        <img src="../../../assets/img/call-icon.png"  alt="Call">-->
+<!--                      </a>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12 col-sm-12 col-xs-12 form-section-down">-->
+<!--                      <div class="form-container">-->
+<!--                        <label>Calling Status</label>-->
+<!--                        <div  [ngClass]="{ 'disabled': schedulecalendar.visitrequired == true }">-->
+<!--                        <select class="form-control" formControlName="callingstatus" (change)="selectChangeHandler($event)" [value]="1">-->
+<!--                          <option value="1" selected>Schedule Visit</option>-->
+<!--                          <option value="2">Farmer didn't receive call</option>-->
+<!--                          <option value="3">Not Reachable</option>-->
+<!--                          <option value="4">Farmer Rejected Call</option>-->
+<!--                          <option value="5">Technical Glitch</option>-->
+<!--                          <option value="6">Not Interested</option>-->
+<!--                        </select>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+              <div class="calender-section" [ngClass]="{ 'disabled': (schedulecalendar.visitrequired == true) || (status == '2') || (status == '3') || (status == '4') || (status == '5') || (status == '6')}">
+                <div class="calender-div">
+                  <!-- <bs-datepicker-inline bsDatepicker (bsValueChange)="onValueChange($event)"  [dateCustomClasses]="dateCustomClasses" [bsValue]="currentSystemDate" [bsConfig]="{ showWeekNumbers:false, dateInputFormat: 'dd-MM-yyyy' }"
+                    [minDate]="minDate"></bs-datepicker-inline> -->
+                    <bs-datepicker-inline bsDatepicker [minDate]="minDate" [maxDate]="maxDate" [bsValue]="dateSelected" *ngIf="isVisible" (bsValueChange)="onValueChange($event)" [dateCustomClasses]="dateCustomClasses"
+                    [bsConfig]="{ showWeekNumbers:false, dateInputFormat: 'yyyy-MM-dd' }"></bs-datepicker-inline>
+                </div>
+                <div class="value-of-calendar">
+                  <input type="text" class="form-control" [(ngModel)]="schedulecalendar.dateschedule" formControlName="dateschedule">
+                </div>
+                <div *ngIf="submitted && f.dateschedule.errors">
+                  <div class="error-message" *ngIf="f.dateschedule.errors.required">{{dropdownerrormessage}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- <div *ngIf="technicalForm.type != 'Verification'" class="col-md-12 col-sm-12 col-xs-12 no-padding relative">
+              <label class="customized-cb">
+                <input type="checkbox" class="check-box" [(ngModel)]="schedulecalendar.visitrequired" formControlName="visitrequired">
+                <span class="checkmark"></span>
+              </label>
+              <span class="check-content">Visit Not required</span>
+
+            </div> -->
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 comment-block">
+            <div class="form-container">
+              <label>Enter your comments*</label>
+              <textarea [(ngModel)]="schedulecalendar.comments" maxlength="500" class="form-control comments" placeholder="Enter your comments" formControlName="comments"
+                [ngClass]="{ 'is-invalid': submitted && f.comments.errors }"></textarea>
+              <div *ngIf="submitted && f.comments.errors">
+                <div class="error-message" *ngIf="f.comments.errors.required">{{textboxerrormessage}}</div>
+                <div class="error-message" *ngIf="f.comments.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Comments ends-->
+      <div class="clearfix page-action">
+        <button class="btn btn-secondary" (click)="cancelTechForm()" type="button">Cancel</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+<ng-template #ndviimageModal>
+  <div class="success-modal">
+    <div class="modal-header sucess-message">
+      <h4 class="modal-title pull-left">{{modalService.config.initialState.heading}}</h4>
+      <button type="button" class="close pull-right" (click)="close()">
+        <span>
+          <img src="../../../assets/img/close-icon.svg" alt="Close">
+        </span>
+      </button>
+    </div>
+    <div class="modal-body text-center">
+      <img src="{{modalService.config.initialState.content}}" class="img-responsive" alt="Image">
+    </div>
+  </div>
+</ng-template>
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

@@ -1,0 +1,474 @@
+/*Header Style Begin*/
+
+header{
+    width: 100%;
+    height:60px;
+    display: flex;
+    position: fixed;
+    background:@medium_yellow;
+    z-index: 20;
+    padding-left: 220px;
+    transition: transform .2s ease-in-out,padding .2s ease-in-out;
+
+    .head-right-panel{
+        width: 100%;
+        height: 100%;
+
+        .toggle-btn{
+            display: inline-block;
+            height: 60px;
+            width: 70px;
+            position: relative;
+
+            img{
+                cursor: pointer;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+        .right-info{
+            height: 100%;
+            float:right;
+            display: flex;
+            padding-right: 15px;
+
+            ul{
+                margin: 0px;
+                padding: 0px;
+                display: table;
+                height: 60px;
+
+                .open>.dropdown-menu {
+                    display: block !important;
+                }
+
+                li{
+                    display: inline-block;
+                    padding: 0 15px;
+                    display: table-cell;
+                    vertical-align: middle;
+                    height: 60px;
+
+                    &.notification{
+
+                        a{
+                            background-color:rgba(9,2,2,.58);
+                            border-radius: 2px;
+                            width: 38px;
+                            height: 38px;
+                            display: inline-block;
+                            position: relative;
+                            cursor: pointer;
+                            margin-top: 5px;
+
+
+                            span{
+                                position: absolute;;
+                                width: 22px;
+                                height: 22px;
+                                font-size:10px;
+                                letter-spacing: .104px;
+                                font-weight: @bold;
+                                color: @drk_white;
+                                right: -8px;
+                                top: -8px;
+                                background: #ab820b;
+                                border-radius: 100%;
+                                text-align: center;
+                                line-height: 22px;
+                            }
+                            img{
+                                position: absolute;
+                                top: 56%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                            }
+                        }
+
+                        .dropdown-menu{
+                            width: 250px;
+                            background-color: #585858;
+                            display: none;
+                            height: auto;
+                            top: 0px;
+                            margin-top: 59px;
+
+                            li{
+                                display: inline-block;
+                                width: 100%;
+                                padding: 0px;
+                                margin: 0px;
+                                border-bottom: solid 1px @drk_white_30;
+                                height: auto;
+                                &:last-child{
+                                    border: 0px;
+                                }
+
+                                a{
+                                    background: none;
+                                    width: 100%;
+                                    height: auto;
+                                    padding:8px 12px;
+                                    color: @drk_white;
+                                    text-decoration: none;
+                                    margin: 0px;
+                
+                                }
+
+                                &.header{
+                                    text-align: center;
+                                    padding:8px 10px;
+                                    font-weight: @bold;
+                                    background: @bright_yellow;
+                                    color: @medium_black;
+                                    border-radius: 4px 4px 0 0;
+                                }
+
+                                .menu{
+                                    max-height: 185px;
+                                    overflow-y: auto;
+                                    display: block;
+                                    height: auto;
+
+                                    li{
+                                        a{                                       
+                                            text-decoration: none;
+                                            top: auto;
+        
+                                            &:hover{
+                                                background: @drk_white_14;
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                                &.footer{
+                                    text-align: center;
+                                    
+                                    a{
+                                        padding:8px 10px;
+                                        font-weight: @bold;
+                                    }
+                                }
+
+                                
+                            }
+                        }
+                        
+                    }
+                    
+                    &.profile{
+                        padding-left: 25px;
+                        a{
+                            display: table;
+                            cursor: pointer;
+                            color: @drk_black;
+                            text-decoration: none;
+                            padding-right: 35px;
+                            background-image: url(../img/arrowdown.png);
+                            background-repeat: no-repeat;
+                            background-position: right  center;
+                            background-size: 24px 15px;
+
+                            span{
+                                display: table-cell;
+                                vertical-align: middle;
+                            }
+                            span.profile-pic{
+                                width: 55px;
+                                height: 55px;
+                                overflow: hidden;
+                                border-radius: 55px;
+                                border: 2px solid @drk_white_50;
+                                float: left;
+                            }
+                            span.profile-name{
+                                padding-left: 15px;
+                                min-width: 230px;
+                                max-width: 250px;
+                                font-size:@font-12;
+                                text-overflow:ellipsis;
+                                overflow: hidden;
+                                white-space:nowrap;
+
+                                b{
+                                    display: block;
+                                    font-size: @common_size;
+                                }
+
+                                .last-login{
+                                    display: block;
+                                    font-size:@font-12;
+                                    margin-top: -1px;
+                                }
+                            }
+                           
+                        }
+
+
+                        &.open{
+                            a{
+                                background-image: url(../img/arrowup.png);
+                                background-repeat: no-repeat;
+                                background-position: right  center;
+                                background-size: 24px 15px;
+                            }
+                        }
+
+                        .dropdown-menu{
+                            background-color: #262626;
+                            border: 1px solid @drk_white_80;
+                            display: none;
+                            height: auto;
+                            top: 0px;
+                            margin-top:62px;
+                            width: 289px;
+                            right: 10px;
+                            border-radius: 2.5px;
+
+                            li{
+                                display: inline-block;
+                                width: 100%;
+                                padding: 0px;
+                                margin: 0px;
+                                border-bottom: solid 1px @drk_white_30;
+                                height: auto;
+                                &:last-child{
+                                    border: 0px;
+                                }
+
+                                a{
+                                    background: none;
+                                    width: 100%;
+                                    height: auto;
+                                    padding:15px 20px;
+                                    color: @drk_white;
+                                    text-decoration: none;
+                                    margin: 0px;
+                                    display: block;
+                                    font-size: @primary-font;
+                                    font-weight: @semibold;
+    
+                                        &:hover{
+                                            background: @drk_white_14;
+                                        }
+                
+                                }
+                        }
+                    }
+
+                    .last-login{
+                        font-weight: @light;
+                        letter-spacing: .35px;
+                        color: @drk_black;
+                        display: inline-block;
+                        margin-top: 5px;
+                    }
+
+                        
+                    }
+                    
+                    
+                }
+            }
+
+        }
+
+    }
+}
+
+
+
+.sidemenu{
+    width: 220px;
+    left: 0px;
+    position: fixed;
+    top: 0px;
+    background:@drk_black;
+    height: 100%;
+    border-right: solid 1px @drk_black;
+    -webkit-transition: -webkit-transform .1s ease-in-out,width .1s ease-in-out;
+    -moz-transition: -moz-transform .1s ease-in-out,width .1s ease-in-out;
+    -o-transition: -o-transform .1s ease-in-out,width .1s ease-in-out;
+    transition: transform .1s ease-in-out,width .1s ease-in-out;
+    z-index: 25;
+
+    .logo{
+        flex: 0 0 220px;
+        position: relative;
+        padding: 15px;
+        height: 160px;
+
+        img{
+            position: absolute;
+            width: 150px;
+            top:50%;
+            left: 45%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    ul{
+        margin: 0px;
+        padding: 0px;
+        margin-top: 10px;
+
+        li{
+            list-style: none;
+            display: inline-block;
+            width: 100%;
+            padding: 0 10px;
+            margin-bottom: 20px;
+
+            a{
+                display: flex;
+                padding: 10px 15px;
+                color: @drk_black;
+                background-color: @drk_white;
+                text-decoration: none;
+                position: relative;
+                border-radius:0 6px 6px 0;
+                font-size: @tertiary_font;
+                font-weight: @regular;
+                cursor: pointer;
+
+                &.active{
+                    &::before{
+                        content: '';
+                        position: absolute;
+                        left: 0px;
+                        top: 0px;
+                        width: 8px;
+                        height: 100%;
+                        background:@bright_yellow;
+                    }
+                }
+
+                span{
+                    flex: 1;
+                    display: flex;
+                    align-self: center;
+
+                    &:first-child{
+                        flex: 0 0 22px;
+                        img{
+                            width:15px;
+                            margin-top: -1px; 
+                        }
+                    }
+                    &:last-child{
+                        transition: opacity 0.1s ease-in-out;
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+
+.sidemenu-active{
+    header {
+        padding-left: 70px;
+        
+    }
+    .sidemenu{
+        width: 70px;
+
+        .logo{
+            height: 100px;
+
+            img{
+                width: 90%;
+            }
+        }
+
+        ul li a span:last-child{
+            opacity: 0;
+            display: none;
+        }
+    }
+}
+
+
+@media screen and (max-width:1199px) {
+    /*Write css here Medium devices or liquid responsive design - Optional */
+    header {
+        padding-left: 70px;
+        
+    }
+    .sidemenu-active header{
+        padding-left: 180px;
+    }
+    .sidemenu {
+        width: 70px;
+    }
+    .sidemenu-active  .sidemenu {
+        width: 180px;
+    }
+    
+    .sidemenu ul li a span:last-child{
+        opacity: 0;
+        display: none;
+    }
+    .sidemenu-active .sidemenu ul li a span:last-child{
+        opacity: 1;
+        display: block;
+    }
+    .sidemenu .logo {
+        height: 100px;
+    }
+    .sidemenu .logo img{
+        width: 90%;
+    }
+    .sidemenu-active  .sidemenu{
+        width: 180px;
+    }
+    .sidemenu-active  .sidemenu .logo{
+        height: 160px;
+    }
+    .sidemenu-active  .sidemenu .logo img{
+        width: 150px;
+    }
+    .sidemenu ul li a {
+        padding: 10px 20px;
+    }
+    header .head-right-panel .right-info ul li.profile a span.profile-name {
+        min-width: 190px;
+        max-width: 210px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    /*Write css here for Mobile Landscape & Potrait	*/
+    header {
+        padding-left: 0px;
+        
+    }
+    .sidemenu-active header{
+        padding-left: 70px;
+    }
+    .sidemenu {
+        width: 70px;
+        left: -70px;
+    }
+    .sidemenu-active .sidemenu {
+        width: 180px;
+        left: 0px;
+    }
+    
+    .sidemenu ul li a span:last-child{
+        opacity: 0;
+    }
+    .sidemenu-active  .sidemenu ul li a span:last-child{
+        opacity: 1;
+    }
+    header .logo {
+        flex: 0 0 180px;
+    }
+    .sidemenu-active  .sidemenu {
+        width: 180px;
+    }
+}

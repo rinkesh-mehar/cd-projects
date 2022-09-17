@@ -1,0 +1,76 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+<div class="content-wrapper">
+    <div class="page-title-bar">
+        <h2>
+            Manage Hardware - FLS/MLS/MLT
+        </h2>
+    </div>
+    <div class="page-content">
+        <div class="full-width search-box monitor-search">
+            <ul class="list-selecttag">
+                <li class="search-right">
+                    <div class="search-text">Search</div>
+                    <div class="search-input">
+                        <div class="form-container">
+                            <div class="search-in">
+                                <form [formGroup]="namemobilesearch" (ngSubmit)="search()">
+                                    <input type="text" class="form-control" [(ngModel)]="searchKeyward" formControlName="namemobile" placeholder="Name / Mobile Number" [ngClass]="{ 'is-invalid': submitted && f.namemobile.errors }">
+                                    <button class="btn btn-primary" type="submit">Search</button>
+                                    <div *ngIf="submitted && f.namemobile.errors">
+                                        <div class="error-message" *ngIf="f.namemobile.errors.pattern">{{invalidvalueerrormessage}}</div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="table-section">
+            <div class="table-responsive">
+                <table id="categorized-samples" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sl No</th>
+                            <th>Name</th>
+                            <th>Mobile Number</th>
+                            <th>Date</th>
+                            <th>Role</th>
+                            <th>Van ID</th>
+                            <th>Box ID</th>
+                            <th class="sorting-hide"></th>
+                        </tr>
+                    </thead>
+
+
+
+                    <tbody>
+                        <tr *ngFor="let item of managehardware;let i = index;">
+                            <td>{{i + 1}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.mobilenumber}}</td>
+                            <td><span style="display: none;">{{item.reverseDate}}</span>{{item.date}}</td>
+                            <td>{{item.role}}</td>
+                            <td>{{item.vanid}}</td>
+                            <td>{{item.boxid}}</td>
+                            <td class="text-center">
+                                <button class="btn btn-primary list-btn" (click)="unTag(item.id)">Untag</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

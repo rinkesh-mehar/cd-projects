@@ -1,0 +1,162 @@
+
+
+.full-width{
+    width: 100%;
+    float: left;
+    position: relative;
+}
+.common-div{
+    width: 100%;
+    float: left;
+    position: relative;
+    padding-left: 10px;
+    padding-right: 10px; 
+}
+.list-card-main-container{
+    margin: 0px;
+    padding-left: 0px;
+    list-style: none;
+    width: 100%;
+    float: left;
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    li{
+        &.cards-container{
+            width: 33.3333333333%;
+            float: left;
+            padding: 10px 15px;
+            position: relative;
+            .box-container{
+                border: 1px solid @drk_white_50;
+                background-color:@drk_white_30; 
+                
+                height: 100%;
+                padding-bottom: 60px;
+
+                h4.heading-tag{
+                    font-size: @common_size;
+                    color: @drk_white_80;
+                    font-weight: @light;
+                    margin: 13px 0px;
+                }
+                .verification-color{
+                    background-color: @dark_yellow_80;
+                    color: @drk_white;
+                }
+                .monitoring-color{
+                    background-color: @dark_yellow_30;
+                    color: @drk_white;
+                }
+                h3.heading-card{
+                    font-size: @font-22;
+                    font-weight: @semibold; 
+                    margin-top: 13px;
+                    margin-bottom: 13px;
+                }
+                .border-top-white{
+                    border-top: 1px solid @drk_white_30;
+                    .verification-Details{
+                        padding-left: 0px;
+                        width: 100%;
+                        float: left;
+                        margin-bottom: 0px;
+                        list-style: none;
+                        min-height: 100%;
+                        li{
+                            float: left;
+                            width: 100%;
+                            border-bottom: 1px solid @drk_white_30;
+                        }
+                        &:before{
+                            content: "";
+                            position: absolute;
+                            width: 1px;
+                            height: 100%;
+                            background-color: @drk_white_30;
+                            left: 50%;
+                        }
+                    }
+                    .half-div{
+                        width: 50%;
+                        float: left;
+                        position: relative;
+                        padding: 0px 10px;
+                        
+                    
+                        .sub-heading-tag{
+                            font-size: @common_size;
+                            color: @drk_white_80;
+                            font-weight: @light;
+                            margin-top: 0px;
+                            margin-bottom: 10px;
+                            margin-top: 13px;
+                         
+                        }
+                        .sub-heading-card{
+                            font-size: @tertiary_font;
+                            color: @drk_white;
+                            font-weight: @semibold; 
+                            margin-top: 0px;
+                            margin-bottom: 15px; 
+                        }
+                    }
+                }
+            }
+            
+            
+        
+            @media screen and (max-width: 1199px){
+                width: 50%;
+            }
+            @media screen and (max-width: 991px){
+                width: 100%;
+            }
+        }
+    }
+}
+
+.button-bottom{
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    width: calc(~"100% - 30px");
+    z-index: 10;
+    text-align: center;
+    padding: 10px 0px;
+    line-height: 22px;
+}
+
+.anchor-button{
+    background-color: @bright_yellow;
+    color: @drk_black;
+    font-size: @secondary_font;
+    font-weight: @semibold; 
+    border-radius: 2.5px;
+    width: 185px;
+    height: 40px;
+    display: inline-block;
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0px 7px;
+    img{
+        margin: 0px 5px;
+        margin-top: -3px;
+    }
+    span{
+        padding: 0px 5px;
+    }
+    &:hover{
+        text-decoration: none; 
+        color: @drk_black;
+    }
+}

@@ -1,0 +1,91 @@
+
+
+<div class="form-modal call-popup">
+  <div class="modal-content">
+    <ul class="call-details">
+      <li>
+         <div class="full-width">
+           <h4 class="number-heading">Primary Number</h4>
+         </div>
+         <div class="full-width">
+           <a class="call-number">
+              +91 - 9812345678
+              <div class="call-icon">
+                <img src="../../../assets/img/call-icon.png" alt="Call">
+              </div>
+           </a>
+           </div>
+         
+      </li>
+      <li>
+          <div class="full-width">
+            <h4 class="number-heading">Secondary Number</h4>
+          </div>
+          <div class="full-width">
+            <a class="call-number">
+                +91 - 9812345678
+               <div class="call-icon">
+                 <img src="../../../assets/img/call-icon.png" alt="Call">
+               </div>
+            </a>
+            </div>
+          
+       </li>
+    </ul>
+    <form [formGroup]="modalForm" >
+    <div class="col-md-12 col-sm-12 col-xs-12 form-section-down">
+        <div class="form-container">
+          <label>Calling Status</label>
+          <select class="form-control" formControlName="callingstatus" [ngClass]="{ 'is-invalid': submitted && f.callingstatus.errors }">
+            <option [ngValue]="undefined"  selected>Select an option</option>
+            <option *ngFor="let callingstatus of CallingStatus" [ngValue]="callingstatus">{{callingstatus}}</option>
+          </select>
+          <div *ngIf="submitted && f.callingstatus.errors" class="invalid-feedback">
+              <div class="error-message" *ngIf="f.callingstatus.errors.required">Please select a state to continue</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 radio-box-popup">
+        <div class="full-width radio-box-inside">
+            <div class="radio-button-div-popup">
+                <input type="radio" value="accept" name="Improvement" id="Accept" class="input-hidden" formControlName="Improvement">
+                <label for="Accept" class="label-radio">
+                    <div class="label-tick">
+                    </div>
+                    <span>Accept</span>
+                </label>
+
+              </div>
+              <div class="radio-button-div-popup">
+                  <input type="radio" value="reject" name="Improvement" id="Reject" class="input-hidden" formControlName="Improvement">
+                  <label for="Reject" class="label-radio">
+                      <div class="label-tick">
+                      </div>
+                      <span>Reject</span>
+                  </label>
+
+                </div>
+                <div class="radio-button-div-popup last">
+                  <input type="radio" value="otp" name="Improvement" id="more" class="input-hidden" formControlName="Improvement">
+                  <label for="more" class="label-radio">
+                      <div class="label-tick">
+                      </div>
+                      <span>Accept with OTP</span>
+                  </label>
+
+                </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="form-container">
+          <label>Comment</label>
+          <textarea class="form-control popup-text-area"></textarea>
+            
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">Save</button>
+      </div>
+    </form>
+  </div>
+  </div>

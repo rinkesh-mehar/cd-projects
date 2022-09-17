@@ -1,0 +1,391 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+<div class="content-wrapper">
+  <div class="page-title-bar">
+    <h2>
+      Image List
+    </h2>
+  </div>
+  <div class="page-content">
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+      <h3 class="Form-Heading">
+        <span>General Information</span>
+      </h3>
+      <div class="row" *ngIf="generalinfo">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Commodity</label>
+            <input [(ngModel)]="commodityName" type="text" class="form-control" disabled>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>State</label>
+            <input [(ngModel)]="stateName" type="text" class="form-control" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Region</label>
+            <input [(ngModel)]="regionName" type="text" class="form-control" disabled>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!--      <div class="page-content">-->
+    <!--        <div class="col-lg-12 no-padding rlt-tech-case-details">-->
+
+    <!--          <div class="case-details-tab clearfix">-->
+    <!--  <tabset (click)="gettabl($event)">-->
+
+    <!--              <tab heading="Stress Details">-->
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 accordion-group no-padding">
+      <div class="panel panel-default clearfix cl-image-list spot-box-block">
+        <div class="beanchmark-heading">Images Details</div>
+        <div class="panel-body">
+          <accordion [closeOthers]="oneAtATime">
+            <accordion-group heading="TaskID: {{item.taskId}}" *ngFor="let item of taskSpotModel;" style="position:relative;">
+              <button type="button" style="position: absolute;top: 16px;right: 43px; color: #000000;" (click)="completeTask(item.taskId)" [disabled] = "item.disable">Completed</button>
+              <accordion [closeOthers]="oneAtATime">
+                <div *ngIf="item.disable == true">
+                  <accordion-group heading="spotID: {{spotModel.spotId}}" *ngFor="let spotModel of item.spotModels;" (click)="getFindHealthDetails(spotModel.spotId)">
+                    <accordion [closeOthers]="oneAtATime">
+                      <div class="page-content">
+                        <div class="col-lg-12 no-padding rlt-tech-case-details">
+                          <div class="case-details-tab clearfix">
+                            <tabset (click)="gettabl($event, spotModel.spotId)">
+                              <tab heading="Stress Details">
+                                <div *ngIf="spotModel.stressModelList !=null && spotModel.stressModelList.length > 0">
+                                  <accordion-group heading="{{stressList.stressName}}" *ngFor="let stressList of spotModel.stressModelList;">
+                                    <div class="image-list">
+                                      <div *ngIf="stressList.stressImageModelList !=null">
+                                        <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 image-card" *ngFor="let stressImage of stressList.stressImageModelList;">
+                                          <div class="card" (click)="shouldShow = !shouldShow">
+                                            <div class="card-block" (click)="imageEditorModal(generalinfo.basePath, stressImage.imageUrl, stressImage.id)">
+                                              <div class="image">
+                                                <span class="image-side">{{stressImage.side}}</span>
+                                                <img class="img-responsive" id="{{stressImage.id}}" src="{{stressImage.imageUrl}}" alt="Image">
+                                              </div>
+                                              <div class="img-type">
+                                                {{stressImage.symptom}}
+                                              </div>
+                                              <div class="card-btn">
+                                                View Image
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </accordion-group>
+                                </div>
+                                <div *ngIf="spotModel.stressModelList ==null || spotModel.stressModelList.length == 0">
+                                  <label style="color: wheat;text-align: right;position: absolute;top: 69px;left: 709px;">Spot Stress Image Not Found!
+                                  </label>
+                                </div>
+                              </tab>
+                              <tab heading="Health Details">
+
+                                <!-- <accordion-group heading="Health Images" *ngIf="spotHealthModels != null">-->
+                                <div class="image-list" *ngIf="spotHealthModels != null">
+                                  <div *ngIf="spotHealthModels.healthImageModelList != null && spotHealthModels.healthImageModelList.length > 0">
+                                    <!--                                          <div *ngFor="let healthModels of healthImages">-->
+                                    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 image-card" *ngFor="let images of spotHealthModels.healthImageModelList">
+                                      <div class="card" (click)="shouldShow = !shouldShow">
+                                        <div class="card-block" (click)="imageEditorModal(generalinfo.basePath, images.imageUrl, images.id)">
+                                          <div class="image">
+                                            <span class="image-side">{{images.side}}</span>
+                                            <img class="img-responsive" id="{{images.id}}" src="{{images.imageUrl}}" alt="Image">
+                                          </div>
+                                          <div class="img-type">
+                                            {{images.symptom}}
+                                          </div>
+                                          <div class="card-btn">
+                                            View Image
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!--                                          </div>-->
+                                  </div>
+                                  <div *ngIf="spotHealthModels.healthImageModelList == null || spotHealthModels.healthImageModelList.length <= 0">
+                                    <label style="color: wheat;text-align: right;position: absolute;top: 69px;left: 709px;">Spot Health Image Not Found!
+                                    </label>
+                                  </div>
+                                </div>
+                                <!-- </accordion-group>-->
+
+                              </tab>
+                            </tabset>
+                          </div>
+                        </div>
+                      </div>
+                      <!--<accordion-group heading="{{stressList.stressName}}" *ngFor="let stressList of item.stressModelList;">
+                        <div class="image-list">
+                      <div *ngIf="stressList.stressImageModelList !=null">
+                        <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 image-card" *ngFor="let stressImage of stressList.stressImageModelList;">
+                        <div class="card" (click)="shouldShow = !shouldShow">
+                              <div class="card-block" (click)="imageEditorModal(generalinfo.basePath, stressImage.imageUrl, stressImage.id)">
+                                <div class="image">
+                                  <span class="image-side">{{stressImage.side}}</span>
+                                    <img class="img-responsive" id="{{stressImage.id}}" src="{{stressImage.imageUrl}}" alt="Image">
+                                </div>
+                                <div class="img-type">
+                                    {{stressImage.symptom}}
+                                </div>
+                                <div class="card-btn">
+                                    View Image
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                        </div>
+                      </accordion-group>-->
+                    </accordion>
+                  </accordion-group>
+                </div>
+                <div *ngIf="item.disable ==  false">
+                  <label style="color: wheat;text-align: right;position: absolute;top: 69px;left: 700px;">Spots Are Not Found! OR Spots Are Completed.
+                  </label>
+                </div>
+              </accordion>
+            </accordion-group>
+          </accordion>
+        </div>
+      </div>
+    </div>
+    <!--              </tab>-->
+    <!--              <tab  heading="Health Details">-->
+    <!--                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 accordion-group no-padding">-->
+    <!--<div class="panel panel-default clearfix cl-image-list spot-box-block">
+      <div class="beanchmark-heading">Health Images</div>
+      <div class="panel-body">
+        <accordion [closeOthers]="oneAtATime">
+          <accordion-group heading="spotID: {{item.spotId}}" *ngFor="let item of healthImages;">
+                <div class="image-list">
+                  <div *ngIf="item.healthImageModelList !=null">
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 image-card" *ngFor="let healthImage of item.healthImageModelList;">
+                      <div class="card" (click)="shouldShow = !shouldShow">
+                        <div class="card-block" (click)="imageEditorModal(generalinfo.basePath, healthImage.imageUrl, healthImage.id)">
+                          <div class="image">
+                            <span class="image-side">{{healthImage.side}}</span>
+                            <img class="img-responsive" id="{{healthImage.id}}" src="{{healthImage.imageUrl}}" alt="Image">
+                          </div>
+                          <div class="img-type">
+                            {{healthImage.symptom}}
+                          </div>
+                          <div class="card-btn">
+                            View Image
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          </accordion-group>
+        </accordion>
+      </div>
+    </div>-->
+    <!--                </div>-->
+    <!--              </tab>-->
+    <!--            </tabset>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--<div class="page-content">
+      <div class="col-lg-12 no-padding rlt-tech-case-details">
+
+        <div class="case-details-tab clearfix">
+          <tabset (click)="gettabl($event)">
+
+            <tab heading="Stress Details">
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 accordion-group no-padding">
+                <div class="panel panel-default clearfix cl-image-list spot-box-block">
+                  <div class="beanchmark-heading">Stress Images</div>
+                  <div class="panel-body">
+                    <accordion [closeOthers]="oneAtATime">
+                      <accordion-group heading="{{item.stressName}}" *ngFor="let item of stress;">
+                        <div class="image-list">
+                          <div class="image-card" *ngFor="let benchmarkedImage of item.benchmarkedImageDetails;">
+                            &lt;!&ndash;front photo&ndash;&gt;
+                            <div class="card" (click)="shouldShow = !shouldShow">
+                              <div class="card-block" (click)="imageEditorModal(generalinfo.basePath, benchmarkedImage.frontPhoto, benchmarkedImage.id)">
+                                <div class="image">
+                                  <img class="img-responsive" id="{{benchmarkedImage.id}}" src="{{benchmarkedImage.frontPhoto}}" alt="Image">
+                                </div>
+                                <div class="img-type">
+                                  {{benchmarkedImage.symptom}}
+                                </div>
+                                <div class="card-btn">
+                                  View Image
+                                </div>
+                              </div>
+                            </div>
+
+                            &lt;!&ndash;right photo&ndash;&gt;
+                            <div class="card" (click)="shouldShow = !shouldShow">
+                              <div class="card-block" (click)="imageEditorModal(generalinfo.basePath, benchmarkedImage.rightPhoto, benchmarkedImage.id)">
+                                <div class="image">
+                                  <img class="img-responsive" id="{{benchmarkedImage.id}}" src="{{benchmarkedImage.rightPhoto}}" alt="Image">
+                                </div>
+                                <div class="img-type">
+                                  {{benchmarkedImage.symptom}}
+                                </div>
+                                <div class="card-btn">
+                                  View Image
+                                </div>
+                              </div>
+                            </div>
+
+                            &lt;!&ndash;left photo&ndash;&gt;
+                            <div class="card" (click)="shouldShow = !shouldShow">
+                              <div class="card-block" (click)="imageEditorModal(generalinfo.basePath, benchmarkedImage.leftPhoto, benchmarkedImage.id)">
+                                <div class="image">
+                                  <img class="img-responsive" id="{{benchmarkedImage.id}}" src="{{benchmarkedImage.leftPhoto}}" alt="Image">
+                                </div>
+                                <div class="img-type">
+                                  {{benchmarkedImage.symptom}}
+                                </div>
+                                <div class="card-btn">
+                                  View Image
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </accordion-group>
+                    </accordion>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab  heading="Health Details">
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 accordion-group no-padding">
+                <div class="panel panel-default clearfix cl-image-list spot-box-block">
+                  <div class="beanchmark-heading">Health Images</div>
+                  <div class="panel-body">
+
+                        <div class="image-list">
+                          <div class="image-card" *ngFor="let benchmarkedImage of health;">
+
+                            &lt;!&ndash;front photo&ndash;&gt;
+                            <div class="card" (click)="shouldShow = !shouldShow">
+                              <div class="card-block" (click)="imageEditorModal(generalinfo.basePath, benchmarkedImage.frontPhoto, benchmarkedImage.id)">
+                                <div class="image">
+                                  <img class="img-responsive" id="{{benchmarkedImage.id}}" src="{{benchmarkedImage.frontPhoto}}" alt="Image">
+                                </div>
+                                <div class="img-type">
+                                  {{benchmarkedImage.symptom}}
+                                </div>
+                                <div class="card-btn">
+                                  View Image
+                                </div>
+                              </div>
+                            </div>
+
+                            &lt;!&ndash;right photo&ndash;&gt;
+                            <div class="card" (click)="shouldShow = !shouldShow">
+                              <div class="card-block" (click)="imageEditorModal(generalinfo.basePath, benchmarkedImage.rightPhoto, benchmarkedImage.id)">
+                                <div class="image">
+                                  <img class="img-responsive" id="{{benchmarkedImage.id}}" src="{{benchmarkedImage.rightPhoto}}" alt="Image">
+                                </div>
+                                <div class="img-type">
+                                  {{benchmarkedImage.symptom}}
+                                </div>
+                                <div class="card-btn">
+                                  View Image
+                                </div>
+                              </div>
+                            </div>
+
+                            &lt;!&ndash;left photo&ndash;&gt;
+                            <div class="card" (click)="shouldShow = !shouldShow">
+                              <div class="card-block" (click)="imageEditorModal(generalinfo.basePath, benchmarkedImage.leftPhoto, benchmarkedImage.id)">
+                                <div class="image">
+                                  <img class="img-responsive" id="{{benchmarkedImage.id}}" src="{{benchmarkedImage.leftPhoto}}" alt="Image">
+                                </div>
+                                <div class="img-type">
+                                  {{benchmarkedImage.symptom}}
+                                </div>
+                                <div class="card-btn">
+                                  View Image
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>-->
+
+    <!--Comments ends-->
+    <div class="clearfix page-action">
+      <button class="btn btn-secondary" routerLink="/image-quality-assurance-list">Back</button>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="modal fade image-editor-modal in" [ngClass]="{show: shouldShow, hide: !shouldShow}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="uploadForm">
+        <div class="panel panel-default image-detail-panel" *ngIf="submitbenchmarkimage">
+          <div class="panel-heading">
+            Image Editor
+            <button type="button" class="close pull-right" (click)="close(shouldShow = !shouldShow)">
+                            <span>
+                                <img src="../../../assets/img/close-icon.svg" alt="Close">
+                            </span>
+            </button>
+          </div>
+          <div class="panel-body image-editor">
+            <div id="tui-image-editor" name="profile"></div>
+          </div>
+          <div class="comment-block">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="form-container">
+                <label>Comments*</label>
+                <textarea name="userComments" [(ngModel)]="submitbenchmarkimage.comment" formControlName="comment" class="form-control" minlength="1"
+                          maxlength="500" placeholder="Enter your comments" [ngClass]="{ 'is-invalid': submitted && f.comment.errors}"></textarea>
+                <!-- <div *ngIf="submitted && (submitbenchmarkimage.comment == undefined || submitbenchmarkimage.comment == '')">
+                    <div class="error-message" *ngIf="submitted && (submitbenchmarkimage.comment == undefined || submitbenchmarkimage.comment == '')">
+                        {{textboxError}}</div>
+                </div> -->
+                <div *ngIf="submitted && f.comment.errors">
+                  <div class="error-message" *ngIf="f.comment.errors.required">{{textboxError}}</div>
+                  <div class="error-message" *ngIf="f.comment.errors.pattern">{{invalidvalueerrormessage}}</div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix page-action">
+            <button class="btn btn-secondary" type="button" (click)="onReject()">REJECT</button>
+            <button type="submit" class="btn btn-primary" (click)="onAccept()">Approve</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->
+<div class="modal-backdrop fade in" [ngClass]="{show: shouldShow, hide: !shouldShow}"></div>

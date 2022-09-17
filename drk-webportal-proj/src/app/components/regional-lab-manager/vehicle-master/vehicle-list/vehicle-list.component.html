@@ -1,0 +1,75 @@
+ <!--Header Begin-->
+ <app-header></app-header>
+ <!--Header END-->
+
+ <!--Sidemenu Begin-->
+ <app-sidemenu></app-sidemenu>
+ <!--Sidemenu END-->
+  <div class="content-wrapper">
+      <div class="page-title-bar">
+          <h2>
+              Vehicle Master
+          </h2>
+          <ul class="more-option-ul">
+            <li>
+                <a routerLink="/vehicle-details">
+                    <button type="button" class="btn btn-primary">ADD VEHICLE</button>
+                </a>
+            </li>
+        </ul>
+      </div>
+        <div class="page-content">
+        <div class="full-width search-box monitor-search">
+                <ul class="list-selecttag">
+                    <li class="search-right pull-left">
+                        <div class="search-text">Status</div>
+                        <div class="search-input">
+                            <div class="form-container">
+                                <div class="search-in">
+                                    <select class="form-control" [(ngModel)]="searchKeyward">
+                                      <option value="1">Active</option>
+                                      <option value="2">Inactive</option>
+                                  </select>
+                                    <button  class="btn btn-primary" (click) ="searchData()">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="table-section">
+                    <div class="table-responsive">
+                        <table id="vehicle-master" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Sl No</th>
+                                    <th>VIN Number</th>
+                                    <th>Barcode</th>
+                                    <th>Status</th>
+                                    <th class="sorting-hide"></th>
+                                </tr>
+                            </thead>
+
+
+
+                            <tbody>
+                                <tr *ngFor="let item of vehiclemaster;let i = index;">
+                                    <td>{{i + 1}}</td>
+                                    <td>{{item.vinnumber}}</td>
+                                    <td>{{item.barcode}}</td>
+                                    <td>{{item.status}}</td>
+                                    <td class="text-center">
+                                        <button [routerLink]="['/vehicle-details/'+item.id]" class="btn btn-primary list-btn">Edit</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+  </div>
+  
+
+<!--Footer Begin-->
+  <app-footer></app-footer>
+<!--Footer END-->

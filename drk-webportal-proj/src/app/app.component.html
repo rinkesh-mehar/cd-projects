@@ -1,0 +1,6 @@
+<app-loader></app-loader>
+<router-outlet></router-outlet>
+<div class="connection-status" *ngIf="connectionStatus == 'online' || connectionStatus == 'offline'" [ngClass]="connectionStatus">
+    {{connectionStatusMessage}}
+    <span #divClick class="closebar" (click)="showConnectionStatus()">x</span>
+</div>

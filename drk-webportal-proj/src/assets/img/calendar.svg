@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
+  <g id="Mid_Content" data-name="Mid Content" transform="translate(-769.171 -437.762)">
+    <g id="Details_1" data-name="Details 1" transform="translate(769.171 437.762)">
+      <g id="small-calendar" transform="translate(0 0)">
+        <g id="calendar_1_" transform="translate(0 0)">
+          <path id="Path_2" data-name="Path 2" d="M24.75,2.532H21.09V.847a.844.844,0,1,0-1.687,0V2.532h-5.06V.847a.844.844,0,0,0-1.687,0V2.532H7.594V.847a.844.844,0,1,0-1.687,0V2.532H2.246A2.249,2.249,0,0,0,0,4.78V24.726a2.249,2.249,0,0,0,2.25,2.247h22.5A2.249,2.249,0,0,0,27,24.726V4.78a2.247,2.247,0,0,0-2.25-2.247Zm.562,22.193a.562.562,0,0,1-.562.562H2.25a.562.562,0,0,1-.563-.562V4.78a.562.562,0,0,1,.563-.561H5.91V5.9A.844.844,0,0,0,7.6,5.9V4.217h5.062V5.9a.844.844,0,0,0,1.687,0V4.217h5.062V5.9a.844.844,0,1,0,1.687,0V4.217h3.66a.562.562,0,0,1,.562.561Z" transform="translate(0 0.027)" fill="#fff"/>
+          <path id="Rectangle_128" data-name="Rectangle 128" d="M0,0H2.951V2.213H0Z" transform="translate(6.013 10.275)" fill="#fff"/>
+          <path id="Rectangle_129" data-name="Rectangle 129" d="M0,0H2.951V2.213H0Z" transform="translate(6.013 14.543)" fill="#fff"/>
+          <path id="Rectangle_130" data-name="Rectangle 130" d="M0,0H2.951V2.213H0Z" transform="translate(6.013 18.812)" fill="#fff"/>
+          <path id="Rectangle_131" data-name="Rectangle 131" d="M0,0H2.951V2.213H0Z" transform="translate(12.024 18.812)" fill="#fff"/>
+          <path id="Rectangle_132" data-name="Rectangle 132" d="M0,0H2.951V2.213H0Z" transform="translate(12.024 14.543)" fill="#fff"/>
+          <path id="Rectangle_133" data-name="Rectangle 133" d="M0,0H2.951V2.213H0Z" transform="translate(12.024 10.275)" fill="#fff"/>
+          <path id="Rectangle_134" data-name="Rectangle 134" d="M0,0H2.951V2.213H0Z" transform="translate(18.036 18.812)" fill="#fff"/>
+          <path id="Rectangle_135" data-name="Rectangle 135" d="M0,0H2.951V2.213H0Z" transform="translate(18.036 14.543)" fill="#fff"/>
+          <path id="Rectangle_136" data-name="Rectangle 136" d="M0,0H2.951V2.213H0Z" transform="translate(18.036 10.275)" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

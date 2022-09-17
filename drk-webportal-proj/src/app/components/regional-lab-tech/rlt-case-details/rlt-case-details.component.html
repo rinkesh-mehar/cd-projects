@@ -1,0 +1,1042 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+<div class="content-wrapper">
+  <div class="page-title-bar relative">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2>
+          Case Details
+        </h2>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="page-content">
+    <div class="col-lg-12 no-padding rlt-tech-case-details">
+
+      <div class="case-details-tab clearfix">
+        <tabset (click)="gettabl($event)">
+          <!--General Information Starts-->
+          <tab heading="General Information">
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>State</label>
+                    <input [(ngModel)]="generalInfo.state" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Tehsil</label>
+                    <input [(ngModel)]="generalInfo.tehsil" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>District</label>
+                    <input [(ngModel)]="generalInfo.distict" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Village Name</label>
+                    <input [(ngModel)]="generalInfo.villageName" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Farmer Name</label>
+                    <input [(ngModel)]="generalInfo.farmerName" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Farmer Mobile Number</label>
+                    <input [(ngModel)]="generalInfo.farmerMobileNumber" type="number" class="form-control" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </tab>
+          <!--General Information End-->
+          <!--Crop Information starts-->
+          <tab  heading="Crop Information" (change)="isNotBandScreen()">
+            <div class="row">
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Name of Crop</label>
+                    <input [(ngModel)]="cropInfo.commodityName" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Variety</label>
+                    <input [(ngModel)]="cropInfo.varietyName" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Cropping area (in acres)</label>
+                    <input [(ngModel)]="cropInfo.cropArea" type="text" class="form-control" disabled>
+
+                  </div>
+                </div>
+
+                <!--                <div class="col-md-4 col-sm-6 col-xs-12">-->
+                <!--                  <div class="form-container">-->
+                <!--                    <label>Season</label>-->
+                <!--                    <input [(ngModel)]="cropInfo.seasonName" type="text" class="form-control" disabled>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Sowing Week</label>
+                    <input [(ngModel)]="cropInfo.sowingWeek" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container ">
+                    <label>Seed Source</label>
+                    <input [(ngModel)]="cropInfo.seedSourceName" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 3px;">
+                  <div class="form-container">
+                    <label>Seed Sample Received</label>
+                    <div class="full-width radio-box-inside">
+                      <div class="radio-button-div">
+                        <input [(ngModel)]="cropInfo.seedsSampleReceived" type="radio" [value]="1" name="cropsample" id="cropsampleyes" class="input-hidden" disabled>
+                        <label for="yes" class="label-radio">
+                          <div class="label-tick">
+                          </div>
+                          <span>Yes</span>
+                        </label>
+
+                      </div>
+                      <div class="radio-button-div">
+                        <input [(ngModel)]="cropInfo.seedsSampleReceived" type="radio" [value]="0" name="cropsample" id="cropsampleno" class="input-hidden" disabled>
+                        <label for="no" class="label-radio">
+                          <div class="label-tick">
+                          </div>
+                          <span>No</span>
+                        </label>
+
+                      </div>
+
+                    </div>
+
+
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Seed Rate (KG/Acre)</label>
+                    <input [(ngModel)]="cropInfo.seedsRates" type="number" class="form-control" disabled>
+
+                  </div>
+                </div>
+
+                <!--<div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container ">
+                    <label>UOM</label>
+                    <input [(ngModel)]="cropInfo.unitOFMeasurement" type="text" class="form-control" disabled>
+                  </div>
+                </div>-->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Spacing Row to Row</label>
+                    <input [(ngModel)]="cropInfo.spacingRowToRow" type="number" class="form-control" disabled>
+
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Spacing Plant to Plant</label>
+                    <input [(ngModel)]="cropInfo.spacingPlantToPlant" type="number" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Crop Type</label>
+                    <input [(ngModel)]="cropInfo.cropTypeName" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Seller Given Quantity (Ton)</label>
+                    <input [(ngModel)]="cropInfo.sellerGivenQtyTon" type="number" class="form-control" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </tab>
+          <!--Crop Information ends-->
+
+          <!--          Quality assessment CDT Rinkesh KM Start -->
+          <tab heading="Quality Assessment">
+
+            <!--            <div *ngFor="let value of qualityAssurance;">-->
+            <!--              {{ value |json}}-->
+            <!--            </div>-->
+
+            <form [formGroup]="qualityAssessmentForm" (ngSubmit)="submitValidateBand()" novalidate>
+
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                  <div *ngFor="let value of qualityAssurance; let i = index">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <div class="form-container">
+                        <label>{{value.name}}</label>
+                        <input type="number" [(ngModel)]="value.value"
+                               min="{{value.minValue}}" max="{{value.maxValue}}" class="form-control placeholderColor"
+                               placeholder="Please Enter Value Between {{value.minValue}} to {{value.maxValue}}"
+                               (change)="validateQuality(value.minValue, value.maxValue, $event, value)"
+                               [ngModelOptions]="{standalone: true}">
+                        <span class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-xs-12 text-center submit-btn page-action" *ngIf="!viewOnly">
+                <button class="btn btn-primary" type="button" (click)="getBand(showBandModal)" [disabled]="getBandButtonFlag">Get Band</button>
+                <span class="text-danger"></span>
+                <!--                <div *ngIf="showQualityAssuranceMSG">-->
+                <!--                  <div class="alert alert-success text-center" *ngIf="savedSpots && savedSpots.length >0 && savedSpots[qualityAssurance]">-->
+                <!--                    Spot has been saved successfully.-->
+                <!--                  </div>-->
+                <!--                </div>-->
+              </div>
+            </form>
+          </tab>
+          <!--          Quality assessment CDT Rinkesh KM End -->
+
+          <!--Irrigation Details starts-->
+          <tab heading="Irrigation Details">
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Irrigation Source</label>
+                    <div class="form-control multi-select multiple-control">
+                      <span *ngFor="let val of irrigationDetails.irrigationSource">{{val}}</span>
+                    </div>
+                    <ng-template #sourceTemplate>
+                      <ol>
+                        <li class="tooltip-list" *ngFor="let val of irrigationDetails.irrigationSource">
+                          <span>{{val}}</span>
+                        </li>
+                      </ol>
+                    </ng-template>
+                    <span class="mutiple-text-tooltip" *ngIf="irrigationDetails.irrigationSource?.length > 0" [tooltip]="sourceTemplate">+</span>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Irrigation method</label>
+                    <div class="form-control multi-select multiple-control">
+                      <span *ngFor="let val of irrigationDetails.irrigationMethod">{{val}}</span>
+                    </div>
+                    <ng-template #methodTemplate>
+                      <ol>
+                        <li class="tooltip-list" *ngFor="let val of irrigationDetails.irrigationMethod">
+                          <span>{{val}}</span>
+                        </li>
+                      </ol>
+                    </ng-template>
+                    <span class="mutiple-text-tooltip" *ngIf="irrigationDetails.irrigationMethod?.length > 0" [tooltip]="methodTemplate">+</span>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Number of Irrigations</label>
+                    <input [(ngModel)]="irrigationDetails.numberOfIrrigation" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Week of Irrigation</label>
+                    <div class="date-box">
+                      <input [(ngModel)]="irrigationDetails.weekOfIrrigationl" type="text" class="form-control" disabled>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </tab>
+          <!--Irrigation Details ends-->
+          <!--Fertilizer starts-->
+          <tab heading="Fertilizer">
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Type of Application</label>
+                    <input [(ngModel)]="fertilizerDetails.applicationType" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Name of Fertilizer</label>
+                    <input [(ngModel)]="fertilizerDetails.fertilizerName" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>UOM</label>
+                    <input [(ngModel)]="fertilizerDetails.fertilizerUom" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Dose</label>
+                    <input [(ngModel)]="fertilizerDetails.fertilizerDose" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Split Dose</label>
+                    <input [(ngModel)]="fertilizerDetails.splitDose" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Week of Application</label>
+                    <div class="date-box">
+                      <input [(ngModel)]="fertilizerDetails.applicationWeek" type="text" class="form-control" disabled>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </tab>
+          <!--Fertilizer ends-->
+          <!--Seed Treatment starts-->
+          <tab heading="Seed Treatment">
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Seed treatment</label>
+
+
+                    <div class="full-width radio-box-inside">
+                      <div class="radio-button-div">
+                        <input [(ngModel)]="seedTreatment.seedTreatment" type="radio" value="true" name="sample" id="yes" class="input-hidden" disabled>
+                        <label for="yes" class="label-radio">
+                          <div class="label-tick">
+                          </div>
+                          <span>Yes</span>
+                        </label>
+
+                      </div>
+                      <div class="radio-button-div">
+                        <input [(ngModel)]="seedTreatment.seedTreatment" type="radio" value="false" name="sample" id="no" class="input-hidden" disabled>
+                        <label for="no" class="label-radio">
+                          <div class="label-tick">
+                          </div>
+                          <span>No</span>
+                        </label>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Seed treatment agent</label>
+                    <div class="form-control multi-select multiple-control">
+                      <span *ngFor="let val of seedTreatment.seedTreatmentAgent">{{val}}</span>
+                    </div>
+                    <ng-template #seedTemplate>
+                      <ol>
+                        <li class="tooltip-list" *ngFor="let val of seedTreatment.seedTreatmentAgent">
+                          <span>{{val}}</span>
+                        </li>
+                      </ol>
+                    </ng-template>
+                    <span class="mutiple-text-tooltip" *ngIf="seedTreatment.seedTreatmentAgent?.length > 0" [tooltip]="seedTemplate">+</span>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>UOM</label>
+                    <input [(ngModel)]="seedTreatment.seedTreatmentUom" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Dose</label>
+                    <input [(ngModel)]="seedTreatment.seedTreatmentAgentDose" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </tab>
+          <!--Seed Treatment ends-->
+          <!--Remedial Measures starts-->
+          <tab  heading="Remedial Measures">
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Agrochemical Name</label>
+                    <input [(ngModel)]="remedialMeasures.agrochemicalName" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Brand</label>
+                    <input [(ngModel)]="remedialMeasures.remedialBrand" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>UOM</label>
+                    <input [(ngModel)]="remedialMeasures.remedialUom" type="text" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Dose</label>
+                    <input [(ngModel)]="remedialMeasures.remedialDose" type="number" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>Week of Application</label>
+                    <div class="date-box">
+                      <input [(ngModel)]="remedialMeasures.remedialWeek" type="text" class="form-control" disabled>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </tab>
+          <!--Remedial Measures ends-->
+        </tabset>
+      </div>
+
+
+
+      <!--Ndvi Image Of The Field starts-->
+      <div class="row" *ngIf="bandScreenSelected === false">
+        <div class="col-xs-12 col-md-12 col-lg-12 no-padding">
+          <div class="col-xs-12 col-md-12 col-lg-12 left-block">
+            <!-- section 6 flip book -->
+            <div class="flip-book aerial-photos">
+              <div class="aerial-photos-title h4">Aerial Photos</div>
+              <div class="panel-body">
+                <img *ngIf="generalInfoMaster.ariealPhotos == null || generalInfoMaster.ariealPhotos.length == 0" class="img-responsive" src="../../assets/img/no-image-available.jpg" alt="" width="100%">
+                <ngx-slick-carousel class="carousel commonslider first" #slickModal="slick-carousel" [config]="slideflipbookConfig">
+                  <div ngxSlickItem *ngFor="let slide of generalInfoMaster.ariealPhotos" class="slide">
+                    <div class="full-width relative">
+                      <img *ngIf="generalInfoMaster.ariealPhotos.length >= 1" class="img-responsive" src="{{slide}}" alt="Arial Photo" width="100%">
+
+                      <!--                      <img *ngIf="generalInfoMaster.ariealPhotos.length >= 1" class="img-responsive" [src]="generalInfoMaster.ariealPhotos +'/'+ slide" alt="Aerial" width="100%">-->
+                    </div>
+                  </div>
+                </ngx-slick-carousel>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!--Ndvi Image Of The Field ends-->
+      <!-- section 3 sample images categorization -->
+      <div class="panel panel-default clearfix rlt-spot-health spot-box-block" *ngIf="bandScreenSelected === false">
+        <div class="spot-health-heading">Spot Health Status</div>
+        <div class="panel-body">
+
+          <accordion [closeOthers]="oneAtATime" *ngFor="let spothealth of spothealthdetails;" (click)="toggleAccordian()">
+            <accordion-group *ngFor="let accordion of SpotLevelForm.controls;let b =index" heading="Spot Id {{spothealth[b].name}}" (change)="chages(b)">
+
+              <div>
+                <div class="clearfix checkbox-section benchmark-spot">
+                                    <span class="checkbox-col">
+                          <label class="checkbox">
+                            <input type="checkbox" [(ngModel)]="spothealth[b].isSpotBenchmark" >
+                            <span class="checkmark"></span>
+                                    </label>
+                                    </span>
+                  <span class="checkboxlabel">
+                            Benchmark Spot
+                        </span>
+                </div>
+                <section class="spot-tab-stress stress1 clearfix noborder-bottom" *ngIf="accordion.controls && accordion.controls.length > 0">
+                  <h5 heading="Stress">Stress</h5>
+                  <div class="col-md-12 col-sm-12 col-xs-12 no-padding spot-details-block">
+                    <div class="col-sm-12 col-md-12 col-xs-12 no-padding spot-stress-details" *ngFor="let stressType of stressTypeArray">
+                      <div>
+                        <h6 class="spot-heading">{{stressType}}</h6>
+                        <form [formGroup]="accordion">
+                          <ul *ngFor="let SpotLevel of accordion.controls;let a =index" [formGroup]="SpotLevel">
+
+                            <li class="stress-name-block" *ngIf="SpotLevel.value.type == stressType" [ngClass]="{ 'remove-stress' : !s[b].controls[a].controls.status.value }">
+                              <div class="stress-list">
+                                <div class="full-width form-container stress-name-block">
+                                  <div class="caption">
+                                    <label>Stress Name</label>
+                                  </div>
+                                  <div class="col-lg-12 no-padding" [ngClass]="{'disabled' : viewOnly}">
+                                    <select id="stress-{{a+1}}" class="form-control" formControlName="stressId" [ngClass]="{ 'is-invalid': spotSubmitted[b] && s[b].controls[a].controls.stressId.errors}" (change)="changeSymptoms(s[b].controls[a].controls)" (change)="disableField(a)">
+                                      <option [ngValue]="undefined" selected>Select an option</option>
+                                      <option *ngFor="let item of getStressData(stressType);" [ngValue]="item.stressId">
+                                        {{item.stressName}}</option>
+                                    </select>
+                                    <div *ngIf="spotSubmitted[b] && s[b].controls[a].controls.stressId.errors">
+                                      <div class="error-message" *ngIf="s[b].controls[a].controls.stressId.errors.required">
+                                        {{dropdownerrormessage}}</div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                                <div class="full-width form-container symptom-block">
+                                  <div class="caption">
+                                    <label>Symptom</label>
+                                  </div>
+                                  <div class="col-lg-12 no-padding" [ngClass]="{'disabled' : viewOnly}">
+
+                                    <select class="form-control" formControlName="desc" [ngClass]="{ 'is-invalid': spotSubmitted[b] && s[b].controls[a].controls.desc.errors }">
+                                      <option [ngValue]="undefined" selected>Select an option</option>
+                                      <option *ngFor="let item of stressSymptomsList" [ngValue]="item.symptomsId">{{item.symptomsDesc}}</option>
+                                    </select>
+                                    <!-- <div *ngIf="spotSubmitted[b] && s[b].controls[a].controls.spotstressname.errors">
+  <div class="error-message" *ngIf="s[b].controls[a].controls.spotstressname.errors.required">{{dropdownerrormessage}}</div>
+</div> -->
+                                  </div>
+                                  <!-- <div class="description-text" tooltip="{{SpotLevel.value.desc}}" placement="top">
+  {{SpotLevel.value.desc}}
+</div> -->
+
+                                </div>
+                                <div class="col-xs-12 col-md-12 col-lg-12 no-padding">
+                                  <ngx-slick-carousel class="carousel benchmark commonslider spotslider" #slickModal="slick-carousel" [config]="slideConfigBench" (init)="slickInit($event)">
+                                    <div ngxSlickItem class="slide">
+
+                                      <div class="full-width relative">
+                                        <img class="img-responsive" [src]="SpotLevel.value.leftimageURL == null ? '../../assets/img/no-image-available.jpg': SpotLevel.value.leftimageURL" alt="Spot Left" width="100%">
+                                        <!--                                        <img class="img-responsive" *ngIf="SpotLevel.value.leftimageURL == null" src="../../assets/img/no-image-available.jpg" alt="Spot Left" width="100%">-->
+                                        <span class="image-name">{{SpotLevel.value.leftImagename}}</span>
+                                        <div class="suggest-benchmark">
+                                          <div class="clearfix check-items">
+                                                                                        <span class="checkbox-col">
+                                              <label class="checkbox">
+                                                <input type="checkbox" formControlName="leftbenchmark">
+                                                <span class="checkmark"></span>
+                                                                                        </label>
+                                                                                        </span>
+                                            <span class="place">
+                                              Suggest As Benchmark
+
+                                            </span>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div ngxSlickItem class="slide">
+                                      <div class="full-width relative">
+                                        <img class="img-responsive" [src]="SpotLevel.value.frontimageURL == null ? '../../assets/img/no-image-available.jpg': SpotLevel.value.frontimageURL" alt="Spot Front" width="100%">
+                                        <span class="image-name">{{SpotLevel.value.frontImagename}}</span>
+                                        <div class="suggest-benchmark">
+                                          <div class="clearfix check-items">
+                                                                                        <span class="checkbox-col">
+                                              <label class="checkbox">
+                                                <input type="checkbox" formControlName="frontbenchmark">
+                                                <span class="checkmark"></span>
+                                                                                        </label>
+                                                                                        </span>
+                                            <span class="place">
+                                              Suggest As Benchmark
+
+                                            </span>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div ngxSlickItem class="slide">
+                                      <div class="full-width relative">
+<!--                                        <img class="img-responsive" [src]="SpotLevel.value.rightimageURL" alt="Spot Right" width="100%">-->
+                                        <img class="img-responsive" [src]="SpotLevel.value.rightimageURL == null ? '../../assets/img/no-image-available.jpg': SpotLevel.value.rightimageURL" alt="Spot Right" width="100%">
+                                        <span class="image-name">{{SpotLevel.value.rightImagename}}</span>
+                                        <div class="suggest-benchmark">
+                                          <div class="clearfix check-items">
+                                                                                        <span class="checkbox-col">
+                                              <label class="checkbox">
+                                                <input type="checkbox" formControlName="rightbenchmark">
+                                                <span class="checkmark"></span>
+                                                                                        </label>
+                                                                                        </span>
+                                            <span class="place">
+                                              Suggest As Benchmark
+
+                                            </span>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </ngx-slick-carousel>
+                                </div>
+
+                                <div class="col-xs-12 col-md-12 col-lg-12 no-padding stress-table-details">
+                                  <div class="col-xs-12 col-md-4 no-padding stress-table-block">
+                                    <h6>Left</h6>
+                                    <div class="full-width form-container" [hidden]="true">
+                                      <div class="caption">
+                                        <label>Incidence</label>
+                                      </div>
+                                      <div>
+                                        <div class="select-field" [ngClass]="{'disabled' : viewOnly}">
+                                          <select class="form-control" formControlName="incidenceone">
+                                            <option *ngFor="let item of incidencedata;let i = index" [ngValue]="item.id">
+                                              {{item.value}}</option>
+                                          </select>
+                                          <!--<div *ngIf="spotSubmitted[b] && s[b].controls[a].controls.incidenceone.errors">
+                                            <div class="error-message" *ngIf="s[b].controls[a].controls.incidenceone.errors.required">
+                                              {{dropdownerrormessage}}</div>
+                                          </div>-->
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="full-width form-container">
+                                      <div class="caption">
+                                        <label>Severity</label>
+                                      </div>
+                                      <div>
+                                        <div class="select-field" [ngClass]="{'disabled' : viewOnly}">
+                                          <select class="form-control" formControlName="severityone" [ngClass]="{ 'is-invalid': spotSubmitted[b] && s[b].controls[a].controls.severityone.errors }">
+                                            <option [ngValue]="undefined" selected>Select an option</option>
+                                            <option *ngFor="let item of severitydata;let i = index" [ngValue]="item.id">
+                                              {{item.name}}</option>
+                                          </select>
+                                          <div *ngIf="spotSubmitted[b] && s[b].controls[a].controls.severityone.errors">
+                                            <div class="error-message" *ngIf="s[b].controls[a].controls.severityone.errors.required">
+                                              {{dropdownerrormessage}}</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-xs-12 col-md-4 no-padding stress-table-block">
+                                    <h6>Front</h6>
+                                    <div class="full-width form-container" [hidden]="true">
+                                      <div class="caption">
+                                        <label>Incidence</label>
+                                      </div>
+                                      <div>
+                                        <div class="select-field" [ngClass]="{'disabled' : viewOnly}">
+                                          <select class="form-control" formControlName="incidencetwo">
+                                            <option *ngFor="let item of incidencedata;let i = index" [ngValue]="item.id">
+                                              {{item.value}}</option>
+                                          </select>
+                                          <!--<div *ngIf="spotSubmitted[b] && s[b].controls[a].controls.incidencetwo.errors">
+                                            <div class="error-message" *ngIf="s[b].controls[a].controls.incidencetwo.errors.required">
+                                              {{dropdownerrormessage}}</div>
+                                          </div>-->
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="full-width form-container">
+                                      <div class="caption">
+                                        <label>Severity</label>
+                                      </div>
+                                      <div>
+                                        <div class="select-field" [ngClass]="{'disabled' : viewOnly}">
+                                          <select class="form-control" formControlName="severitytwo" [ngClass]="{ 'is-invalid': spotSubmitted[b] && s[b].controls[a].controls.severitytwo.errors }">
+                                            <option [ngValue]="undefined" selected>Select an option</option>
+                                            <option *ngFor="let item of severitydata;let i = index" [ngValue]="item.id">
+                                              {{item.name}}</option>
+                                          </select>
+                                          <div *ngIf="spotSubmitted[b] && s[b].controls[a].controls.severitytwo.errors">
+                                            <div class="error-message" *ngIf="s[b].controls[a].controls.severitytwo.errors.required">
+                                              {{dropdownerrormessage}}</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-xs-12 col-md-4 no-padding stress-table-block">
+                                    <h6>Right</h6>
+                                    <div class="full-width form-container" [hidden]="true">
+                                      <div class="caption">
+                                        <label>Incidence</label>
+                                      </div>
+                                      <div>
+                                        <div class="select-field" [ngClass]="{'disabled' : viewOnly}">
+                                          <select class="form-control" formControlName="incidencethree">
+                                            <option *ngFor="let item of incidencedata;let i = index" [ngValue]="item.id">
+                                              {{item.value}}</option>
+                                          </select>
+                                          <!--<div *ngIf="spotSubmitted[b] && s[b].controls[a].controls.incidencethree.errors">
+                                            <div class="error-message" *ngIf="s[b].controls[a].controls.incidencethree.errors.required">
+                                              {{dropdownerrormessage}}</div>
+                                          </div>-->
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="full-width form-container">
+                                      <div class="caption">
+                                        <label>Severity</label>
+                                      </div>
+                                      <div>
+                                        <div class="select-field" [ngClass]="{'disabled' : viewOnly}">
+                                          <select class="form-control" formControlName="severitythree" [ngClass]="{ 'is-invalid': spotSubmitted[b] && s[b].controls[a].controls.severitythree.errors }">
+                                            <option [ngValue]="undefined" selected>Select an option</option>
+                                            <option *ngFor="let item of severitydata;let i = index" [ngValue]="item.id">
+                                              {{item.name}}</option>
+                                          </select>
+                                          <div *ngIf="spotSubmitted[b] && s[b].controls[a].controls.severitythree.errors">
+                                            <div class="error-message" *ngIf="s[b].controls[a].controls.severitythree.errors.required">
+                                              {{dropdownerrormessage}}</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="col-xs-12 text-center remove-undo-btn input-hidden" *ngIf="!viewOnly">
+                                <button class="btn-secondary list-btn undo-btn" type="button" (click)="removeStress(b,a)" [disabled]="s[b].controls[a].controls.status.value">
+                                  <img src="../../../../assets/img/undo-icon.svg" alt="Undo">
+                                  <span>Undo</span>
+                                </button>
+                                <button class="btn-primary list-btn remove-btn" (click)="removeStress(b,a)" [disabled]="!s[b].controls[a].controls.status.value" type="button">
+                                  <img src="../../../../assets/img/delete-black-icon.svg" alt="Delete">
+                                  <span>Remove</span>
+                                </button>
+                              </div>
+
+                            </li>
+                          </ul>
+
+                        </form>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <div class="col-xs-12 text-center submit-btn" *ngIf="!viewOnly">
+                    <button class="btn btn-primary" *ngIf="accordion.controls.length > 1" type="button" (click)="Reset()">Reset</button>
+                  </div>
+
+
+                </section>
+                <section class="spot-tab-health clearfix noborder-bottom">
+                  <h5 heading="Health">Health</h5>
+                  <form [formGroup]="healthFormArray.controls[b]">
+                    <div class="col-sm-12 col-md-12">
+                      <div class="row">
+
+                        <div class="health-block">
+                          <div class="col-sm-12 col-md-6 health-block-slider">
+
+                            <ngx-slick-carousel class="carousel commonslider benchmark first slider-in health-slider" #slickModal="slick-carousel" [config]="slideflipbookConfigTwo">
+                              <div ngxSlickItem class="slide">
+                                <div class="full-width relative">
+                                  <img class="img-responsive" [src]="healthData[b].left == null ? '../../assets/img/no-image-available.jpg': healthData[b].left" alt="Health Left" width="100%">
+                                  <span class="image-name">L</span>
+                                </div>
+                              </div>
+                              <div ngxSlickItem class="slide">
+                                <div class="full-width relative">
+                                  <img class="img-responsive" [src]="healthData[b].front == null ? '../../assets/img/no-image-available.jpg': healthData[b].front" alt="Health Front" width="100%">
+                                  <span class="image-name">F</span>
+                                </div>
+                              </div>
+                              <div ngxSlickItem class="slide">
+                                <div class="full-width relative">
+                                  <img class="img-responsive" [src]="healthData[b].right == null ? '../../assets/img/no-image-available.jpg': healthData[b].right" alt="Health Right" width="100%">
+                                  <span class="image-name">R</span>
+                                </div>
+                              </div>
+                            </ngx-slick-carousel>
+
+                          </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                          <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let health of healthData[b].questions">
+                            <div class="form-container" *ngIf="health.type == 'text' || health.type == 'number'">
+                              <label>{{health.name}}*</label>
+                              <div class="input-field" [ngClass]="{'disabled' : viewOnly}">
+                                <input type="health.type" [formControlName]="health.formControlName" class="form-control" [ngClass]="{ 'is-invalid': spotSubmitted[b] && h[b].controls[health.formControlName].errors }">
+                                <div *ngIf="spotSubmitted[b] && h[b].controls[health.formControlName].errors">
+                                  <div class="error-message" *ngIf="h[b].controls[health.formControlName].errors">
+                                    {{textboxError}}</div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-container" *ngIf="health.type == 'select'">
+                              <label>{{health.name}}*</label>
+                              <div class="select-field" [ngClass]="{'disabled' : viewOnly}">
+                                <select class="form-control" [formControlName]="health.formControlName" [ngClass]="{ 'is-invalid': spotSubmitted[b] && h[b].controls[health.formControlName].errors }">
+                                  <option [ngValue]="undefined" selected>Select an option</option>
+                                  <option *ngFor="let item of health.values[0].split(',');" [ngValue]="item">{{item}}</option>
+                                </select>
+
+                                <div *ngIf="spotSubmitted[b] && h[b].controls[health.formControlName].errors">
+                                  <div class="error-message" *ngIf="h[b].controls[health.formControlName].errors">
+                                    {{dropdownerrormessage}}</div>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </form>
+                </section>
+                <div class="col-xs-12 text-center submit-btn" *ngIf="!viewOnly">
+                  <button class="btn btn-primary" type="submit" (click)="onSave(b, confirmModal)">Save</button>
+                  <div *ngIf="showSaveSpotMSG">
+                    <div class="alert alert-success text-center" *ngIf="savedSpots && savedSpots.length >0 && savedSpots[b]">
+                      Spot has been saved successfully.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </accordion-group>
+
+
+          </accordion>
+
+
+        </div>
+      </div>
+
+
+
+      <!-- section 4 Diagnosis -->
+
+      <div class="panel panel-default clearfix rlt-spot-health rlt-diagnosis" *ngIf="bandScreenSelected === false">
+        <div class="spot-health-heading">Result</div>
+        <div class="panel-body">
+          <div class="full-width single-box">
+            <span class="square-box" [ngClass]="{'darkgreen' : recommendationdetails?.severityType == 'very_low', 'green' : recommendationdetails?.severityType == 'low', 'yellow' : recommendationdetails?.severityType == 'medium', 'red' : recommendationdetails?.severityType == 'high', 'darkred' : recommendationdetails?.severityType == 'very_high'}"></span>
+            <span class="sample-stats">{{recommendationdetails?.label}}</span>
+          </div>
+          <h4>Recommendations*</h4>
+          <form [formGroup]="resultFormArray">
+            <div class="recomendations-block">
+              <form [formGroup]="resultFormArray.controls">
+                <ul class="recomendations-list" *ngFor="let recom of resultFormArray.controls;let a = index">
+                  <li>
+                    <div class="full-width form-container">
+                      <div class="caption">
+                        <label>Stress Name</label>
+                      </div>
+                      <div class="input-field">
+                        {{recom.controls.stressName.value}}
+                      </div>
+
+                    </div>
+                    <div class="full-width form-container">
+                      <div class="caption">
+                        <label>Average Severity</label>
+                      </div>
+                      <div class="input-field">
+                        {{recom.controls.severity.value}}
+                      </div>
+
+                    </div>
+                    <div class="clearfix check-items checkbox-section row" *ngIf="recommendationdetails && recommendationdetails.stresses.length >0">
+                      <div *ngFor="let item of recommendationdetails.stresses[a].recommendations" class="col-md-6 col-lg-4 recommendation-item">
+                        <div *ngIf="item.instruction != null">
+                          <span class="checkbox-col">
+                            <label class="checkbox" [ngClass]="{'disabled' : viewOnly}">
+                              <input type="checkbox" value="item.id" [checked]="checkForSelectedValues(a, item.id)"
+                                     (click)="setMultiplereomData(a,item)">
+                              <span class="checkmark"></span>
+                            </label>
+                          </span>
+                          <span class="place">
+                          {{item.instruction}}
+                        </span>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </form>
+              <div class="checkbox-error recommendation-error" *ngIf="submitted && !recommendSubmit && recommendationdetails?.severityType && recommendationdetails?.severityType != 'very_low' && recommendationdetails.stresses.length < 0 ">
+                <div class="error-message">{{multiselectError}}</div>
+              </div>
+              <div class="checkbox-error recommendation-error" *ngIf="recommendationStatus">
+                <div class="error-message">{{multiselectError}}</div>
+              </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding" *ngIf="generalInfoMaster && generalInfoMaster.comments && generalInfoMaster.comments.length >0">
+              <div class="panel  panel-default clearfix mlt-panel mlt-comments">
+                <div class="panel-heading">Comments</div>
+                <div class="panel-body">
+                  <div class="comment-details" *ngFor="let commentList of generalInfoMaster?.comments">
+                    <div class="name-date-block">
+                      <h6>{{commentList.name}},
+                        <span>{{commentList.designation}}</span>
+                      </h6>
+                      <p class="date">{{commentList.dateTime}}</p>
+                    </div>
+                    <div class="comment-text">
+                      {{commentList.comment.split("|")[0]}}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </form>
+          <div class="comment-block">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+              <div class="form-container" *ngIf="recommendationdetails">
+                <label>Enter your comment*</label>
+                <textarea class="form-control" (keyup)="invalidCommentsError()" name="userComments" [disabled]="viewOnly" maxlength="500" placeholder="Enter your comment" [(ngModel)]="recommendationdetails.comment" [ngClass]="{ 'is-invalid': submitted && (recommendationdetails.comment == undefined || recommendationdetails.comment == '') || invalidComments}"></textarea>
+                <div *ngIf="submitted && (recommendationdetails.comment == undefined || recommendationdetails.comment == '')">
+                  <div class="error-message" *ngIf="submitted && (recommendationdetails.comment == undefined || recommendationdetails.comment == '')">
+                    {{textboxError}}</div>
+                </div>
+                <div class="error-message" *ngIf="submitted && recommendationdetails.comment != '' && invalidComments">
+                  {{invalidvalueerrormessage}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 text-center page-action submit-btn" *ngIf="logedInUser && logedInUser.menuUrl[0].url == '/rlt-samples'">
+            <button class="btn btn-secondary" type="button" routerLink="{{logedInUser.menuUrl[0].url}}">Cancel</button>
+            <button class="btn btn-primary" type="submit" (click)="onSubmit()">Submit</button>
+          </div>
+          <div class="col-md-12 colsm-12 col-xs-12 no-padding" *ngIf="logedInUser && logedInUser.menuUrl[0].url != '/rlt-samples'">
+            <div class="clearfix page-action">
+              <button class="btn btn-secondary" type="button" routerLink="/sample-diagnosis-approval-list">
+                <span *ngIf="!viewOnly">Cancel</span>
+                <span *ngIf="viewOnly">Back</span>
+              </button>
+              <button class="btn btn-primary btn-recipt" (click)="reassign(assignModal)" *ngIf="!viewOnly">REASSIGN</button>
+              <button class="btn btn-primary btn-recipt" (click)="approve()" *ngIf="!viewOnly">APPROVE</button>
+            </div>
+          </div>
+          <div class="col-md-12 colsm-12 col-xs-12 no-padding" style="display:none">
+
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+<ng-template #showBandModal>
+  <div class="success-modal">
+    <div class="modal-header sucess-message">
+      <h4 class="modal-title pull-left">{{modalService.config.initialState.heading}}</h4>
+    </div>
+    <div class="modal-body">
+      <h4 class="popup-msg">{{modalService.config.initialState.content.split("?")[0]}}?</h4>
+    </div>
+    <div class="modal-footer text-center">
+      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Ok</button>
+      <!--      <button type="submit" class="btn btn-primary" (click)="saveSpot(modalService.config.initialState.content.split('?')[1])">Confirm</button>-->
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #confirmModal>
+  <div class="success-modal">
+    <div class="modal-header sucess-message">
+      <h4 class="modal-title pull-left">{{modalService.config.initialState.heading}}</h4>
+    </div>
+    <div class="modal-body">
+      <h4 class="popup-msg">{{modalService.config.initialState.content.split("?")[0]}}?</h4>
+    </div>
+    <div class="modal-footer text-center">
+      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
+      <button type="submit" class="btn btn-primary" (click)="saveSpot(modalService.config.initialState.content.split('?')[1])">Confirm</button>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #assignModal>
+  <div class="assign-role-rlm">
+
+    <div class="modal-header sucess-message">
+      <h4 class="modal-title pull-left">{{modalService.config.initialState.title}}</h4>
+    </div>
+    <div class="modal-body">
+      <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+        <div class="form-container">
+          <label>Assign to</label>
+          <select class="form-control" [(ngModel)]="rltUser" [ngClass]="{ 'is-invalid': submitted && !rltUser }">
+            <option [ngValue]="undefined" selected>Select an option </option>
+            <option *ngFor="let rlt of rltUserlist" [value]="rlt.rltId">{{rlt.rltName}}</option>
+
+          </select>
+          <div *ngIf="submitted && !rltUser" class="invalid-feedback">
+            <div class="error-message" *ngIf="!rltUser">{{dropdownerrormessage}}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer text-center">
+      <button type="button" class="btn btn-secondary" (click)="modalRef.hide() || rltUser = undefined">CANCEL</button>
+      <button type="submit" class="btn btn-primary" type="submit" (click)="reassignTask()">Ok</button>
+    </div>
+
+  </div>
+</ng-template>
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

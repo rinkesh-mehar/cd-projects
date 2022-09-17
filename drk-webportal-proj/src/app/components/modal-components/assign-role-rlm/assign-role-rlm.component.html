@@ -1,0 +1,30 @@
+<div class="assign-role-rlm">
+  <form [formGroup]="assignForm" (ngSubmit)="onSubmit()">
+  <div class="modal-header sucess-message">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+      <span><img src="../../../assets/img/close-icon.svg" alt="Close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+        <div class="form-container">
+          <label>Assign to</label>
+          <select class="form-control" [(ngModel)]="assignrole.assign"  formControlName="assign" [ngClass]="{ 'is-invalid': submitted && f.assign.errors }">
+            <option [ngValue]="undefined"  selected>Select an option</option>
+              <option>One</option>
+              <option>Two</option>
+            </select>
+            <div *ngIf="submitted && f.assign.errors" class="invalid-feedback">
+              <div class="error-message" *ngIf="f.assign.errors.required">{{dropdownerrormessage}}</div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+  <div class="modal-footer text-center">
+      <button type="button" class="btn btn-secondary" (click)="close()">CANCEL</button>
+      <button type="submit" class="btn btn-primary"  type="submit">Ok</button>
+  </div>
+  </form>
+  </div>

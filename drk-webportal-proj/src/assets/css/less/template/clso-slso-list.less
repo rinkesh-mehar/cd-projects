@@ -1,0 +1,75 @@
+/*CLSO SLSO Style Begin*/
+.benchmark-thumb{
+    width: 87px;
+    margin-right: 25px;
+    cursor: pointer;
+    outline: none;
+}
+.vertical-align-top>tbody>tr>td{
+    vertical-align: top!important;
+}
+
+#benchmark-images-editor .image-editor{
+    padding: 15px;
+}
+#benchmark-images-editor .benchmark-thumb{
+    cursor: default;
+}
+#benchmark-images-editor .image-detail-panel{
+    margin-bottom: 5px;
+}
+
+#benchmark-images-editor tbody>tr:nth-child(1) td{
+    border-bottom:0px !important;
+}
+
+#benchmark-images-editor tbody>tr:nth-child(2) td{
+    border-top:solid 1px @drk_white_30 !important;
+}
+
+ul.diagnosis-approval-list li.secound-container p{
+    font-size: 12px;
+}
+ul.diagnosis-approval-list li.secound-container .secoundhalf  p{
+    margin-bottom: 6px;
+}
+ul.diagnosis-approval-list li.secound-container .secoundhalf  p:last-child{
+    margin-bottom: 0px;
+}
+ul.diagnosis-approval-list li.secound-container .half-section-div.secoundhalf .btnstatus{
+    margin-bottom: 8px;
+}
+
+ul.sample-diagnosis-clso li.first-container{
+    width: 38%;
+
+    &:first-child{
+        width: calc(~"38% - 5px");
+        margin-right: 5px;
+    }
+}
+ul.sample-diagnosis-clso li.third-container{
+    width: 24%;
+
+    .list-btn{
+        margin-bottom: 0px;
+    }
+}
+
+ul.sample-diagnosis-clso .sample-status{
+    display: inline-block;
+    padding: 4px 30px;
+    border-radius: 14px;
+    color: #fff;
+    font-weight: 700;
+    border: 1px solid rgba(0,0,0,.5);
+    text-transform: capitalize;
+    font-size: @common_size;
+
+    &.received{
+        background-color: #84c225;
+    }
+    &.need-more-sample{
+        background-color: #e61111;
+    }
+}

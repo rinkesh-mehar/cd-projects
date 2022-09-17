@@ -1,0 +1,178 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Start-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+<div class="content-wrapper">
+    <div class="page-title-bar">
+        <h2>
+            Sample Diagnosis Approval List
+        </h2>
+    </div>
+    <div class="page-content">
+
+        <div class="full-width search-box diagnosis-search">
+            <ul class="list-selecttag ">
+                <form [formGroup]="DiagnosisFilterForm" (ngSubmit)="FilterDiagnosis()">
+                    <li class="task-date">
+                        <div class="search-text">Task Date</div>
+                        <div class="search-input">
+                            <div class="form-container">
+                                <div class="date-box">
+                                    <input type="text" placement="top right" placeholder="DD-MM-YYYY - DD-MM-YYYY" class="form-control datepicker-range" [maxDate]="maxDate"
+                                        #dp="bsDaterangepicker" bsDaterangepicker [bsConfig]="{ rangeInputFormat: 'DD-MM-YYYY', customTodayClass: 'today-date' }" formControlName="taskdate" [ngClass]="{ 'is-invalid': submitted && dateError || showError}">
+                                    <img src="../../../assets/img/calendar.svg" class="calender-datepicker" alt="Calendar">
+                                </div>
+                            </div>
+                            
+                            <div *ngIf="submitted && dateError" class="error-message diagnosis-date-validaion">{{calndererrormessage}}</div>
+                            <div *ngIf="showError" class="error-message diagnosis-date-validaion">Dates should not be greater than 7 days.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="search-text">Status</div>
+                        <div class="search-input">
+                            <div class="form-container">
+                                <select class="form-control" [(ngModel)]="diagnosis.taskstatus" formControlName="status">
+                                    <option value="1">Pending/Assigned</option>
+                                    <option value="2">Approved</option>
+                                    <option value="3">Reassigned</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="search-btn-area">
+                        <div class="search-text visibility-hidden">Button</div>
+                        <div class="search-input">
+                            <div class="form-container">
+                                <button class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </li>
+                </form>
+
+                <li class="search-right">
+                    <div class="search-text visibility-hidden">Search</div>
+                    <div class="search-input">
+                        <div class="form-container">
+                            <form [formGroup]="barCode">
+                                <div class="search-in">
+                                    <input type="text" class="form-control" [(ngModel)]="barcode" formControlName="barcode" placeholder="Scan Sample Diagnosis" (keyup.enter)="searchBarcode()" [ngClass]="{ 'is-invalid': submitted && f.barcode.errors }">
+                                    <img src="../../../../assets/img/search-white.svg" class="search-icon" alt="Search">
+                                </div>
+                                <div *ngIf="submitted && f.barcode.errors">
+                                    <div class="error-message" *ngIf="f.barcode.errors.required">{{textboxerrormessage}}</div>
+                                    <div class="error-message" *ngIf="f.barcode.errors.pattern">{{invalidvalueerrormessage}}</div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- <div *ngIf="sample_data.length == 0" class="alert alert-success text-center">
+                {{searchmessage}}
+        </div> -->
+
+       <!--  <div *ngIf="showNoDataMessage" class="alert alert-success text-center">
+                {{nodatamessage}}
+        </div> -->
+
+        <div *ngIf="showSearchMessage" class="alert alert-success text-center">
+            {{submitted ? (searchStatus == 1 && searchcode.length == 0 ? nodatamessages :  searchmessage) : searchcode.length == 0 ? nodatamessages : searchmessage}}
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 list-container-diagnosis" *ngFor="let item of sample_data | paginate: { itemsPerPage: 5, currentPage: p }">
+                <ul class="list-container">
+                    <li class="first-container">
+                        <ul class="details-tab-list">
+                            <li class="list-divider">
+                                <div class="half-section heading">
+                                    Farmer ID
+                                </div>
+                                <div class="half-section content-sec length-id">
+                                    {{item.farmerid}}
+                                </div>
+                            </li>
+                            <li class="list-divider">
+                                <div class="half-section heading">
+                                    Case ID
+                                </div>
+                                <div class="half-section content-sec length-id">
+                                    {{item.caseid}}
+                                </div>
+                            </li>
+                            <li class="list-divider">
+                                <div class="half-section heading">
+                                    Village
+                                </div>
+                                <div class="half-section content-sec">
+                                    {{item.village}}
+                                </div>
+                            </li>
+                            <li class="list-divider">
+                                <div class="half-section heading">
+                                    Farmer Mobile Number
+                                </div>
+                                <div class="half-section content-sec">
+                                    {{item.farmermobilenumber}}
+                                </div>
+                            </li>
+                            <li class="list-divider">
+                                <div class="half-section heading">
+                                    Crop
+                                </div>
+                                <div class="half-section content-sec">
+                                    {{item.crop}}
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="secound-container">
+                        <div class="half-section-div firsthalf relative">
+                            <div class="vertical-middle">
+                                <h3>Level-1 Status
+                                    <br/> {{item.status}}
+                                </h3>
+                                <p>
+                                    Received Date: {{item.receiveddate}}
+                                </p>
+                                <p>
+                                    Level-1 Date: {{item.levelonedate}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="half-section-div secoundhalf relative">
+                            <div class="vertical-middle">
+                                <h3>Level-2 Status</h3>
+                                <div class="btnstatus" [ngClass]="item.taskstatus">{{item.taskstatus}}</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="third-container">
+                        <div class="center-button-list">
+                            <button *ngIf="item.taskstatus == 'assigned'" class="btn btn-primary list-btn" (click) = "assigned(item.taskId, 0)">Approve</button>
+                            <button *ngIf="item.taskstatus == 'pending'" class="btn btn-primary list-btn" (click) = "selection(item.taskId, 0)">Approve</button>
+                            <button *ngIf="item.taskstatus == 'approved' || item.taskstatus == 'reassigned'" class="btn btn-primary list-btn" (click) = "selection(item.taskId, 1)">View Details</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--Pagination-->
+            <div *ngIf="sample_data.length >= 1" class="col-md-12 col-sm-12 col-xs-12">
+                <div class="clearfix footer-pagination rlm-pagination">
+                    <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

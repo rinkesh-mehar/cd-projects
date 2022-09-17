@@ -1,0 +1,198 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+<div class="content-wrapper">
+  <div class="page-title-bar">
+    <h2>
+      KML Details
+    </h2>
+  </div>
+  <div class="page-content">
+
+    <div class="col-md-12 col-md-12 col-xs-12 no-padding box-kml">
+
+      <!--         <h3 class="sub-heading-kml">Existing KML</h3>-->
+
+
+      <ul class="kml-container" *ngIf="kml_details">
+        <li>
+
+          <div id="kmlResource">
+            <iframe *ngIf="polygon != null" id="map" width="100%" height="400" [src]="polygon | safe" style=" border: none;
+                      margin: 0;
+                      display: block;">
+            </iframe>
+          </div>
+
+          <!--                    <img src="assets/img/mapicon.svg" class="map-icon" alt="Map">-->
+          <!--                  <iframe src="home/rinkesh/Desktop/showPolygon.html?id=121000291630045867583" width="100%" height="400"></iframe>-->
+
+          <!--                <app-temp></app-temp>-->
+        </li>
+        <li>
+          <div class="full-width heading-li">
+            <h4>Area Details</h4>
+          </div>
+          <div class="full-width">
+            <table class="table table-bordered table-kml-details">
+              <tr>
+                <td>Crop</td>
+                <td>{{kml_details.cropName}}</td>
+              </tr>
+              <tr>
+                <td>Area</td>
+                <td>{{kml_details.area}}</td>
+              </tr>
+              <tr>
+                <td>Correction</td>
+                <td *ngIf="!updated_kml_details" ></td>
+                <td *ngIf="updated_kml_details">{{updated_kml_details.correction}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="full-width">
+            <div class="half-div">
+              <table class="table table-bordered table-kml-details">
+                <tr>
+                  <td class="min-max">X - MIN </td>
+                  <td class="min-max">: {{kml_details.coordinates.xMin}} </td>
+                </tr>
+                <tr>
+                  <td class="min-max">Y - MIN </td>
+                  <td class="min-max">: {{kml_details.coordinates.yMin}}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="half-div">
+              <table class="table table-bordered table-kml-details">
+                <tr>
+                  <td class="min-max">X - MAX </td>
+                  <td class="min-max">: {{kml_details.coordinates.xMax}}</td>
+                </tr>
+                <tr>
+                  <td class="min-max">Y - MAX</td>
+                  <td class="min-max">: {{kml_details.coordinates.yMax}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+    <!--      <div class="container">-->
+    <!--        <div class="row justify-content-md-center">-->
+    <!--              <li>-->
+
+    <div class="full-width text-center kml-btn-box">
+      <div class="upload-btn-box" [formGroup]="uploadFile">
+
+        <!--            <div class="col-md-auto">-->
+        <a class="btn btn-primary" download="{{kml_details.fileName}}" href="{{kml_details.fileName}}"><img
+          src="../../../../../assets/img/download-icon.svg" alt="download" class="img-download">DOWNLOAD</a>
+        <!--            </div>-->
+
+        <!--            <div class="col-md-auto">-->
+        <div class="btn btn-primary" style="margin-left: 30px;">
+          <img src="../../../../../assets/img/upload.svg" alt="Upload" class="img-download">UPLOAD
+        </div>
+        <input type="file" id="uploadFile" class="fileuploadinput" #fileInput formControlName="uploadfile"
+               (change)="onFileSelect(fileInput)"/>
+        <span class="file-info">{{ fileInfo }}</span>
+        <div class="error-message file-formate-error" *ngIf="fileFormate">Please upload .kml extension file to
+          proceed.
+        </div>
+        <!--              </div>-->
+      </div>
+    </div>
+    <!--              </li>-->
+    <!--            </ul>-->
+    <!--       </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+
+    <div class="col-md-12 col-md-12 col-xs-12 no-padding box-kml hidden">
+      <h3 class="sub-heading-kml">Updated KML</h3>
+      <ul class="kml-container" *ngIf="kml_details">
+        <li>
+          <img src="assets/img/mapicon.svg" class="map-icon" alt="Map">
+        </li>
+        <li>
+          <div class="full-width heading-li">
+            <h4>Area Details</h4>
+          </div>
+          <div class="full-width">
+            <table class="table table-bordered table-kml-details">
+              <tr>
+                <td>Crop</td>
+                <td *ngIf="!updated_kml_details" ></td>
+                <td *ngIf="updated_kml_details">{{updated_kml_details.cropName}}</td>
+              </tr>
+              <tr>
+                <td>Area</td>
+                <td *ngIf="!updated_kml_details" ></td>
+                <td *ngIf="updated_kml_details">{{updated_kml_details.area}}</td>
+              </tr>
+              <tr>
+                <td>Correction</td>
+                <td *ngIf="!updated_kml_details" ></td>
+                <td *ngIf="updated_kml_details">{{updated_kml_details.correction}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="full-width">
+            <div class="half-div">
+              <table class="table table-bordered table-kml-details">
+                <tr>
+                  <td class="min-max">X - MIN </td>
+                  <td *ngIf="!updated_kml_details" ></td>
+                  <td *ngIf="updated_kml_details"class="min-max">: {{updated_kml_details.coordinates.xMin}} </td>
+                </tr>
+                <tr>
+                  <td class="min-max">Y - MIN </td>
+                  <td *ngIf="!updated_kml_details" ></td>
+                  <td *ngIf="updated_kml_details" class="min-max">: {{updated_kml_details.coordinates.yMin}}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="half-div">
+              <table class="table table-bordered table-kml-details">
+                <tr>
+                  <td class="min-max">X - MAX </td>
+                  <td *ngIf="!updated_kml_details" ></td>
+                  <td *ngIf="updated_kml_details" class="min-max">: {{updated_kml_details.coordinates.xMax}}</td>
+                </tr>
+                <tr>
+                  <td class="min-max">Y - MAX</td>
+                  <td *ngIf="!updated_kml_details" ></td>
+                  <td *ngIf="updated_kml_details" class="min-max">: {{updated_kml_details.coordinates.yMax}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="full-width text-center kml-btn-box upload-btn-box" [formGroup]="uploadFile">
+            <div class="file-upload-button btn btn-primary">
+              <img src="../../../../../assets/img/upload.svg" alt="Upload" class="img-download">UPLOAD
+            </div>
+            <input type="file" id="uploadFile" class="fileuploadinput" #fileInput formControlName="uploadfile" (change)="onFileSelect(fileInput)"/>
+            <span class="file-info">{{ fileInfo }}</span>
+            <div class="error-message file-formate-error" *ngIf="fileFormate">Please upload .kml extension file to proceed.</div>
+
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-12 col-md-12 col-xs-12 no-padding text-center combined-button">
+      <button class="btn btn-secondary" routerLink="/kml-quality-assurance-list" type="button">Back</button>
+      <button class="btn btn-primary" (click)="onUpdate()">Submit</button>
+    </div>
+  </div>
+</div>
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

@@ -1,0 +1,9 @@
+<div class="modal-header sucess-message">
+  <h4 class="modal-title pull-left">{{title}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+    <span><img src="../../../assets/img/close-icon.svg" alt="Close"></span>
+  </button>
+</div>
+<div class="modal-body">
+    <h4 class="popup-msg">{{content}} <a routerLink="{{action}}" (click)="close()">{{link}}</a></h4>
+</div>

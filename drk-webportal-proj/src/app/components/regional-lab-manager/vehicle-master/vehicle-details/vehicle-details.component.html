@@ -1,0 +1,106 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+<div class="content-wrapper">
+  <div class="page-title-bar relative">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2>
+          Vehicle Details
+        </h2>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <div class="page-content">
+
+    <form [formGroup]="vehicleDetails" (ngSubmit)="onSubmit()">
+      <!--Add user starts-->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+        <h3 class="Form-Heading">
+          <span>General Information</span>
+        </h3>
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>ID</label>
+              <input type="text" [(ngModel)]="vehicledetails.id" class="form-control" formControlName="id" disabled>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>VIN Number*</label>
+              <input type="text" maxlength="50" [(ngModel)]="vehicledetails.vinnumber" class="form-control" maxlength="50" placeholder="Enter VIN number"
+                formControlName="vinnumber" [ngClass]="{ 'is-invalid': submitted && f.vinnumber.errors }">
+              <div *ngIf="submitted && f.vinnumber.errors">
+                <div class="error-message" *ngIf="f.vinnumber.errors.required">{{textboxerrormessage}}</div>
+                <div class="error-message" *ngIf="f.vinnumber.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Barcode*</label>
+              <input type="text" maxlength="50" [(ngModel)]="vehicledetails.barcode" class="form-control" maxlength="50" minlength="0" placeholder="Enter barcode"
+                formControlName="barcode" [ngClass]="{ 'is-invalid': submitted && f.barcode.errors }">
+              <div *ngIf="submitted && f.barcode.errors">
+                <div class="error-message" *ngIf="f.barcode.errors.required">{{textboxerrormessage}}</div>
+                <div class="error-message" *ngIf="f.barcode.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Status*</label>
+              <select class="form-control" [(ngModel)]="vehicledetails.status" formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option value="1">Active</option>
+                <option value="2">Inactive</option>
+              </select>
+              <div *ngIf="submitted && f.status.errors">
+                <div class="error-message" *ngIf="f.status.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="form-container">
+              <label>Remarks*</label>
+              <textarea [(ngModel)]="vehicledetails.remarks" maxlength="500" class="form-control" placeholder="Enter your remarks" formControlName="remarks" [ngClass]="{ 'is-invalid': submitted && f.remarks.errors }"></textarea>
+              <div *ngIf="submitted && f.remarks.errors">
+                <div class="error-message" *ngIf="f.remarks.errors.required">{{textboxerrormessage}}</div>
+                <div class="error-message" *ngIf="f.remarks.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+
+      <!--Add user ends-->
+
+      <!--button starts-->
+      <div class="clearfix page-action">
+        <button class="btn btn-secondary" type="button" routerLink="/vehicle-master">CANCEL</button>
+        <!--<button class="btn btn-secondary" >SAVE</button> -->
+        <button class="btn btn-primary" type="submit">SUBMIT</button>
+      </div>
+
+      <!--button ends-->
+    </form>
+  </div>
+</div>
+
+
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

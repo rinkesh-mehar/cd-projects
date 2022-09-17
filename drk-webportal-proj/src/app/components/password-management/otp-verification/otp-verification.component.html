@@ -1,0 +1,33 @@
+<div class="login-wrapper">
+    <div class="left-panel">
+        <div class="logo"><img class="img-responsive" src="../../../../../assets/img/logo.png" alt="Logo"></div>
+    </div>
+    <div class="right-panel">
+        <div class="login-form otp-verification">
+            <h1>Enter Verification code</h1>
+            <h3>Please enter the verification code sent to your registered mobile number</h3>
+            <div class="form-area">
+                    <form [formGroup]="verificationForm" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                                <input type="text" maxLength="1" formControlName="verificationinputOne" [ngClass]="{ 'is-invalid': submitted && f.verificationinputOne.errors }" (input)="onInputEntry($event, input2)" required autofocus/>
+                                <input #input2 type="text" maxLength="1" formControlName="verificationinputTwo" [ngClass]="{ 'is-invalid': submitted && f.verificationinputTwo.errors }" (input)="onInputEntry($event, input3)" required/>
+                                <input #input3 type="text" maxLength="1" formControlName="verificationinputThree" [ngClass]="{ 'is-invalid': submitted && f.verificationinputThree.errors }" (input)="onInputEntry($event, input4)" required/>
+                                <input #input4 type="text" maxLength="1" formControlName="verificationinputFour" [ngClass]="{ 'is-invalid': submitted && f.verificationinputFour.errors }" (input)="onInputEntry($event, input5)" required/>
+                                <input #input5 type="text" maxLength="1" formControlName="verificationinputFive" [ngClass]="{ 'is-invalid': submitted && f.verificationinputFive.errors }" (input)="onInputEntry($event, input6)" required/>
+                                <input #input6 type="text" maxLength="1" formControlName="verificationinputSix" [ngClass]="{ 'is-invalid': submitted && f.verificationinputSix.errors }" required/>
+                                <div *ngIf="submitted && f.verificationinputOne.errors || submitted && f.verificationinputTwo.errors || submitted && f.verificationinputThree.errors || submitted && f.verificationinputFour.errors || submitted && f.verificationinputFive.errors || submitted && f.verificationinputSix.errors">
+                                        <div class="error-message valid-otp" *ngIf="f.verificationinputOne.errors?.required || f.verificationinputTwo.errors?.required || f.verificationinputThree.errors?.required || f.verificationinputFour.errors?.required || f.verificationinputFive.errors?.required || f.verificationinputSix.errors?.required">Enter Valid Verification Code</div>
+                                </div>
+                        </div>
+                        <div class="clearfix form-bottom text-center">
+                            <button class="btn btn-primary">Confirm</button>
+                        </div>
+                    </form>
+            </div>
+            
+        </div>
+    </div>
+  </div>
+  
+  
+  

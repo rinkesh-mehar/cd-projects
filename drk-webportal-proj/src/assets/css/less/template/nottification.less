@@ -1,0 +1,59 @@
+.nottification-wrapper{
+    position: relative;
+    height: 100%;
+}
+.nottification-container{
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 515px;
+    height: 100%;
+    z-index: 100;
+    background-color: @mainbg;
+    border: 1px solid #707070;
+    .nottification-header{
+        background-color: @bright_yellow;
+        padding: 15px 15px;
+        position: relative;
+        padding-right: 30px;
+        width: 100%;
+        float: left;
+        h3{
+            float: left;
+            width: auto;
+            font-weight: @bold;
+        }
+        .nottification-number{
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            background-color: @drk_black_50;
+            float: left;
+            margin-left: 15px;
+            color: @drk_white;
+            .center-align{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .nottification-close{
+            position: absolute;
+            right: 15px;
+            top: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@-ms-viewport {
+    width: device-width;
+  }

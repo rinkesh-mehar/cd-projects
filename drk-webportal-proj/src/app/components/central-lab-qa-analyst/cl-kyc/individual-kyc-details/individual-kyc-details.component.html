@@ -1,0 +1,209 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+<div class="content-wrapper">
+    <div class="page-title-bar">
+        <h2>
+            Detailed View Of Information
+        </h2>
+    </div>
+    <div class="page-content">
+        <div class="full-width ">
+            <tabset class="kyc-tab">
+                <form [formGroup]="panDetails" (ngSubmit)="onSave()">
+                    <div class="full-width border-light tab-container-box">
+                        <ul class="individual-details-container">
+                            <li>
+                                <ngx-slick-carousel class="carousel first kyclgimageslider" #slickModal="slick-carousel" [config]="slideConfig">
+                                    <div ngxSlickItem class="slide">
+                                        <div class="full-width relative">
+                                            <img src="{{individual.idProofFront}}" alt="ID Proof Front" width="100%">
+                                        </div>
+                                    </div>
+                                    <div ngxSlickItem class="slide">
+                                        <div class="full-width relative">
+                                            <img src="{{individual.idProofBack}}"  alt="ID Proof Back" width="100%">
+                                        </div>
+                                    </div>
+                                </ngx-slick-carousel>
+                                <ngx-slick-carousel class="carousel secound" #slickModal="slick-carousel" responsive="breakpoints" [config]="slideConfigNew">
+                                    <div ngxSlickItem class="slide">
+                                       <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <img src="{{individual.idProofFront}}" alt="ID Proof Front" width="100%">
+                                       </div>
+                                    </div>
+                                    <div ngxSlickItem class="slide">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <img src="{{individual.idProofBack}}" alt="ID Proof Back" width="100%">
+                                        </div>
+                                    </div>
+                                </ngx-slick-carousel>
+                            </li>
+                            <li>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-container">
+                                            <label>Document Type</label>
+                                            <div class="icon-section">
+                                                <input type="text" class="form-control" [(ngModel)]="individual.documentType" formControlName="documenttype" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-container">
+                                            <label>Farmer Name*</label>
+                                            <div class="icon-section">
+                                                <input type="text" maxlength="150" placeholder="Enter farmer name" class="form-control" [(ngModel)]="individual.farmerName" formControlName="farmername" [ngClass]="{ 'is-invalid': submitted && f.farmername.errors }">
+
+                                            </div>
+                                            <div *ngIf="submitted && f.farmername.errors">
+                                                <div class="error-message" *ngIf="f.farmername.errors.required">{{textboxerrormessage}}</div>
+                                                <div class="error-message" *ngIf="f.farmername.errors.pattern">{{invalidvalueerrormessage}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-container">
+                                            <label>Father / Husband Name</label>
+                                            <div class="icon-section">
+                                                <input type="text" maxlength="150" placeholder="Enter father / husband name" class="form-control" [(ngModel)]="individual.farmerHusbandName" formControlName="fathername" [ngClass]="{ 'is-invalid': submitted && f.fathername.errors }">
+                                            </div>
+                                            <!-- <div *ngIf="submitted && f.fathername.errors">
+                                                <div class="error-message" *ngIf="f.fathername.errors.required">{{textboxerrormessage}}</div>
+                                                <div class="error-message" *ngIf="f.fathername.errors.pattern">{{invalidvalueerrormessage}}</div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 gender-kyc">
+                                        <div class="form-container">
+                                            <label>Gender*</label>
+                                            <div class="full-width radio-box-inside">
+                                                <div class="radio-button-div">
+                                                    <input type="radio" [(ngModel)]="individual.gender" [value]="0" name="Gender" id="yes" class="input-hidden" formControlName="Gender">
+                                                    <label for="yes" class="label-radio">
+                                                        <div class="label-tick">
+                                                        </div>
+                                                        <span>Male</span>
+                                                    </label>
+
+                                                </div>
+                                                <div class="radio-button-div">
+                                                    <input type="radio" [(ngModel)]="individual.gender" [value]="1" name="Gender" id="no" class="input-hidden" formControlName="Gender">
+                                                    <label for="no" class="label-radio">
+                                                        <div class="label-tick">
+                                                        </div>
+                                                        <span>Female</span>
+                                                    </label>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-container">
+                                            <label>Date of Birth*</label>
+                                            <div class="icon-section">
+                                                <input type="text" class="form-control dob-datepicker" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker placeholder="DD-MM-YYYY"
+                                                    (bsValueChange)="onValueChange($event)" (onHidden)="onDateChange()" [readonly]="true" formControlName="dateofbirth" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', customTodayClass: 'today-date'}"
+                                                    [(ngModel)]="individual.dateOfBirth" [ngClass]="{ 'is-invalid': submitted && f.dateofbirth.errors }">
+                                            </div>
+                                            <div *ngIf="submitted && f.dateofbirth.errors">
+                                                <div class="error-message" *ngIf="f.dateofbirth.errors.required">{{textboxerrormessage}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-container">
+                                            <label>Age (Years)</label>
+                                            <div class="icon-section">
+                                                <input type="text" class="form-control" placeholder="DOB Not Added" formControlName="age" disabled>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-container">
+                                            <label>Mobile Number*</label>
+                                            <div class="icon-section">
+                                                <input type="tel" placeholder="Enter mobile number"  class="form-control" [(ngModel)]="individual.mobileNumber" formControlName="mobilenumber" maxlength="10" [ngClass]="{ 'is-invalid': submitted && f.mobilenumber.errors }">
+
+                                            </div>
+                                            <div *ngIf="submitted && f.mobilenumber.errors">
+                                                <div class="error-message" *ngIf="f.mobilenumber.errors.required">{{textboxerrormessage}}</div>
+                                                <div class="error-message" *ngIf="f.mobilenumber.errors.pattern  || f.mobilenumber.errors.minlength">{{invalidvalueerrormessage}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-container">
+                                            <label>Alternate Mobile Number</label>
+                                            <div class="icon-section">
+                                                <input type="tel" placeholder="Enter alternate mobile number"  maxlength="10" class="form-control alternate-number" [(ngModel)]="individual.alternateMobileNumber" formControlName="alternatemobilenumber"
+                                                    [ngClass]="{ 'is-invalid': submitted && f.alternatemobilenumber.errors || submitted && individual.mobileNumber === individual.alternateMobileNumber}">
+                                            </div>
+                                            <div *ngIf="submitted && f.alternatemobilenumber.errors">
+                                                <div class="error-message" *ngIf="f.alternatemobilenumber.errors.pattern  || f.alternatemobilenumber.errors.minlength">{{invalidvalueerrormessage}}</div>
+                                            </div>
+                                            <div *ngIf="submitted && individual.mobileNumber === individual.alternateMobileNumber && !f.alternatemobilenumber.errors">
+                                                <div class="error-message" *ngIf="individual.mobileNumber === individual.alternateMobileNumber">{{comparenumbermessage}}</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-container clear-margin-bottom">
+                                            <label>Address*</label>
+                                            <div class="icon-section">
+                                                <textarea placeholder="Enter address" maxlength="100" class="form-control" [(ngModel)]="individual.address" formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }"></textarea>
+                                            </div>
+                                            <div *ngIf="submitted && f.address.errors">
+                                                <div class="error-message" *ngIf="f.address.errors.required">{{textboxerrormessage}}</div>
+                                                <div class="error-message" *ngIf="f.address.errors.pattern">{{invalidvalueerrormessage}}</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Comments-->
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+                        <h3 class="Form-Heading">
+                            <span>Comments*</span>
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-container">
+                                    <textarea placeholder="Enter comments" [(ngModel)]="individual.comment" maxlength="500" class="form-control" formControlName="comments" [ngClass]="{ 'is-invalid': submitted && f.comments.errors }"></textarea>
+                                    <div *ngIf="submitted && f.comments.errors">
+                                        <div class="error-message" *ngIf="f.comments.errors.required">{{textboxerrormessage}}</div>
+                                        <div class="error-message" *ngIf="f.comments.errors.pattern">{{invalidvalueerrormessage}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Comments ends-->
+                    <div class="page-action clearfix combined-button text-center">
+                        <button class="btn btn-secondary" routerLink="/kyc-list" type="button">CANCEL</button>
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form>
+
+            </tabset>
+        </div>
+
+    </div>
+</div>
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

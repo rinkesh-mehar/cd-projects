@@ -1,0 +1,90 @@
+/*Button Style Begin*/
+.btn {
+    padding: 0 25px;
+    line-height: 46px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: @semibold;
+    letter-spacing: 1.26px;
+    cursor: pointer;
+    border-radius: 2.5px;
+    outline: none;
+    font-size: @tertiary_font;
+    box-shadow:none !important;
+
+    &.btn-add{
+        padding-left: 50px;
+        background-image: url(../img/add.svg);
+        background-repeat: no-repeat;
+        background-position: left 20px  center;
+        background-size: 20px 20px;
+    }
+}
+
+a.btn-primary, a.btn-primary:focus, a.btn-primary:active, .btn-primary, .btn-primary:focus, .btn-primary:active, .btn-primary.disabled, .btn-primary.disabled:focus{
+    background-color:@bright_yellow;
+    color: @drk_black;
+    border: solid 1px @drk_white;
+    outline: none;
+
+    &:hover{
+        background-color: @dark_yellow;
+        color: @drk_black;
+        outline: none;
+        border: solid 1px @drk_white;
+    }
+
+    &:active{
+        &:hover{
+            background-color: @dark_yellow;
+            color: @drk_black;
+            outline: none;
+            border: solid 1px @drk_white;
+        }
+        &:focus{
+            background-color: @dark_yellow;
+            color: @drk_black;
+            outline: none;
+            border: solid 1px @drk_white;
+        }
+    }
+    &.disabled {
+        &:hover{
+            background-color: @dark_yellow;
+            color: @drk_black;
+            outline: none;
+            border: solid 1px @drk_white;
+        }
+    }
+}
+
+
+a.btn-secondary, a.btn-secondary:focus, a.btn-secondary:active, .btn-secondary, .btn-secondary:focus, .btn-secondary:active {
+    background-color: #c0c1c1;
+    color: @drk_black;
+    border: solid 1px @drk_white;
+    outline: none;
+
+    
+    &:hover{
+        background-color:#a9a9a9;
+        color: @drk_black;
+        outline: none;
+        border: solid 1px @drk_white;
+    }
+
+    &:active{
+        &:hover{
+            background-color: #858585;
+            color: @drk_black;
+            outline: none;
+            border: solid 1px @drk_white;
+        }
+        &:focus{
+            background-color: #858585;
+            color: @drk_black;
+            outline: none;
+            border: solid 1px @drk_white;
+        }
+    }
+}

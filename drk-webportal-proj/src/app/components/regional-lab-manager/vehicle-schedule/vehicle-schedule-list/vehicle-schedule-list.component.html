@@ -1,0 +1,101 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+
+<div class="content-wrapper">
+  <div class="page-title-bar">
+    <h2>
+      Vehicle Schedule List
+    </h2>
+  </div>
+  <div class="page-content">
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+      <div class="full-width search-box diagnosis-search vehicle-schedule-search">
+        <ul class="list-selecttag ">
+          <form [formGroup]="vehicleScheduleFilterForm" (ngSubmit)="vehicleScheduleFilter()">
+            <li class="task-date">
+              <div class="search-text">Date Range</div>
+              <div class="search-input">
+                <div class="form-container">
+                  <div class="date-box">
+                    <input type="text" placement="top right" [minDate]="minDate" [bsValue]="scheduleDateRange" placeholder="DD-MM-YYYY - DD-MM-YYYY" class="form-control datepicker-range"
+                      #dp="bsDaterangepicker" [readonly]="true" bsDaterangepicker [bsConfig]="{ showWeekNumbers:false, rangeInputFormat: 'DD-MM-YYYY', customTodayClass: 'today-date' }"
+                      formControlName="taskdate" [ngClass]="{ 'is-invalid': submitted && f.taskdate.errors || showError}">
+                    <img src="../../../assets/img/calendar.svg" class="calender-datepicker" alt="Calendar">
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.taskdate.errors">
+                    <div class="error-message" *ngIf="f.taskdate.errors.required">{{calndererrormessage}}</div>
+                </div>
+                <div *ngIf="showError" class="error-message diagnosis-date-validaion">Please select date range between 4-15 days.</div>
+              </div>
+            </li>
+
+            <li class="search-btn-area">
+              <div class="search-text visibility-hidden">Button</div>
+              <div class="search-input">
+                <div class="form-container">
+                  <button class="btn btn-primary">Search</button>
+                </div>
+              </div>
+            </li>
+          </form>
+        </ul>
+      </div>
+
+
+      <!--Assign Location section starts-->
+      <div class="vehicle-schedule-list">
+          <div class="alert alert-success text-center" *ngIf="noRecords">
+              No details found for your search.
+            </div>
+        <div class="assign-location">
+          
+          <div class="full-width">
+            <ngx-slick-carousel class="carousel list-slider" #slickModal="slick-carousel" [config]="slideConfig">
+              <div ngxSlickItem *ngFor="let slideritem of vehicleSchedulelist;let i = index;" class="slide list">
+                <div class="list">
+                  <div class="list-item">
+                    <div class="week">
+                      <span>
+                        {{slideritem.date}}
+                      </span>
+                    </div>
+
+                    <div class="list-content">
+                      <accordion [closeOthers]="oneAtATime">
+                        <accordion-group heading="{{accordion.vinno}}" *ngFor="let accordion of slideritem.useraccordion;let i = index;">
+                          <ul>
+                            <li *ngFor="let village of accordion.villages;">
+                              <span>{{village}}</span>
+                            </li>
+                            <!-- <li class="edit-scheduled-details"><a><img src="assets/img/edit.svg" alt="Edit" />Edit</a></li> -->
+                          </ul>
+                        </accordion-group>
+                      </accordion>
+                      <div class="add-button" *ngIf="slideritem.date !== currentDate">
+                        <button class="btn btn-primary btn-add" [routerLink]="['/vehicle-schedule/'+slideritem.date]">Schedule</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

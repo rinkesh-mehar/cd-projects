@@ -1,0 +1,311 @@
+
+//Tabs Style start here
+.agriota-call-list-tab{
+    .nav-tabs{
+        border: solid 1px @drk_white_30;
+        background-color: #313131;
+    }
+
+    .nav-tabs>li>a {
+        margin-right: 0px;
+        line-height: 1.42857143;
+        border: 0px !important;
+        border-radius: 0px;
+        padding: 17px 20px;
+        color: @drk_white !important;
+        font-size: @tertiary_font;
+        font-weight: @regular;
+        border-right: solid 1px @drk_white_30!important;
+        background-color: transparent !important;
+
+        span.count{
+            display: inline-block;
+            background-color: @drk_white;
+            border: solid 1px @drk_black;
+            border-radius: 15px;
+            margin-left: 20px;
+            padding: 1px 18px;
+            font-weight: @bold;
+            color: @drk_black !important;
+        }
+    }
+    .nav>li>a:hover {
+        text-decoration: none;
+        background-color: transparent;
+    }
+    .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+        color: @drk_black !important;
+        cursor: default;
+        background-color: @bright_yellow !important;
+        color: @drk_black !important;
+    }
+}
+
+//Tabs Style end here
+
+.call-list-container{
+    margin: 0px;
+    padding-left: 0px;
+    list-style: none;
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+
+    li{
+        &.call-list-card-li{
+            width: 33.3333333333%;
+            float: left;
+            padding: 15px 15px;
+            position: relative;
+            .call-list-box{
+                background-color:@drk_black_80;;
+                border: 1px solid @drk_white_50;
+                padding-bottom: 60px;
+            }
+            .header-section{
+                border-bottom: 1px solid @drk_white_30;
+            }
+            .call-list-header-box{
+                width: 100px;
+                float: left;
+                padding-left: 8px;
+                border-right:solid 1px @drk_white_30;
+                .center-box-heading{
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    height: 60px;
+                    font-size: @common_size;
+                    color: @drk_white_80;
+                    font-weight: @light;
+                }
+            }
+
+            .task-name{
+                width: calc(~"100% - 100px");
+                float: left;
+                padding: 0px 10px;
+                .center-box-heading{
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-start;
+                    flex-direction: column;
+                    height: 60px;
+                    font-size: @secondary_font;
+                    color: @drk_white;
+                    font-weight: @semibold;
+                }
+                .red-color{
+                    color: @red;
+                }
+            }
+            .agriota-list-details{
+                padding: 0px;
+                width: 100%;
+                float: left;
+                margin: 0px;
+                list-style: none;
+                position: relative;
+                li{
+                    width: 100%;
+                    float: left;
+                    border-bottom: 1px solid @drk_white_30;
+                    .half-div{
+                        width: 50%;
+                        float: left;
+                        position: relative;
+                        padding: 0 10px;
+
+                    }
+                }
+                &:before{
+                    content: "";
+                    position: absolute;
+                    width: 1px;
+                    height: 100%;
+                    background-color:@drk_white_30;
+                    left: 50%;
+                }
+            }
+       
+            @media screen and (max-width: 1199px){
+                width: 50%;
+            }
+            @media screen and (max-width: 991px){
+                width: 100%;
+            }
+
+
+            &.rejected{
+                .yellow-shade{
+                    background-color:@dark_yellow_20;
+                }
+                .reason{
+                    background-color: #701515;
+                }
+                .new-mbep{
+                    background-color: #742626;
+                }
+            }
+
+            .button-bottom{
+                bottom: 16px;
+            }
+           
+        }
+        
+    }
+}
+.heading-sub{
+    font-size: @common_size;
+    color:@drk_white_80;
+    font-weight: @light;
+    margin-bottom: 10px;
+    margin-top: 13px;
+}
+.heading-sub-detail{
+    font-size: @tertiary_font;
+    color: @drk_white;
+    font-weight: @semibold;
+    margin-top: 0;
+    margin-bottom: 15px;
+    &.big{
+        font-size: @font-24;
+    }
+}
+.red-color{
+    color: @red !important;
+}
+
+
+// Agriota Non Technical Form
+
+.quantity{
+    .quantity-box{
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        padding: 0px 10px;
+        background-color: @drk_white_10;
+        color: @drk_white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: @common_size;
+        font-weight: @bold;
+    }
+}
+.terms-content{
+    font-size: @common_size;
+    font-weight: @regular;
+    color: @drk_white;
+    line-height: 24px;
+    padding-right: 10%;
+    margin-bottom: 20px;
+    @media screen and (max-width:1199px){
+        padding-right: 0px;
+    }
+}
+.digital-sign-container{
+    width: 300px;
+    float: right;
+    .digital-sign-area{
+        width: 100%;
+        height: 100px;
+        background: @drk_white;
+        border-radius: 2px;
+        margin-bottom: 15px;
+    }
+    .digital-sign-text{
+        text-align: center;
+        font-size: @primary-font;
+        color: @drk_white;
+    }
+}
+.heading-tag-box{
+    border-bottom: 1px solid @drk_white_30;
+    .heading{
+        font-size: @common_size;
+        font-weight: @bold;
+        color: @drk_white;
+        margin: 15px 0px;
+        text-align: center;
+    }
+}
+.box-line{
+    position: relative;
+    &:before{
+        content: "";
+        position: absolute;
+        left: 50%;
+        width: 1px;
+        height: 100%;;
+        top: 0;
+        background-color: @drk_white_30;
+    }
+}
+.mobile-number{
+    height: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    font-size: @common_size;
+    font-weight: @bold;
+    color: @drk_white;
+    .call-icon-box{
+        position: absolute;
+        right: 0px;
+        top: 0;
+        height: 100%;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        img{
+            max-width: 100%;
+        }
+    }
+}
+.callbox-form .radio-button-div-3{
+    width: 33.3333333333%;
+    float: left;
+}
+.callbox-form .form-control{
+    &.call-details-text{
+        height: 230px;
+    }
+}
+.callbox-form .otp-btn-container{
+    text-align: center;
+    padding-top: 0px;
+}
+.callbox-form .otp-btn-container .btn{
+    height: 40px;
+    line-height: 40px;
+}
+.hide-div{
+    display: none !important;
+}
+
+.common-error .error-message{
+    position: relative;
+    display: block;
+    text-align: center;
+}
+.agriota-call{
+    .form-control.is-invalid {
+        border: 1px solid @drk_white_30!important;
+    }
+}

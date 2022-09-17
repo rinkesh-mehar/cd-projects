@@ -1,0 +1,218 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+<div class="content-wrapper">
+    <div class="page-title-bar">
+        <h2>
+            Rights
+        </h2>
+    </div>
+    <div class="page-content">
+        <div class="full-width search-box monitor-search">
+            <ul class="list-selecttag">
+                <li class="search-right">
+                    <div class="search-text">Search</div>
+                    <div class="search-input">
+                        <div class="form-container">
+                            <div class="search-in">
+                                <form [formGroup]="caseidsearch" (ngSubmit)="searchData()">
+                                    <input type="text" maxlength="25" class="form-control" [(ngModel)]="searchcaseId" formControlName="caseid" placeholder="Search Case ID"
+                                        [ngClass]="{ 'is-invalid': submitted && f.caseid.errors }">
+                                    <button class="btn btn-primary" type="submit">Search</button>
+                                    <div *ngIf="submitted && f.caseid.errors">
+                                        <div class="error-message" *ngIf="f.caseid.errors.required">{{textboxerrormessage}}</div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+            <div class="page-sub-title-bar">
+                <h4>
+                    Rights List
+                </h4>
+            </div>
+            <div class="table-section">
+                <div class="table-responsive">
+                    <table id="rights-list-table" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="sorting-hide">Sl No</th>
+                                <th>id</th>
+                                <th>versionNumber</th>
+                                <th>caseId</th>
+                                <th>currentQuantity</th>
+                                <th>estimatedQuantity</th>
+                                <th>standardQuantity</th>
+                                <th>allowableVarianceQtyPos</th>
+                                <th>allowableVarianceQtyNeg</th>
+                                <th>allowableVarianceQtyPosPer</th>
+                                <th>allowableVarianceQtyNegPer</th>
+                                <th>estimatedQuality</th>
+                                <th>currentQuality</th>
+                                <th>allowableVarianceQuality</th>
+                                <th>mbep</th>
+                                <th>domesticRestriction</th>
+                                <th>internationalRestriction</th>
+                                <th>deliveryDateTime</th>
+                                <th>logisticHubId</th>
+                                <th>logisticHubAddress</th>
+                                <th>farmerDefault</th>
+                                <th>splitField</th>
+                                <th>geographicallyAdjustent</th>
+                                <th>riskReport</th>
+                                <th>rightCertificate</th>
+                                <th>recordCreatedBy</th>
+                                <th>recordDateTime</th>
+                                <th>status</th>
+                                <th>statusReceivingDate</th>
+                                <th>comments</th>
+                                <th>lotId</th>
+                                <th>isVerified</th>
+                                <th>transactionId</th>
+                                <th>phenophaseId</th>
+                                <th>stage</th>
+                                <th>dueAmount</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of rightslist;let i = index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{item.id}}</td>
+                                <td>{{item.versionNumber}}</td>
+                                <td>{{item.caseId}}</td>
+                                <td>{{item.currentQuantity}}</td>
+                                <td>{{item.estimatedQuantity}}</td>
+                                <td>{{item.standardQuantity}}</td>
+                                <td>{{item.allowableVarianceQtyPos}}</td>
+                                <td>{{item.allowableVarianceQtyNeg}}</td>
+                                <td>{{item.allowableVarianceQtyPosPer}}</td>
+                                <td>{{item.allowableVarianceQtyNegPer}}</td>
+                                <td>{{item.estimatedQuality}}</td>
+                                <td>{{item.currentQuality}}</td>
+                                <td>{{item.allowableVarianceQuality}}</td>
+                                <td>{{item.mbep}}</td>
+                                <td>{{item.domesticRestriction}}</td>
+                                <td>{{item.internationalRestriction}}</td>
+                                <td>{{item.deliveryDateTime}}</td>
+                                <td>{{item.logisticHubId}}</td>
+                                <td>{{item.logisticHubAddress}}</td>
+                                <td>{{item.farmerDefault}}</td>
+                                <td>{{item.splitField}}</td>
+                                <td>{{item.geographicallyAdjustent}}</td>
+                                <td>{{item.riskReport}}</td>
+                                <td>{{item.rightCertificate}}</td>
+                                <td>{{item.recordCreatedBy}}</td>
+                                <td>{{item.recordDateTime}}</td>
+                                <td>{{item.status}}</td>
+                                <td>{{item.statusReceivingDate}}</td>
+                                <td>{{item.comments}}</td>
+                                <td>{{item.lotId}}</td>
+                                <td>{{item.isVerified}}</td>
+                                <td>{{item.transactionId}}</td>
+                                <td>{{item.phenophaseId}}</td>
+                                <td>{{item.stage}}</td>
+                                <td>{{item.dueAmount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="page-sub-title-bar">
+                <h4>
+                    View Rights List
+                </h4>
+            </div>
+            <div class="table-section">
+                <div class="table-responsive">
+                    <table id="view-rights-list-table" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="sorting-hide">Sl No</th>
+                                <th>caseId</th>
+                                <th>expectedYield</th>
+                                <th>fieldStatus</th>
+                                <th>ndviImages</th>
+                                <th>seasonId</th>
+                                <th>varietyId</th>
+                                <th>sowingWeek</th>
+                                <th>harvestWeek</th>
+                                <th>cropArea</th>
+                                <th>variety_name</th>
+                                <th>commodityId</th>
+                                <th>hscode</th>
+                                <th>commodityName</th>
+                                <th>season_name</th>
+                                <th>farmerId</th>
+                                <th>farmerDueAmount</th>
+                                <th>villageId</th>
+                                <th>villageName</th>
+                                <th>subregionId</th>
+                                <th>regionId</th>
+                                <th>regionName</th>
+                                <th>stateCode</th>
+                                <th>stateName</th>
+                                <th>districtId</th>
+                                <th>districtName</th>
+                                <th>farmerEmail</th>
+                                <th>farmerAccountNumber</th>
+                                <th>isPennydropped</th>
+                                <th>isKycVerified</th>
+                                <th>isKmlVerified</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of viewrightlist;let i = index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{item.caseId}}</td>
+                                <td>{{item.expectedYield}}</td>
+                                <td>{{item.fieldStatus}}</td>
+                                <td>{{item.ndviImages}}</td>
+                                <td>{{item.seasonId}}</td>
+                                <td>{{item.varietyId}}</td>
+                                <td>{{item.sowingWeek}}</td>
+                                <td>{{item.harvestWeek}}</td>
+                                <td>{{item.cropArea}}</td>
+                                <td>{{item.variety_name}}</td>
+                                <td>{{item.commodityId}}</td>
+                                <td>{{item.hscode}}</td>
+                                <td>{{item.commodityName}}</td>
+                                <td>{{item.season_name}}</td>
+                                <td>{{item.farmerId}}</td>
+                                <td>{{item.farmerDueAmount}}</td>
+                                <td>{{item.villageId}}</td>
+                                <td>{{item.villageName}}</td>
+                                <td>{{item.subregionId}}</td>
+                                <td>{{item.regionId}}</td>
+                                <td>{{item.regionName}}</td>
+                                <td>{{item.stateCode}}</td>
+                                <td>{{item.stateName}}</td>
+                                <td>{{item.districtId}}</td>
+                                <td>{{item.districtName}}</td>
+                                <td>{{item.farmerEmail}}</td>
+                                <td>{{item.farmerAccountNumber}}</td>
+                                <td>{{item.isPennydropped}}</td>
+                                <td>{{item.isKycVerified}}</td>
+                                <td>{{item.isKmlVerified}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

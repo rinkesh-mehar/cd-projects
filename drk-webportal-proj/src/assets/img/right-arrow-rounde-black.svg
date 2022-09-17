@@ -1,0 +1,10 @@
+<svg id="Right_Arrow" data-name="Right Arrow" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+  <g id="Ellipse_65" data-name="Ellipse 65" fill="none" stroke="#000" stroke-width="2">
+    <circle cx="12.5" cy="12.5" r="12.5" stroke="none"/>
+    <circle cx="12.5" cy="12.5" r="11.5" fill="none"/>
+  </g>
+  <g id="Back_arrow" data-name="Back arrow" transform="translate(8.243 5.479)">
+    <rect id="Rectangle_511" data-name="Rectangle 511" width="3" height="10" rx="1.5" transform="translate(9.192 7.071) rotate(135)"/>
+    <rect id="Rectangle_512" data-name="Rectangle 512" width="3" height="10" rx="1.5" transform="translate(2.122 14.192) rotate(-135)"/>
+  </g>
+</svg>

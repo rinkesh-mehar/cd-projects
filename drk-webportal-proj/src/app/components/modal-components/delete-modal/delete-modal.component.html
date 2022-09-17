@@ -1,0 +1,30 @@
+<div class="delete-modal">
+  <form [formGroup]="deleteModalForm">
+    <div class="modal-header sucess-message">
+      <h4 class="modal-title pull-left">{{heading}}</h4>
+    </div>
+    <div class="modal-body">
+      <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+        <h4 class="popup-msg">{{content}}</h4>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+        <div class="form-container">
+          <label>Comments*</label>
+          <textarea class="form-control popup-text-area" placeholder="Enter your comments" [(ngModel)]="usercomments" maxlength="500" formControlName="comments"
+            [ngClass]="{ 'is-invalid': submitted && f.comments.errors }"></textarea>
+          <div *ngIf="submitted && f.comments.errors" class="invalid-feedback">
+            <div class="error-message" *ngIf="f.comments.errors.required">{{textboxerrormessage}}</div>
+            <div class="error-message" *ngIf="f.comments.errors.pattern">{{invalidvalueerrormessage}}</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer text-center">
+      <button type="button" class="btn btn-secondary" (click)="close()">CANCEL</button>
+      <button type="button" class="btn btn-primary btn-delete-modal" (click)="onSubmit()">Submit</button>
+      <button type="button" class="btn btn-primary btn-activate-modal" (click)="onActivate()">Submit</button>
+      <button type="button" class="btn btn-primary btn-deactivate-modal" (click)="onDeactivate()">Submit</button>
+    </div>
+  </form>
+</div>

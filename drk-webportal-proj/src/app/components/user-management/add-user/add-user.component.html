@@ -1,0 +1,202 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+<div class="content-wrapper">
+  <div class="page-title-bar relative">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2>
+          Add User
+        </h2>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <div class="page-content">
+
+    <form [formGroup]="addUser" action="#" (ngSubmit)="onSubmit()">
+      <!--Add user starts-->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+        <h3 class="Form-Heading">
+          <span>General Information</span>
+        </h3>
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>First Name*</label>
+              <input type="text" [(ngModel)]="addUserModel.firstName" class="form-control" maxlength="50" minlength="0" placeholder="Enter your first name"
+                formControlName="firstname" [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }">
+              <div *ngIf="submitted && f.firstname.errors">
+                <div class="error-message" *ngIf="f.firstname.errors.required">{{textboxerrormessage}}</div>
+                <div class="error-message" *ngIf="f.firstname.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Middle Name</label>
+              <input type="text" [(ngModel)]="addUserModel.middleName" class="form-control" maxlength="50" minlength="0" placeholder="Enter your middle name"
+                formControlName="middlename" [ngClass]="{ 'is-invalid': submitted && f.middlename.errors }">
+                <div *ngIf="submitted && f.middlename.errors">
+                  <div class="error-message" *ngIf="f.middlename.errors.pattern">{{invalidvalueerrormessage}}</div>
+                </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Last Name*</label>
+              <input type="text" [(ngModel)]="addUserModel.lastName" class="form-control" maxlength="50" minlength="0" placeholder="Enter your last name"
+                formControlName="lastname" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }">
+              <div *ngIf="submitted && f.lastname.errors">
+                <div class="error-message" *ngIf="f.lastname.errors.required">{{textboxerrormessage}}</div>
+                <div class="error-message" *ngIf="f.lastname.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Email Address</label>
+              <input type="text" [(ngModel)]="addUserModel.emailAddress" formControlName="email" maxlength="100" minlength="0" class="form-control"
+                placeholder="Enter email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+              <div *ngIf="submitted && f.email.errors">
+                <div class="error-message" *ngIf="f.email.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Mobile Number*</label>
+              <input type="tel" [(ngModel)]="addUserModel.mobileNumber" maxlength="10" minlength="10" formControlName="mobilenumber"
+                class="form-control" placeholder="Enter your mobile number" [ngClass]="{ 'is-invalid': submitted && f.mobilenumber.errors }"
+              />
+              <div *ngIf="submitted && f.mobilenumber.errors">
+                <div class="error-message" *ngIf="f.mobilenumber.errors.required">{{textboxerrormessage}}</div>
+                <div class="error-message" *ngIf="f.mobilenumber.errors.pattern  || f.mobilenumber.errors.minlength">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Role*</label>
+              <select class="form-control" [(ngModel)]="addUserModel.roleId" formControlName="role" (change)="getStateList()" [ngClass]="{ 'is-invalid': submitted && f.role.errors }">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option *ngFor="let role of ecosystems;let i = index" [ngValue]="role.roleId">{{role.roleName}}</option>
+              </select>
+              <div *ngIf="submitted && f.role.errors">
+                <div class="error-message" *ngIf="f.role.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>State*</label>
+              <select class="form-control" [(ngModel)]="addUserModel.state" formControlName="state" (change)="showRegionList()" [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option *ngFor="let states of listOfState;" [ngValue]="states.stateId">{{states.stateName}}</option>
+              </select>
+              <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+                <div class="error-message" *ngIf="f.state.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Region*</label>
+              <select class="form-control" [(ngModel)]="addUserModel.region"   formControlName="region" [ngClass]="{ 'is-invalid': submitted && f.region.errors }">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option *ngFor="let region of listOfRegion;let i = index" [ngValue]="region.regionId">{{region.regionName}}</option>
+              </select>
+              <div *ngIf="submitted && f.region.errors" class="invalid-feedback">
+                <div class="error-message" *ngIf="f.region.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Reporting Role*</label>
+              <select class="form-control" [(ngModel)]="addUserModel.reportingRoleId" formControlName="reportingRoleName" [ngClass]="{ 'is-invalid': submitted && f.reportingRoleName.errors }"
+                (change)="showReportingToList()">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option *ngFor="let reportingRole of listOfRole;let i = index" [ngValue]="reportingRole.roleId">{{reportingRole.roleName}}</option>
+              </select>
+              <div *ngIf="submitted && f.reportingRoleName.errors" class="invalid-feedback">
+                <div class="error-message" *ngIf="f.reportingRoleName.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Reporting To*</label>
+              <select class="form-control" [(ngModel)]="addUserModel.reportingTo" formControlName="reporting" [ngClass]="{ 'is-invalid': submitted && f.reporting.errors }">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option *ngFor="let reportingTo of listOfReportingTo;let i = index" [ngValue]="reportingTo.reportingId">{{reportingTo.reportingName}}</option>
+              </select>
+              <div *ngIf="submitted && f.reporting.errors" class="invalid-feedback">
+                <div class="error-message" *ngIf="f.reporting.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row field-seperation">
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>User ID</label>
+              <input type="text" maxlength="20" class="form-control" disabled>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Status</label>
+              <select class="form-control" disabled>
+                <option [ngValue]="undefined">Select an option</option>
+                <option value="status" selected>Active</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Created By</label>
+              <input type="text" [(ngModel)]="addUserModel.createdby" maxlength="50" minlength="0" class="form-control" maxlength="50"
+                minlength="0" placeholder="" formControlName="createdby" disabled>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Created Date</label>
+              <input type="text" maxlength="50" class="form-control" placeholder="" disabled>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!--Add user ends-->
+
+      <!--button starts-->
+      <div class="clearfix page-action">
+        <button class="btn btn-secondary" (click)="cancel()" type="button">CANCEL</button>
+        <!--<button class="btn btn-secondary" >SAVE</button> -->
+        <button class="btn btn-primary" type="submit">SUBMIT</button>
+      </div>
+
+      <!--button ends-->
+    </form>
+  </div>
+</div>
+
+
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

@@ -1,0 +1,352 @@
+/*Inner page Style Begin*/
+.vehicle-schedule-search {
+    &.search-box {
+        .list-selecttag {
+            li {
+                width: 25%;
+            }
+        } 
+    } 
+}
+.vehicle-schedule-list{
+    margin-top: 0px; 
+    padding-bottom: 0px;
+    border: 0px;
+    float: left;
+    width: 100%;
+
+    .full-width{
+        border-left:1px solid @drk_white_50;
+        border-right:1px solid @drk_white_50;
+    }
+
+    .form-container{
+        
+        label{
+            color: @drk_black;
+            font-weight: @bold;
+        }
+        .form-control{
+            background-color: #ececec;
+            border: 1px solid rgba(155, 152, 152, .78);
+            height: 48px;
+            color:  @drk_black;
+
+            &::placeholder { 
+                color:  @drk_white_80;
+              }
+
+              &:-ms-input-placeholder { 
+                color:  @drk_white_80;
+              }
+
+              &::-ms-input-placeholder { 
+                color:  @drk_white_80;
+              }
+
+
+        }
+        select.form-control{
+            background-image:url("../img/drop-down-icon-dark.svg");
+        }
+        select option{
+            color: @drk_black;
+       
+        }
+        select option[value="1"] {
+            background-color: @drk_white_10;
+        }
+        .input-group{
+            width: 100%;
+        }
+        .btn-primary{
+            width: 100%;
+            padding: 0 15px;
+        }
+    }
+
+    .assign-location{
+        .month{
+            width: 100%;
+            float: left;
+            height: 40px;
+            background-color:@dark_yellow;
+            margin-top: 5px;
+            position: relative;
+            text-align: center;
+
+            .month-dropdown{
+                display:inline-block;
+                padding: 0 35px;
+                background-image: url(../img/arrow-down-black.svg);
+                background-repeat: no-repeat;
+                background-position: right  center;
+                background-size: 24px 15px;
+                cursor: pointer;
+
+                h3{
+                    color: @drk_black;
+                    text-transform: uppercase;
+                    text-align: center;
+                    line-height: 40px;
+                }
+            }
+
+            .dropdown-menu{
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 2.5px;
+                width: 250px;
+
+                li{
+                    display: inline-block;
+                    width: 100%;
+                    padding: 5px 10px;
+                    text-align: center;
+                    border-bottom: solid 1px @drk_black_30;
+                    font-weight: @bold;
+                    color: @medium_black;
+                    font-size: @common_size;
+                    cursor: pointer;
+
+                    &:last-child{
+                        border: 0px;
+                    }
+                }
+            }
+
+            
+        }
+
+
+            
+        .slider-prev, .slider-next{
+            position: absolute;
+            height: 100%;
+            width: 30px;
+            background-color:@drk_white_20;
+            top: 0px;
+            height: 52px;
+            z-index: 5;
+            background-repeat: no-repeat;
+            background-position: center  center;
+            background-size: 18px 20px;
+            cursor: pointer;
+
+            &.slick-disabled{
+                opacity: 0.5;
+                pointer-events: none;
+            }
+        }
+        
+
+        .slider-prev{
+            left: 0px;
+            background-image: url(../img/slider-prev.svg);
+    
+        }
+        .slider-next{
+            right: 0px;
+            background-image: url(../img/slider-next.svg);
+        }
+
+        .slick-track { display: flex !important; float: left;} 
+        .slick-slide { 
+            height: inherit !important; 
+            display: flex !important; 
+            border:1px solid @drk_white_50;
+            border-left: 0px;
+            background-color: @mainbg;
+            outline: none !important;
+
+            &:first-child{
+                border-left:0px;
+            }
+
+        }
+
+        .list{
+            width: 100%;
+            display: table;
+
+            .list-item{
+                display:block;
+        
+
+                .week{
+                    width: 100%;
+                    height: 52px;
+                    background:#544725;
+                    display: table;
+                    padding: 0 5px;
+                    text-transform: uppercase;
+                    border-bottom:1px solid @drk_white_50;
+                    
+
+                    span{
+                        display: table-cell;
+                        vertical-align: middle;
+                        text-align: center;
+
+                        &:first-child{
+                            width: 15px;
+                            font-size: 14px;
+                            font-weight: @semibold;
+                            color: @drk_black_60;
+                            line-height: 16px;
+                        }
+
+                        &:last-child{
+                            font-size: 15px;
+                            color: @drk_white;
+                            padding-right: 30px;
+                            
+                            strong{
+                                display: block;
+                                font-weight: @bold;
+                            }
+                        }
+                    }
+                }
+
+
+                .list-content{
+                    padding: 15px;
+                    
+
+                    .panel-group{
+                        margin-bottom: 0px;
+
+                        .panel{
+                            margin-bottom: 10px;
+                            height: auto;
+                            width: 100%;
+                            background-color: @mainbg;
+                            border: 1px solid @drk_white_50;
+                            font-size: 15px;
+                            color: @drk_white;
+                            border-radius: 0px;
+
+                            .card {
+                                margin: 0px;
+                                background-color: none;
+                                border: 0px;
+                            }
+
+                            .panel-heading {
+                                height: auto;
+                                cursor: pointer;
+                                background-image: url(../img/accordion-arrow-down.svg);
+                                background-repeat: no-repeat;
+                                background-position: right 10px  top 11px;
+                                background-size: 20px 20px;
+                                padding-right: 60px;
+                                background-color:@drk_white;
+                                padding: 10px;
+                                border-radius: .5px;
+
+                                .btn{
+                                    font-size: 15px;
+                                    color: @drk_black;
+                                    line-height: normal;
+                                    padding: 0px;
+                                    font-weight: @regular;
+                                    text-transform: capitalize;
+                                    letter-spacing: normal; 
+                                    outline: none;
+                                    text-decoration: none;
+                                    text-align: left;
+                                    white-space: normal;
+                                    padding-right: 20px;
+                                    font-weight: @semibold;
+                                }
+                            }
+                            .panel-body{
+                                border-top: 0px;
+                                padding: 0px;
+
+                                ul{
+                                    margin: 0px;
+                                    padding: 0px;
+                                    
+                                    li{
+                                        display: inline-block;
+                                        width: 100%;
+                                        padding: 10px;
+                                        border-bottom: 1px solid @drk_white_50;
+                                        font-size: 14px;
+                                        color: @drk_white;
+                                        vertical-align: top;
+                                        font-weight: @regular;
+
+                                        span{
+                                            overflow: hidden;
+                                            width: 100%;
+                                            max-width: 100%;
+                                            text-align: left;
+                                            display: block;
+                                        }
+                                        
+    
+                                        &.active{
+                                            background-image: url(../img/location-select.svg);
+                                            background-repeat: no-repeat;
+                                            background-position: right 15px  center;
+                                            background-size: 20px 20px;
+                                        }
+                                        
+    
+                                        &:last-child{
+                                            border-bottom: 0px;
+                                        }
+
+                                        /*&.edit-scheduled-details{
+                                            text-align: center;
+                                            padding: 7px 0;
+                                            background-color: @drk_white_10;
+
+                                            img{
+                                                display: inline-block;
+                                                margin-right: 7px;
+                                                width: 18px;
+                                                margin-top: -4px;
+                                                                                         }
+                                            a{
+                                                font-size: 13px;
+                                                line-height: 11px;
+                                                background: none;
+                                                color: #e8ca58;
+                                                border: 0px;
+                                                text-transform: uppercase;
+                                                font-weight: @semibold;
+                                                cursor: pointer;  
+                                            }
+                                        }*/
+                                    }
+                                }
+                            }
+
+                            &.panel-open{
+                                .panel-heading {
+                                    background-image: url(../img/accordion-arrow-up.svg);
+                                    background-repeat: no-repeat;
+                                }
+                            }
+                        }
+                    }
+    
+
+                    .add-button{
+                        padding: 25px 0;
+                        text-align: center;
+                    }
+                }
+
+            }
+
+
+        }
+    }
+
+}
+

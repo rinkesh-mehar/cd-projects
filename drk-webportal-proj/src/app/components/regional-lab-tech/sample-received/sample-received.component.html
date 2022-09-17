@@ -1,0 +1,152 @@
+ <!--Header Begin-->
+ <app-header></app-header>
+ <!--Header END-->
+
+ <!--Sidemenu Begin-->
+ <app-sidemenu></app-sidemenu>
+ <!--Sidemenu END-->
+  <div class="content-wrapper">
+      <div class="page-title-bar">
+          <h2>
+              Sample Received
+          </h2>
+      </div>
+        <div class="page-content">
+          <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box sample-scan-section">
+              <div class="scan-section">
+                  <div class="scan-box">
+                    <form [formGroup]="barCode">
+                        <div class="scan">
+                            <img class="img-responsive" src="../../assets/img/scan.png" alt="Scan">
+                        </div>
+                        <div class="form-container">
+                            <label>Enter Bar code</label>
+                            <input type="text" class="form-control" formControlName="barcode" maxlength="100" [(ngModel)]="barcodeInput" placeholder="0000191919"
+                                [ngClass]="{ 'is-invalid': submitted && f.barcode.errors }" />
+                            <div *ngIf="submitted && f.barcode.errors">
+                                <div class="error-message" *ngIf="f.barcode.errors.pattern">{{invalidvalueerrormessage}}</div>
+                            </div>
+                        </div>
+                        <div class="clearfix button-area">
+                            <button class="btn btn-primary" [disabled]="(barcodeInput == null || barcodeInput == '')? true : false" (click)="getBarcodeData()">SCAN</button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              <div class="sample-info-table">
+                <ul>
+                    <li>
+                      <span>
+                          Village
+                      </span>
+                      <span>
+                          {{barcodeInfo != null? barcodeInfo.village : ''}}
+                      </span>
+                   </li>
+                   <li>
+                      <span>
+                          Farmer Mobile Number
+                      </span>
+                      <span>
+                          {{barcodeInfo != null? barcodeInfo.formerMobile : ''}}
+                      </span>
+                   </li>
+                   <li>
+                      <span>
+                          Crop
+                      </span>
+                      <span>
+                          {{barcodeInfo != null? barcodeInfo.crop :''}}
+                      </span>
+                   </li>
+
+                   <li>
+                      <span>
+                          Received Date
+                      </span>
+                      <span>
+                          {{barcodeInfo != null? barcodeInfo.receivedDate : ''}}
+                      </span>
+                   </li>
+                   <li>
+                    <span>
+                        Crop Type
+                    </span>
+                    <span>
+                        {{cropType != null? cropType : ''}}
+                    </span>
+                   </li>
+                   <li>
+                    <span>
+                        Seller Type
+                    </span>
+                    <span>
+                        {{sellerType != null? sellerType : ''}}
+                    </span>
+                   </li>
+                  </ul>
+                <div class="clearfix button-area">
+                    <button class="btn btn-primary" (click)="saveBarcodeData()" [disabled]="barcodeInfo == null? true : false">SAVE</button>
+                  </div>
+              </div>
+            </div>
+
+
+            <div class="table-section">
+                    <h6>LIST OF SAMPLES</h6>
+                    <div class="table-responsive">
+                        <table id="categorized-samples" class="table table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Sl No</th>
+                                    <th>Barcode Number</th>
+                                    <th>Village</th>
+                                    <th>Farmer Mobile Number</th>
+                                    <th>Crop</th>
+                                    <th>Received Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+
+
+                            <tbody>
+                                <tr *ngFor="let item of rltsamplereceivedlist;let i = index;">
+                                    <td>{{i + 1}}</td>
+                                    <td>{{item.barcodeNumber}}</td>
+                                    <td>{{item.village}}</td>
+                                    <td>{{item.formerMobile}}</td>
+                                    <td>{{item.crop}}</td>
+                                    <td><span style="display: none;">{{item.reverseDate}}</span>{{item.receivedDate}}</td>
+                                    <td>
+                                        <span><a [routerLink]="['/diagnose/',item.taskId, item.cropType]" class="link-color">Diagnose</a></span>
+                                        <!-- TODO: This requirement will be implemented post MVP
+                                          <span class="pull-right"><a  class="link-color" (click)="reassignModal(confirmModal,item.taskId)">Need more sample</a></span> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+        </div>
+  </div>
+
+  <ng-template #confirmModal>
+        <div class="success-modal">
+          <div class="modal-header sucess-message">
+            <h4 class="modal-title pull-left">{{modalService.config.initialState.heading}}</h4>
+          </div>
+          <div class="modal-body">
+            <h4 class="popup-msg">{{modalService.config.initialState.content.split("?")[0]}}?</h4>
+          </div>
+          <div class="modal-footer text-center">
+            <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
+            <button type="submit" class="btn btn-primary" (click)="reassignTask(modalService.config.initialState.content.split('?')[1])">Confirm</button>
+          </div>
+        </div>
+      </ng-template>
+<!--Footer Begin-->
+  <app-footer></app-footer>
+<!--Footer END-->

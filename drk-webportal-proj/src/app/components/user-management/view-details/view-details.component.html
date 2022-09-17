@@ -1,0 +1,180 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+<div class="content-wrapper">
+    <div class="page-title-bar relative">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <h2>
+                User Details
+                </h2>
+                <ul class="more-option-ul">
+                   
+                  <li *ngIf="showButton">
+                      <a routerLink="/add-user">
+                          <button type="button" class="btn btn-primary">ADD USER</button>
+                      </a>
+                  </li>
+              </ul>
+          </div>     
+           
+        </div>
+    </div>
+    <div class="page-content">
+      
+      <!--Add user starts-->
+      <form [formGroup]="viewUser" >
+
+
+       <!--Add user starts-->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+          <h3 class="Form-Heading">
+            <span>General Information</span>
+          </h3>
+          <div class="row">
+              <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                    <label>First Name*</label>
+                    <input type="text" class="form-control" maxlength="100" formControlName="firstname" [(ngModel)]="viewUserModel.firstName" disabled>
+                  </div>
+                </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>Middle Name</label>
+                <input type="text" [(ngModel)]="viewUserModel.middleName" maxlength="100" class="form-control" formControlName="middlename" disabled>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>Last Name*</label>
+                <input type="text" [(ngModel)]="viewUserModel.lastName" maxlength="100" class="form-control" formControlName="lastname" disabled>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>Email Address</label>
+                <input type="text" [(ngModel)]="viewUserModel.emailAddress" maxlength="100" class="form-control"  formControlName="email" disabled>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>Mobile Number*</label>
+                <input type="tel" [(ngModel)]="viewUserModel.mobileNumber" maxlength="10" minlength="10" formControlName="mobilenumber" class="form-control" disabled>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>Role*</label>
+                <select class="form-control" [(ngModel)]="viewUserModel.roleName" formControlName="role" disabled>
+                  <option [ngValue]="undefined" selected>Select an option</option>
+                  <option [ngValue]="viewUserModel.roleName">{{viewUserModel.roleName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>State*</label>
+                <select class="form-control" [(ngModel)]="viewUserModel.stateName" formControlName="state" disabled>
+                  <option [ngValue]="undefined" selected>Select an option</option>
+                  <option [ngValue]="viewUserModel.stateName">{{viewUserModel.stateName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>Region*</label>
+                <select class="form-control" [(ngModel)]="viewUserModel.regionName" formControlName="region" disabled>
+                  <option [ngValue]="undefined" selected>Select an option</option>
+                  <option [ngValue]="viewUserModel.regionName">{{viewUserModel.regionName}}</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>Reporting Role*</label>
+                <select class="form-control" [(ngModel)]="viewUserModel.reportingRoleName" formControlName="reportingRoleName" disabled>
+                  <option [ngValue]="undefined" selected>Select an option</option>
+                  <option [ngValue]="viewUserModel.reportingRoleName">{{viewUserModel.reportingRoleName}}</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>Reporting To*</label>
+                <select class="form-control" [(ngModel)]="viewUserModel.reportingName" formControlName="reporting" disabled>
+                  <option [ngValue]="undefined" selected>Select an option</option>
+                  <option [ngValue]="viewUserModel.reportingName">{{viewUserModel.reportingName}}</option>
+                </select>
+              </div>
+            </div>
+  
+          </div>
+  
+          <div class="row field-seperation">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>User ID</label>
+                <input type="text" class="form-control" maxlength="20" formControlName="userid" [(ngModel)]="viewUserModel.user_id" value="12345" disabled>
+              </div>
+            </div>
+  
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>Status</label>
+                <select class="form-control" [(ngModel)]="viewUserModel.status" formControlName="status" disabled>
+                  <option [ngValue]="undefined" selected>Select an option</option>
+                  <option [ngValue]="viewUserModel.status">{{viewUserModel.status}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>Created By</label>
+                <input type="text" class="form-control" maxlength="50" formControlName="createdby" [(ngModel)]="viewUserModel.createdby"  disabled>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="form-container">
+                <label>Created Date</label>
+                <input type="text" class="form-control" maxlength="50" formControlName="datetime" [(ngModel)]="viewUserModel.createdDate"   disabled>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+  
+        <!--Add user ends-->
+
+      </form>
+       <!--Add user ends-->
+       <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+          <h3 class="Form-Heading"><span>Comments</span></h3>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <h4 class="comments-time">Modified Date: {{ viewUserModel.modifiedDate }}</h4>
+              
+              <p class="details-comment"><span>Status:</span> {{ viewUserModel.status}} </p>
+
+              <p class="details-comment" *ngIf="showComment"><span>Comments:</span> {{ viewUserModel.comments }}</p>
+               
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix page-action">
+          <button class="btn btn-primary" (click)="ok()">Back</button>
+       </div>
+      
+    </div>
+</div>
+
+
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

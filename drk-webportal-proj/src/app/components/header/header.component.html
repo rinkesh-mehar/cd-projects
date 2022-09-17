@@ -1,0 +1,80 @@
+<header>
+
+  <div class="head-right-panel">
+    <div class="toggle-btn">
+      <img (click)="toggleMenu()" class="img-responsive" src="../../assets/img/minimaize.svg" alt="Minimaize">
+    </div>
+
+    <div class="right-info">
+      <ul>
+        <li class=" notification">
+          <!--<a>
+            <span>5</span>
+            <img class="img-responsive" src="../../assets/img/notification.png" alt="Notification">
+          </a>-->
+
+          <!-- <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+            <li class="header">You have 10 notifications</li>
+            <li>
+              
+              <ul class="menu">
+                <li>
+                  <a href="#">
+                    5 new members joined today
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    Very long description here that may not fit into the
+                    page and may cause design problems
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                   5 new members joined
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                      You updated your name
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    You changed your username
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="footer"><a href="#">View all</a></li>
+          </ul> -->
+
+
+        </li>
+        <li class="dropdown profile">
+          <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span class="profile-pic"><img class="img-responsive" src="../../assets/img/profile.jpg"></span>
+            <span class="profile-name">
+              <b>{{ loginUsername }}</b>{{loginRoleName }}
+              <span class="last-login">Last login:  {{ lastLoginTime | date : 'yyyy-MM-dd HH:mm:ss' }}</span>
+            </span>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1" *ngIf="showMenu">
+                <li>
+                  <a routerLink="/change-password">
+                    Change Password
+                  </a>
+                </li>
+                <li>
+                    <a (click)="logout()">
+                      Logout
+                    </a>
+                  </li>
+          </ul>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

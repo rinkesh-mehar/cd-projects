@@ -1,0 +1,401 @@
+/*Inner page Style Begin*/
+
+.assignment-list{
+    background:@drk_white_10;
+    margin-top: 0px; 
+    padding-top: 20px;
+    padding-bottom: 0px;
+    border: 0px;
+    border-radius: 2.5px;
+
+    .col-state-region{
+        width: 30%;
+    }
+
+    .search-col{
+        width: 30%;
+    }
+    .btn-col{
+        width: 10%;
+    }
+
+    .form-container{
+        margin-bottom: 20px;
+
+        label{
+            color: @drk_white;
+            font-weight: @semibold;
+        }
+        
+        select option[value="1"] {
+            background-color: @drk_white_10;
+        }
+        .input-group{
+            width: 100%;
+        }
+        .btn-primary{
+            width: 100%;
+            padding: 0 10px;
+            height: 40px;
+            line-height: 40px;
+        }
+    }
+
+    .assign-location{
+        .month{
+            width: 100%;
+            float: left;
+            height: 40px;
+            background-color:@dark_yellow;
+            margin-top: 5px;
+            position: relative;
+            text-align: center;
+
+            .month-dropdown{
+                display:inline-block;
+                padding: 0 35px;
+                background-image: url(../img/arrow-down-black.svg);
+                background-repeat: no-repeat;
+                background-position: right  center;
+                background-size: 24px 15px;
+                cursor: pointer;
+
+                h3{
+                    color: @drk_black;
+                    text-transform: uppercase;
+                    text-align: center;
+                    line-height: 40px;
+                }
+            }
+
+            .dropdown-menu{
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 2.5px;
+                width: 250px;
+
+                li{
+                    display: inline-block;
+                    width: 100%;
+                    padding: 5px 10px;
+                    text-align: center;
+                    border-bottom: solid 1px @drk_black_30;
+                    font-weight: @bold;
+                    color: @medium_black;
+                    font-size: @common_size;
+                    cursor: pointer;
+
+                    &:last-child{
+                        border: 0px;
+                    }
+                }
+            }
+
+            
+        }
+
+
+            
+        .slider-prev, .slider-next{
+            position: absolute;
+            height: 100%;
+            width: 30px;
+            background-color:@drk_white_20;
+            top: 0px;
+            height: 52px;
+            z-index: 5;
+            background-repeat: no-repeat;
+            background-position: center  center;
+            background-size: 18px 20px;
+            cursor: pointer;
+
+            &.slick-disabled{
+                opacity: 0.5;
+                pointer-events: none;
+            }
+        }
+        
+
+        .slider-prev{
+            left: 0px;
+            background-image: url(../img/slider-prev.svg);
+    
+        }
+        .slider-next{
+            right: 0px;
+            background-image: url(../img/slider-next.svg);
+        }
+
+        .slick-track { display: flex !important; float: left;} 
+        .slick-slide { 
+            height: inherit !important; 
+            display: flex !important; 
+            border:1px solid @drk_white_50;
+            border-left: 0px;
+            background-color: @mainbg;
+            outline: none !important;
+
+            
+            &:first-child{
+                border-left:1px solid @drk_white_50;
+            }
+
+
+        }
+
+        .list{
+            width: 100%;
+            display: table;
+
+            .list-item{
+                display:block;
+        
+
+                .week{
+                    width: 100%;
+                    height: 52px;
+                    background:#544725;
+                    display: table;
+                    padding: 0 5px;
+                    text-transform: uppercase;
+                    border-bottom:1px solid @drk_white_50;
+                    
+
+                    span{
+                        display: table-cell;
+                        vertical-align: middle;
+                        text-align: center;
+
+                        &:first-child{
+                            width: 15px;
+                            font-size: 14px;
+                            font-weight: @light;
+                            color: @drk_white_60;
+                            line-height: 16px;
+                        }
+
+                        &:last-child{
+                            font-size: 15px;
+                            color: @drk_white;
+                            padding-right: 30px;
+                            
+                            strong{
+                                display: block;
+                                font-weight: @bold;
+                            }
+                        }
+                    }
+                }
+
+
+                .list-content{
+                    padding: 15px;
+
+                    
+
+                    .panel-group{
+                        margin-bottom: 0px;
+
+                        .panel{
+                            margin-bottom: 10px;
+                            height: auto;
+                            width: 100%;
+                            background-color: @mainbg;
+                            border: 1px solid @drk_white_50;
+                            font-size: 15px;
+                            color: @drk_white;
+                            border-radius: 0px;
+
+                            .card {
+                                margin: 0px;
+                                background-color: none;
+                                border: 0px;
+                            }
+
+                            .panel-heading {
+                                height: auto;
+                                cursor: pointer;
+                                background-image: url(../img/accordion-arrow-down.svg);
+                                background-repeat: no-repeat;
+                                background-position: right 10px  top 11px;
+                                background-size: 20px 20px;
+                                padding-right: 60px;
+                                background-color:@bright_yellow;
+                                border: solid 1px @drk_white_50;
+                                padding: 10px;
+                                border-radius: .5px;
+
+                                .btn{
+                                    font-size: 15px;
+                                    color: @drk_black;
+                                    line-height: normal;
+                                    padding: 0px;
+                                    font-weight: @regular;
+                                    text-transform: capitalize;
+                                    letter-spacing: normal; 
+                                    outline: none;
+                                    text-decoration: none;
+                                    text-align: left;
+                                    white-space: normal;
+                                    padding-right: 20px;
+                                    font-weight: @semibold;
+                                }
+                            }
+                            .panel-body{
+                                border-top: 0px;
+                                padding: 0px;
+
+                                ul{
+                                    margin: 0px;
+                                    padding: 0px;
+                                    
+                                    li{
+                                        display: inline-block;
+                                        width: 100%;
+                                        padding: 10px;
+                                        border-bottom: 1px solid @drk_white_50;
+                                        font-size: 14px;
+                                        color: @drk_white;
+                                        vertical-align: top;
+                                        padding-right: 35px;
+                                        font-weight: @regular;
+                                        
+                                        
+    
+                                        &.active{
+                                            background-image: url(../img/location-select.svg);
+                                            background-repeat: no-repeat;
+                                            background-position: right 15px top 11px;
+                                            background-size: 20px 20px;
+                                        }
+                                        
+    
+                                        &.map{
+                                            padding: 10px;
+    
+                                            .maparea{
+                                                height: 100%;
+                                                background: #e7e6e2;
+                                            }
+                                        }
+    
+                                        &:last-child{
+                                            border-bottom: 0px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            &.panel-open{
+                                .panel-heading {
+                                    background-image: url(../img/accordion-arrow-up.svg);
+                                    background-repeat: no-repeat;
+                                    background-position: right 10px top 10px;
+                                    background-size: 20px 20px;
+                                    //background-color: @bright_yellow;
+                                }
+                            }
+                        }
+                    }
+    
+
+                    .add-button{
+                        padding: 25px 0;
+                        text-align: center;
+                    }
+                }
+
+            }
+
+
+            &:first-child{
+                .list-item .week{
+                    padding-left: 36px;
+                }
+            }
+
+        }
+    }
+
+}
+
+
+.mCSB_inside > .mCSB_container{
+    margin-right: 0px;
+}
+.mCSB_scrollTools .mCSB_draggerRail {
+    width: 9px;
+    height: 100%;
+    margin: 0px auto;
+    border-radius: 2.5px;
+    float: right;
+    background: @drk_white;
+    border: 1px solid #c4c4c4;
+
+}
+
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    position: relative;
+    width: 5px;
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+    margin-left: 9px;
+    background-color: #9f9d9d !important;
+    border-radius: 2.5px;
+}
+
+
+/*Media Quires*/
+
+@media all and (-ms-high-contrast:none){
+    .assignment-list .assign-location .slick-slide:first-child{
+        border-right: 0px;
+    }
+    .assignment-list .assign-location .slick-slide:nth-child(2){
+        border-left: 1px solid @drk_white_50;
+    }
+    .assignment-list .full-width{
+        border-right: 1px solid @drk_white_50;
+    }
+}
+
+@media screen and (max-width:1280px) {
+
+    .assignment-list .search-col{
+        width: 28%;
+    }
+    .assignment-list .search-col .error-message{
+        line-height: 11px;
+        margin-top: 6px;
+    }
+    .assignment-list .btn-col{
+        width: 12%;
+    }
+    .assignment-list .form-container{
+        margin-bottom: 33px;
+    }
+}
+
+@media screen and (max-width:1199px) {
+    /*Write css here Medium devices or liquid responsive design - Optional */
+    .assignment-list .form-container .btn-primary {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 991px) {  
+    /*Write css here for Ipad Potrait*/
+    .analytical-summary .graph{
+        margin-bottom: 25px;
+    }
+    .assignment-list .col-state-region{
+        width: 50%;
+    }
+    .assignment-list .search-col{
+        width: 80%;
+    }
+    .assignment-list .btn-col{
+        width: 20%;
+    }
+}

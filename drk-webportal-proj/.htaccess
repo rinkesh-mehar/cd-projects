@@ -1,0 +1,39 @@
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# not rewrite css, js and images
+RewriteCond %{REQUEST_URI} !\.(?:css|js|map|jpe?g|gif|png|svg|eot|woff2|woff|ttf)$ [NC]
+RewriteRule ^(.*)$ /index.html?path=$1 [NC,L,QSA]
+
+
+RewriteOptions Inherit
+
+#Check to see if browser can accept gzip files.
+ReWriteCond %{HTTP:accept-encoding} (gzip.*)
+
+#make sure there's no trailing .gz on the url
+ReWriteCond %{REQUEST_FILENAME} !^.+\.gz$
+
+#check to see if a .gz version of the file exists.
+RewriteCond %{REQUEST_FILENAME}.gz -f
+
+#All conditions met so add .gz to URL filename (invisibly)
+RewriteRule ^(.+) $1.gz [L]
+RewriteCond %{HTTP:Accept-encoding} gzip
+RewriteCond %{REQUEST_FILENAME}\.gz -s
+RewriteRule ^(.*)\.css $1\.css\.gz [QSA]
+RewriteCond %{HTTP:Accept-encoding} compress
+RewriteCond %{HTTP:Accept-encoding} br
+RewriteCond %{REQUEST_FILENAME}\.gz -s
+RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
+RewriteRule \.css\.gz$ - [T=text/css,E=no-gzip:1]
+RewriteRule \.js\.gz$ - [T=text/javascript,E=no-gzip:1]
+                           
+
+
+
+
+
+
+

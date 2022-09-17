@@ -1,0 +1,182 @@
+app-firefighting-request{
+    display: none;
+}
+.nottification-container.firefighting{
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 515px;
+    height: 100%;
+    z-index: 100;
+    background-color: @mainbg;
+    border: 1px solid #707070;
+    overflow: hidden;
+    overflow-y: visible;
+    .nottification-header{
+        background-color: @bright_yellow;
+        padding: 15px 15px;
+        position: relative;
+        padding-right: 30px;
+        width: 100%;
+        float: left;
+        h3{
+            float: left;
+            width: auto;
+            font-weight: @bold;
+        }
+        .nottification-number{
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            background-color: @drk_black_50;
+            float: left;
+            margin-left: 15px;
+            color: @drk_white;
+            
+        }
+        .nottification-close{
+            position: absolute;
+            right: 15px;
+            top: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                cursor: pointer;
+            }
+        }
+    }
+    .accordion-container{
+        width: 100%;
+        float: left;
+        .accordion-heading-section{
+            width: 100%;
+            float: left;  
+        }
+        .panel-group, .panel, .panel-heading, .panel-title, .accordion-toggle, .panel-collapse {
+            width: 100%;
+            float: left;
+        }
+        .panel{
+            border-radius: 0px;
+            box-shadow: none;
+            border: 1px solid @drk_white_40;
+            background-color: transparent;
+            .panel.card.panel-default{
+                border: 0px;
+            }
+        }
+        .number-section{
+            width: 50px;
+            height: 60px;
+            float: left;
+            border-right: 1px solid @drk_white_40;
+            .center-align{
+                font-size: @font-24;
+                color: @drk_white;
+            }
+        }
+        .panel-heading{
+            padding: 0px;
+        }
+        .notification-details{
+            width: calc(~"100% - 50px");
+            float: left;
+            padding: 0px 15px;
+            height: 60px;
+            padding-right: 40px;
+            position: relative;
+            .left-align{
+                font-size: @tertiary_font;
+                color: @drk_white;
+            }
+            .down-arrow{
+                position: absolute;
+                right: 15px;
+                top: 0;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+           
+            }
+        }
+        .panel.panel-open{
+            .number-section{
+                background-color: @dark_yellow_80;
+            }
+            .notification-details{
+                background-color: @dark_yellow_30;
+                .down-arrow{
+                    img{
+                        transform: rotate(180deg);
+                        -webkit-transform: rotate(180deg);
+                    }
+                }
+            }
+        }
+        .panel-default>.panel-heading{
+            background-color: transparent;
+        }
+        .panel-group .panel+.panel{
+            margin-top: 0px;
+            border-top: 0px;
+        }
+        .panel-group .panel-heading+.panel-collapse>.list-group, .panel-group .panel-heading+.panel-collapse>.panel-body{
+            border-top: 1px solid @drk_white_40;
+        }
+        .panel-body{
+            padding: 0px;
+        }
+        .table-bordered.table-accordian{
+            border-color: @drk_white_40;
+            tr{
+                td{
+                    border-color: @drk_white_40;
+                    color: @drk_white;
+                }
+            }
+        }
+        .secound-div{
+            border-top: 1px solid @drk_white_40;
+            padding-top: 15px;
+        }
+       
+    }
+    .last-container{
+        margin-bottom: 30px;
+    }
+}
+textarea{
+    resize: none;
+}
+.form-container{
+    textarea.form-control{
+        height: 70px;
+    }
+}
+
+.center-align{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.left-align{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.ful-width{
+    width: 100%;
+    float: left;
+}
+.btn-combination-box{
+    .btn{
+        margin: 0px 10px;
+    }
+}

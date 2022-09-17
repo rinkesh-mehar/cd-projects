@@ -1,0 +1,13 @@
+<div class="sidemenu">
+  <div class="logo">
+      <img class="img-responsive" src="../../assets/img/logo.png" alt="Logo">
+  </div>
+  <ul *ngIf="showSideMenu">
+      <li *ngFor="let item of sideMenu; let i = index;">
+          <a (click)="menuItem1(item.url)" routerLink="{{item.url}}" [ngClass]="changeColor(item.url)">
+              <span><img class="img-responsive" src="../../assets/img/{{item.icon}}" alt="Menu Icon"></span>
+              <span>{{item.display_name}}</span>
+          </a>
+      </li>
+  </ul>
+</div>

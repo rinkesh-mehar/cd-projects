@@ -1,0 +1,118 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+<div class="content-wrapper">
+  <div class="page-title-bar">
+    <h2>
+      Image Quality Assurance List
+    </h2>
+  </div>
+  <div class="page-content">
+    <div class="full-width search-box">
+      <ul class="list-selecttag clear-filter">
+        <li>
+          <div class="search-text">State</div>
+          <div class="search-input">
+            <div class="form-container">
+              <select class="form-control" id="state" [(ngModel)]="state" (change)="SearchState()">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option *ngFor="let item of states" [ngValue]="item">{{item}}</option>
+              </select>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="search-text">Region</div>
+          <div class="search-input">
+            <div class="form-container">
+              <select class="form-control" id="region" [(ngModel)]="region" (change)="SearchRegion()">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option *ngFor="let item of regions" [ngValue]="item">{{item}}</option>
+              </select>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="search-text">Commodity</div>
+          <div class="search-input">
+            <div class="form-container">
+              <select class="form-control" id="commodity" [(ngModel)]="commodity" (change)="SearchCommodity()">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option *ngFor="let item of commodities" [ngValue]="item">{{item}}</option>
+              </select>
+            </div>
+          </div>
+        </li>
+
+        <li class="search-right">
+          <div class="search-text visibility-hidden">Search</div>
+          <div class="search-input">
+            <div class="form-container">
+              <div class="search-in">
+                <input id="searchText" type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText" (keyup)="searchTableData()" (ngModelChange)="searchTableData()">
+                <img src="../../../../assets/img/search-white.svg" class="search-icon" alt="Search">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="clear-btn">
+          <div class="search-text visibility-hidden">Clear</div>
+          <div class="search-input">
+            <div class="form-container">
+              <a class="icon-tooltip">
+                <button type="button" class="btn" (click)="clearFilter()">
+                  <img src="../../../../assets/img/clear-button.svg" class="clear-icon" alt="Clear">
+                </button>
+                <span class="tooltiptext">Clear Filter</span>
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+      <div class="table-section">
+        <div class="table-responsive">
+          <table id="image-list" class="table table-bordered" style="width:100%">
+            <thead>
+            <tr>
+              <th>Sl No</th>
+              <th>State</th>
+              <th>Region</th>
+              <th>Commodity</th>
+              <th class="sorting-hide">Action</th>
+            </tr>
+            </thead>
+
+
+
+            <tbody>
+            <tr *ngFor="let item of image_assurance_list;let i = index;">
+              <td>{{i + 1}}</td>
+              <td>{{item.stateName}}</td>
+              <td>{{item.regionName}}</td>
+              <td>{{item.commodityName}}</td>
+              <td class="text-center">
+                <a (click)="View()" [routerLink]="'/image-list/'+item.qaId+'/'+item.commodityId+'/'+item.stateId+'/'+item.regionId+'/'+item.commodityName+'/'+item.stateName+'/'+item.regionName" class="btn btn-primary list-btn">View</a>
+                <!-- <a class="btn btn-primary list-btn">View</a> -->
+
+              </td>
+
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

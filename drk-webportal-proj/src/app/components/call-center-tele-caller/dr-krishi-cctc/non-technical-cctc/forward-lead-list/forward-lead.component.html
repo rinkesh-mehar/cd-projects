@@ -1,0 +1,236 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+<div class="content-wrapper">
+    <div class="page-title-bar">
+        <h2>
+            Dr.Krishi Non Technical - Call Center Tele-Caller
+        </h2>
+    </div>
+    <div class="page-content">
+
+        <div class="full-width search-box">
+            <ul class="list-selecttag clear-filter">
+                <li>
+                    <div class="search-text">State</div>
+                    <div class="search-input">
+                        <div class="form-container">
+                            <select class="form-control" [(ngModel)]="state" (change)="SearchRegion()">
+                                <option [ngValue]="undefined" selected>Select an option</option>
+                                <option *ngFor="let item of states" [ngValue]="item.stateId">{{item.stateName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="search-text">Region</div>
+                    <div class="search-input">
+                        <div class="form-container">
+                            <select class="form-control" [disabled]="state == undefined" [(ngModel)]="region" (change)="SearchDistrict()">
+                                <option [ngValue]="undefined" selected>Select an option</option>
+                                <option *ngFor="let item of regions" [ngValue]="item.regionId">{{item.regionName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="search-text">District</div>
+                    <div class="search-input">
+                        <div class="form-container">
+                            <select class="form-control" [disabled]="region == undefined" [(ngModel)]="district" (change)="SearchVillage()">
+                                <option [ngValue]="undefined" selected>Select an option</option>
+                                <option *ngFor="let item of districts" [ngValue]="item.districtId">{{item.districtName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="search-text">Village</div>
+                    <div class="search-input">
+                        <div class="form-container">
+                            <select class="form-control" [disabled]="district == undefined" [(ngModel)]="village" (change)="SearchCombinedData()">
+                                <option [ngValue]="undefined" selected>Select an option</option>
+                                <option *ngFor="let item of villages" [ngValue]="item.villageId">{{item.villageName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+
+              <li>
+                  <div class="search-text">Commodity</div>
+                  <div class="search-input">
+                    <div class="form-container">
+                      <select class="form-control" [(ngModel)]="commodity" (change)="SearchCombinedData()">
+                        <option [ngValue]="undefined" selected>Select an option</option>
+                        <option *ngFor="let item of commodities" [ngValue]="item.commodityId">{{item.commodityName}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </li>
+              <li>
+                <div class="search-text">Area</div>
+                <div class="search-input">
+                  <div class="form-container">
+                    <select class="form-control" [disabled]="commodity == undefined" [(ngModel)]="area"
+                            (change)="SearchCombinedData()">
+                      <option [ngValue]="undefined" selected>Select an option</option>
+                      <option *ngFor="let item of areas" [ngValue]="item.landHoldingId">{{item.landHoldingName}}</option>
+                    </select>
+                  </div>
+                </div>
+              </li>
+
+                <li class="search-right">
+                    <div class="search-text visibility-hidden">Search</div>
+                    <div class="search-input">
+                        <div class="form-container">
+                            <div class="search-in">
+                                <input id="searchText" type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText" (keyup)="searchTableData()" (ngModelChange)="searchTableData()">
+                                <img src="../../../../assets/img/search-white.svg" class="search-icon" alt="Search">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="clear-btn">
+                    <div class="search-text visibility-hidden">Clear</div>
+                    <div class="search-input">
+                        <div class="form-container">
+                            <a class="icon-tooltip">
+                                <button type="button" class="btn" (click)="clearFilter()">
+                                    <img src="../../../../assets/img/clear-button.svg" class="clear-icon" alt="Clear">
+                                </button>
+                                <span class="tooltiptext">Clear Filter</span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-12 col-sm-10 col-xs-12 no-padding">
+            <div class="table-section server-side-datatable">
+
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered server-side-datatable datatable-stateSave" id="dr-krishi-non-technical" style="width: 100%">
+                        <thead>
+                          <tr>
+                            <th>Sl No</th>
+                            <th>Name</th>
+                            <th>State</th>
+                            <th>Region</th>
+                            <th>District</th>
+                            <th>Village</th>
+                            <!-- change farmer name to seller name-CDT-Ujwal -->
+                            <th>Seller Type</th>
+                            <th>Commodity</th>
+                            <th>Area</th>
+                            <th>Type</th>
+                            <th class="sorting-hide">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody *ngIf="non_technical_list?.length != 0">
+                            <tr *ngFor="let item of non_technical_list;let i = index;">
+                                <td>{{item.serialNumber}}</td>
+                                <td>{{item.farmerName}}</td>
+                                <td>{{item.stateName}}</td>
+                                <td>{{item.regionName}}</td>
+                                <td>{{item.districtName}}</td>
+                                <td>{{item.villageName}}</td>
+                                <td>{{item.sellerType}}</td>
+                                <td>{{item.commodityName}}</td>
+                                <td>{{item.cropArea}}</td>
+                                <td>{{item.type}}</td>
+                                <td>
+                                    <button class="btn btn-primary list-btn call-btn" (click)="onCall(callingstatus, item.farmerPrimaryMobNumber, item.farmerAlternativeMobNumber, item.taskId, item.type)">
+                                        <img src="../../../../../../assets/img/telephone.svg" alt="Telephone">
+                                        <span class="left-image">Call</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="non_technical_list?.length == 0">
+                            <tr>
+                                <td colspan="8" class="no-data-available">{{datatableemptymessage}}</td>
+                            </tr>
+                        <tbody>
+                      </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Call modal -->
+
+<ng-template #callingstatus>
+    <div class="modal-header sucess-message">
+        <h4 class="modal-title pull-left">Call Farmer</h4>
+    </div>
+    <div class="calling-status-message">
+        <div class="modal-body">
+            <ul class="call-details">
+                <li>
+                    <div class="full-width">
+                        <h4 class="number-heading">Primary Number</h4>
+                    </div>
+                    <div class="full-width">
+                        <a class="call-number">
+                            {{primary}}
+                            <div class="call-icon">
+                                <img src="../../../assets/img/call-icon.png" alt="Call">
+                            </div>
+                        </a>
+                    </div>
+
+                </li>
+                <li>
+                    <div class="full-width">
+                        <h4 class="number-heading">Secondary Number</h4>
+                    </div>
+                    <div class="full-width">
+                        <a class="call-number">
+                            {{secondary}}
+                            <div class="call-icon">
+                                <img src="../../../assets/img/call-icon.png" alt="Call">
+                            </div>
+                        </a>
+                    </div>
+
+                </li>
+            </ul>
+            <div class="col-md-12 col-sm-12 col-xs-12 form-section-down">
+                <form [formGroup]="farmerCalling" (ngSubmit)="onSave()">
+                    <div class="form-container">
+                        <label>Calling Status*</label>
+                        <!-- changes for calling status list - Pranay -->
+                        <select class="form-control" formControlName="callingstatus" [ngClass]="{ 'is-invalid': submitted && f.callingstatus.errors }" >
+                            <option value="10" selected>Schedule Visit</option>
+                            <!-- <option value="1">Farmer didn't receive call</option>
+                            <option value="2">Not Reachable</option>
+                            <option value="3">Farmer Rejected Call</option>
+                            <option value="4">Technical Glitch</option>
+                            <option value="5">Not Interested</option>
+                            <option value="6">Not a Farmer</option> -->
+                            <option *ngFor="let item of callingStatusList" [ngValue]="item.statusId">{{item.status}}</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button class="btn btn-secondary" type="button" aria-label="Close" (click)="modalClose()">Cancel</button>
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

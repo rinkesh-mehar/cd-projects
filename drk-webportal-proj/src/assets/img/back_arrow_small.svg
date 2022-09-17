@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="18" viewBox="0 0 13 18">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_1644" data-name="Rectangle 1644" width="13" height="18" transform="translate(108 76)" fill="rgba(0,0,0,0)"/>
+    </clipPath>
+  </defs>
+  <g id="back_arrow_small" transform="translate(-108 -76)" clip-path="url(#clip-path)">
+    <g id="Group_998" data-name="Group 998" transform="translate(-12)">
+      <rect id="Rectangle_1643" data-name="Rectangle 1643" width="13" height="18" transform="translate(120 76)" fill="rgba(0,0,0,0)"/>
+      <g id="Mid_Content" data-name="Mid Content" transform="translate(-664.154 -954.05)">
+        <g id="Details_1" data-name="Details 1" transform="translate(784.983 1030.241)">
+          <g id="Spot_1" data-name="Spot 1" transform="translate(0 0)">
+            <g id="Group_813" data-name="Group 813">
+              <g id="Back_arrow" data-name="Back arrow" transform="translate(11.536 17.809) rotate(180)">
+                <rect id="Rectangle_511" data-name="Rectangle 511" width="3.765" height="12.549" rx="1.5" transform="translate(11.536 8.873) rotate(135)" fill="#fff"/>
+                <rect id="Rectangle_512" data-name="Rectangle 512" width="3.765" height="12.549" rx="1.5" transform="translate(2.662 17.809) rotate(-135)" fill="#fff"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

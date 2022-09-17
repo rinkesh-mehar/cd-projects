@@ -1,0 +1,45 @@
+<div class="manage-role">
+  <form [formGroup]="assignModalForm" >
+  <div class="modal-header sucess-message">
+    <h4 class="modal-title pull-left">{{heading}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="col-md-12 col-sm-12 col-xs-12 no-padding  hide">
+      <div class="table-responsive">
+        <table class="table table-bordered table-manage-role">
+          <tr>
+            <th>Current Tile ID (State)</th>
+            <th>Current Role</th>
+          </tr>
+          <tr>
+            <td>Punjab, Rajastan</td>
+            <td>FLS, MLS</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="form-container">
+              <label>Select Role</label>
+              <select class="form-control" [(ngModel)]="assignRoleName" formControlName="selectrole" [ngClass]="{ 'is-invalid': submitted && f.selectrole.errors }">
+                <option [ngValue]="undefined"  selected>Select an option</option>
+                <option *ngFor="let roles of listOfChangeRoles;let i = index" [ngValue]="roles.roleId">{{roles.roleName}}</option>
+                </select>
+              <div *ngIf="submitted && f.selectrole.errors" class="invalid-feedback">
+                  <div class="error-message" *ngIf="f.selectrole.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+
+
+      </div>
+        </div>
+  </div>
+  <div class="modal-footer text-center">
+    <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+    <button type="submit" class="btn btn-primary" (click)="onSelect()">Submit</button>
+  </div>
+  </form>
+  </div>

@@ -1,0 +1,118 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+<div class="content-wrapper">
+    <div class="page-title-bar">
+        <h2>
+            Assignment List
+        </h2>
+    </div>
+    <div class="page-content">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box assignment-list">
+            <!--State & Region section starts-->
+
+            <div class="row">
+                <form [formGroup]="AssignListForm">
+                    <div class="col-md-4 col-sm-6 col-xs-12 col-state-region">
+                        <div class="form-container">
+                            <label>State</label>
+                            <select class="form-control" [(ngModel)]="state" formControlName="state" disabled>
+                                <option [ngValue]="undefined" selected>Select State</option>
+                                <option *ngFor="let state of states" [ngValue]="state">{{state.stateName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 col-state-region">
+                        <div class="form-container">
+                            <label>Region*</label>
+                            <select class="form-control" [(ngModel)]="region" formControlName="region" [ngClass]="{ 'is-invalid': submitted && f.region.errors }">
+                                <!--  (change)="getPRScout()" -->
+                                <option [ngValue]="undefined">Select Region</option>
+                                <option *ngFor="let reg of regions" [ngValue]="reg">{{reg.regionname}}</option>
+                            </select>
+                            <div *ngIf="submitted && f.region.errors">
+                                <div class="error-message" *ngIf="f.region.errors.required">{{dropdownerrormessage}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 col-xs-12 search-col">
+                        <div class="form-container">
+                            <label>PR Scout</label>
+                                <input type="text" placeholder="Search" maxlength="100" autocomplete="off" class="form-control" [(ngModel)]="search" formControlName="search"
+                                    [ngClass]="{ 'is-invalid': submitted && f.search.errors }" list="dynmicUserIds" />
+                                <div *ngIf="submitted && f.search.errors">
+                                    <div class="error-message" *ngIf="f.search.errors.minlength">Please enter minimum 3 characters to proceed.</div>
+                                    <div class="error-message" *ngIf="f.search.errors.pattern">{{invalidvalueerrormessage}}</div>
+                                </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-1 col-sm-6 col-xs-12 no-padding-left btn-col">
+                        <div class="form-container">
+                            <label class="visibility-hidden">PR Scout</label>
+                            <button class="btn btn-primary btn-search" type="button" (click)="filterData()">Search</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <!--State & Region section END-->
+
+
+            <!--Assign Location section starts-->
+
+            <div class="row assign-location">
+                <div class="alert alert-success text-center" *ngIf="noRecords">
+                    No details found for your search.
+                </div>
+                <div class="full-width">
+
+                    <ngx-slick-carousel class="carousel list-slider" #slickModal="slick-carousel" [config]="slideConfig">
+                        <div ngxSlickItem *ngFor="let slideritem of filteredData;let i = index;" class="slide list">
+                            <div class="list">
+                                <div class="list-item">
+                                    <div class="week">
+                                        <span>
+                                            {{getMonthFromRange(slideritem.weekrange)}} {{slideritem.year}}
+                                        </span>
+                                        <span>
+                                            <strong>Week {{slideritem.week}}</strong>
+                                            {{slideritem.weekrange}}
+                                        </span>
+                                    </div>
+
+                                    <div class="list-content">
+
+                                        <accordion [closeOthers]="oneAtATime">
+                                            <accordion-group heading="{{accordion.user}}" *ngFor="let accordion of slideritem.useraccordion;let i = index;">
+                                                <ul>
+                                                    <li *ngFor="let village of accordion.villages;" (click)="clicked($event)" [ngClass]="getStatus(village.status)">
+                                                        {{village.villagename}}
+                                                    </li>
+                                                </ul>
+                                            </accordion-group>
+                                        </accordion>
+                                        <div class="add-button">
+                                            <button class="btn btn-primary btn-add" (click)=addAssignment(slideritem.week)>ADD</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ngx-slick-carousel>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

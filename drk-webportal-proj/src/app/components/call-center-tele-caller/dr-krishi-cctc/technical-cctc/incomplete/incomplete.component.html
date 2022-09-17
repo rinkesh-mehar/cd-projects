@@ -1,0 +1,466 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+<div class="content-wrapper">
+  <div class="page-title-bar relative">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2>
+          Dr.Krishi - Complete Details
+        </h2>
+      </div>
+
+    </div>
+  </div>
+  <div class="page-content">
+
+    <!--Crop Information starts-->
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+      <h3 class="Form-Heading">
+        <span>Crop Information</span>
+      </h3>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Name Of Crop</label>
+            <input type="text" class="form-control" [(ngModel)]="cropinfo.crop" disabled>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Variety</label>
+            <input type="text" class="form-control" [(ngModel)]="cropinfo.variety" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Cropping area (in acres)</label>
+            <input type="text" class="form-control" [(ngModel)]="cropinfo.croppingarea" disabled>
+          </div>
+        </div>
+<!--        <div class="col-md-4 col-sm-6 col-xs-12">-->
+<!--          <div class="form-container">-->
+<!--            <label>Season</label>-->
+<!--            <input type="text" class="form-control" [(ngModel)]="cropinfo.season" disabled>-->
+<!--          </div>-->
+<!--        </div>-->
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Sowing Week</label>
+            <input type="text" class="form-control" [(ngModel)]="cropinfo.sowingweek" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Seed source</label>
+            <input type="text" class="form-control" [(ngModel)]="cropinfo.seedsource" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Seed sample received</label>
+            <div class="full-width radio-box-inside">
+              <div class="radio-button-div">
+                <input [(ngModel)]="cropinfo.seedsamplereceived" type="radio" [value]="true" name="sample" id="true" class="input-hidden"
+                  disabled>
+                <label for="true" class="label-radio">
+                  <div class="label-tick">
+                  </div>
+                  <span>Yes</span>
+                </label>
+
+              </div>
+              <div class="radio-button-div">
+                <input [(ngModel)]="cropinfo.seedsamplereceived" type="radio" [value]="false" name="sample" id="false" class="input-hidden"
+                  disabled>
+                <label for="false" class="label-radio">
+                  <div class="label-tick">
+                  </div>
+                  <span>No</span>
+                </label>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Seed rate</label>
+            <input type="number" class="form-control" [(ngModel)]="cropinfo.seedrate" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>UOM</label>
+            <input type="text" class="form-control" [(ngModel)]="cropinfo.uom" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Spacing Row to Row</label>
+            <input type="number" class="form-control" [(ngModel)]="cropinfo.spacingrow" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Spacing Plant to Plant</label>
+            <input type="number" class="form-control" [(ngModel)]="cropinfo.spacingplant" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Crop Information end-->
+    <!--Irrigation Details start-->
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+      <h3 class="Form-Heading">
+        <span>Irrigation Details</span>
+      </h3>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Irrigation Source</label>
+            <div class="form-control multi-select multiple-control">
+              <span *ngFor="let val of irrigationdetails.irrigationsource">{{val.name}}</span>
+            </div>
+            <ng-template #sourceTemplate>
+              <ol>
+                <li class="tooltip-list" *ngFor="let val of irrigationdetails.irrigationsource">
+                  <span>{{val.name}}</span>
+                </li>
+              </ol>
+            </ng-template>
+            <span class="mutiple-text-tooltip" *ngIf="irrigationdetails.irrigationsource?.length > 0" [tooltip]="sourceTemplate">+</span>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Irrigation method</label>
+            <div class="form-control multi-select multiple-control">
+              <span *ngFor="let val of irrigationdetails.irrigationmethod">{{val.name}}</span>
+            </div>
+            <ng-template #methodTemplate>
+              <ol>
+                <li class="tooltip-list" *ngFor="let val of irrigationdetails.irrigationmethod">
+                  <span>{{val.name}}</span>
+                </li>
+              </ol>
+            </ng-template>
+            <span class="mutiple-text-tooltip" *ngIf="irrigationdetails.irrigationmethod?.length > 0" [tooltip]="methodTemplate">+</span>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Number of Irrigations</label>
+            <input type="number" class="form-control" [(ngModel)]="irrigationdetails.numberofirrigations" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Week of Irrigation</label>
+            <input type="text" class="form-control" [(ngModel)]="irrigationdetails.weekofittigation" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Irrigation Details end-->
+    <!--Fertilizer start-->
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+      <h3 class="Form-Heading">
+        <span>Fertilizer</span>
+      </h3>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Type of Application</label>
+            <input type="text" class="form-control" [(ngModel)]="fertilizer.typeofapplication" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Name of Fertilizer</label>
+            <input type="text" class="form-control" [(ngModel)]="fertilizer.name" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>UOM</label>
+            <input type="text" class="form-control" [(ngModel)]="fertilizer.uom" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Dose</label>
+            <input type="text" class="form-control" [(ngModel)]="fertilizer.dose" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Split Dose</label>
+            <div class="form-control multi-select multiple-control">
+              <span *ngFor="let val of fertilizer.splitdose">{{val}}</span>
+            </div>
+            <ng-template #splitdoseTemplate>
+              <ol>
+                <li class="tooltip-list" *ngFor="let val of fertilizer.splitdose">
+                  <span>{{val}}</span>
+                </li>
+              </ol>
+            </ng-template>
+            <span class="mutiple-text-tooltip" *ngIf="fertilizer.splitdose?.length > 0" [tooltip]="splitdoseTemplate">+</span>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Week of Application</label>
+            <input type="text" class="form-control" [(ngModel)]="fertilizer.weekofapplication" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fertilizer end-->
+    <!--Seed Treatment start-->
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+      <h3 class="Form-Heading">
+        <span>Seed Treatment</span>
+      </h3>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Seed treatment</label>
+            <div class="full-width radio-box-inside">
+              <div class="radio-button-div">
+                <input [(ngModel)]="seedtreatment.seedtreatmentoption" type="radio" [value]="true" name="seedtreatment" id="true" class="input-hidden"
+                  disabled>
+                <label for="true" class="label-radio">
+                  <div class="label-tick">
+                  </div>
+                  <span>Yes</span>
+                </label>
+
+              </div>
+              <div class="radio-button-div">
+                <input [(ngModel)]="seedtreatment.seedtreatmentoption" type="radio" [value]="false" name="seedtreatment" id="false" class="input-hidden"
+                  disabled>
+                <label for="false" class="label-radio">
+                  <div class="label-tick">
+                  </div>
+                  <span>No</span>
+                </label>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Seed treatment agent</label>
+            <input type="text" class="form-control" [(ngModel)]="seedtreatment.agent" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>UOM</label>
+            <input type="text" class="form-control" [(ngModel)]="seedtreatment.uom" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 md-clearfix">
+          <div class="form-container">
+            <label>Dose</label>
+            <input type="text" class="form-control" [(ngModel)]="seedtreatment.dose" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Seed Treatment end-->
+    <!--Remedial Measures start-->
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+      <h3 class="Form-Heading">
+        <span>Remedial Measures</span>
+      </h3>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Agrochemical Name</label>
+            <input type="text" class="form-control" [(ngModel)]="remedialmeasure.agrochemicalname" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Brand</label>
+            <input type="text" class="form-control" [(ngModel)]="remedialmeasure.brand" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>UOM</label>
+            <input type="text" class="form-control" [(ngModel)]="remedialmeasure.uom" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Dose</label>
+            <input type="text" class="form-control" [(ngModel)]="remedialmeasure.dose" disabled>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-container">
+            <label>Week of Application</label>
+            <input type="text" class="form-control" [(ngModel)]="remedialmeasure.weekofapplication" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Remedial Measures end-->
+
+    <!--NDVI Image start-->
+
+    <!-- <div *ngIf="technicalForm.type != 'Verification'" class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+      <h3 class="Form-Heading">
+        <span>NDVI Image Of The Field</span>
+      </h3>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+
+          <ngx-slick-carousel class="carousel commonslider ndvi-image-slider" #slickModal="slick-carousel" [config]="sliderImage">
+            <div ngxSlickItem *ngFor="let item of ndviimages" class="slide">
+              <div class="full-width relative field-img-ul" (click)="ndvipopup(ndviimageModal, item.url)">
+                <img class="img-responsive" src="{{item.url}}" alt="Ndvi Image" width="100%">
+              </div>
+              <p class="ndvi-block"><span><b>Year</b>: {{item.Year}}</span><span><b>Week</b>: {{item.Week}}</span></p>
+            </div>
+          </ngx-slick-carousel>
+        </div>
+      </div>
+    </div> -->
+    <!--NDVI Image end-->
+    <form [formGroup]="ScheduleForm" (ngSubmit)="onSubmit()">
+      <!--Schedule starts-->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box schedule-block">
+        <h3 class="Form-Heading">
+          <span>Schedule*</span>
+        </h3>
+        <div class="row">
+          <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="full-width border-line">
+              <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <ul class="schedule-ul">
+                  <li class="right-border-li">
+                    <div class="heading-box">
+                      <h4 class="schedule-head">Primary Number</h4>
+                    </div>
+                    <div class="Number-box">
+                      <a>{{schedulecalendar.primarynumber}}
+                        <img src="../../../assets/img/call-icon.png"  alt="Call">
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+
+              </div>
+              <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <ul class="schedule-ul">
+                  <li>
+                    <div class="heading-box">
+                      <h4 class="schedule-head">Secondary Number</h4>
+                    </div>
+                    <div class="Number-box">
+                      <a>{{schedulecalendar.secondarynumber}}
+                        <img src="../../../assets/img/call-icon.png"  alt="Call">
+                      </a>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-section-down">
+                      <div class="form-container">
+                        <label>Calling Status</label>
+                        <div  [ngClass]="{ 'disabled': schedulecalendar.visitrequired == true }">
+                        <select class="form-control" formControlName="callingstatus" (change)="selectChangeHandler($event)" [value]="1">
+                          <option value="1" selected>Schedule Visit</option>
+                          <option value="2">Farmer didn't receive call</option>
+                          <option value="3">Not Reachable</option>
+                          <option value="4">Farmer Rejected Call</option>
+                          <option value="5">Technical Glitch</option>
+                          <option value="6">Not Interested</option>
+                        </select>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+              <div class="calender-section" [ngClass]="{ 'disabled': (schedulecalendar.visitrequired == true) || (status == '2') || (status == '3') || (status == '4') || (status == '5') || (status == '6')}">
+                <div class="calender-div">
+                  <!-- <bs-datepicker-inline bsDatepicker (bsValueChange)="onValueChange($event)"  [dateCustomClasses]="dateCustomClasses" [bsValue]="currentSystemDate" [bsConfig]="{ showWeekNumbers:false, dateInputFormat: 'dd-MM-yyyy' }"
+                    [minDate]="minDate"></bs-datepicker-inline> -->
+                    <bs-datepicker-inline bsDatepicker [minDate]="minDate" [maxDate]="maxDate" [bsValue]="dateSelected" *ngIf="isVisible" (bsValueChange)="onValueChange($event)" [dateCustomClasses]="dateCustomClasses"
+                    [bsConfig]="{ showWeekNumbers:false, dateInputFormat: 'yyyy-MM-dd' }"></bs-datepicker-inline>
+                </div>
+                <div class="value-of-calendar">
+                  <input type="text" class="form-control" [(ngModel)]="schedulecalendar.dateschedule" formControlName="dateschedule">
+                </div>
+                <div *ngIf="submitted && f.dateschedule.errors">
+                  <div class="error-message" *ngIf="f.dateschedule.errors.required">{{dropdownerrormessage}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- <div *ngIf="technicalForm.type != 'Verification'" class="col-md-12 col-sm-12 col-xs-12 no-padding relative">
+              <label class="customized-cb">
+                <input type="checkbox" class="check-box" [(ngModel)]="schedulecalendar.visitrequired" formControlName="visitrequired">
+                <span class="checkmark"></span>
+              </label>
+              <span class="check-content">Visit Not required</span>
+
+            </div> -->
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 comment-block">
+            <div class="form-container">
+              <label>Enter your comments*</label>
+              <textarea [(ngModel)]="schedulecalendar.comments" maxlength="500" class="form-control comments" placeholder="Enter your comments" formControlName="comments"
+                [ngClass]="{ 'is-invalid': submitted && f.comments.errors }"></textarea>
+              <div *ngIf="submitted && f.comments.errors">
+                <div class="error-message" *ngIf="f.comments.errors.required">{{textboxerrormessage}}</div>
+                <div class="error-message" *ngIf="f.comments.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Comments ends-->
+      <div class="clearfix page-action">
+        <button class="btn btn-secondary" (click)="cancelTechForm()" type="button">Cancel</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+<ng-template #ndviimageModal>
+  <div class="success-modal">
+    <div class="modal-header sucess-message">
+      <h4 class="modal-title pull-left">{{modalService.config.initialState.heading}}</h4>
+      <button type="button" class="close pull-right" (click)="close()">
+        <span>
+          <img src="../../../assets/img/close-icon.svg" alt="Close">
+        </span>
+      </button>
+    </div>
+    <div class="modal-body text-center">
+      <img src="{{modalService.config.initialState.content}}" class="img-responsive" alt="Image">
+    </div>
+  </div>
+</ng-template>
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

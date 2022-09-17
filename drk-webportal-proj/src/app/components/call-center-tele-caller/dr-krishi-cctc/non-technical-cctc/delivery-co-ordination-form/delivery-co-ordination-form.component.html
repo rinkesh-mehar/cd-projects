@@ -1,0 +1,749 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+<div class="content-wrapper">
+  <div class="page-title-bar relative">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2>
+          Dr.Krishi Non Technical - Call Center Tele-Caller
+        </h2>
+      </div>
+
+    </div>
+  </div>
+  <div class="page-content drkrishi-nontech" *ngIf="information">
+    <form [formGroup]="informationForm" (ngSubmit)="onSubmit()">
+      <!--Contact Information-->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+        <h3 class="Form-Heading">
+          <span>Contact Information</span>
+        </h3>
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>State</label>
+              <input [(ngModel)]="information.state" type="text" class="form-control" formControlName="state">
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>District</label>
+              <input [(ngModel)]="information.district" type="text" class="form-control" formControlName="district">
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Tehsil/Taluka</label>
+              <input [(ngModel)]="information.tehsil" type="text" class="form-control" formControlName="tehsil">
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Village</label>
+              <input [(ngModel)]="information.village" type="text" class="form-control" formControlName="village">
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Seller Type</label>
+              <input [(ngModel)]="information.sellerType" type="text" class="form-control" formControlName="sellerType">
+            </div>
+          </div>
+
+<!--TODO : Temporally remove -CDT-Ujwal -->
+          <!-- <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Crop Type</label>
+              <input [(ngModel)]="information.cropType" type="text" class="form-control" formControlName="cropType">
+            </div>
+          </div> -->
+        </div>
+      </div>
+
+      <!--Contact Information ends-->
+      <!--General Information-->
+
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+        <h3 class="Form-Heading">
+          <span>General Information</span>
+        </h3>
+
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Seller Name</label>
+              <input [(ngModel)]="information.name" maxlength="150" type="text" class="form-control" formControlName="name">
+            </div>
+          </div>
+          <!-- <p>{{information.sellerType}}</p> -->
+
+          <div *ngIf="information.sellerType =='Farmer'" class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Father/Husband Name</label>
+              <input [(ngModel)]="information.fathername" maxlength="150" type="text" class="form-control" formControlName="fathername"
+                     [ngClass]="{ 'is-invalid': submitted && f.fathername.errors}">
+              <div *ngIf="submitted && f.fathername.errors">
+                <div class="error-message" *ngIf="f.fathername.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Primary mobile number</label>
+              <input [(ngModel)]="information.primarymobilemo" type="tel" class="form-control" formControlName="primarymobilemumber" maxlength="10">
+            </div>
+          </div>
+
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Alternate mobile number</label>
+              <input [(ngModel)]="information.alternatemobileno" type="tel" class="form-control" formControlName="alternatemobilenumber"
+                     maxlength="10" [ngClass]="{ 'is-invalid': submitted && f.alternatemobilenumber.errors || submitted && information.primarymobilemo === information.alternatemobileno}">
+              <div *ngIf="submitted && f.alternatemobilenumber.errors">
+                <div class="error-message" *ngIf="f.alternatemobilenumber.errors.pattern  || f.alternatemobilenumber.errors.minlength">{{invalidvalueerrormessage}}</div>
+              </div>
+              <div *ngIf="submitted && information.primarymobilemo === information.alternatemobileno">
+                <div class="error-message" *ngIf="information.primarymobilemo === information.alternatemobileno">{{comparenumbermessage}}</div>
+              </div>
+            </div>
+          </div>
+
+
+          <div *ngIf="information.sellerType =='Farmer'" class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Reference Person</label>
+              <input [(ngModel)]="information.referenceperson" maxlength="150" type="text" class="form-control" formControlName="referenceperson"
+                     [ngClass]="{ 'is-invalid': submitted && f.referenceperson.errors}">
+              <div *ngIf="submitted && f.referenceperson.errors">
+                <div class="error-message" *ngIf="f.referenceperson.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div *ngIf="information.sellerType =='Farmer'" class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Reference Person Mobile Number</label>
+              <input type="tel" class="form-control" formControlName="referencepersonmobilenumber" [(ngModel)]="information.referencepersonmobileno"
+                     maxlength="10" [ngClass]="{ 'is-invalid': submitted && f.referencepersonmobilenumber.errors}">
+              <div *ngIf="submitted && f.referencepersonmobilenumber.errors">
+                <div class="error-message" *ngIf="f.referencepersonmobilenumber.errors.pattern  || f.referencepersonmobilenumber.errors.minlength">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Government ID Proof*</label>
+              <div class="full-width radio-box-inside">
+                <div class="radio-button-div">
+                  <input type="radio" [(ngModel)]="information.governmentidproof" [value]="true" name="governmentidproof" id="yes" class="input-hidden"
+                         formControlName="governmentidproof">
+                  <label for="yes" class="label-radio">
+                    <div class="label-tick">
+                    </div>
+                    <span>Yes</span>
+                  </label>
+
+                </div>
+                <div class="radio-button-div">
+                  <input type="radio" [(ngModel)]="information.governmentidproof" [value]="false" name="governmentidproof" id="no" class="input-hidden"
+                         formControlName="governmentidproof">
+                  <label for="no" class="label-radio">
+                    <div class="label-tick">
+                    </div>
+                    <span>No</span>
+                  </label>
+
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+
+
+
+
+          <div *ngIf="information.sellerType =='Farmer'" class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Own Land*</label>
+              <div class="full-width radio-box-inside">
+                <div class="radio-button-div">
+                  <input type="radio" [(ngModel)]="information.ownland" [value]="true" name="ownland" id="yes1" class="input-hidden" formControlName="ownland">
+                  <label for="yes1" class="label-radio">
+                    <div class="label-tick">
+                    </div>
+                    <span>Yes</span>
+                  </label>
+
+                </div>
+                <div class="radio-button-div">
+                  <input type="radio" [(ngModel)]="information.ownland" [value]="false" name="ownland" id="no1" class="input-hidden" formControlName="ownland">
+                  <label for="no1" class="label-radio">
+                    <div class="label-tick">
+                    </div>
+                    <span>No</span>
+                  </label>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
+          <div *ngIf="information.sellerType =='Farmer'" class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Irrigated Land*</label>
+              <div class="full-width radio-box-inside">
+                <div class="radio-button-div">
+                  <input type="radio" [(ngModel)]="information.irrigatedland" [value]="true" name="irrigatedland" id="yes2" class="input-hidden"
+                         formControlName="irrigatedland">
+                  <label for="yes2" class="label-radio">
+                    <div class="label-tick">
+                    </div>
+                    <span>Yes</span>
+                  </label>
+
+                </div>
+                <div class="radio-button-div">
+                  <input type="radio" [(ngModel)]="information.irrigatedland" [value]="false" name="irrigatedland" id="no2" class="input-hidden"
+                         formControlName="irrigatedland">
+                  <label for="no2" class="label-radio">
+                    <div class="label-tick">
+                    </div>
+                    <span>No</span>
+                  </label>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <div *ngIf="information.sellerType =='Farmer'" class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Farm Size (ACRES)*</label>
+              <input type="text" class="form-control" maxlength="10" formControlName="farmsize" [(ngModel)]="information.farmsize" [ngClass]="{ 'is-invalid': submitted && f.farmsize.errors }">
+              <div *ngIf="submitted && f.farmsize.errors">
+                <div class="error-message" *ngIf="f.farmsize.errors.required">{{textboxerrormessage}}</div>
+                <div class="error-message" *ngIf="f.farmsize.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+
+
+          <div *ngIf="information.sellerType =='Farmer'" class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Speaking Language*</label>
+              <ng-multiselect-dropdown #multiSelect [placeholder]="'Select an option'" [data]="languagedropdownList" [(ngModel)]="information.speakinglanguage"
+                                       [settings]="settings" formControlName="speakinglanguage" class="multiselect-dropdown-list" [ngClass]="{ 'is-invalid': submitted && f.speakinglanguage.errors }">
+              </ng-multiselect-dropdown>
+
+              <div *ngIf="submitted && f.speakinglanguage.errors">
+                <div class="error-message" *ngIf="f.speakinglanguage.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Mobile Type</label>
+              <select [(ngModel)]="information.mobiletype" class="form-control" formControlName="mobiletype">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option *ngFor="let item of information.masterData.mobiletypelist;let i = index;" [ngValue]="item.id">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
+
+
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>PR Scout Name</label>
+              <input type="text" class="form-control" maxlength="150" formControlName="prscoutname" [(ngModel)]="information.prscoutname">
+            </div>
+          </div>
+
+
+
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Willingness To Market With Cropdata</label>
+              <div class="full-width radio-box-inside">
+                <div class="radio-button-div">
+                  <input type="radio" [(ngModel)]="information.willingnessoffarmer" [value]="true" name="willingnesstomarketwithcropdata" id="yes3"
+                         class="input-hidden" formControlName="willingnesstomarketwithcropdata">
+                  <label for="yes3" class="label-radio">
+                    <div class="label-tick">
+                    </div>
+                    <span>Yes</span>
+                  </label>
+
+                </div>
+                <div class="radio-button-div">
+                  <input type="radio" [(ngModel)]="information.willingnessoffarmer" [value]="false" name="willingnesstomarketwithcropdata"
+                         id="no3" class="input-hidden" formControlName="willingnesstomarketwithcropdata">
+                  <label for="no3" class="label-radio">
+                    <div class="label-tick">
+                    </div>
+                    <span>No</span>
+                  </label>
+
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+
+
+
+
+  <!-- major crop section -Start - CDT-Ujwal -->
+  <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+    <h3 class="Form-Heading">
+      <span>Major Crop List*</span>
+    </h3>
+
+    <button class="btn btn-primary list-btn call-btn add-edit-del" (click)="onCall(farmercrops)">
+      <img src="../../../../../../assets/img/add.svg" alt="majorCrop">
+      <span class="left-image">Add</span>
+    </button>
+    <table class="table table-responsive-sm table-bordered table-sm">
+      <thead class="thead-light">
+      <tr class="tr-color">
+         <th class="text-left" style="width: 10%;">Select All
+          <label class="customized-cb">
+            <input type="checkbox" class="check-box" (click)='selectAll($event)'>
+            <span class="checkmark"></span>
+          </label>
+        </th>
+        <th class="text-left" style="width: 10%;">Commodity</th>
+        <th class="text-left" style="width: 10%;">Variety</th>
+        <th class="text-left" style="width: 6%;">Crop Type</th>
+        <!--<th *ngIf="information.sellerType==1" class="text-left" style="width: 8%;">Season</th>-->
+        <th class="text-left" style="width: 4%;">Crop Area(Ac)</th>
+        <th class="text-left" style="width: 4%;">Yield</th>
+        <th class="text-left" style="width: 6%;">Sowing Date</th>
+        <th class="text-left" style="width: 6%;">Harvest Date</th>
+        <th class="text-left" style="width: 4%;">Has Irrigation</th>
+        <th class="text-left" style="width: 4%;">Seller Given Quantity(Ton)</th>
+        <th class="text-left" style="width: 7%;">Date Of Availability</th>
+        <th class="text-left" style="width: 8%;">Alternate Variety Name</th>
+        <th class="text-left" style="width: 12%;">Lead Response</th>
+        <th class="text-center" style="width: 20%;">Action</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="information.masterData.farmerCropInfoList">
+      <tr class="tr-color" *ngFor="let fc of information.masterData.farmerCropInfoList;let i = index;">
+
+          <td scope="row" class="text-center">
+          <label class="customized-cb">
+            <input type="checkbox" class="check-box form-check-input" [value]="fc.cropInfoId"
+                   (change)="onChange($event)" [checked]="fc.selected">
+            <span class="checkmark"></span>
+          </label>
+        </td>
+        <td scope="row">{{fc.commodityName}}</td>
+        <td class="text-left">{{fc.varietyName}}</td>
+        <td class="text-left">{{fc.cropType}}</td>
+        <td class="text-left">{{fc.croppingArea}}</td>
+        <td class="text-left">{{fc.yield}}</td>
+        <td class="text-left">{{fc.sowing}}</td>
+        <td class="text-left">{{fc.harvest}}</td>
+        <td *ngIf="fc.hasIrrigation==1" class="text-left">Yes</td>
+        <td *ngIf="fc.hasIrrigation==0" class="text-left">No</td>
+        <td *ngIf="fc.hasIrrigation==-1" class="text-left"></td>
+        <td class="text-left">{{fc.sellerGivenQtyTon}}</td>
+        <td class="text-left">{{fc.dateOfAvailability}}</td>
+        <td class="text-left">{{fc.alternateVariety}}</td>
+        <td class="text-left">{{fc.leadResponseName}}</td>
+
+        <td class="text-center">
+
+          <button class="btn btn-primary list-btn call-btn add-edit-del" title="Edit" (click)="onEditFarmerCropInfo(farmercrops, fc.cropInfoId)">
+            <img src="../../../../../../assets/img/edit-black-icon.svg" alt="majorCrop">
+
+          </button>
+          <button class="btn btn-primary list-btn call-btn add-edit-del" title="Delete" (click)="onDeleteFarmerCropInfo(fc.cropInfoId)">
+            <img src="../../../../../../assets/img/delete-black-icon.svg" alt="majorCrop">
+
+          </button>
+        </td>
+      </tr>
+      <tr class="tr-color" *ngIf="information.masterData.farmerCropInfoList.length == 0">
+
+        <td colspan="10" class="text-center"><span style="color: #df3a3a">Insert at list one crop Details.</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- major crop section -End - CDT-Ujwal -->
+
+
+  <div *ngIf="information.sellerType=='Farmer'" class="col-md-12 col-sm-12 col-xs-12 vip-block-section">
+    <div class="separator-border">
+      <div class="check-box-inside relative">
+        <label class="customized-cb">
+          <input type="checkbox" class="check-box" (change)="vipChange()" [(ngModel)]="information.vip" formControlName="vip" [ngClass]="{ 'is-invalid': submitted && f.vip.errors }">
+          <span class="checkmark"></span>
+        </label>
+        <span class="check-content">VIP</span>
+
+      </div>
+      <div class="row">
+
+        <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="form-container">
+            <label>Status*</label>
+            <div class="select-field">
+              <select [(ngModel)]="information.status" class="form-control" formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors && information.vip == true}">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option *ngFor="let item of information.masterData.statuslist;let i = index" [ngValue]="item.id">{{item.name}}</option>
+              </select>
+              <div *ngIf="submitted && f.status.errors">
+                <div class="error-message" *ngIf="f.status.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="form-container">
+            <label>Designation*</label>
+            <div class="select-field">
+              <select [(ngModel)]="information.designation" (change)="designationChange()" class="form-control" formControlName="designation"
+                      [ngClass]="{ 'is-invalid': submitted && f.designation.errors && information.vip == true }">
+                <option [ngValue]="undefined" selected>Select an option</option>
+                <option *ngFor="let item of information.masterData.designationlist;let i = index;" [ngValue]="item.name">{{item.name}}</option>
+              </select>
+              <div *ngIf="submitted && f.designation.errors">
+                <div class="error-message" *ngIf="f.designation.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-4 col-sm-4 col-xs-12" *ngIf="information.designation == 'Others'">
+          <div class="form-container">
+            <label>Other Designation*</label>
+            <div class="select-field">
+              <input type="text" class="form-control" [(ngModel)]="information.otherDesignation" formControlName="otherdesignation" [ngClass]="{ 'is-invalid': submitted && f.otherdesignation.errors && information.vip == true}">
+              <div *ngIf="submitted && f.otherdesignation.errors">
+                <div class="error-message" *ngIf="f.otherdesignation.errors.required">{{textboxerrormessage}}</div>
+                <div class="error-message" *ngIf="f.otherdesignation.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+ </div>
+
+
+
+      <!--General Information ends-->
+      <!--Task Schedule Calendar-->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+        <h3 class="Form-Heading">
+          <span>Task Schedule Calendar*</span>
+        </h3>
+        <div class="row">
+          <div class="task-schedule-calendar">
+            <div class="col-md-9 col-sm-12 col-xs-12 no-padding">
+              <div class="calender-section">
+                <div class="calender-div">
+
+                  <bs-datepicker-inline bsDatepicker [minDate]="minDate" [bsValue]="dateSelected" (bsValueChange)="onValueChange($event)" [dateCustomClasses]="dateCustomClasses"
+                                        [bsConfig]="{ showWeekNumbers:false, dateInputFormat: 'yyyy-MM-dd' }"></bs-datepicker-inline>
+
+                </div>
+                <div class="value-of-calendar">
+                  <input type="text" class="form-control" [(ngModel)]="information.scheduledate" formControlName="scheduledate">
+                </div>
+                <div *ngIf="submitted && f.scheduledate.errors">
+                  <div class="error-message" *ngIf="f.scheduledate.errors.required">{{calndererrormessage}}</div>
+                </div>
+                <div class="error-message" *ngIf="calenderDateMLVisit">Please select only one
+                  <span class="text-uppercase">ML</span> visit date</div>
+                <div class="error-message" *ngIf="calenderDateFLSMLVisit">Please select either
+                  <span class="text-uppercase">FLS</span> or
+                  <span class="text-uppercase">ML</span> visit date</div>
+              </div>
+
+            </div>
+            <div class="col-md-3 col-sm-12 col-xs-12 no-padding schedule-tasks">
+              <h4>Scheduled Dates</h4>
+              <p class="ml-visit-color">
+                <span class="color-box"></span>
+                <span class="text">ML Visit</span>
+              </p>
+              <p class="fls-visit-color">
+                <span class="color-box"></span>
+                <span class="text">Selected FLS Visit</span>
+              </p>
+              <p class="both-visit-color">
+                <span class="color-box"></span>
+                <span class="text">Selected ML Visit</span>
+              </p>
+              <!-- <ul>
+              <li *ngFor="let item of information.mlvisit;let i = index;">
+                  <p class="date-block">{{item}}</p>
+                  <p class="tasks-text">ML Visit</p>
+              </li>
+              </ul> -->
+              <!-- added for POI - Meeting point - Pranay : Start -->
+              <div class="col-sm-12" style="padding-top: 1rem;">
+                <div class="form-container">
+                  <label>Meeting Point*</label>
+                  <select [(ngModel)]="information.meetingpoint" class="form-control" formControlName="meetingpoint" [ngClass]="{ 'is-invalid': submitted && f.meetingpoint.errors }">
+                    <option [ngValue]="undefined" selected>Select an option</option>
+                    <option *ngFor="let item of information.masterData.meetingpointlist;let i = index;" [ngValue]="item.id">{{item.name}}</option>
+                  </select>
+                  <div *ngIf="submitted && f.meetingpoint.errors">
+                    <div class="error-message" *ngIf="f.meetingpoint.errors.required">{{dropdownerrormessage}}</div>
+                  </div>
+                </div>
+              </div>
+              <!-- added for POI - Meeting point - Pranay : End -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Task Schedule Calendar ends-->
+      <!--Comments-->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box">
+        <h3 class="Form-Heading">
+          <span>Comments*</span>
+        </h3>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="form-container">
+                            <textarea placeholder="Enter comments" [(ngModel)]="information.comments" maxlength="500" name="userComments" class="form-control"
+                                      formControlName="comments" [ngClass]="{ 'is-invalid': submitted && f.comments.errors }"></textarea>
+              <div *ngIf="submitted && f.comments.errors">
+                <div class="error-message" *ngIf="f.comments.errors.required">{{textboxerrormessage}}</div>
+                <div class="error-message" *ngIf="f.comments.errors.pattern">{{invalidvalueerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Comments ends-->
+      <div class="clearfix page-action">
+        <button class="btn btn-secondary" type="button" routerLink="/dr-krishi-non-technical-delivery-co-ordinat">Cancel</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- major crop pop-up modal- CDT-Ujwal : Start -->
+<ng-template #farmercrops>
+  <div class="modal-header sucess-message">
+    <h4 *ngIf="flag" class="modal-title pull-left">Add New Crop</h4>
+    <h4 *ngIf="flag == false" class="modal-title pull-left">Edit Crop</h4>
+
+  </div>
+  <div class="calling-status-message">
+    <div class="modal-body">
+      <div class="col-md-12 col-sm-12 col-xs-12 form-section-down">
+        <form [formGroup]="farmerCrop" (ngSubmit)="onSaveFarmerCropInfo()">
+          <div class="form-container">
+            <div class="row">
+              <div  class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-container">
+                  <label>Crop Type*</label>
+                  <select type="number" class="form-control" [(ngModel)]="cropType" formControlName="cropType">
+                    <option *ngFor="let i of cropTypes.type" [value]="i.id">
+                      {{i.name}}
+                    </option>
+                  </select>
+                  <div *ngIf="submitted && fc.cropType.errors">
+                    <div class="error-message" *ngIf="fc.cropType.errors.required">{{dropdownerrormessage}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-container">
+                  <label>Major Crops Grown*</label>
+                  <div class="select-field">
+                    <select class="form-control" [(ngModel)]="commodityId" type="text" (change)="getVarietyList()" formControlName="commodityId"
+                            [ngClass]="{ 'is-invalid': submitted && fc.commodityId.errors}">
+                      <option [ngValue]="undefined" selected>Select an option</option>
+                      <option *ngFor="let mj of information.masterData.majorcropsgrownlist;let i = index;" [ngValue]="mj.id">
+                        {{mj.name}}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && fc.commodityId.errors">
+                      <div class="error-message" *ngIf="fc.commodityId.errors.required">{{dropdownerrormessage}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-container">
+                  <label>Variety Name*</label>
+                  <div class="select-field">
+                    <select class="form-control" [(ngModel)]="varietyId" placeholder="Select an option" formControlName="varietyId" [ngClass]="{ 'is-invalid': submitted && fc.varietyId.errors && varietyHide == true}">
+                      <option [ngValue]="undefined" selected>Select an option</option>
+                      <option *ngFor="let item of varietyList;let i = index" [ngValue]="item.varietyId">{{item.name}}</option>
+                    </select>
+                    <div *ngIf="submitted && fc.varietyId.errors && commodityIs == false">
+                      <div class="error-message" *ngIf="fc.varietyId.errors.required">{{dropdownerrormessage}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div *ngIf="information.sellerType ==1" class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="form-container">
+                      <label>Season Name*</label>
+                      <select class="form-control" [(ngModel)]="seasonId" placeholder="Select an option" formControlName="seasonId"
+                      [ngClass]="{ 'is-invalid': submitted && fc.seasonId.errors}">
+                          <option [value]="undefined" selected>Select an option</option>
+                          <option *ngFor="let s of information.masterData.seasonList" [value]="s.id">
+                              {{s.name}}
+                          </option>
+                      </select>
+                      <div *ngIf="submitted && fc.seasonId.errors">
+                              <div class="error-message" *ngIf="fc.seasonId.errors.required">{{dropdownerrormessage}}</div>
+                          </div>
+                  </div>
+              </div> -->
+
+              <div *ngIf="cropType =='3'"  class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-container">
+                  <label>Cropping Area(AC)</label>
+                  <input [(ngModel)]="croppingArea" type="number" class="form-control" formControlName="croppingArea" [ngClass]="{ 'is-invalid': submitted && fc.croppingArea.errors }" onkeydown="return event.keyCode !== 69">
+                </div>
+              </div>
+
+              <div *ngIf="cropType =='3'" class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-container">
+                  <label>Yield(Qlt/Ac)*</label>
+                  <input [(ngModel)]="yield" maxlength="150" type="number" class="form-control" formControlName="yield" min="1" [ngClass]="{ 'is-invalid': submitted && fc.yield.errors }" onkeydown="return event.keyCode !== 69" >
+                  <div *ngIf="submitted && fc.yield.errors">
+                    <div class="error-message" *ngIf="fc.yield.errors.required">{{textboxerrormessage}}</div>
+                    <div class="error-message" *ngIf="fc.yield.errors.pattern">{{invalidvalueerrormessage}}</div>
+                  </div>
+                </div>
+              </div>
+
+               <div *ngIf="cropType =='3'" class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-container">
+                  <label>Sowing Date</label>
+                  <input [(ngModel)]="sowing" type="text" class="form-control dob-datepicker" [maxDate]="minDate" #dp="bsDatepicker" bsDatepicker
+                         placeholder="YYYY-MM-DD" [readonly]="true" formControlName="sowing" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', customTodayClass: 'today-date'}">
+                </div>
+              </div>
+
+               <div *ngIf="cropType =='3'" class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-container">
+                  <label>Harvest Date</label>
+                  <input [(ngModel)]="harvest" type="text" class="form-control dob-datepicker" [minDate]="harvestMinDate" #dp="bsDatepicker" bsDatepicker
+                         placeholder="YYYY-MM-DD" [readonly]="true" formControlName="harvest" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', customTodayClass: 'today-date'}">
+
+                </div>
+              </div>
+
+              <div *ngIf="cropType =='3'" class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-container">
+                  <label>Has Irrigation</label>
+                  <select type="number" class="form-control" [(ngModel)]="hasIrrigation" formControlName="hasIrrigation">
+                    <option *ngFor="let i of irrigation.irri" [value]="i.id">
+                      {{i.name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- added for marchant- CDT-Ujwal- Start -->
+               <div *ngIf="cropType =='4'" class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-container">
+                  <label>Seller Given Quantity(Ton)*</label>
+                  <input [(ngModel)]="sellerGivenQtyTon" type="text" class="form-control" formControlName="sellerGivenQtyTon" [ngClass]="{ 'is-invalid': submitted && fc.sellerGivenQtyTon.errors }">
+                  <div *ngIf="submitted && fc.sellerGivenQtyTon.errors">
+                    <div class="error-message" *ngIf="fc.sellerGivenQtyTon.errors.required">{{textboxerrormessage}}</div>
+                    <div class="error-message" *ngIf="fc.sellerGivenQtyTon.errors.pattern">{{invalidvalueerrormessage}}</div>
+                  </div>
+                </div>
+              </div>
+
+               <div *ngIf="cropType =='4'" class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-container">
+                  <label>Date Of Availability*</label>
+                  <input [(ngModel)]="dateOfAvailability" type="text" class="form-control dob-datepicker" [minDate]="minDate" #dp="bsDatepicker"
+                         bsDatepicker placeholder="YYYY-MM-DD" [readonly]="true" formControlName="dateOfAvailability"
+                         [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', customTodayClass: 'today-date'}" [ngClass]="{ 'is-invalid': submitted && fc.dateOfAvailability.errors }">
+                  <div *ngIf="submitted && fc.dateOfAvailability.errors">
+                    <div class="error-message" *ngIf="fc.dateOfAvailability.errors.required">{{calndererrormessage}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-container">
+                  <label>Alternate Variety Name</label>
+                  <input [(ngModel)]="alternateVariety" type="text" class="form-control" formControlName="alternateVariety">
+                </div>
+              </div>
+
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-container">
+                  <label>Lead Response*</label>
+                  <div class="select-field">
+                    <select class="form-control" [(ngModel)]="leadResponse" type="text" formControlName="leadResponse"
+                            [ngClass]="{ 'is-invalid': submitted && fc.leadResponse.errors}">
+                      <option [ngValue]="undefined" selected>Select an option</option>
+                      <option *ngFor="let ls of information.masterData.leadStatus;let i = index;" [ngValue]="ls.callingStatusId">
+                        {{ls.name}}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && fc.leadResponse.errors">
+                      <div class="error-message" *ngIf="fc.leadResponse.errors.required">{{dropdownerrormessage}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- added for marchant- CDT-Ujwal- End -->
+            </div>
+          </div>
+          <div class="modal-footer text-center">
+            <button class="btn btn-secondary" type="button" aria-label="Close" (click)="modalClose()">Cancel</button>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- major crop pop-up modal- CDT-Ujwal : End -->
+
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

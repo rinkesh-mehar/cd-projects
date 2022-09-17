@@ -1,0 +1,28 @@
+<div class="recording-container">
+    <div class="modal-header sucess-message">
+        <h4 class="modal-title pull-left">Playing</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+          <span><img src="../../../assets/img/close-icon.svg" alt="Close"></span>
+        </button>
+      </div>
+  <div class="modal-body">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <audio controls class="audio-control">
+            <source src="{{recording}}" type="audio/mpeg">
+              Your browser does not support the audio tag.
+            </audio>
+      </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 form-section-down">
+        <div class="form-container">
+          
+          <label>Assign</label>
+          <select class="form-control">
+              <option [ngValue]="undefined"  selected>Select an option</option>
+              <option>Assign 1</option>
+              <option>Assign 2</option>
+            </select>
+        </div>
+      </div>
+  </div>
+  </div>
+  

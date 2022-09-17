@@ -1,0 +1,25 @@
+<div class="approve-with-correction">
+  <form [formGroup]="approveCorrectionForm" (ngSubmit)="onSubmit()">
+  <div class="modal-header sucess-message">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+      <span><img src="../../../assets/img/close-icon.svg" alt="Close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+          <div class="form-container">
+            <label>Enter the comments</label>
+            <textarea class="form-control popup-text-area" [(ngModel)]="assignrole.comments" formControlName="comments" [ngClass]="{ 'is-invalid': submitted && f.comments.errors }"></textarea>
+            <div *ngIf="submitted && f.comments.errors" class="invalid-feedback">
+                <div class="error-message" *ngIf="f.comments.errors.required">{{textboxerrormessage}}</div>
+            </div>
+          </div>
+        </div>
+  </div>
+  <div class="modal-footer two-btn-left-right">
+      <button type="button" class="btn btn-secondary" (click)="close()">CANCEL</button>
+      <button type="submit" class="btn btn-primary"  type="submit">Ok</button>
+  </div>
+  </form>
+  </div>

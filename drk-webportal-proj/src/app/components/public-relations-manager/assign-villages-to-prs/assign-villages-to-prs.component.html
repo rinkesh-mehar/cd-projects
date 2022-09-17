@@ -1,0 +1,191 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+<div class="content-wrapper">
+  <div class="page-title-bar">
+    <h2>
+      Assign Villages to PRS
+    </h2>
+  </div>
+  <div class="page-content">
+    <form [formGroup]="AssignVillagesForm" (ngSubmit)="onSubmit()">
+
+      <!--State & Region section starts-->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box assign-task-form">
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>State*</label>
+              <select class="form-control" [(ngModel)]="assignvillagesprs.stateId" formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" disabled>
+                <option [ngValue]="undefined" [selected]="true">Select State</option>
+                <option *ngFor="let state of states" [ngValue]="state.stateId" >{{state.stateName}}</option>
+              </select>
+              <div *ngIf="submitted && f.state.errors">
+                <div class="error-message" *ngIf="f.state.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-container">
+              <label>Region*</label>
+              <select class="form-control" [(ngModel)]="assignvillagesprs.regionID" [attr.disabled]="isDisabled ? true : null"
+                      formControlName="region" [ngClass]="{ 'is-invalid': submitted && f.region.errors }"
+                      (change)="loadTile()">
+                <option  [ngValue]="undefined" [selected]="true">Select an option</option>
+                <option *ngFor="let region of regions" [ngValue]="region.regionID" [selected]="selectedRegion === region.regionID">{{region.regionname}}</option>
+              </select>
+              <div *ngIf="submitted && f.region.errors">
+                <div class="error-message" *ngIf="f.region.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--State & Region section end-->
+
+      <!--Map Tiles & Village List section starts-->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 assign-task-list" *ngIf="showTile">
+        <div class="row flex-row">
+          <div class="col-md-6 col-sm-12 col-xs-12 flex-col">
+            <div class="title-line">
+              <h4>Map Tiles*</h4>
+            </div>
+            <div class="clearfix maptile-area">
+              <div class="mapTile" (click)="getTD($event)">
+              </div>
+              <div *ngIf="submitted && this.selectedTiles.length == 0">
+                <div class="error-message left-15" *ngIf="this.selectedTiles.length == 0">{{multiselecterrormessage}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12 col-xs-12 flex-col">
+            <div class="title-line">
+              <h4>Village List*</h4>
+            </div>
+            <div class="village-list">
+              <div class="list-head">
+                <ul>
+                  <li>
+                    <!-- [ngClass]="{'disable-not-allowed': disableCheckbox}"
+                        [ngClass]="{'disable-checkbox': disableCheckbox}"
+                    -->
+                    <span class="checkbox-col">
+                                            <label class="checkbox">
+                                                <input type="checkbox" [disabled]="checkQuestions()" [checked]="selectAll" (change)="setAllValue(tileVillage,assignvillagesprs)">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </span>
+
+                    <span class="place"> Village Name</span>
+                    <span class="selected-count">{{assignvillagesprs.village?.length}} Selected
+                                        </span>
+                    <span class="selected-count" *ngIf="villageslist && villageslist.length >0">
+                                            {{tileVillage.length}} Selected
+                                        </span>
+                  </li>
+                </ul>
+              </div>
+              <div class="list" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+                <ul>
+                  <li *ngFor="let item of tileVillage" [ngClass]="item.class">
+                                        <span class="checkbox-col">
+                                            <label class="checkbox">
+                                                <fieldset [disabled]="checkQuestions2(item)">
+                                                <input type="checkbox" (change)="setCheckedValue(item,assignvillagesprs)" value=" {{item}}" formControlName="village" [ngClass]="{ 'is-invalid': submitted && f.village.errors }"
+                                                       [checked]="isChecked(item)">
+                                                <span class="checkmark"></span>
+                                                </fieldset>
+                                            </label>
+                                        </span>
+                    <span class="place" [style.color]="getColor(item.villageCode)">
+                                            <p class="alignleft">{{item.villageName}}</p>
+                                            <p class="alignright"*ngIf="checkQuestions3(item)">Already assigned.</p>
+                      <!-- <div>
+                          {{item.villageName}}<p *ngIf="checkQuestions3(item)">Already assigned.</p>
+                      </div> -->
+                                        </span>
+                    <span class="count">
+
+                                        </span>
+                    <span class="percantage">
+
+                                        </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div *ngIf="submitted && f.village.errors && this.selectedTiles.length >0">
+              <div class="error-message left-15" *ngIf="f.village.errors.required && this.selectedTiles.length >0">{{multiselecterrormessage}}</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- Map Tiles & Village List section end-->
+
+      <!--State & Region section starts-->
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 form-box assign-task-form">
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="form-container">
+              <label>Month</label>
+              <select class="form-control" [(ngModel)]="assignvillagesprs.month" formControlName="month" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.month.errors }" disabled>
+                <option [ngValue]="undefined">Select an option</option>
+                <option *ngFor="let month of months;let i=index" [ngValue]="i+1" [selected]="assignvillagesprs.month === i+1">{{month}}</option>
+              </select>
+              <div *ngIf="submitted && f.month.errors">
+                <div class="error-message" *ngIf="f.month.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="form-container">
+              <label>Week*</label>
+              <select class="form-control" [(ngModel)]="assignvillagesprs.weekNumber" formControlName="week" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.week.errors }"
+                      (change)="getMonth()" (change)="getAssignedVillagesForWeek($event)">
+               <!-- <option [ngValue]="undefined">Select an option</option>-->
+                <option *ngFor="let week of weeks;let i = index" [ngValue]="week.weekNo" [selected]="assignvillagesprs.weekNumber === week.weekNo">{{week.weekNo}} Week ({{week.range}})</option>
+              </select>
+              <div *ngIf="submitted && f.week.errors">
+                <div class="error-message" *ngIf="f.week.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="form-container">
+              <label>PR Scout*</label>
+              <select class="form-control" [(ngModel)]="assignvillagesprs.prscout" formControlName="PRScout" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PRScout.errors }">
+                <option [ngValue]="undefined" [selected]="true">Select an option</option>
+                <!-- userId -->
+                <option *ngFor="let prscout of prscouts;let i = index" [ngValue]="prscout.userId">{{prscout.firstName}} {{prscout.middleName}} {{prscout.lastName}}</option>
+              </select>
+              <div *ngIf="submitted && f.PRScout.errors">
+                <div class="error-message" *ngIf="f.PRScout.errors.required">{{dropdownerrormessage}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--State & Region section end-->
+
+      <!-- Button Area Begin-->
+      <div class="clearfix page-action">
+        <button class="btn btn-secondary" type="button" [routerLink]="['/assignment-list']">Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+      </div>
+      <!-- Button Area END-->
+    </form>
+  </div>
+</div>
+
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

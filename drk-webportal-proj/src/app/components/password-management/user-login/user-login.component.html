@@ -1,0 +1,53 @@
+<div class="login-wrapper">
+  <div class="left-panel">
+      <div class="logo"><img class="img-responsive" src="../../../../../assets/img/logo.png" alt="Logo"></div>
+  </div>
+  <div class="right-panel">
+      <div class="invalid-attempt" *ngIf="showMyContainer">
+          <span class="close-icon" (click)="showMyContainer=!showMyContainer">
+              <img class="img-responsive" src="../../../../../assets/img/error-close.svg" alt="Error Close">
+          </span>
+          <span>
+             <!-- You have made 1 unsuccessful attempt(s). The maximum retry attempts allowed for login are 5-->
+              {{ invalidAttempt }}
+            </span>
+      </div>
+      <div class="login-form">
+          <!--<h3>Welcome back,</h3> -->
+          <h1>Login to your account</h1>
+          <div class="form-area">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label class="control-label">Mobile Number</label>
+                    <input type="tel" [(ngModel)]="loginModel.mobileNumber" maxlength="10" formControlName="mobilenumber" class="form-control" placeholder="Enter mobile number" [ngClass]="{ 'is-invalid': submitted && f.mobilenumber.errors }" />
+                    <div *ngIf="submitted && f.mobilenumber.errors">
+                        <div class="error-message" *ngIf="f.mobilenumber.errors.required">{{textboxerrormessage}}</div>
+                        <div class="error-message" *ngIf="f.mobilenumber.errors.pattern  || f.mobilenumber.errors.minlength">{{invalidvalueerrormessage}}</div>
+
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label class="control-label">Password</label>
+                    <input type="password" [(ngModel)]="loginModel.userPassword" formControlName="password" placeholder="Enter password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <div *ngIf="submitted && f.password.errors">
+                        <div class="error-message" *ngIf="f.password.errors.required">{{textboxerrormessage}}</div>
+                    </div>
+                </div>
+                <div class="remember-me">
+                    <label class="checkbox">
+                            <input type="checkbox" [checked]="rememberMeMobileNum"  (click)="rememberMe($event)">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Remember Me</span>
+                    </label>
+                </div>
+                <div class="clearfix form-bottom">
+                    <a  routerLink="/forgot-password" class="pull-left"><small> Forgot Password?</small></a>
+                    <button class="btn btn-primary pull-right" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+      </div>
+  </div>
+</div>
+
+

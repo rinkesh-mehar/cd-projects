@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14">
+  <g id="Group_908" data-name="Group 908" transform="translate(-1084.19 -490.999)">
+    <g id="Add_button" data-name="Add button" transform="translate(1084.19 490.999)">
+      <g id="download" transform="translate(0 0)">
+        <g id="Group_902" data-name="Group 902" transform="translate(0 0)">
+          <g id="Group_901" data-name="Group 901">
+            <path id="Path_1134" data-name="Path 1134" d="M15.591,344.334a.406.406,0,0,1-.407-.405v-1.55a1.628,1.628,0,0,0-1.629-1.621H2.444a1.628,1.628,0,0,0-1.629,1.621v1.55a.407.407,0,0,1-.814,0v-1.55a2.441,2.441,0,0,1,2.444-2.433H13.557A2.441,2.441,0,0,1,16,342.378v1.55a.406.406,0,0,1-.41.405Z" transform="translate(-0.001 -339.945)"/>
+          </g>
+        </g>
+        <g id="Group_904" data-name="Group 904" transform="translate(2.472 1.98)">
+          <g id="Group_903" data-name="Group 903" transform="translate(0 0)">
+            <path id="Path_1135" data-name="Path 1135" d="M89.779,392.111H79.54a.405.405,0,1,1,0-.811H89.779a.405.405,0,1,1,0,.811Z" transform="translate(-79.133 -391.3)"/>
+          </g>
+        </g>
+        <g id="Group_906" data-name="Group 906" transform="translate(3.772 4.632)">
+          <g id="Group_905" data-name="Group 905" transform="translate(0 0)">
+            <path id="Path_1136" data-name="Path 1136" d="M129.114,34.879a.408.408,0,0,1-.575.032l-3.14-2.793v7.859a.407.407,0,0,1-.814,0V32.118l-3.14,2.793a.409.409,0,0,1-.575-.032.4.4,0,0,1,.033-.573l3.411-3.034a1.021,1.021,0,0,1,1.357,0l3.411,3.034a.4.4,0,0,1,.033.573Z" transform="translate(-120.766 -31.014)"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg id="small-calendar" xmlns="http://www.w3.org/2000/svg" width="23.605" height="23.605" viewBox="0 0 23.605 23.605">
+  <g id="calendar_1_">
+    <path id="Path_2" data-name="Path 2" d="M21.639,2.213h-3.2V.738a.738.738,0,1,0-1.475,0V2.213H12.54V.738a.738.738,0,0,0-1.475,0V2.213H6.639V.738a.738.738,0,1,0-1.475,0V2.213h-3.2A1.967,1.967,0,0,0,0,4.18V21.638a1.967,1.967,0,0,0,1.967,1.967H21.639a1.967,1.967,0,0,0,1.967-1.967V4.18A1.966,1.966,0,0,0,21.639,2.213Zm.491,19.425a.492.492,0,0,1-.491.492H1.967a.492.492,0,0,1-.492-.492V4.18a.492.492,0,0,1,.492-.491h3.2V5.164a.738.738,0,0,0,1.475,0V3.688h4.426V5.164a.738.738,0,0,0,1.475,0V3.688h4.426V5.164a.738.738,0,1,0,1.475,0V3.688h3.2a.492.492,0,0,1,.491.491Z" fill="#1a1a1a"/>
+    <rect id="Rectangle_128" data-name="Rectangle 128" width="2.951" height="2.213" transform="translate(5.164 8.852)" fill="#1a1a1a"/>
+    <rect id="Rectangle_129" data-name="Rectangle 129" width="2.951" height="2.213" transform="translate(5.164 12.54)" fill="#1a1a1a"/>
+    <rect id="Rectangle_130" data-name="Rectangle 130" width="2.951" height="2.213" transform="translate(5.164 16.229)" fill="#1a1a1a"/>
+    <rect id="Rectangle_131" data-name="Rectangle 131" width="2.951" height="2.213" transform="translate(10.327 16.229)" fill="#1a1a1a"/>
+    <rect id="Rectangle_132" data-name="Rectangle 132" width="2.951" height="2.213" transform="translate(10.327 12.54)" fill="#1a1a1a"/>
+    <rect id="Rectangle_133" data-name="Rectangle 133" width="2.951" height="2.213" transform="translate(10.327 8.852)" fill="#1a1a1a"/>
+    <rect id="Rectangle_134" data-name="Rectangle 134" width="2.951" height="2.213" transform="translate(15.491 16.229)" fill="#1a1a1a"/>
+    <rect id="Rectangle_135" data-name="Rectangle 135" width="2.951" height="2.213" transform="translate(15.491 12.54)" fill="#1a1a1a"/>
+    <rect id="Rectangle_136" data-name="Rectangle 136" width="2.951" height="2.213" transform="translate(15.491 8.852)" fill="#1a1a1a"/>
+  </g>
+</svg>

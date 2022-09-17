@@ -1,0 +1,302 @@
+/*Inner page Style Begin*/
+ul.list-container{
+    position: relative;
+    width: 100%;
+    float: left;
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    padding-left: 0px;
+    margin-bottom: 0px;
+    list-style: none;
+    border: 1px solid @drk_white_20;
+    background-color: @drk_black_30;
+    li{
+        list-style-type: none;
+        &.first-container{
+            width: 35%;
+            float: left;
+            background-color: @bright_yellow_30;
+            @media screen and (max-width: 991px){
+                width: 100%;
+            }
+        }
+        &.secound-container{
+            width: 45%;
+            float: left;
+
+            p:last-child{
+                margin-bottom: 0px;
+            }
+            .half-section-div{
+                width: 50%;
+                float: left;
+                height: 100%;
+                text-align: center;
+                color: @drk_white;
+                padding: 0px 10px;
+                
+                &.firsthalf{
+                    background-color: @bright_yellow_10;
+
+                    h3{
+                        font-size: @tertiary_font;
+                        font-weight: @bold;
+                        margin-bottom: 10px;
+                    }
+                }
+                &.secoundhalf{
+                    background-color: @bright_yellow_30;
+                    h3{
+                        font-size: @tertiary_font;
+                        font-weight: @bold;
+                        margin-bottom: 10px;
+                        
+                    }
+                    .btnstatus{
+                        display: inline-block;
+                        padding: 3px 22px;
+                        border-radius: 14px;
+                        color: @drk_white;
+                        font-weight: @bold;
+                        border: 1px solid @drk_black_50;
+                        text-transform: capitalize;
+
+
+                        &.approved{
+                            background-color: @bg-green;
+                        }
+                        &.reassigned{
+                            background-color:#ff0404;
+                        }
+                        &.assigned{
+                            background-color: #3b92dc;
+                        }
+                        &.pending{
+                            background-color:#f0ad4e;
+                        }
+                        &.rediagonis{
+                            background-color:#5bc0de;
+                        }
+                    }
+                }
+            }
+            @media screen and (max-width: 991px){
+                width: 100%;
+            }
+        }
+        &.third-container{
+            width: 20%;
+            float: left;
+            text-align: center;
+            .center-button-list{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                &.disabled{
+                    position: relative;
+                    &:after{
+                       content: "";
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        background-color: @drk_black_60;
+                        z-index: 5;
+                        left: 0;
+                        top: 0
+                    }
+                }
+            }
+
+            .list-btn{
+                margin-bottom: 10px;
+            }
+
+            p{
+                font-size: 12px;
+                color: @drk_white;
+
+                &:last-child{
+                    margin-bottom: 0px;
+                }
+            }
+            
+            @media screen and (max-width: 991px){
+                width: 100%;
+                height: 100px;
+                border-top: 1px solid @drk_white_20;
+            }
+        }
+        ul.details-tab-list{
+            width: 100%;
+            float: left;
+            padding-left: 0px;
+            li{
+                &.list-divider{
+                    position: relative;
+                    list-style-type: none;
+                    width: 100%;
+                    float: left;
+                    padding: 10px 0px;
+                    border-bottom: 1px solid @drk_white_20;
+                    color: @drk_white;
+                    font-size: @tertiary_font;
+                    &:last-child{
+                        border:0px;
+                    }
+
+                    .half-section{
+                        width: 50%;
+                        float: left;
+                        padding: 0px 12px;
+                        font-size: @common_size;
+
+                        &.length-id{
+                            white-space: nowrap;
+                            overflow: hidden !important;
+                            text-overflow: ellipsis; 
+                        }
+                    }
+                    .heading{
+                        font-weight: @bold;
+                        font-size: @tertiary_font;
+                    }
+                    &:after{
+                        content: "";
+                        width: 1px;
+                        height: 100%;
+                        left: 50%;
+                        background-color: @drk_white_20;
+                        position: absolute;
+                        top: 0;
+                    }
+                }
+            }
+        }
+
+    }
+}
+.list-container-diagnosis{
+    margin-bottom: 15px;
+    
+}
+.btn-primary.list-btn{
+    line-height: 28px;
+    padding: 0px 10px;
+    font-size: @font-12;
+    font-weight: @semibold;
+}
+.btn-primary.call-btn img{
+    width: 13px;
+    margin-top: -3px;
+    margin-right: 3px;
+}
+
+.list-container-diagnosis .btn-primary.list-btn{
+    width: 115px;
+}
+
+.showin{
+    display: block;
+}
+.hidein{
+    display: none;
+}
+.panel-body.nopadding{
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.slider-in-div{
+    margin-top: 50px;
+}
+.leaf-details-tb{
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    float: left;
+    list-style: none;
+    li{
+        float: left;
+        width: 100%;
+        border-bottom: 1px solid @drk_white_50;
+        color: @drk_white;
+        .div-seperatehalf{
+            width: 50%;
+            float: left;
+            .heading-tb{
+                width: 200px;
+                float: left;
+                padding: 15px 15px;
+                border-right: 1px solid @drk_white_50;
+            }
+            .details-tb{
+                width: calc(~"100% - 200px");
+                float: left;
+                padding: 15px 15px;
+                border-right: 1px solid @drk_white_50;
+                &.second{
+                    border-right: 0px;
+                }
+            }
+        }
+    }
+}
+.panel.panel-default.clearfix.mlt-panel.mlt-diagnosis.noborder{
+    border: 0px;
+    .panel-body{
+        padding-bottom: 0px;
+    }
+}
+.list-checkbox.list-down-sec{
+   
+    margin-bottom: 30px;
+}
+.checkboxspan{
+    padding: 0px;
+    padding-left: 11px;
+    margin-top: 15px;
+}
+.panel-body.nopadding.lastsec{
+    padding-bottom: 0px;
+    .leaf-details-tb{
+        li{
+            border-bottom: 0px;
+        }
+    }
+}
+.flot-rgt{
+    float: right;
+}
+.comments-in{
+    color: @drk_white;
+    font-size: @common_size;
+    margin: 15px 0px;
+    line-height: 22px;
+}
+/*Media Quires*/
+
+@media screen and (max-width: 991px) {  
+    /*Write css here for Ipad Potrait*/
+    .content-wrapper .page-title-bar .rating-card h2{
+        padding-right: 260px;
+    }
+    ul.list-container li.secound-container .half-section-div {
+        padding: 15px 10px;
+    }
+    ul.list-container li.secound-container .half-section-div.secoundhalf{
+        .vertical-middle{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+    }
+}

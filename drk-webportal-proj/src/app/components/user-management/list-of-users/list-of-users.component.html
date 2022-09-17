@@ -1,0 +1,114 @@
+<!--Header Begin-->
+<app-header></app-header>
+<!--Header END-->
+
+<!--Sidemenu Begin-->
+<app-sidemenu></app-sidemenu>
+<!--Sidemenu END-->
+
+<div class="content-wrapper">
+    <div class="page-title-bar relative">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <h2>
+                    List Of Users
+                </h2>
+                <ul class="more-option-ul">
+                    <li>
+                        <a>
+                            <button type="button" class="btn btn-primary" (click)="assignRole()" [disabled]="enableChangeRole">CHANGE ROLE</button>
+                        </a>
+                    </li>
+                    <li *ngIf="showButton">
+                        <a routerLink="/add-user">
+                            <button type="button" class="btn btn-primary" [disabled]="enableAddUserButton">ADD USER</button>
+                        </a>
+                    </li>
+                    <li *ngIf="showButton">
+                        <a class="icon-tooltip">
+                            <button type="button" class="li-button btn" (click)="deactivate()" [disabled]="enableDeactivate">
+                                <img src="../../../../assets/img/de-activate.svg" alt="De-Activate">
+                            </button>
+                            <span class="tooltiptext">Deactivate</span>
+                        </a>
+                    </li>
+                    <li *ngIf="showButton">
+                        <a class="icon-tooltip">
+                            <button type="button" class="li-button btn" (click)="activate()" [disabled]="enableActivate">
+                                <img src="../../../../assets/img/activate.svg" alt="Activate">
+                            </button>
+                            <span class="tooltiptext">Activate</span>
+                        </a>
+                    </li>
+                    <li *ngIf="showButton">
+                        <a class="icon-tooltip">
+                            <!--ng-disabled="all" routerLink="/edit-user" [class.disabled]="enableEdit ? null: true"-->
+                            <button type="button" class="li-button btn" (click)="editUser()" [disabled]="enableEdit">
+                                <img src="../../../../assets/img/edit-icon.svg" alt="Edit">
+                            </button>
+                            <span class="tooltiptext">Edit</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a  class="icon-tooltip">
+                            <!-- routerLink="/view-user-details"  -->
+                            <button type="button" class="li-button btn" (click)="view()" [disabled]="enableView">
+                                <img src="../../../../assets/img/view-icon.svg" alt="View">
+                            </button>
+                            <span class="tooltiptext">View</span>
+
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+            <div class="table-section">
+                <div class="table-responsive">
+                    <table id="list-of-user-table" class="table table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>User ID</th>
+                                <th>Name</th>
+                                <th>Mobile Number</th>
+                                <th>State</th>
+                                <th>Status</th>
+                                <th>Reporting To</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+
+                        <!--<input type="checkbox" id="ch" (click)="clickselected( item , this)">-->
+
+                        <tbody>
+                            <tr *ngFor="let item of lis_of_users;let i = index;">
+                                <td>
+                                    <label class="radio-button-table">
+                                        <input type="radio" name="name" (click)="clickselected( item)">
+                                        <span class="checkmark"></span>
+                                    </label>
+
+                                </td>                                
+                                <td>{{item.user_id}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.mobileNumber}}</td>
+                                <td>{{item.state}}</td>
+                                <td>{{item.status}}</td>
+                                <td>{{item.reportingTo}}</td>
+                                <td>{{item.role}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Footer Begin-->
+<app-footer></app-footer>
+<!--Footer END-->

@@ -1,0 +1,45 @@
+.more-option-ul{
+    .form-control{
+        &.with-button-select{
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-repeat: no-repeat;
+            background-position: center right 10px;
+            padding-right: 30px;
+            background-image:url("../img/drop-down-icon.svg");
+            height: 32px;
+            background-color: @drk_white_10;
+            color: @drk_white_50;
+            border: 1px solid @drk_white_30;
+            border-radius: 2.5px;
+            width: 170px;
+            padding: 0px 8px;
+            font-size: @font-12;
+        }
+   
+    } 
+    select option{
+        color: @drk_black;
+    }
+    select option[value="1"] {
+        background-color: @drk_white_10;
+    }
+    li{
+        a{
+            text-decoration: none;
+            &:hover{
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+input[type=radio][disabled]:checked+label .label-tick{
+ cursor: default;
+}
+input[type=radio][disabled]+label .label-tick{
+    cursor: default;
+   }
+   .time-tb{
+       padding-left: 15px;
+   }
