@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: drk-prm
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    config:
+      uri: http://144.10.121.204:7073/
+      username: config-user
+      password: n2nCST
+      label: v1.0
+  profiles:
+    active:
+      - uat
+  jpa:
+    show-sql: true
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false

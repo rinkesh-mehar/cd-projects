@@ -1,0 +1,11 @@
+/.settings/
+/target/
+/.classpath
+/.factorypath
+/.project
+*.log
+*.log.*.gz
+*.attach_pid*
+/.apt_generated/
+/.apt_generated_tests/
+/bin/

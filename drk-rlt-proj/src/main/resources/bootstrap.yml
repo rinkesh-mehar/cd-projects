@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: drk-rlt
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    config:
+      uri: 'http://localhost:8080'
+      username: 'config-server'
+      password: 'password'
+      label: v1.0
+  profiles:
+    active:
+      - uat

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: drk-user-management
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    config:
+      uri: http://144.10.121.204:7073
+      username: config-user
+      password: n2nCST
+      label: v1.0
+  profiles:
+    active:
+      - uat

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: dr-krishi-tool
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    config:
+      uri: http://144.10.80.102:7073/
+      username: config-server
+      password: n2nCST
+      label: v1.0
+  profiles:
+    active:
+      - uat
